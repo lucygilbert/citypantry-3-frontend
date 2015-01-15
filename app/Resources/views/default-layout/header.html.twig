@@ -1,0 +1,25 @@
+<header class="banner" role="banner">
+    <div class="wrapper">
+        <div class="clearfix banner-header">
+            <a class="banner-logo" href="/">
+                <img src="/images/cp_logo.png" alt="City Pantry" />
+            </a>
+
+            <button class="nav-toggle" type="button" data-toggle="collapse" data-target="#main-menu">Menu</button>
+        </div>
+
+        <nav class="clearfix main-menu collapse" id="main-menu" role="navigation">
+            <ul>
+                {% include 'nav/loggedOut.html.twig' %}
+            </ul>
+
+            <form class="banner-search" id="search" method="get" action="/search" role="search">
+                <div class="form-group">
+                    <label class="sr-only" for="q">Search</label>
+                    <input class="form-control" id="q" name="q" type="search" placeholder="Lunch, Mexican, etc." />
+                </div>
+                <button class="icon-search" type="submit"></button>
+            </form>
+        </nav>
+    </div>
+</header>

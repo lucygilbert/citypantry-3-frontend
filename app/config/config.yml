@@ -29,3 +29,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        includeAnalyticsJs: %templates.include_analytics_js%
+        phoneNumberUk: %templates.phone_number_uk%
+        phoneNumberInternational: %templates.phone_number_international%
+        blogUrl: %templates.blog_url%

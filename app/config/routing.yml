@@ -1,0 +1,5 @@
+city_pantry_frontend:
+    resource: "@CityPantryFrontendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

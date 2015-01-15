@@ -1,13 +1,97 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 9]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if IE 9]> <html class="no-js lt-ie10 ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% if includeAnalyticsJs %}
+        <script>
+            // KISSmetrics
+            var _kmq = _kmq || [];
+            var _kmk = _kmk || 'fcd641ac44b5e8f918876bea305456d3b21fdda2';
+            function _kms(u){
+              setTimeout(function(){
+                var d = document, f = d.getElementsByTagName('script')[0],
+                s = d.createElement('script');
+                s.type = 'text/javascript'; s.async = true; s.src = u;
+                f.parentNode.insertBefore(s, f);
+              }, 1);
+            }
+            _kms('//i.kissmetrics.com/i.js');
+            _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
+            // @todo - if logged in...
+            // _kmq.push(['identify', <?php echo $this->flexi_auth->get_user_id(); ?>]);
+        </script>
+        {% endif %}
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="ClearType" content="true">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="//ajax.googleapis.com/" rel="dns-prefetch">
+        <link href="//www.google-analytics.com/" rel="dns-prefetch">
+        <title>{% block title %}Office Catering in London from City Pantry{% endblock %}</title>
+        <meta name="description" content="">
+        <link href="/favicon.ico" rel="icon">
+
+        <link href="/css/main.min.css" rel="stylesheet" />
+
+        <script src="/js/vendor/modernizr-2.7.1.min.js"></script>
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="/js/respond.min.js"></script>
+        <![endif]-->
+        <script src="//use.typekit.net/mdy1nin.js"></script>
+        <script>try{Typekit.load();}catch(e){}</script>
+
+        {% if includeAnalyticsJs %}
+            <script>
+                // Lucky Orange.
+                window.__wtw_lucky_site_id = 21550;
+                (function() {
+                    var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+                    wa.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://cdn') + '.luckyorange.com/w.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+                  })();
+            </script>
+        {% endif %}
+
+        {% if includeAnalyticsJs %}
+            <script>
+                // Google Analytics
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-44429548-1', 'auto');
+                ga('require', 'displayfeatures');
+                ga('send', 'pageview');
+            </script>
+        {% endif %}
     </head>
     <body>
+        {% include 'default-layout/header.html.twig' %}
+
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        {% include 'default-layout/footer.html.twig' %}
+
+        <script>
+            if (typeof jQuery === 'undefined') {
+                var script = document.createElement('script');
+                script.src = '/js/vendor/jquery-2.0.3.min.js';
+                document.write(script.outerHTML);
+            }
+
+            setTimeout(function() {
+                $('.site-message').fadeOut();
+            }, 5000);
+        </script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/bootstrap-datepicker.js"></script>
+        <script src="/js/main.js"></script>
+        <!--[if lt IE 9]>
+        <script src="/js/rem.min.js"></script>
+        <![endif]-->
     </body>
 </html>

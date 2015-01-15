@@ -2,3 +2,7 @@
 parameters:
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
+    templates.includeAnalyticsJs: false
+    templates.phone_number_uk: 020 3397 8376
+    templates.phone_number_international: +4420 3397 8376
+    templates.blog_url: https://citypantry.com/blog
