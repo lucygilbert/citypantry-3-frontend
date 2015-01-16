@@ -23,23 +23,22 @@
         </script>
         {% endif %}
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta http-equiv="ClearType" content="true">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="//ajax.googleapis.com/" rel="dns-prefetch">
-        <link href="//www.google-analytics.com/" rel="dns-prefetch">
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="ClearType" content="true" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="//ajax.googleapis.com/" rel="dns-prefetch" />
+        <link href="//www.google-analytics.com/" rel="dns-prefetch" />
         <title>{% block title %}Office Catering in London from City Pantry{% endblock %}</title>
-        <meta name="description" content="">
-        <link href="/favicon.ico" rel="icon">
+        <meta name="description" content="" />
+        <link href="/favicon.ico" rel="icon" />
 
-        <link href="/css/main.min.css" rel="stylesheet" />
+        <link href="/dist/css/main.min.css" rel="stylesheet" />
 
-        <script src="/js/vendor/modernizr-2.7.1.min.js"></script>
         <!--[if lt IE 9]>
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="/js/respond.min.js"></script>
         <![endif]-->
+
         <script src="//use.typekit.net/mdy1nin.js"></script>
         <script>try{Typekit.load();}catch(e){}</script>
 
@@ -75,23 +74,5 @@
         {% block body %}{% endblock %}
 
         {% include 'default-layout/footer.html.twig' %}
-
-        <script>
-            if (typeof jQuery === 'undefined') {
-                var script = document.createElement('script');
-                script.src = '/js/vendor/jquery-2.0.3.min.js';
-                document.write(script.outerHTML);
-            }
-
-            setTimeout(function() {
-                $('.site-message').fadeOut();
-            }, 5000);
-        </script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/bootstrap-datepicker.js"></script>
-        <script src="/js/main.js"></script>
-        <!--[if lt IE 9]>
-        <script src="/js/rem.min.js"></script>
-        <![endif]-->
     </body>
 </html>

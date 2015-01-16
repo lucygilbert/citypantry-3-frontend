@@ -34,3 +34,5 @@ twig:
         phoneNumberUk: %templates.phone_number_uk%
         phoneNumberInternational: %templates.phone_number_international%
         blogUrl: %templates.blog_url%
+        twitterHandle: %templates.twitter_handle%
+        googleMapsJavascriptApiV3Key: %templates.google_maps_javascript_api_v3_key%
