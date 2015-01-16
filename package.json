@@ -1,0 +1,17 @@
+{
+  "name": "citypantry-3-frontend",
+  "title": "CityPantry",
+  "url": "https://citypantry.com/",
+  "copyright": "2015",
+  "version": "3.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-sass": "~0.16.1",
+    "grunt-csso": "git://github.com/amyboyd/grunt-csso.git",
+    "grunt-contrib-imagemin": "~0.7.1",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-copy": "~0.7.0",
+    "matchdep": "~0.1.2"
+  }
+}
