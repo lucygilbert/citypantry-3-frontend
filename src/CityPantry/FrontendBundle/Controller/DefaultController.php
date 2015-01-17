@@ -39,6 +39,19 @@ class DefaultController extends Controller
         return [];
     }
 
+    /**
+     * @Route("/logout")
+     * @Template()
+     */
+    public function logoutAction()
+    {
+        $response = new RedirectResponse('/');
+        $response->headers->clearCookie('userId');
+        $response->headers->clearCookie('salt');
+
+        return $response;
+    }
+
     private function getApiClient()
     {
         return ApiClient::createClientFromRequestCookies(
