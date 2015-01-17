@@ -10,7 +10,11 @@
 
         <nav class="clearfix main-menu collapse" id="main-menu" role="navigation">
             <ul>
-                {% include 'nav/loggedOut.html.twig' %}
+                {% if isLoggedIn %}
+                    @todo - logged in nav
+                {% else %}
+                    {% include 'nav/loggedOut.html.twig' %}
+                {% endif %}
             </ul>
 
             <form class="banner-search" id="search" method="get" action="/search" role="search">

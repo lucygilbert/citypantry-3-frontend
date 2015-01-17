@@ -59,6 +59,27 @@ module.exports = function (grunt) {
             }
         },
 
+        concat: {
+            dist: {
+                options: {
+                    // Replace all 'use strict' statements in the code with a single one at the top
+                    banner: "'use strict';\n",
+                    process: function(src, filepath) {
+                        return '// Source: ' + filepath + '\n' +
+                            src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
+                    },
+                },
+                files: {
+                    'web/dist/js/built.js': [
+                        'src/web/js/lib/angular.min.js',
+                        'src/web/js/lib/angular-cookies.min.js',
+                        'src/web/js/main.js',
+                        'src/web/js/controllers/**/*.js',
+                    ],
+                },
+            },
+        },
+
         watch: {
             options: {
                 livereload: true,
@@ -66,6 +87,13 @@ module.exports = function (grunt) {
             css: {
                 files: ['src/web/**/*.scss'],
                 tasks: ['sass', 'csso'],
+                options: {
+                    debounceDelay: 100,
+                },
+            },
+            js: {
+                files: ['src/web/**/*.js'],
+                tasks: ['concat'],
                 options: {
                     debounceDelay: 100,
                 },
@@ -89,5 +117,6 @@ module.exports = function (grunt) {
         'imagemin:dist',
         'sass:dist',
         'csso:dist',
+        'concat:dist',
     ]);
 };

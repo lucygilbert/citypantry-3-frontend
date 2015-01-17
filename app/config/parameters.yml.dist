@@ -8,6 +8,8 @@ parameters:
     templates.blog_url: https://citypantry.com/blog
     templates.twitter_handle: citypantry
 
-    // A key that works for any domain is: AIzaSyDcbvisbl9Wx6CA4qKe7Ld-mVWVKOiRZ_U
-    // A key that works for prod is: AIzaSyD1LSq6a2KDw3-pVN20CdqUpNEZ37wADDg
+    # A key that works for any domain is: AIzaSyDcbvisbl9Wx6CA4qKe7Ld-mVWVKOiRZ_U
+    # A key that works for prod is: AIzaSyD1LSq6a2KDw3-pVN20CdqUpNEZ37wADDg
     templates.google_maps_javascript_api_v3_key: AIzaSyD1LSq6a2KDw3-pVN20CdqUpNEZ37wADDg
+
+    citypantry_api_endpoint: https://api.citypantry.com

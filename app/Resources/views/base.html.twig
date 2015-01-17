@@ -67,8 +67,10 @@
                 ga('send', 'pageview');
             </script>
         {% endif %}
+
+        <script src="/dist/js/built.js"></script>
     </head>
-    <body>
+    <body ng-app="cp">
         {% include 'default-layout/header.html.twig' %}
 
         {% block body %}{% endblock %}
