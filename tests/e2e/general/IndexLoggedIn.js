@@ -1,15 +1,11 @@
 describe('Index as a logged in user', function() {
-    var first = true;
+    it('should show admin users the admin navigation', function() {
+        loginAsUser('alice@bunnies.test');
 
-    beforeEach(function() {
-        if (first) {
-            first = false;
-            loginAsUser('alice@bunnies.test');
-            browser.get('/');
-        }
-    });
-
-    it('should have the logged in navigation', function() {
-        expect(element.all(by.css('#main-menu')).first().getText()).toContain('@todo - logged in nav');
+        var links = element.all(by.css('#main-menu > ul > li'));
+        expect(links.get(0).getText()).toContain('My account');
+        expect(links.get(1).getText()).toBe('Orders');
+        expect(links.get(2).getText()).toBe('Courier');
+        expect(links.count()).toBe(7);
     });
 });
