@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dc0cab152b85393f032023c412fa9710",
+    "hash": "ad9be37f48699413380d40fe76169342",
     "packages": [
         {
             "name": "citypantry/api-client",
-            "version": "0.1.0",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CityPantry/citypantry-php-api-client.git",
-                "reference": "3cfb876cc22f0ba7b6fba262dcb4b59a11ced4be"
+                "reference": "efd548ac491ada7808a4d85f6518cd70ee981abe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CityPantry/citypantry-php-api-client/zipball/3cfb876cc22f0ba7b6fba262dcb4b59a11ced4be",
-                "reference": "3cfb876cc22f0ba7b6fba262dcb4b59a11ced4be",
+                "url": "https://api.github.com/repos/CityPantry/citypantry-php-api-client/zipball/efd548ac491ada7808a4d85f6518cd70ee981abe",
+                "reference": "efd548ac491ada7808a4d85f6518cd70ee981abe",
                 "shasum": ""
             },
             "require": {
@@ -32,7 +32,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "CityPantry API client",
-            "time": "2015-01-16 12:31:54"
+            "time": "2015-01-18 16:42:45"
         },
         {
             "name": "doctrine/annotations",
