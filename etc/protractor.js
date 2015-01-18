@@ -34,6 +34,7 @@ var helpers = require('./protractor-helpers.js');
         },
 
         suites: {
+            'admin': getTestFilesForDirectory('admin'),
             'general': getTestFilesForDirectory('general'),
         },
 
