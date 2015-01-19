@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
     /**
      * @Route("/")
@@ -50,13 +50,5 @@ class DefaultController extends Controller
         $response->headers->clearCookie('salt');
 
         return $response;
-    }
-
-    private function getApiClient()
-    {
-        return ApiClient::createClientFromRequestCookies(
-            $this->getRequest(),
-            $this->container->getParameter('citypantry_api_endpoint')
-        );
     }
 }
