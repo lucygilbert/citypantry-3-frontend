@@ -19,7 +19,7 @@ class AdminController extends BaseController
         $api = $this->getApiClient();
 
         $user = $api->getAuthenticatedUser()->json();
-        if (!$user || $user['group']['name'] !== 'staff') {
+        if (!$user || $user['user']['group']['name'] !== 'staff') {
             throw $this->createNotFoundException();
         }
 
