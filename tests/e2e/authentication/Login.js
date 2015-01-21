@@ -30,7 +30,7 @@ describe('Login', function() {
         expectSamePageWithErrorShowing();
     });
 
-    it('should redirect to the index page unon a successful login', function() {
+    it('should redirect to the index page upon a successful login', function() {
         element(by.id('login_email')).sendKeys('alice@bunnies.test');
         element(by.id('login_password')).sendKeys('password');
 

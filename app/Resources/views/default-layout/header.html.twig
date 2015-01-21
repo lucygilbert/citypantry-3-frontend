@@ -11,7 +11,7 @@
         <nav class="clearfix main-menu collapse" id="main-menu" role="navigation">
             <ul>
                 {% if (isLoggedIn is defined) and isLoggedIn %}
-                    {% if user.user.group.name == 'staff' %}
+                    {% if user.user.group and user.user.group.name == 'staff' %}
                         {% include 'nav/staff.html.twig' %}
                     {% else %}
                         @todo - logged in nav
