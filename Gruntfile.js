@@ -13,6 +13,13 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
+                        src: ['src/web/fonts/*'],
+                        dest: 'web/dist/fonts',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
                         src: ['src/web/images/*'],
                         dest: 'web/dist/images',
                         filter: 'isFile'
@@ -73,8 +80,12 @@ module.exports = function (grunt) {
                     'web/dist/js/built.js': [
                         'src/web/js/lib/angular.min.js',
                         'src/web/js/lib/angular-cookies.min.js',
-                        'src/web/js/main.js',
+                        'src/web/js/lib/ui-bootstrap-tpls-0.12.0.min.js',
+                        'src/web/js/lib/ui-grid-unstable.min.js',
+                        'src/web/js/filters.js',
+                        'src/web/js/services/**/*.js',
                         'src/web/js/controllers/**/*.js',
+                        'src/web/js/main.js',
                     ],
                 },
             },

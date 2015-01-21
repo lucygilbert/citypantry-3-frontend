@@ -3,9 +3,9 @@
 {% block title %}Orders{% endblock %}
 
 {% block body %}
-    <main class="wrapper">
+    <main class="wrapper" ng-controller="OrderController">
         <h1>Orders</h1>
 
-        @todo - re-write page in Angular.
+        <div ui-grid="ordersTable" ui-grid-pagination></div>
     </main>
 {% endblock %}
