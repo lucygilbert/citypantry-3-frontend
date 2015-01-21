@@ -39,6 +39,20 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/about")
+     * @Template()
+     */
+    public function aboutAction()
+    {
+        $api = $this->getApiClient();
+
+        return [
+            'isLoggedIn' => $api->isLoggedIn(),
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
+    }
+
+    /**
      * @Route("/login")
      * @Template()
      */

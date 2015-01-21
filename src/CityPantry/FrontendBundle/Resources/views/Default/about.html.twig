@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About | City Pantry{% endblock %}
+
+{% block body %}
+    <div class="about-header"></div>
+
+    <main role="main">
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1>About City Pantry</h1>
+
+                    <p class="lead">Founded in January 2014 and based in Brixton, London, City Pantry is an online catering marketplace that brings the exciting taste of London street-food to your office.</p>
+
+                    <p>We spend our time finding the best food in London from street vendors, pop-ups, chefs, cooks, restaurants, delis and bakeries, all of whom are now available to cater your next meeting or event.</p>
+
+                    <p><a href="http://citypantryblog.wordpress.com/2014/02/01/why-i-started-city-pantry/">Here&#8217;s</a> our Founder, Stuart Sunderland, on why he started City Pantry.</p>
+
+                    <section class="team">
+                        <h2>The City Pantry Team</h2>
+
+                        <ul class="team-members">
+                            <li class="team-member">
+                                <img class="img-responsive team-member-image" src="/dist/images/team/stuart_s.jpg" alt="">
+                                <h3 class="team-member-name">Stuart Sunderland</h3>
+                                <span class="team-member-title">Founder &#38; <abbr title="chief executive officer">CEO</abbr></span>
+                            </li>
+
+                            <li class="team-member">
+                                <img class="img-responsive team-member-image" src="/dist/images/team/charlotte_m.jpg" alt="">
+                                <h3 class="team-member-name"><a href="https://twitter.com/Charmindel">Charlotte Mindel</a></h3>
+                                <span class="team-member-title">Resident Food Curator</span>
+                            </li>
+
+                            <li class="team-member">
+                                <img class="img-responsive team-member-image" src="/dist/images/team/alexandra_t.jpg" alt="">
+                                <h3 class="team-member-name"><a href="https://twitter.com/alexandra_dlt">Alexandra de la Tour</a></h3>
+                                <span class="team-member-title">Business Developer &#38; Event Coordinator</span>
+                            </li>
+
+                            <li class="team-member">
+                                <img class="img-responsive team-member-image" src="/dist/images/team/jeni_s.jpg" alt="">
+                                <h3 class="team-member-name">Jeni Sunderland</h3>
+                                <span class="team-member-title">Customer Service Angel</span>
+                            </li>
+
+                            <div class="clearfix visible-xs"></div>
+
+                            <li class="team-member">
+                                <img class="img-responsive team-member-image" src="/dist/images/team/romain_c.jpg" alt="">
+                                <h3 class="team-member-name">Romain Coumau</h3>
+                                <span class="team-member-title">Financial Controller</span>
+                            </li>
+
+                            <li class="team-member">
+                                <img class="img-responsive team-member-image" src="/dist/images/team/joseph_b.jpg" alt="">
+                                <h3 class="team-member-name">Joseph Betts</h3>
+                                <span class="team-member-title">Food Scout</span>
+                            </li>
+
+                            <li class="team-member">
+                                <img class="img-responsive team-member-image" src="/dist/images/team/thomas_i.jpg" alt="">
+                                <h3 class="team-member-name"><a href="https://twitter.com/thomasingram">Thomas Ingram</a></h3>
+                                <span class="team-member-title">Designer &#38; Developer</span>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+
+                {% include 'sidebar/1.html.twig' with {page: 'about'} %}
+            </div>
+        </div>
+    </main>
+{% endblock %}
