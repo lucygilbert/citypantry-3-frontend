@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Frequently asked questions | City Pantry{% endblock %}
+
+{% block body %}
+    <div class="faq-header"></div>
+
+    <main role="main">
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1>Frequently asked questions</h1>
+
+                    <h2>Customer</h2>
+
+                    <ul>
+                        <li><a href="#us">What is City Pantry?</a></li>
+                        <li><a href="#used">Who uses City Pantry?</a></li>
+                        <li><a href="#work">How does it work?</a></li>
+                        <li><a href="#steps">What steps do I need to take to place an order?</a></li>
+                        <li><a href="#after">What happens after I place an order?</a></li>
+                        <li><a href="#accept">What if a vendor does not accept my order?</a></li>
+                        <li><a href="#accepted">How do I know that my order has been accepted?</a></li>
+                        <li><a href="#advance">How far in advance do I need to order?</a></li>
+                        <li><a href="#multiple">Can I order from more than one vendor?</a></li>
+                        <li><a href="#price">How much does it cost?</a></li>
+                        <li><a href="#pay">How do I pay?</a></li>
+                        <li><a href="#invoiced">Can I be invoiced?</a></li>
+                        <li><a href="#safe">Is my credit card safe?</a></li>
+                        <li><a href="#charged">When am I charged?</a></li>
+                        <li><a href="#options">Can you suggest some options for me?</a></li>
+                        <li><a href="#try">Can I try before I buy?</a></li>
+                        <li><a href="#delivered">How is the food delivered?</a></li>
+                        <li><a href="#late">What happens if the food is late?</a></li>
+                        <li><a href="#change">Can I make a last minute change to my order?</a></li>
+                    </ul>
+
+                    <h2>Vendor</h2>
+
+                    <ul>
+                        <li><a href="#cost">What is the cost to be on the system?</a></li>
+                        <li><a href="#paid">When are you paid?</a></li>
+                        <li><a href="#payment">How are you paid?</a></li>
+                        <li><a href="#delivery">Who deals with delivery?</a></li>
+                        <li><a href="#pays">Who pays for delivery?</a></li>
+                        <li><a href="#hot">How is the food kept hot?</a></li>
+                        <li><a href="#lateness">What happens if the food is late?</a></li>
+                        <li><a href="#size">Is there a minimum or maximum order size?</a></li>
+                        <li><a href="#notice">How much notice do I get?</a></li>
+                        <li><a href="#receive">How do I receive orders?</a></li>
+                        <li><a href="#decline">What happens if I cannot accept an order?</a></li>
+                    </ul>
+
+                    <h3 id="us">What is City Pantry?</h3>
+                    <p>City Pantry is an online marketplace specifically for catering.</p>
+                    <p>We spend our time finding the best food in London from street vendors, pop-ups, chefs, cooks, restaurants, delis and bakeries, all of whom are now available to cater your next meeting or event.</p>
+                    <h3 id="used">Who uses City Pantry?</h3>
+                    <p>Some of the ways people currently use the system are:</p>
+                    <ul>
+                        <li>For office lunches</li>
+                        <li>To cater meetings</li>
+                        <li>To hire a chef for a dinner party</li>
+                        <li>To find a wedding caterer</li>
+                        <li>For hungover group breakfasts</li>
+                        <li>To find numerous street vendors for a festival or event</li>
+                    </ul>
+                    <h3 id="work">How does it work?</h3>
+                    <p>In one of two ways:</p>
+                    <ol>
+                        <li>You can either choose a pre-prepared catering package from a vendor (these are priced per head and are great for office lunches).</li>
+                        <li>You can ask for a quote for an event, fill out the form and we&#8217;ll send it to all the vendors on the site who will prepare a quote for you to compare (great for weddings, dinner parties and large events).</li>
+                    </ol>
+                    <h3 id="steps">What steps do I need to take to place an order?</h3>
+                    <ol>
+                        <li>Search amazing food options</li>
+                        <li>Pick a package that appeals to you</li>
+                        <li>Enter how many people you have to feed</li>
+                        <li>Enter how many vegetarians are in your group</li>
+                        <li>Enter your delivery details </li>
+                        <li>Enter your card details</li>
+                    </ol>
+                    <h3 id="after">What happens after I place an order?</h3>
+                    <p>Once you place an order it is sent to the vendor to accept it. They have 2 hours in which to do so and your card will not be charged until the order has been accepted.</p>
+                    <h3 id="accept">What if a vendor does not accept my order?</h3>
+                    <p>This is very rare and if it does we&#8217;ll find you something else great. If we cannot find you anything then your card will not be charged.</p>
+                    <h3 id="accepted">How do I know that my order has been accepted?</h3>
+                    <p>You will receive an email telling you that your order has been accepted.</p>
+                    <h3 id="advance">How far in advance do I need to order?</h3>
+                    <p>It&#8217;s up to the individual vendor, some will accept same-day orders. You will get a better range to choose from if you order at least 24 hours in advance.</p>
+                    <h3 id="multiple">Can I order from more than one vendor?</h3>
+                    <p>You can put through separate orders for more than one vendor to cater the same event but you will need to meet the minimum order size of each vendor.</p>
+                    <p>Alternatively, you can <a href="/quote">request a quote for an event</a> and specify that you would like more than one vendor.</p>
+                    <h3 id="price">How much does it cost?</h3>
+                    <p>Food packages are priced from around £5 per head depending what you order, there are a huge amount of very good lunch options around £7 &#8211; £10 per head.</p>
+                    <p>City Pantry do not charge you anything for the service.</p>
+                    <h3 id="pay">How do I pay?</h3>
+                    <p>You pay by using a credit card at the time of ordering.</p>
+                    <h3 id="invoiced">Can I be invoiced?</h3>
+                    <p>Please email us at <a href="mailto:hello@citypantry.com">hello@citypantry.com</a> to discuss setting up invoicing.</p>
+                    <h3 id="safe">Is my credit card safe?</h3>
+                    <p>Payments are processed by <a href="https://www.braintreepayments.com/">Braintree</a> who process millions of pounds everyday. Your card details are safe and fully protected.</p>
+                    <h3 id="charged">When am I charged?</h3>
+                    <p>You are charged once a vendor accepts an order.</p>
+                    <h3 id="options">Can you suggest some options for me?</h3>
+                    <p>Absolutely! We work with a number of companies on a daily basis providing them with menu ideas. Please get in touch at <a href="mailto:hello@citypantry.com">hello@citypantry.com</a>.</p>
+                    <h3 id="try">Can I try before I buy?</h3>
+                    <p>If you have a large event to cater please get in touch at <a href="mailto:hello@citypantry.com">hello@citypantry.com</a>.</p>
+                    <h3 id="delivered">How is the food delivered?</h3>
+                    <p>The food is delivered either personally by the vendor, sometimes the vendor&#8217;s mother or by a courier/taxi.</p>
+                    <h3 id="late">What happens if the food is late?</h3>
+                    <p>It&#8217;s really important to us that the food is on time and the vendors are generally very good. However, on the odd occasion there is a problem if the food is more than 15 minutes late you will be refunded £50 on the order.</p>
+                    <h3 id="change">Can I make a last minute change to my order?</h3>
+                    <p>Please email us at <a href="mailto:support@citypantry.com">support@citypantry.com</a> and we will do our best.</p>
+                    <h3 id="cost">What is the cost to be on the system?</h3>
+                    <p>You won&#8217;t be charged for being on the site: we only take a 20% + <abbr title="value-added tax">VAT</abbr> commission when an order is placed.</p>
+                    <h3 id="paid">When are you paid?</h3>
+                    <p>You receive payment on the 10th of each month for all the orders placed the previous month. This enables us to offer companies the option to set up an account with us.</p>
+                    <h3 id="payment">How are you paid?</h3>
+                    <p>Payment goes directly into your bank account.</p>
+                    <h3 id="delivery">Who deals with delivery?</h3>
+                    <p>You are responsible for delivering the food. If you don&#8217;t currently have delivery infrastructure in place we can help to advise you on couriers or cab companies.</p>
+                    <h3 id="pays">Who pays for delivery?</h3>
+                    <p>You can pass the delivery charge onto the customer but we recommend offering free delivery over a certain spend.</p>
+                    <h3 id="hot">How is the food kept hot?</h3>
+                    <p>We recommend sending food in thermal delivery bags. You can <a title="Insulated Food Delivery Bag | eBay" href="http://www.ebay.co.uk/bhp/insulated-food-delivery-bag">find them on eBay</a>.</p>
+                    <h3 id="lateness">What happens if the food is late?</h3>
+                    <p>We have a strict no lateness policy. If food delivery exceeds 15 minutes past delivery time you will incur a £50 fine, this is reimbursed to the customer.</p>
+                    <h3 id="size">Is there a minimum or maximum order size?</h3>
+                    <p>This is completely up to you.</p>
+                    <h3 id="notice">How much notice do I get?</h3>
+                    <p>It&#8217;s up to you, if you are set up to do orders the same day then that is great, we&#8217;ve found 24 hours seems to be standard.</p>
+                    <h3 id="receive">How do I receive orders?</h3>
+                    <p>You will receive an email and text message to notify you of a new order. You will also have access to your own vendor portal where you can track upcoming and past orders, plus edit packages etc.</p>
+                    <h3 id="decline">What happens if I cannot accept an order?</h3>
+                    <p>You can decline the order within 2 hours but we have a 3 strike policy &#8211; if three consecutive orders are declined your profile will be taken down due to lack of reliability.</p>
+                </div>
+
+                {% include 'sidebar/1.html.twig' with {page: 'faq'} %}
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

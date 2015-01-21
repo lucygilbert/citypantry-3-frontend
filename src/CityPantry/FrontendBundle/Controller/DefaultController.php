@@ -25,6 +25,20 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/faq")
+     * @Template()
+     */
+    public function faqAction()
+    {
+        $api = $this->getApiClient();
+
+        return [
+            'isLoggedIn' => $api->isLoggedIn(),
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
+    }
+
+    /**
      * @Route("/login")
      * @Template()
      */
