@@ -14,8 +14,8 @@ describe('Admin - orders page', function() {
         expect(element(by.css('h1')).getText()).toBe('Orders');
     });
 
-    it('should have 8 columns', function() {
-        gridTestUtils.expectHeaderColumnCount('order.gridOptions', 8);
+    it('should have 9 columns', function() {
+        gridTestUtils.expectHeaderColumnCount('order.gridOptions', 9);
     });
 
     it('should have 2 rows', function() {
@@ -52,6 +52,10 @@ describe('Admin - orders page', function() {
 
     it('should have the column name "Status"', function() {
         gridTestUtils.expectHeaderCellValueMatch('order.gridOptions', 7, 'Status');
+    });
+
+    it('should have the column name "Action"', function() {
+        gridTestUtils.expectHeaderCellValueMatch('order.gridOptions', 8, 'Action');
     });
 
     it('should find 1 package when filtered by "Carrots"', function() {
