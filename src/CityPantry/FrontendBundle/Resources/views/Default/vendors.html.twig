@@ -11,8 +11,11 @@
                 {% for vendor in vendors %}
                     <li class="vendor">
                         <a href="/vendor/{{ vendor.id }}-{{ vendor.slug }}">
-                            {# @todo - vendor image as background-image on this div. #}
-                            <div class="img-responsive vendor-image"></div>
+                            {% if (vendor.images | length) > 0 %}
+                                <div class="img-responsive vendor-image" style="background-image: url({{ vendor.images[0].medium }});"></div>
+                            {% else %}
+                                <div class="img-responsive vendor-image"></div>
+                            {% endif %}
 
                             <h2 class="vendor-name">{{ vendor.name }}</h2>
 
