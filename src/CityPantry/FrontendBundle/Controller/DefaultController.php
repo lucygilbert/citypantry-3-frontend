@@ -67,6 +67,20 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/terms")
+     * @Template()
+     */
+    public function termsAction()
+    {
+        $api = $this->getApiClient();
+
+        return [
+            'isLoggedIn' => $api->isLoggedIn(),
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
+    }
+
+    /**
      * @Route("/login")
      * @Template()
      */
