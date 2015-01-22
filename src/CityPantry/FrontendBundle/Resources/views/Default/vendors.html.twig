@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Meet the vendors | City Pantry{% endblock %}
+
+{% block body %}
+    <main role="main">
+        <div class="wrapper">
+            <h1 class="section-title">Meet the vendors</h1>
+
+            <ul class="vendors">
+                {% for vendor in vendors %}
+                    <li class="vendor">
+                        <a href="/vendor/{{ vendor.id }}-{{ vendor.slug }}">
+                            {# @todo - vendor image as background-image on this div. #}
+                            <div class="img-responsive vendor-image"></div>
+
+                            <h2 class="vendor-name">{{ vendor.name }}</h2>
+
+                            <span class="vendor-type">{{ vendor.businessType.name }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+
+{% endblock %}

@@ -137,6 +137,30 @@ class DefaultController extends BaseController
     }
 
     /**
+     * The 'Meet The Vendors' page.
+     *
+     * @Route("/vendors")
+     * @Template()
+     */
+    public function vendorsAction()
+    {
+        $api = $this->getApiClient();
+
+        $vendors = $api->request('GET', '/vendors')->json();
+
+        // Vendors should be shown sorted by name.
+        usort($vendors, function($a, $b) {
+            return strcmp($a['name'], $b['name']);
+        });
+
+        return [
+            'isLoggedIn' => $api->isLoggedIn(),
+            'user' => $api->getAuthenticatedUser()->json(),
+            'vendors' => $vendors,
+        ];
+    }
+
+    /**
      * @Route("/login")
      * @Template()
      */
