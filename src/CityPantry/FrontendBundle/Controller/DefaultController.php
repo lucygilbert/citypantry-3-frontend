@@ -95,6 +95,48 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/event-catering")
+     * @Template()
+     */
+    public function eventCateringAction()
+    {
+        $api = $this->getApiClient();
+
+        return [
+            'isLoggedIn' => $api->isLoggedIn(),
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
+    }
+
+    /**
+     * @Route("/team-lunch")
+     * @Template()
+     */
+    public function teamLunchAction()
+    {
+        $api = $this->getApiClient();
+
+        return [
+            'isLoggedIn' => $api->isLoggedIn(),
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
+    }
+
+    /**
+     * @Route("/office-managers")
+     * @Template()
+     */
+    public function officeManagersAction()
+    {
+        $api = $this->getApiClient();
+
+        return [
+            'isLoggedIn' => $api->isLoggedIn(),
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
+    }
+
+    /**
      * @Route("/login")
      * @Template()
      */

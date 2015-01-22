@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catering Re-imagined for Your Next Event | Interesting catering delivered by City Pantry | City Pantry{% endblock %}
+
+{% block body %}
+    <div class="event-catering-header"></div>
+
+    <main role="main">
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1>Event catering</h1>
+
+                    <p class="lead">It&#8217;s not just office catering that our wonderful shiny new service can offer NO WAY! Think of an event, go on, go on, any event.</p>
+
+                    <p class="lead">OK stop. Now if you thought of&#8230;</p>
+
+                    <p class="lead">&#8230;Meeting, Party, Dinner party, Birthday party, Summer party, Christmas party (OK any type of party), Bar mitzvah, Conference, Wedding, Reception, Jobs fair, Funeral, <abbr title="barbecue">BBQ</abbr>, Festival&#8230;</p>
+
+                    <p class="lead"><strong>&#8230;then you&#8217;re in luck! Call us on {{ phoneNumberUk }} to find out more or <a href="/quote">get a quote for your event</a>.</strong></p>
+
+                    <p class="lead">If you thought of an event we didn&#8217;t mention then pick up the phone right now and call us because you deserve a brownie! (This is not a joke, we will send you a brownie.)</p>
+                </div>
+
+                {% include 'sidebar/3.html.twig' with {page: 'eventCatering'} %}
+            </div>
+        </div>
+    </main>
+{% endblock %}
