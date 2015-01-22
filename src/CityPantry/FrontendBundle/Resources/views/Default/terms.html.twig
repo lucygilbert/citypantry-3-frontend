@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Terms and conditions | City Pantry{% endblock %}
+
+{% block body %}
+    <div class="policies-header"></div>
+
+    <main role="main">
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1>Terms and conditions</h1>
+
+                    <p><em>Last modified: 3 April 2014</em></p>
+
+                    <h2>Welcome to City Pantry</h2>
+
+                    <p>By registering as a City Pantry User and placing an order with us you agree to be bound by these Terms and Conditions.</p>
+
+                    <ol class="list-numbers">
+                        <li>Definitions
+                            <p>In these Terms and Conditions the following terms shall have the following meanings:</p>
+                            <ol class="list-numbers">
+                                <li>&#8220;City Pantry&#8221; means City Pantry Limited, company number 8443757 whose registered office is at 16a Electric Lane, Brixton, London SW9 8LA and references to &#8220;us&#8221; and &#8220;we&#8221; shall be to City Pantry.</li>
+                                <li>&#8220;Food Partner&#8221; means the restaurant or outlet supplying the food to you.</li>
+                                <li>&#8220;Website&#8221; means <a href="https://citypantry.com/">citypantry.com</a></li>
+                                <li>&#8220;You&#8221; means the customer viewing the website and/or placing an order with City Pantry.</li>
+                            </ol>
+                        </li>
+                        <li>Our service
+                            <ol class="list-numbers">
+                                <li>When you register as a City Pantry User we will provide you with a unique login for the Website.</li>
+                                <li>We require a minimum of notice for all orders, this is individually set by each vendor.</li>
+                                <li>We will confirm your order within 6 hours of receipt.</li>
+                            </ol>
+                        </li>
+                        <li>Payment
+                            <ol class="list-numbers">
+                                <li>Payment must be made by credit or debit card at the time of order.</li>
+                                <li>Alternative payment arrangements may be made for corporate users.</li>
+                            </ol>
+                        </li>
+                        <li>Cancellation
+                            <p>Once your order has been confirmed it cannot be cancelled and no refund will be issued.</p>
+                        </li>
+                        <li>Data protection
+                            <p>We will treat your personal data in accordance with the Data Protection Act 1998. For information about the way we use your data please see our <a href="/privacy">privacy policy</a>.</p>
+                        </li>
+                        <li>Exclusion of Liability
+                            <p>City Pantry chooses its Food Partners with care but it accepts no liability in respect of the quality of the food supplied, for any allergens that may be contained within the food or for late delivery. Please let us know however if you do have cause for complaint about your order.</p>
+                        </li>
+                        <li>Changes to Terms and Conditions
+                            <p>City Pantry may amend these Terms and Conditions and revised terms and conditions may be posted on the Website at any time. You will be asked to agree to our Terms and Conditions every time you place an order with us.</p></li>
+                    </ol>
+                </div>
+
+                {% include 'sidebar/2.html.twig' with {page: 'terms'} %}
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
