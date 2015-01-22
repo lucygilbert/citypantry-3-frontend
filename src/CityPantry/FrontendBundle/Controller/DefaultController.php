@@ -81,6 +81,20 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/privacy")
+     * @Template()
+     */
+    public function privacyAction()
+    {
+        $api = $this->getApiClient();
+
+        return [
+            'isLoggedIn' => $api->isLoggedIn(),
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
+    }
+
+    /**
      * @Route("/login")
      * @Template()
      */
