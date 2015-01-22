@@ -53,6 +53,20 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/contact")
+     * @Template()
+     */
+    public function contactAction()
+    {
+        $api = $this->getApiClient();
+
+        return [
+            'isLoggedIn' => $api->isLoggedIn(),
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
+    }
+
+    /**
      * @Route("/login")
      * @Template()
      */
