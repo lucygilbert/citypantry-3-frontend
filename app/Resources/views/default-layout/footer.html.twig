@@ -2,18 +2,25 @@
     <div class="wrapper">
         <section class="content-info-links">
             <div class="row">
-                <div class="col-sm-5 newsletter">
+                <div class="col-sm-5 newsletter" ng-controller="NewsletterController">
                     <h3>Get £25 off your first order</h3>
-                    <p>Sign up to our email for a weekly dose of catered inspiration and £25 off your first order.</p>
-                    <form class="newsletter-form" action="/?subscribe=true" method="post" role="form">
+
+                    <form class="newsletter-form" role="form" ng-submit="subscribe()" ng-show="!success">
+                        <p>Sign up to our email for a weekly dose of catered inspiration and £25 off your first order.</p>
+
                         <div class="form-group">
                             <label class="sr-only" for="email">Email</label>
-                            <input class="form-control input-lg" id="email" name="email" type="email" autocomplete="off" placeholder="Email address">
+                            <input class="form-control input-lg" name="email" type="email" placeholder="Email address" ng-model="email" />
                         </div>
-                        <div style="position: absolute; left: -5000px;"><input tabindex="-1" name="b_40e4262ddc3b37612d8a6a5a7_564a6c6db8" type="text" value=""></div>
-                        <input class="btn btn-primary btn-lg" name="subscribe" type="submit" value="Sign up to weekly email">
+
+                        <input class="btn btn-primary btn-lg" type="submit" value="Sign up to weekly email" />
                     </form>
+
+                    <p ng-show="success">
+                        You have been subscribed and a £25 voucher has been emailed to you.
+                    </p>
                 </div>
+
                 <div class="col-sm-3 col-sm-push-1">
                     <h3>Company</h3>
                     <ul>
