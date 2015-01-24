@@ -3,9 +3,9 @@
 {% block title %}Orders{% endblock %}
 
 {% block body %}
-    <main class="wrapper" ng-controller="OrderController">
+    <main class="wrapper" ng-controller="AdminOrderController as order">
         <h1>Orders</h1>
-
-        <div id="ordersTable" ui-grid="ordersTable" ui-grid-pagination></div>
+        
+        <div ui-grid="order.gridOptions" ui-grid-pagination></div>
     </main>
 {% endblock %}
