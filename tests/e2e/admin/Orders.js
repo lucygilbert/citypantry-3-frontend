@@ -23,60 +23,61 @@ describe('Admin - orders page', function() {
     });
 
     it('should have the column name "Order No"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 1, 'Order No');
+        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 0, 'Order No');
     });
 
     it('should have the column name "Order Date"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 2, 'Order Date');
+        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 1, 'Order Date');
     });
 
     it('should have the column name "Delivery Date"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 3, 'Delivery Date');
+        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 2, 'Delivery Date');
     });
 
     it('should have the column name "Customer"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 4, 'Customer');
+        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 3, 'Customer');
     });
 
     it('should have the column name "Vendor"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 5, 'Vendor');
+        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 4, 'Vendor');
     });
 
     it('should have the column name "Package"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 6, 'Package');
+        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 5, 'Package');
     });
 
     it('should have the column name "People"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 7, 'People');
+        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 6, 'People');
     });
 
     it('should have the column name "Amount"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 8, 'Amount');
+        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 7, 'Amount');
     });
 
     it('should have the column name "Status"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 9, 'Status');
+        gridTestUtils.expectHeaderCellValueMatch('ordersTable', 8, 'Status');
     });
 
-    it('should sort rows by package (ASC)', function() {
-        gridTestUtils.clickHeaderCell('ordersTable', 6);
-        gridTestUtils.expectCellValueMatch('ordersTable', 1, 6, 'Carrots');
-    });
+    it('should sort rows by package', function() {
+        // Ascending.
+        gridTestUtils.clickHeaderCell('ordersTable', 5);
+        gridTestUtils.expectCellValueMatch('ordersTable', 0, 5, 'Carrots');
+        gridTestUtils.expectCellValueMatch('ordersTable', 1, 5, 'Marshmallows');
 
-    it('should sort rows by package (DESC)', function() {
-        gridTestUtils.clickHeaderCell('ordersTable', 6);
-        gridTestUtils.clickHeaderCell('ordersTable', 6);
-        gridTestUtils.expectCellValueMatch('ordersTable', 1, 6, 'Marshmallows');
+        // Now descending.
+        gridTestUtils.clickHeaderCell('ordersTable', 5);
+        gridTestUtils.expectCellValueMatch('ordersTable', 0, 5, 'Marshmallows');
+        gridTestUtils.expectCellValueMatch('ordersTable', 1, 5, 'Carrots');
     });
 
     it('should filter rows by package "Carrots"', function() {
-        gridTestUtils.enterFilterInColumn('ordersTable', 6, 'Carrots');
-        gridTestUtils.expectCellValueMatch('ordersTable', 1, 6, 'Carrots');
+        gridTestUtils.enterFilterInColumn('ordersTable', 5, 'Car');
+        gridTestUtils.expectRowCount('ordersTable', 1);
+        gridTestUtils.expectCellValueMatch('ordersTable', 0, 5, 'Carrots');
     });
 
     it('should cancel the filter by package "Carrots"', function() {
-        gridTestUtils.enterFilterInColumn('ordersTable', 6, 'Carrots');
-        gridTestUtils.cancelFilterInColumn('ordersTable', 6);
-        gridTestUtils.expectCellValueMatch('ordersTable', 2, 6, 'Marshmallows');
+        gridTestUtils.cancelFilterInColumn('ordersTable', 5);
+        gridTestUtils.expectRowCount('ordersTable', 2);
     });
 });
