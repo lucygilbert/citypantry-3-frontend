@@ -30,10 +30,10 @@ describe('Contact', function() {
     });
 
     it('should submit the email form then display the "thanks" modal', function() {
-        element(by.model('name')).sendKeys('Bob');
-        element(by.model('email')).sendKeys('bob@example.test');
-        element(by.model('message')).sendKeys('My message');
-        element(by.css('#contact-modal .btn-primary')).click();
+        emailModal.element(by.model('name')).sendKeys('Bob');
+        emailModal.element(by.model('email')).sendKeys('bob@example.test');
+        emailModal.element(by.model('message')).sendKeys('My message');
+        emailModal.element(by.css('#contact-modal .btn-primary')).click();
         expect(emailModal.isDisplayed()).toBe(false);
         expect(thanksModal.isDisplayed()).toBe(true);
     });
