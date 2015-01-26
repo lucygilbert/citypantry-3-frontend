@@ -58,18 +58,6 @@ describe('Admin - orders page', function() {
         gridTestUtils.expectHeaderCellValueMatch('ordersTable', 8, 'Status');
     });
 
-    it('should sort rows by package', function() {
-        // Ascending.
-        gridTestUtils.clickHeaderCell('ordersTable', 5);
-        gridTestUtils.expectCellValueMatch('ordersTable', 0, 5, 'Carrots');
-        gridTestUtils.expectCellValueMatch('ordersTable', 1, 5, 'Marshmallows');
-
-        // Now descending.
-        gridTestUtils.clickHeaderCell('ordersTable', 5);
-        gridTestUtils.expectCellValueMatch('ordersTable', 0, 5, 'Marshmallows');
-        gridTestUtils.expectCellValueMatch('ordersTable', 1, 5, 'Carrots');
-    });
-
     it('should filter rows by package "Carrots"', function() {
         gridTestUtils.enterFilterInColumn('ordersTable', 5, 'Car');
         gridTestUtils.expectRowCount('ordersTable', 1);
