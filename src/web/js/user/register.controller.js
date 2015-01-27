@@ -7,8 +7,9 @@
     
     function RegisterController($http, API_BASE, $cookies, $window) {
         var vm = this;
+        vm.submit = submit;
         
-        vm.submit = function() {
+        function submit() {
             vm.registerError = null;
             
             var registerDetails = {
@@ -17,7 +18,6 @@
                 plainPassword: vm.plainPassword
             };
             
-            // @todo – Refactor to a factory.
             $http.post(API_BASE + '/user/register', registerDetails)
                 .then(function(response) {
                     $cookies.userId = response.data.apiAuth.userId;
@@ -29,6 +29,6 @@
                 .catch(function(response) {
                     vm.registerError = response.data.errorTranslation;
                 })
-        };
+        }
     }
 })();

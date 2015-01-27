@@ -86,6 +86,7 @@ module.exports = function (grunt) {
                         'src/web/js/shared/**/*.js',
                         'src/web/js/services/**/*.js',
                         'src/web/js/admin/**/*.js',
+                        'src/web/js/general/**/*.js',
                         'src/web/js/user/**/*.js',
                     ],
                 },

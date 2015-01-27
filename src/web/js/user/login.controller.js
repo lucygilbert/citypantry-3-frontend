@@ -7,8 +7,9 @@
     
     function LoginController($http, API_BASE, $cookies, $window) {
         var vm = this;
+        vm.submit = submit;
         
-        vm.submit = function() {
+        function submit() {
             vm.loginError = null;
             
             var loginDetails = {
@@ -16,7 +17,6 @@
                 plainPassword: vm.plainPassword
             };
             
-            // @todo – Refactor to a factory.
             $http.post(API_BASE + '/user/login', loginDetails)
                 .then(function(response) {
                     $cookies.userId = response.data.apiAuth.userId;
@@ -28,6 +28,6 @@
                 .catch(function(response) {
                     vm.loginError = response.data.errorTranslation;
                 })
-        };
+        }
     }
 })();
