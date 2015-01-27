@@ -5,7 +5,7 @@ describe('Admin - orders page', function() {
     beforeEach(function() {
         if (isFirst) {
             loginAsUser('alice@bunnies.test');
-            browser.get('/admin/order');
+            browser.get('/admin/orders');
             isFirst = false;
         }
     });
