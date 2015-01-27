@@ -7,7 +7,7 @@ describe('Login', function() {
     function expectSamePageWithErrorShowing() {
         expect(browser.getCurrentUrl()).toMatch(/\/login$/);
 
-        var error = element(by.css('div[ng-controller="LoginController"] p.error'));
+        var error = element(by.css('div[ng-controller="LoginController as login"] p.error'));
         expect(error.getText()).toBe('Email/password is incorrect');
         expect(error.isDisplayed()).toBe(true);
     }

@@ -15,7 +15,7 @@ describe('Register', function() {
         expect(browser.getCurrentUrl()).toMatch(/\/login$/);
 
         // Should show an error.
-        var error = element(by.css('div[ng-controller="RegisterController"] p.error'));
+        var error = element(by.css('div[ng-controller="RegisterController as register"] p.error'));
         expect(error.getText()).toBe('A user already exists with that email address');
         expect(error.isDisplayed()).toBe(true);
     });

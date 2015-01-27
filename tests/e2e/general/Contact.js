@@ -25,14 +25,14 @@ describe('Contact', function() {
 
     it('should show the email modal when a link is clicked', function() {
         expect(emailModal.isDisplayed()).toBe(false);
-        element(by.css('[ng-click="showModal()"]')).click();
+        element(by.css('[ng-click="contact.showModal()"]')).click();
         expect(emailModal.isDisplayed()).toBe(true);
     });
 
     it('should submit the email form then display the "thanks" modal', function() {
-        emailModal.element(by.model('name')).sendKeys('Bob');
-        emailModal.element(by.model('email')).sendKeys('bob@example.test');
-        emailModal.element(by.model('message')).sendKeys('My message');
+        emailModal.element(by.model('contact.name')).sendKeys('Bob');
+        emailModal.element(by.model('contact.email')).sendKeys('bob@example.test');
+        emailModal.element(by.model('contact.message')).sendKeys('My message');
         emailModal.element(by.css('#contact-modal .btn-primary')).click();
         expect(emailModal.isDisplayed()).toBe(false);
         expect(thanksModal.isDisplayed()).toBe(true);
