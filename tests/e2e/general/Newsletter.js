@@ -1,9 +1,9 @@
 describe('Newsletter', function() {
     var first = true,
-        form = element(by.css('[ng-controller="NewsletterController"] form')),
-        success = element(by.css('[ng-controller="NewsletterController"] p[ng-show="success"]')),
-        email = element(by.css('[ng-controller="NewsletterController"] input[type="email"]')),
-        submit = element(by.css('[ng-controller="NewsletterController"] input[type="submit"]'));
+        form = element(by.css('[ng-controller="NewsletterController as newsletter"] form')),
+        success = element(by.css('[ng-controller="NewsletterController as newsletter"] p[ng-show="newsletter.success"]')),
+        email = element(by.css('[ng-controller="NewsletterController as newsletter"] input[type="email"]')),
+        submit = element(by.css('[ng-controller="NewsletterController as newsletter"] input[type="submit"]'));
 
     beforeEach(function() {
         if (first) {

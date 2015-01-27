@@ -5,7 +5,7 @@
 {% block body %}
     <div class="contact-header"></div>
 
-    <main role="main" ng-controller="ContactController">
+    <main role="main" ng-controller="ContactController as contact">
         <div class="wrapper">
             <div class="row">
                 <div class="col-sm-8">
@@ -19,14 +19,14 @@
 
                     <p>if your package hasn&#8217;t arrived yet, please call us on <a href="tel:{{ phoneNumberInternational }}">{{ phoneNumberUk }}</a></p>
 
-                    <p>if you have <strong>any other queries</strong>, <a ng-click="showModal()">send us an email</a></p>
+                    <p>if you have <strong>any other queries</strong>, <a ng-click="contact.showModal()">send us an email</a></p>
 
                     <div class="modal" id="contact-modal">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form role="form" ng-submit="submit()" id="contact-form">
+                                <form role="form" ng-submit="contact.submit()" id="contact-form">
                                     <div class="modal-header">
-                                        <button class="close" type="button" aria-hidden="true" ng-click="hideModal()">&times;</button>
+                                        <button class="close" type="button" aria-hidden="true" ng-click="contact.hideModal()">&times;</button>
 
                                         <h2 class="modal-title">Send us an email</h2>
 
@@ -37,17 +37,17 @@
                                         <fieldset>
                                             <div class="form-group">
                                                 <label for="name">Name</label>
-                                                <input class="form-control input-lg" name="name" id="name" type="text" required ng-model="name" />
+                                                <input class="form-control input-lg" name="name" id="name" type="text" required ng-model="contact.name" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input class="form-control input-lg" name="email" id="email" type="email" required ng-model="email" />
+                                                <input class="form-control input-lg" name="email" id="email" type="email" required ng-model="contact.email" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="message">Message</label>
-                                                <textarea class="form-control input-lg" id="message" name="message" required placeholder="Include your phone number, and we’ll call you." rows="6" ng-model="message"></textarea>
+                                                <textarea class="form-control input-lg" id="message" name="message" required placeholder="Include your phone number, and we’ll call you." rows="6" ng-model="contact.message"></textarea>
                                             </div>
                                         </fieldset>
                                     </div>

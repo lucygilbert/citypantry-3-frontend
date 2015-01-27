@@ -1,12 +1,8 @@
-angular.module('cp.controllers.admin', [
-    'ui.bootstrap',
-    'ui.grid',
-    'ui.grid.pagination'
-]);
-
-angular.module('cp.controllers.admin').controller('OrderController',
-        function($scope, ordersFactory) {
-    $scope.ordersTable = {
+angular.module('cp').controller('AdminOrderController',
+        function(orderService) {
+    var vm = this;
+    
+    vm.gridOptions = {
         columnDefs: [
             {
                 displayName: 'Order No',
@@ -35,10 +31,6 @@ angular.module('cp.controllers.admin').controller('OrderController',
                 field: 'package.name'
             },
             {
-                displayName: 'People',
-                field: 'headCount'
-            },
-            {
                 cellFilter: "currency:'£':2",
                 displayName: 'Amount',
                 field: 'totalAmount'
@@ -53,8 +45,8 @@ angular.module('cp.controllers.admin').controller('OrderController',
         paginationPageSizes: [25, 50, 75],
         paginationPageSize: 25
     };
-
-    ordersFactory.getAllOrders().success(function(data) {
-        $scope.ordersTable.data = data.orders;
+    
+    orderService.getAllOrders().success(function(data) {
+        vm.gridOptions.data = data.orders;
     });
 });
