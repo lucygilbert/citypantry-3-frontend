@@ -1,7 +1,1 @@
-(function() {
-    angular
-        .module('cp')
-        .controller('AdminPackageController', AdminPackageController);
-    
-    function AdminPackageController() { }
-})();
+angular.module('cp').controller('AdminPackageController', function() { });

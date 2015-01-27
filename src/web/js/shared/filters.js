@@ -1,9 +1,3 @@
-(function() {
-    angular
-        .module('cp')
-        .filter('filters', filters);
-    
-    function filters() {
-        return { };
-    }
-})();
+angular.module('cp').filter('filters', function() {
+    return { };
+});
