@@ -1,5 +1,3 @@
-angular.module('cp.controllers.admin', []);
-
 angular.module('cp.controllers.admin').controller('AdminOrdersController',
         function(OrdersFactory, uiGridConstants, $filter) {
     var vm = this;

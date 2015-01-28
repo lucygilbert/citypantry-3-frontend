@@ -1,5 +1,3 @@
-angular.module('cp.factories', []);
-
 angular.module('cp.factories').factory('OrdersFactory', function($http,
         API_BASE) {
     return {
@@ -7,7 +5,7 @@ angular.module('cp.factories').factory('OrdersFactory', function($http,
             return $http.get(API_BASE + '/orders');
         },
         getOrder: function(id) {
-            return $http.get(API_BASE + '/order/' + id);
+            return $http.get(API_BASE + '/orders/' + id);
         }
     };
 });

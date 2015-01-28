@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Packages{% endblock %}
+
+{% block body %}
+    <main class="wrapper" ng-controller="AdminPackagesController as packages">
+        <h1>Packages</h1>
+
+        <div ui-grid="packages.gridOptions" ui-grid-pagination id="packages-table"></div>
+    </main>
+{% endblock %}
