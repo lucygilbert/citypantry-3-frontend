@@ -58,13 +58,13 @@ describe('Admin - orders page', function() {
         gridTestUtils.expectHeaderCellValueMatch('orders-table', 8, 'Action');
     });
 
-    it('should find 1 package when filtered by "Carrots"', function() {
+    it('should find 1 order when filtered by "Carrots"', function() {
         gridTestUtils.enterFilterInColumn('orders-table', 5, 'Car');
         gridTestUtils.expectRowCount('orders-table', 1);
         gridTestUtils.expectCellValueMatch('orders-table', 0, 5, 'Carrots');
     });
 
-    it('should find 2 packages when filter is cancelled', function() {
+    it('should find 2 orders when filter is cancelled', function() {
         gridTestUtils.cancelFilterInColumn('orders-table', 5);
         gridTestUtils.expectRowCount('orders-table', 2);
     });

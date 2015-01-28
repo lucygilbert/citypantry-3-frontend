@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Customers{% endblock %}
+
+{% block body %}
+    <main class="wrapper" ng-controller="AdminCustomersController as customers">
+        <h1>Customers</h1>
+
+        <div ui-grid="customers.gridOptions" ui-grid-pagination id="customers-table"></div>
+    </main>
+{% endblock %}
