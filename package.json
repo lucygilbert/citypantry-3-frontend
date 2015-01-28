@@ -17,6 +17,7 @@
     "protractor": "~1.0.0",
     "chromedriver": "~2.9.1-1",
     "selenium-webdriver": "~2.x",
-    "jasmine-reporters": "~0.4.0"
+    "jasmine-reporters": "~0.4.0",
+    "jshint": "~2.6.0"
   }
 }

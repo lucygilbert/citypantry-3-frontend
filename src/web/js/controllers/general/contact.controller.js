@@ -2,12 +2,6 @@ angular.module('cp.controllers.general', []);
 
 angular.module('cp.controllers.general').controller('ContactController', function($http, API_BASE,
         $cookies, $window) {
-    var vm = this;
-    vm.hideModal = hideModal;
-    vm.showModal = showModal;
-    vm.showThanks = showThanks;
-    vm.submit = submit;
-
     var emailModal = $window.document.querySelector('#contact-modal');
     var thanksModal = $window.document.querySelector('#thanks-modal');
 
@@ -37,6 +31,12 @@ angular.module('cp.controllers.general').controller('ContactController', functio
             })
             .catch(function(response) {
                 console.log('error', response);
-            })
+            });
     }
+
+    var vm = this;
+    vm.hideModal = hideModal;
+    vm.showModal = showModal;
+    vm.showThanks = showThanks;
+    vm.submit = submit;
 });

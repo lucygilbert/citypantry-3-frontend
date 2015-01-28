@@ -11,7 +11,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
                 field: 'id'
             },
             {
-                cellFilter: "date:'d MMM yyyy H:mm'",
+                cellFilter: 'date:\'d MMM yyyy H:mm\'',
                 displayName: 'Order Date',
                 field: 'date',
                 filters: [
@@ -26,7 +26,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
                 ]
             },
             {
-                cellFilter: "date:'d MMM yyyy H:mm'",
+                cellFilter: 'date:\'d MMM yyyy H:mm\'',
                 displayName: 'Delivery Date',
                 field: 'requestedDeliveryDate',
                 filters: [
@@ -53,7 +53,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
                 field: 'package.name'
             },
             {
-                cellFilter: "currency:'£':2",
+                cellFilter: 'currency:\'£\':2',
                 displayName: 'Amount',
                 field: 'totalAmount'
             },

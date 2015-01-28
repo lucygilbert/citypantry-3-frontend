@@ -1,8 +1,5 @@
 angular.module('cp.controllers.user').controller('RegisterController', function($http, API_BASE,
         $cookies, $window) {
-    var vm = this;
-    vm.submit = submit;
-
     function submit() {
         vm.registerError = null;
 
@@ -22,6 +19,9 @@ angular.module('cp.controllers.user').controller('RegisterController', function(
             })
             .catch(function(response) {
                 vm.registerError = response.data.errorTranslation;
-            })
+            });
     }
+
+    var vm = this;
+    vm.submit = submit;
 });
