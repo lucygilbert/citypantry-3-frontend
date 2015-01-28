@@ -27,4 +27,22 @@ class CustomerController extends BaseController
             'user' => $api->getAuthenticatedUser()->json(),
         ];
     }
+
+    /**
+     * @Route("/customer/password")
+     * @Template()
+     */
+    public function customerPasswordAction()
+    {
+        $api = $this->getApiClient();
+
+        if (!$api->isLoggedIn()) {
+            throw $this->createNotFoundException();
+        }
+
+        return [
+            'isLoggedIn' => true,
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
+    }
 }
