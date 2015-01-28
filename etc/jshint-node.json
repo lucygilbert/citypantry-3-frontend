@@ -1,0 +1,29 @@
+{
+    "node": true,
+    "quotmark": false,
+    "undef": true,
+    "trailing": true,
+    "curly": true,
+    "camelcase": true,
+    "bitwise": true,
+    "eqeqeq": true,
+    "latedef": true,
+    "newcap": true,
+    "trailing": true,
+    "sub": true,
+    "freeze": true,
+    "globals": {
+        "describe": false,
+        "it": false,
+        "expect": false,
+        "toBe": false,
+        "beforeEach": false,
+        "afterEach": false,
+        "element": false,
+        "browser": false,
+        "protractor": false,
+        "by": false,
+        "loginAsUser": false,
+        "logout": false
+    }
+}

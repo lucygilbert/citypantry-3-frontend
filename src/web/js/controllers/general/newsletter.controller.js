@@ -1,8 +1,5 @@
 angular.module('cp.controllers.general').controller('NewsletterController', function($http,
         API_BASE, $window) {
-    var vm = this;
-    vm.subscribe = subscribe;
-
     function subscribe() {
         $http.post(API_BASE + '/newsletter/subscribe', {email: vm.email})
             .then(function(response) {
@@ -10,6 +7,9 @@ angular.module('cp.controllers.general').controller('NewsletterController', func
             })
             .catch(function(response) {
                 console.log('error', response);
-            })
+            });
     }
+
+    var vm = this;
+    vm.subscribe = subscribe;
 });

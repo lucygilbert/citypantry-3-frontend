@@ -1,10 +1,7 @@
-angular.module('cp.controllers.user', [])
+angular.module('cp.controllers.user', []);
 
 angular.module('cp.controllers.user').controller('LoginController', function($http, API_BASE,
         $cookies, $window) {
-    var vm = this;
-    vm.submit = submit;
-
     function submit() {
         vm.loginError = null;
 
@@ -23,6 +20,9 @@ angular.module('cp.controllers.user').controller('LoginController', function($ht
             })
             .catch(function(response) {
                 vm.loginError = response.data.errorTranslation;
-            })
+            });
     }
+
+    var vm = this;
+    vm.submit = submit;
 });
