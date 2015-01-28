@@ -13,8 +13,10 @@
                 {% if (isLoggedIn is defined) and isLoggedIn %}
                     {% if user.user.group and user.user.group.name == 'staff' %}
                         {% include 'nav/staff.html.twig' %}
-                    {% else %}
-                        @todo - logged in nav
+                    {% elseif user.user.group and user.user.group.name == 'customer' %}
+                        {% include 'nav/customer.html.twig' %}
+                    {% elseif user.user.group and (user.user.group.name == 'admin' or user.user.group.name == 'user') %}
+                        {% include 'nav/vendor.html.twig' %}
                     {% endif %}
                 {% else %}
                     {% include 'nav/loggedOut.html.twig' %}
