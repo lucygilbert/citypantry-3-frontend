@@ -1,6 +1,6 @@
-angular.module('cp.services.order', []);
+angular.module('cp.factories', []);
 
-angular.module('cp.services.order').factory('ordersFactory', function($http,
+angular.module('cp.factories').factory('OrdersFactory', function($http,
         API_BASE) {
     return {
         getAllOrders: function() {

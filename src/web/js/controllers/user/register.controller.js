@@ -1,17 +1,18 @@
-angular.module('cp').controller('LoginController', function($http, API_BASE,
+angular.module('cp.controllers.user').controller('RegisterController', function($http, API_BASE,
         $cookies, $window) {
     var vm = this;
     vm.submit = submit;
-    
+
     function submit() {
-        vm.loginError = null;
-        
-        var loginDetails = {
+        vm.registerError = null;
+
+        var registerDetails = {
+            name: vm.name,
             email: vm.email,
             plainPassword: vm.plainPassword
         };
-        
-        $http.post(API_BASE + '/user/login', loginDetails)
+
+        $http.post(API_BASE + '/user/register', registerDetails)
             .then(function(response) {
                 $cookies.userId = response.data.apiAuth.userId;
                 $cookies.salt = response.data.apiAuth.salt;
@@ -20,7 +21,7 @@ angular.module('cp').controller('LoginController', function($http, API_BASE,
                 $window.location = '/';
             })
             .catch(function(response) {
-                vm.loginError = response.data.errorTranslation;
+                vm.registerError = response.data.errorTranslation;
             })
     }
 });

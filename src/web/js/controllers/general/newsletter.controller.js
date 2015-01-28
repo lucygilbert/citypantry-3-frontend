@@ -1,8 +1,8 @@
-angular.module('cp').controller('NewsletterController', function($http,
+angular.module('cp.controllers.general').controller('NewsletterController', function($http,
         API_BASE, $window) {
     var vm = this;
     vm.subscribe = subscribe;
-    
+
     function subscribe() {
         $http.post(API_BASE + '/newsletter/subscribe', {email: vm.email})
             .then(function(response) {

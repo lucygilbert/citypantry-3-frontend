@@ -1,7 +1,9 @@
-angular.module('cp').controller('AdminOrderController',
-        function(orderService, uiGridConstants, $filter) {
+angular.module('cp.controllers.admin', []);
+
+angular.module('cp.controllers.admin').controller('AdminOrdersController',
+        function(OrdersFactory, uiGridConstants, $filter) {
     var vm = this;
-    
+
     vm.gridOptions = {
         columnDefs: [
             {
@@ -72,8 +74,8 @@ angular.module('cp').controller('AdminOrderController',
         paginationPageSizes: [25, 50, 75],
         paginationPageSize: 25
     };
-    
-    orderService.getAllOrders().success(function(data) {
+
+    OrdersFactory.getAllOrders().success(function(data) {
         vm.gridOptions.data = data.orders;
     });
 });

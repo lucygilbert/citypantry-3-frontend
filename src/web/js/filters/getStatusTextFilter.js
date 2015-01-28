@@ -1,4 +1,6 @@
-angular.module('cp').filter('getStatusText', function() {
+angular.module('cp.filters', []);
+
+angular.module('cp.filters').filter('getStatusText', function() {
     return function(status) {
         switch (status) {
             case 'not_placed':
