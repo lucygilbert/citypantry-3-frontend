@@ -11,13 +11,14 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class AdminController extends BaseController
 {
     /**
-     * @Route("/admin/order")
+     * @Route("/admin/orders")
      * @Template()
      */
     public function ordersAction()
     {
         $api = $this->getApiClient();
 
+        // @todo – Refactor authentication to constructor.
         $user = $api->getAuthenticatedUser()->json();
         if (!$user || $user['user']['group']['name'] !== 'staff') {
             throw $this->createNotFoundException();
@@ -25,6 +26,32 @@ class AdminController extends BaseController
 
         return [
             'isLoggedIn' => true,
+            'user' => $user,
+        ];
+    }
+    
+    /**
+     * @Route("/admin/order/{id}")
+     * @Template()
+     */
+    public function orderAction($id)
+    {
+        $api = $this->getApiClient();
+
+        $user = $api->getAuthenticatedUser()->json();
+        if (!$user || $user['user']['group']['name'] !== 'staff') {
+            throw $this->createNotFoundException();
+        }
+        
+        $response = $api->request('GET', '/orders/' . $id);
+        if ($response->getStatusCode() === 404) {
+            throw $this->createNotFoundException('Order does not exist.');
+        }
+        $order = json_decode($response->getBody());
+        
+        return [
+            'isLoggedIn' => true,
+            'order' => $order,
             'user' => $user,
         ];
     }

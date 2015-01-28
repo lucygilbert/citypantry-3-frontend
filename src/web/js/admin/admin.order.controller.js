@@ -1,5 +1,5 @@
 angular.module('cp').controller('AdminOrderController',
-        function(orderService) {
+        function(orderService, uiGridConstants, $filter) {
     var vm = this;
     
     vm.gridOptions = {
@@ -11,16 +11,36 @@ angular.module('cp').controller('AdminOrderController',
             {
                 cellFilter: "date:'d MMM yyyy H:mm'",
                 displayName: 'Order Date',
-                field: 'date'
+                field: 'date',
+                filters: [
+                    {
+                        condition: uiGridConstants.filter.GREATER_THAN_OR_EQUAL,
+                        placeholder: 'From'
+                    },
+                    {
+                        condition: uiGridConstants.filter.LESS_THAN_OR_EQUAL,
+                        placeholder: 'To'
+                    }
+                ]
             },
             {
                 cellFilter: "date:'d MMM yyyy H:mm'",
                 displayName: 'Delivery Date',
-                field: 'requestedDeliveryDate'
+                field: 'requestedDeliveryDate',
+                filters: [
+                    {
+                        condition: uiGridConstants.filter.GREATER_THAN_OR_EQUAL,
+                        placeholder: 'From'
+                    },
+                    {
+                        condition: uiGridConstants.filter.LESS_THAN_OR_EQUAL,
+                        placeholder: 'To'
+                    }
+                ]
             },
             {
                 displayName: 'Customer',
-                field: 'contactName'
+                field: 'customerUser.name'
             },
             {
                 displayName: 'Vendor',
@@ -36,8 +56,15 @@ angular.module('cp').controller('AdminOrderController',
                 field: 'totalAmount'
             },
             {
+                cellFilter: 'getStatusText',
                 displayName: 'Status',
-                field: 'status'
+                field: 'statusText'
+            },
+            {
+                cellTemplate: '<div class="ui-grid-cell-contents"><a href="/admin/order/{{row.entity[col.field]}}">View</a></div>',
+                displayName: 'Action',
+                field: 'id',
+                name: ' '
             }
         ],
         enableFiltering: true,
