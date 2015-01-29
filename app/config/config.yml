@@ -31,6 +31,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         includeAnalyticsJs: %templates.include_analytics_js%
+        includeSocialButtons: %templates.include_social_buttons%
         phoneNumberUk: %templates.phone_number_uk%
         phoneNumberInternational: %templates.phone_number_international%
         blogUrl: %templates.blog_url%
