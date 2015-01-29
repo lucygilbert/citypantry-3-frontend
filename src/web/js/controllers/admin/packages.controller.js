@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminPackagesController',
-        function(PackagesFactory, getVendorStatusTextFilter) {
+        function($scope, PackagesFactory, getVendorStatusTextFilter, $window) {
     var vm = this;
 
     vm.gridOptions = {
@@ -38,7 +38,11 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
                 field: 'activeAndApproved'
             },
             {
-                cellTemplate: '<div class="ui-grid-cell-contents"><a href="/admin/package/{{row.entity[col.field]}}">Edit</a></div>',
+                cellTemplate: '<div class="ui-grid-cell-contents">' +
+                    '<a href="/admin/package/{{row.entity[col.field]}}">Edit</a>' +
+                    ' / ' +
+                    '<a ng-click="grid.appScope.delete(row.entity[col.field])">Delete</a>' +
+                    '</div>',
                 displayName: 'Action',
                 field: 'id',
                 name: ' ',
@@ -51,10 +55,23 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
         paginationPageSize: 25
     };
 
-    PackagesFactory.getAllPackages().success(function(data) {
-        angular.forEach(data.packages, function(row) {
-            row.activeAndApproved = getVendorStatusTextFilter(row.active, row.approved);
+    function loadPackages() {
+        PackagesFactory.getAllPackages().success(function(data) {
+            angular.forEach(data.packages, function(row) {
+                row.activeAndApproved = getVendorStatusTextFilter(row.active, row.approved);
+            });
+            vm.gridOptions.data = data.packages;
         });
-        vm.gridOptions.data = data.packages;
-    });
+    }
+
+    loadPackages();
+
+    $scope.delete = function(id) {
+        var confirmed = $window.confirm('Are you sure?');
+        if (confirmed) {
+            PackagesFactory.deletePackage(id).then(loadPackages).error(function() {
+                console.log('error', arguments);
+            });
+        }
+    };
 });
