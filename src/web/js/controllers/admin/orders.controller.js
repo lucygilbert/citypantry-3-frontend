@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminOrdersController',
-        function(OrdersFactory, uiGridConstants, $filter) {
+        function(OrdersFactory, uiGridConstants, getOrderStatusTextFilter) {
     var vm = this;
 
     vm.gridOptions = {
@@ -56,9 +56,8 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
                 field: 'totalAmount'
             },
             {
-                cellFilter: 'getStatusText',
                 displayName: 'Status',
-                field: 'statusText'
+                field: 'statusTextTranslation'
             },
             {
                 cellTemplate: '<div class="ui-grid-cell-contents"><a href="/admin/order/{{row.entity[col.field]}}">View</a></div>',
@@ -75,6 +74,10 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
     };
 
     OrdersFactory.getAllOrders().success(function(data) {
+        angular.forEach(data.orders, function(row) {
+            row.statusTextTranslation = getOrderStatusTextFilter(row.statusText);
+        });
+
         vm.gridOptions.data = data.orders;
     });
 });

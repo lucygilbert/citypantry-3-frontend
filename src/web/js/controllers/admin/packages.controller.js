@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminPackagesController',
-        function(PackagesFactory, uiGridConstants, $filter) {
+        function(PackagesFactory, getVendorStatusTextFilter) {
     var vm = this;
 
     vm.gridOptions = {
@@ -34,9 +34,8 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
                 field: 'maxPeople'
             },
             {
-                cellFilter: 'getVendorStatusText',
                 displayName: 'Status',
-                field: 'getActiveAndApproved()'
+                field: 'activeAndApproved'
             },
             {
                 cellTemplate: '<div class="ui-grid-cell-contents"><a href="/admin/package/{{row.entity[col.field]}}">Edit</a></div>',
@@ -54,9 +53,7 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
 
     PackagesFactory.getAllPackages().success(function(data) {
         angular.forEach(data.packages, function(row) {
-            row.getActiveAndApproved = function() {
-                return this.active + '-' + this.approved;
-            };
+            row.activeAndApproved = getVendorStatusTextFilter(row.active, row.approved);
         });
         vm.gridOptions.data = data.packages;
     });

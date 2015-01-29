@@ -1,6 +1,6 @@
 angular.module('cp.filters', []);
 
-angular.module('cp.filters').filter('getStatusText', function() {
+angular.module('cp.filters').filter('getOrderStatusText', function() {
     return function(status) {
         switch (status) {
             case 'not_placed':
@@ -10,7 +10,7 @@ angular.module('cp.filters').filter('getStatusText', function() {
             case 'accepted':
                 return 'Active';
             default:
-                return status;
+                throw 'Unexpected status: ' + status;
         }
     };
 });

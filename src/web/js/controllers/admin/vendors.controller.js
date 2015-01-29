@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminVendorsController',
-        function(VendorsFactory, uiGridConstants, $filter) {
+        function(VendorsFactory, getVendorStatusTextFilter) {
     var vm = this;
 
     vm.gridOptions = {
@@ -25,9 +25,8 @@ angular.module('cp.controllers.admin').controller('AdminVendorsController',
                 field: 'businessType.name'
             },
             {
-                cellFilter: 'getVendorStatusText',
                 displayName: 'Status',
-                field: 'getActiveAndApproved()'
+                field: 'activeAndApproved'
             },
             {
                 cellTemplate: '<div class="ui-grid-cell-contents"><a href="/admin/vendor/{{row.entity[col.field]}}">Edit</a></div>',
@@ -45,9 +44,7 @@ angular.module('cp.controllers.admin').controller('AdminVendorsController',
 
     VendorsFactory.getAllVendors().success(function(data) {
         angular.forEach(data.vendors, function(row) {
-            row.getActiveAndApproved = function() {
-                return this.isActive + '-' + this.isApproved;
-            };
+            row.activeAndApproved = getVendorStatusTextFilter(row.isActive, row.isApproved);
         });
         vm.gridOptions.data = data.vendors;
     });
