@@ -30,6 +30,33 @@ class AdminController extends BaseController
     }
     
     /**
+     * @Route("/admin/customer/{id}")
+     * @Template()
+     */
+    public function customerAction($id)
+    {
+        $api = $this->getApiClient();
+
+        $user = $api->getAuthenticatedUser()->json();
+        if (!$user || $user['user']['group']['name'] !== 'staff') {
+            throw $this->createNotFoundException();
+        }
+        
+        $response = $api->request('GET', '/customers/' . $id);
+        if ($response->getStatusCode() === 404) {
+            throw $this->createNotFoundException('No customer for this ID (' .
+                $id . ') exists');
+        }
+        $customer = json_decode($response->getBody());
+        
+        return [
+            'customer' => $customer,
+            'isLoggedIn' => true,
+            'user' => $user,
+        ];
+    }
+    
+    /**
      * @Route("/admin/orders")
      * @Template()
      */
@@ -96,6 +123,33 @@ class AdminController extends BaseController
     }
     
     /**
+     * @Route("/admin/package/{id}")
+     * @Template()
+     */
+    public function packageAction($id)
+    {
+        $api = $this->getApiClient();
+
+        $user = $api->getAuthenticatedUser()->json();
+        if (!$user || $user['user']['group']['name'] !== 'staff') {
+            throw $this->createNotFoundException();
+        }
+        
+        $response = $api->request('GET', '/packages/' . $id);
+        if ($response->getStatusCode() === 404) {
+            throw $this->createNotFoundException('No package for this ID (' .
+                $id . ') exists');
+        }
+        $package = json_decode($response->getBody());
+        
+        return [
+            'isLoggedIn' => true,
+            'package' => $package,
+            'user' => $user,
+        ];
+    }
+    
+    /**
      * @Route("/admin/vendors")
      * @Template()
      */
@@ -111,6 +165,33 @@ class AdminController extends BaseController
         return [
             'isLoggedIn' => true,
             'user' => $user,
+        ];
+    }
+    
+    /**
+     * @Route("/admin/vendor/{id}")
+     * @Template()
+     */
+    public function vendorAction($id)
+    {
+        $api = $this->getApiClient();
+
+        $user = $api->getAuthenticatedUser()->json();
+        if (!$user || $user['user']['group']['name'] !== 'staff') {
+            throw $this->createNotFoundException();
+        }
+        
+        $response = $api->request('GET', '/vendors/' . $id);
+        if ($response->getStatusCode() === 404) {
+            throw $this->createNotFoundException('No vendor for this ID (' .
+                $id . ') exists');
+        }
+        $vendor = json_decode($response->getBody());
+        
+        return [
+            'isLoggedIn' => true,
+            'user' => $user,
+            'vendor' => $vendor,
         ];
     }
 }
