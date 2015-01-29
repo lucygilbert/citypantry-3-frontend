@@ -37,7 +37,8 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
                 cellTemplate: '<div class="ui-grid-cell-contents"><a href="/admin/customer/{{row.entity[col.field]}}">Edit</a></div>',
                 displayName: 'Action',
                 field: 'id',
-                name: ' '
+                name: ' ',
+                enableFiltering: false
             }
         ],
         enableFiltering: true,
