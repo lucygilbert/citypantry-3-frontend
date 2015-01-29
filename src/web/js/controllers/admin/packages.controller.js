@@ -42,7 +42,8 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
                 cellTemplate: '<div class="ui-grid-cell-contents"><a href="/admin/package/{{row.entity[col.field]}}">Edit</a></div>',
                 displayName: 'Action',
                 field: 'id',
-                name: ' '
+                name: ' ',
+                enableFiltering: false
             }
         ],
         enableFiltering: true,

@@ -64,7 +64,8 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
                 cellTemplate: '<div class="ui-grid-cell-contents"><a href="/admin/order/{{row.entity[col.field]}}">View</a></div>',
                 displayName: 'Action',
                 field: 'id',
-                name: ' '
+                name: ' ',
+                enableFiltering: false
             }
         ],
         enableFiltering: true,
