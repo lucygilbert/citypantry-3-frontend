@@ -29,10 +29,12 @@
                 <p class="cite">&#8212;Buzzfeed</p>
             </div>
 
+            {% if includeSocialButtons %}
             <ul class="share-links">
                 <li><iframe style="border: none; overflow: hidden; width: 90px; height: 21px;" src="//www.facebook.com/plugins/like.php?href=https://citypantry.com/&amp;width=90&amp;height=21&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false" allowTransparency="true" frameborder="0" scrolling="no"></iframe></li>
                 <li><iframe style="width: 90px; height: 21px;" src="https://platform.twitter.com/widgets/tweet_button.html?url=http://citypantry.com&amp;text={{ 'Check out City Pantry, inspired food delivered for your next office lunch, conference or dinner party' | url_encode }}&amp;via={{ twitterHandle }}" allowtransparency="true" frameborder="0" scrolling="no"></iframe></li>
             </ul>
+            {% endif %}
         </div>
 
         <div class="hero-decoration">
