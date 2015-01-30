@@ -30,6 +30,13 @@ module.exports = function (grunt) {
                         src: ['src/web/images/team/*'],
                         dest: 'web/dist/images/team',
                         filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ['src/web/templates/admin/*'],
+                        dest: 'web/dist/templates/admin',
+                        filter: 'isFile'
                     }
                 ]
             }
@@ -84,6 +91,7 @@ module.exports = function (grunt) {
                         'src/web/js/lib/ui-bootstrap-tpls-0.12.0.min.js',
                         'src/web/js/lib/ui-grid-unstable.min.js',
                         'src/web/js/app.module.js',
+                        'src/web/js/config.js',
                         'src/web/js/factories/**/*.js',
                         'src/web/js/filters/**/*.js',
                         'src/web/js/controllers/**/*.js',
