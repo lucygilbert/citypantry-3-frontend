@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminPackagesController',
-        function($scope, PackagesFactory, getVendorStatusTextFilter, $window) {
+        function($scope, PackagesFactory, getVendorStatusTextFilter, $window, NotificationService) {
     var vm = this;
 
     vm.gridOptions = {
@@ -69,9 +69,9 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
     $scope.delete = function(id) {
         var confirmed = $window.confirm('Are you sure?');
         if (confirmed) {
-            PackagesFactory.deletePackage(id).then(loadPackages).error(function() {
-                console.log('error', arguments);
-            });
+            PackagesFactory.deletePackage(id)
+                .then(loadPackages)
+                .catch((response) => NotificationService.notifyError(response.data.errorTranslation));
         }
     };
 });
