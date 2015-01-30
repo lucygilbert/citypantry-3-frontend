@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminVendorsController',
-        function(VendorsFactory, getVendorStatusTextFilter) {
+        function($scope, VendorsFactory, getVendorStatusTextFilter, $window, NotificationService) {
     var vm = this;
 
     vm.gridOptions = {
@@ -29,7 +29,11 @@ angular.module('cp.controllers.admin').controller('AdminVendorsController',
                 field: 'activeAndApproved'
             },
             {
-                cellTemplate: '<div class="ui-grid-cell-contents"><a href="/admin/vendor/{{row.entity[col.field]}}">Edit</a></div>',
+                cellTemplate: '<div class="ui-grid-cell-contents">' +
+                    '<a href="/admin/vendor/{{row.entity[col.field]}}">Edit</a>' +
+                    ' / ' +
+                    '<a ng-click="grid.appScope.delete(row.entity[col.field])">Delete</a>' +
+                    '</div>',
                 displayName: 'Action',
                 field: 'id',
                 name: ' ',
@@ -42,10 +46,23 @@ angular.module('cp.controllers.admin').controller('AdminVendorsController',
         paginationPageSize: 25
     };
 
-    VendorsFactory.getAllVendors().success(function(data) {
-        angular.forEach(data.vendors, function(row) {
-            row.activeAndApproved = getVendorStatusTextFilter(row.isActive, row.isApproved);
+    function loadVendors() {
+        VendorsFactory.getAllVendors().success(function(data) {
+            angular.forEach(data.vendors, function(row) {
+                row.activeAndApproved = getVendorStatusTextFilter(row.isActive, row.isApproved);
+            });
+            vm.gridOptions.data = data.vendors;
         });
-        vm.gridOptions.data = data.vendors;
-    });
+    }
+    
+    loadVendors();
+    
+    $scope.delete = function(id) {
+        var confirmed = $window.confirm('Are you sure?');
+        if (confirmed) {
+            VendorsFactory.deleteVendor(id)
+                .then(loadVendors)
+                .catch((response) => NotificationService.notifyError(response.data.errorTranslation));
+        }
+    };
 });
