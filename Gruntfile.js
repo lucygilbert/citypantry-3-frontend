@@ -80,6 +80,7 @@ module.exports = function (grunt) {
                     'web/dist/js/built.js': [
                         'src/web/js/lib/angular.min.js',
                         'src/web/js/lib/angular-cookies.min.js',
+                        'src/web/js/lib/angular-route.min.js',
                         'src/web/js/lib/ui-bootstrap-tpls-0.12.0.min.js',
                         'src/web/js/lib/ui-grid-unstable.min.js',
                         'src/web/js/app.module.js',
