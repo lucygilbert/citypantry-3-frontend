@@ -1,0 +1,98 @@
+.hero-search {
+    background-color: rgba(0, 0, 0, .3);
+    border-radius: 4px;
+    padding: 7px;
+
+    > .form-group {
+        float: left;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .hero-search {
+        margin-right: -7px;
+        margin-left: -7px;
+
+    }
+}
+
+.hero-search .btn,
+.hero-search .form-control {
+    height: 52px;
+}
+
+@media only screen and (min-width: 768px) {
+    .hero-search .btn {
+        margin-top: 7px;
+    }
+
+    .hero-search .form-control {
+        display: block;
+        width: 100%;
+    }
+
+    .hero-search .form-group {
+        display: inline-block;
+        margin-left: 1%;
+        width: 16.667%;
+    }
+
+    .hero-search .form-group:first-child {
+        margin: 0;
+        width: 47%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .hero-search .btn {
+        margin-top: 0;
+        width: 18.5% !important;
+    }
+
+    .hero-search .btn,
+    .hero-search .form-group {
+        display: inline-block;
+        margin-left: 1%;
+        width: 12.5%;
+    }
+
+    .hero-search .form-group:first-child {
+        margin: 0;
+        width: 40%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .hero-search-alt {
+        margin-right: auto;
+        margin-left: auto;
+        width: 83.333%;
+    }
+}
+
+.hero-search-alt .btn {
+    margin-top: 7px;
+}
+
+.hero-search-alt .form-group {
+    margin: 0;
+}
+
+@media only screen and (min-width: 768px) {
+    .hero-search-alt .btn,
+    .hero-search-alt .form-control {
+        font-size: 1.333rem;
+        height: 62px;
+    }
+
+    .hero-search-alt .btn {
+        display: inline-block;
+        margin: 0 0 0 1%;
+        width: 32.333% !important;
+    }
+
+    .hero-search-alt .form-group {
+        display: inline-block;
+        width: 66.667% !important;
+    }
+}
