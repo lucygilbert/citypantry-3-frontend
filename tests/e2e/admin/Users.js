@@ -38,4 +38,10 @@ describe('Admin - users page', function() {
         gridTestUtils.cancelFilterInColumn('users-table', 1);
         gridTestUtils.expectRowCount('users-table', 3);
     });
+
+    it('should allow the admin to masquerade as another user', function() {
+        gridTestUtils.enterFilterInColumn('users-table', 1, 'Vendor');
+        element(by.css('.masquerade')).click();
+        expect(browser.getCurrentUrl()).toMatch(/\.dev\/$/);
+    });
 });
