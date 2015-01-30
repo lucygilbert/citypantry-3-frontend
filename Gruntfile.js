@@ -87,6 +87,7 @@ module.exports = function (grunt) {
                         'src/web/js/factories/**/*.js',
                         'src/web/js/filters/**/*.js',
                         'src/web/js/controllers/**/*.js',
+                        'src/web/js/services/**/*.js',
                     ],
                 },
             },
