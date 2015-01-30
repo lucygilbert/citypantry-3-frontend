@@ -9,5 +9,9 @@ angular.module('cp.controllers.admin').config(function($routeProvider) {
         when('/admin/package/:packageId', {
             controller: 'AdminEditPackageController',
             templateUrl: '/dist/templates/admin/edit-package.html'
+        }).
+        when('/admin/users', {
+            controller: 'AdminUsersController',
+            templateUrl: '/dist/templates/admin/users.html'
         });
 });
