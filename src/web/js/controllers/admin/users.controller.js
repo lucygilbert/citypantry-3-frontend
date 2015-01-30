@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminUsersController',
-        ($scope, UsersFactory) => {
+        ($scope, $cookies, $window, UsersFactory, NotificationService) => {
     $scope.gridOptions = {
         columnDefs: [
             {
@@ -46,7 +46,13 @@ angular.module('cp.controllers.admin').controller('AdminUsersController',
     });
 
     $scope.masquerade = function(id) {
-        // @todo
-        console.log('masquerade', id);
+        UsersFactory.masqueradeAsUser(id)
+            .success(response => {
+                $cookies.userId = response.apiAuth.userId;
+                $cookies.salt = response.apiAuth.salt;
+                $window.localStorage.setItem('user', JSON.stringify(response.user));
+                $window.location = '/';
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 });
