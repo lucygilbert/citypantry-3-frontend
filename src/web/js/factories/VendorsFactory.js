@@ -1,17 +1,17 @@
-angular.module('cp.factories').factory('VendorsFactory', function($http,
+angular.module('cp.factories').factory('VendorsFactory', function(ApiService,
         API_BASE) {
     return {
         getAllVendors: function() {
-            return $http.get(API_BASE + '/vendors');
+            return ApiService.get(`${API_BASE}/vendors`);
         },
         getVendor: function(id) {
-            return $http.get(API_BASE + '/vendors/' + id);
+            return ApiService.get(`${API_BASE}/vendors/${id}`);
         },
         updateVendor: function(id, updatedVendor) {
-            return $http.put(API_BASE + '/vendors/' + id, updatedVendor);
+            return ApiService.put(`${API_BASE}/vendors/${id}`, updatedVendor);
         },
         deleteVendor: function(id) {
-            return $http.delete(API_BASE + '/vendors/' + id);
+            return ApiService.delete(`${API_BASE}/vendors/${id}`);
         }
     };
 });

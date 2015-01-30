@@ -60,7 +60,9 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
                 field: 'statusTextTranslation'
             },
             {
-                cellTemplate: '<div class="ui-grid-cell-contents"><a href="/admin/order/{{row.entity[col.field]}}">View</a></div>',
+                cellTemplate: `<div class="ui-grid-cell-contents">
+                    <a href="/admin/order/{{row.entity[col.field]}}">View</a>
+                    </div>`,
                 displayName: 'Action',
                 field: 'id',
                 name: ' ',
@@ -73,11 +75,9 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         paginationPageSize: 25
     };
 
-    OrdersFactory.getAllOrders().success(function(data) {
-        angular.forEach(data.orders, row => {
-            row.statusTextTranslation = getOrderStatusTextFilter(row.statusText);
-        });
+    OrdersFactory.getAllOrders().success(response => {
+        angular.forEach(response.orders, row => row.statusTextTranslation = getOrderStatusTextFilter(row.statusText));
 
-        vm.gridOptions.data = data.orders;
+        vm.gridOptions.data = response.orders;
     });
 });

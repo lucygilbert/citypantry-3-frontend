@@ -24,14 +24,12 @@ angular.module('cp.controllers.general').controller('ContactController', functio
             message: vm.message
         };
 
-        $http.post(API_BASE + '/contact/send-email', emailDetails)
-            .then(function(response) {
+        $http.post(`${API_BASE}/contact/send-email`, emailDetails)
+            .then(response => {
                 hideModal();
                 showThanks();
             })
-            .catch(function(response) {
-                console.log('error', response);
-            });
+            .catch(response => console.log('error', response));
     }
 
     var vm = this;

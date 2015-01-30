@@ -1,8 +1,7 @@
 angular.module('cp.controllers.admin').controller('AdminEditPackageController',
         function($scope, $routeParams, PackagesFactory, NotificationService) {
-    PackagesFactory.getPackage($routeParams.packageId).success(vendorPackage => {
-        $scope.vendorPackage = vendorPackage;
-    });
+    PackagesFactory.getPackage($routeParams.packageId)
+        .success(vendorPackage => $scope.vendorPackage = vendorPackage);
 
     $scope.save = function() {
         var updatedPackage = {

@@ -1,17 +1,16 @@
-angular.module('cp.factories').factory('PackagesFactory', function($http,
-        API_BASE) {
+angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, ApiService) {
     return {
         getAllPackages: function() {
-            return $http.get(API_BASE + '/packages');
+            return ApiService.get(`${API_BASE}/packages`);
         },
         getPackage: function(id) {
-            return $http.get(API_BASE + '/packages/' + id);
+            return ApiService.get(`${API_BASE}/packages/${id}`);
         },
         updatePackage: function(id, updatedPackage) {
-            return $http.put(API_BASE + '/packages/' + id, updatedPackage);
+            return ApiService.put(`${API_BASE}/packages/${id}`, updatedPackage);
         },
         deletePackage: function(id) {
-            return $http.delete(API_BASE + '/packages/' + id);
+            return ApiService.delete(`${API_BASE}/packages/${id}`);
         }
     };
 });

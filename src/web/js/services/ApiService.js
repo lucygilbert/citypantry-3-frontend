@@ -20,6 +20,18 @@ angular.module('cp.services').service('ApiService', function($http, $cookies) {
             config = addAuthHeaders(config);
 
             return $http.post(url, data, config);
+        },
+
+        put: function(url, data, config) {
+            config = addAuthHeaders(config);
+
+            return $http.put(url, data, config);
+        },
+
+        'delete': function(url, config) {
+            config = addAuthHeaders(config);
+
+            return $http.delete(url, config);
         }
     };
 });

@@ -38,11 +38,11 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
                 field: 'activeAndApproved'
             },
             {
-                cellTemplate: '<div class="ui-grid-cell-contents">' +
-                    '<a href="/admin/package/{{row.entity[col.field]}}">Edit</a>' +
-                    ' / ' +
-                    '<a ng-click="grid.appScope.delete(row.entity[col.field])">Delete</a>' +
-                    '</div>',
+                cellTemplate: `<div class="ui-grid-cell-contents">
+                    <a href="/admin/package/{{row.entity[col.field]}}">Edit</a>
+                    /
+                    <a ng-click="grid.appScope.delete(row.entity[col.field])">Delete</a>
+                    </div>`,
                 displayName: 'Action',
                 field: 'id',
                 name: ' ',
@@ -56,11 +56,10 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
     };
 
     function loadPackages() {
-        PackagesFactory.getAllPackages().success(function(data) {
-            angular.forEach(data.packages, function(row) {
-                row.activeAndApproved = getVendorStatusTextFilter(row.active, row.approved);
-            });
-            vm.gridOptions.data = data.packages;
+        PackagesFactory.getAllPackages().success(response => {
+            angular.forEach(response.packages, row => row.activeAndApproved = getVendorStatusTextFilter(row.active, row.approved));
+
+            vm.gridOptions.data = response.packages;
         });
     }
 
@@ -71,7 +70,7 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
         if (confirmed) {
             PackagesFactory.deletePackage(id)
                 .then(loadPackages)
-                .catch((response) => NotificationService.notifyError(response.data.errorTranslation));
+                .catch(response => NotificationService.notifyError(response.data.errorTranslation));
         }
     };
 });

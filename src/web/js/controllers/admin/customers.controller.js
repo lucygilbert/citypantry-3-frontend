@@ -32,7 +32,9 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
                 ]
             },
             {
-                cellTemplate: '<div class="ui-grid-cell-contents"><a href="/admin/customer/{{row.entity[col.field]}}">Edit</a></div>',
+                cellTemplate: `<div class="ui-grid-cell-contents">
+                    <a href="/admin/customer/{{row.entity[col.field]}}">Edit</a>
+                    </div>`,
                 displayName: 'Action',
                 field: 'id',
                 name: ' ',
@@ -45,7 +47,7 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
         paginationPageSize: 25
     };
 
-    CustomersFactory.getAllCustomers().success(data => {
-        vm.gridOptions.data = data.customers;
+    CustomersFactory.getAllCustomers().success(response => {
+        vm.gridOptions.data = response.customers;
     });
 });
