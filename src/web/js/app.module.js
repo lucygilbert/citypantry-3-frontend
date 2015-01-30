@@ -1,5 +1,6 @@
 angular.module('cp', [
     'ngCookies',
+    'ngRoute',
     'ui.bootstrap',
     'ui.grid',
     'ui.grid.pagination',
@@ -12,3 +13,10 @@ angular.module('cp', [
 
 angular.module('cp').constant('API_BASE', window.location.protocol + '//api.' +
     window.location.host);
+
+angular.module('cp').config(function($locationProvider) {
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
+});
