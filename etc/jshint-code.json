@@ -12,6 +12,7 @@
     "sub": true,
     "maxstatements": 20,
     "freeze": true,
+    "esnext": true,
     "globals": {
         "window": false,
         "localStorage": false,

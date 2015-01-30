@@ -45,7 +45,7 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
         paginationPageSize: 25
     };
 
-    CustomersFactory.getAllCustomers().success(function(data) {
+    CustomersFactory.getAllCustomers().success(data => {
         vm.gridOptions.data = data.customers;
     });
 });

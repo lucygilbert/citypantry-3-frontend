@@ -74,7 +74,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
     };
 
     OrdersFactory.getAllOrders().success(function(data) {
-        angular.forEach(data.orders, function(row) {
+        angular.forEach(data.orders, row => {
             row.statusTextTranslation = getOrderStatusTextFilter(row.statusText);
         });
 

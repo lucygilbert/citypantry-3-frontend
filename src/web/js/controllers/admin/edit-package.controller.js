@@ -1,6 +1,6 @@
 angular.module('cp.controllers.admin').controller('AdminEditPackageController',
         function($scope, $routeParams, PackagesFactory, NotificationService) {
-    PackagesFactory.getPackage($routeParams.packageId).success(function(vendorPackage) {
+    PackagesFactory.getPackage($routeParams.packageId).success(vendorPackage => {
         $scope.vendorPackage = vendorPackage;
     });
 
@@ -10,9 +10,9 @@ angular.module('cp.controllers.admin').controller('AdminEditPackageController',
             shortDescription: $scope.vendorPackage.shortDescription,
             description: $scope.vendorPackage.description,
         };
-        PackagesFactory.updatePackage($routeParams.packageId, updatedPackage).success(function() {
+        PackagesFactory.updatePackage($routeParams.packageId, updatedPackage).success(() => {
             NotificationService.notifySuccess('The package has been edited.');
-        }).error(function() {
+        }).error(() => {
             NotificationService.notifyError('There was a problem editing the package.');
         });
     };

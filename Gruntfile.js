@@ -75,6 +75,25 @@ module.exports = function (grunt) {
 
         concat: {
             dist: {
+                files: {
+                    'web/dist/js/built-libs.js': [
+                        'src/web/js/lib/angular.min.js',
+                        'src/web/js/lib/angular-cookies.min.js',
+                        'src/web/js/lib/angular-route.min.js',
+                        'src/web/js/lib/ui-bootstrap-tpls-0.12.0.min.js',
+                        'src/web/js/lib/ui-grid-unstable.min.js',
+                    ],
+                    'web/dist/js/built-citypantry-es6.js': [
+                        'src/web/js/app.module.js',
+                        'src/web/js/config.js',
+                        'src/web/js/factories/**/*.js',
+                        'src/web/js/filters/**/*.js',
+                        'src/web/js/controllers/**/*.js',
+                        'src/web/js/services/**/*.js',
+                    ],
+                },
+            },
+            dist2: {
                 options: {
                     // Replace all 'use strict' statements in the code with a single one at the top
                     banner: "'use strict';\n",
@@ -85,20 +104,22 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'web/dist/js/built.js': [
-                        'src/web/js/lib/angular.min.js',
-                        'src/web/js/lib/angular-cookies.min.js',
-                        'src/web/js/lib/angular-route.min.js',
-                        'src/web/js/lib/ui-bootstrap-tpls-0.12.0.min.js',
-                        'src/web/js/lib/ui-grid-unstable.min.js',
-                        'src/web/js/app.module.js',
-                        'src/web/js/config.js',
-                        'src/web/js/factories/**/*.js',
-                        'src/web/js/filters/**/*.js',
-                        'src/web/js/controllers/**/*.js',
-                        'src/web/js/services/**/*.js',
-                    ],
-                },
+                        'web/dist/js/built-libs.js',
+                        'web/dist/js/built-citypantry-es5.js'
+                    ]
+                }
+            }
+        },
+
+        '6to5': {
+            options: {
+                sourceMap: true
             },
+            dist: {
+                files: {
+                    'web/dist/js/built-citypantry-es5.js': 'web/dist/js/built-citypantry-es6.js'
+                }
+            }
         },
 
         watch: {
@@ -114,7 +135,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: ['src/web/**/*.js'],
-                tasks: ['concat'],
+                tasks: ['js'],
                 options: {
                     debounceDelay: 100,
                 },
@@ -138,6 +159,15 @@ module.exports = function (grunt) {
         'imagemin:dist',
         'sass:dist',
         'csso:dist',
+        'js',
+    ]);
+
+    /**
+     * Task to build assets for distribution.
+     */
+    grunt.registerTask('js', [
         'concat:dist',
+        '6to5:dist',
+        'concat:dist2',
     ]);
 };
