@@ -1,0 +1,21 @@
+<h1>Package {{ vendorPackage.id }}</h1>
+
+<form ng-submit="save()" role="form">
+    <div class="form-group">
+        <label for="package_name">Name your catering package </label>
+        <input class="form-control input-lg" ng-model="vendorPackage.name" required />
+        <span class="help-block">e.g. “Burrito Feast”, “Summer Picnic”, “Classic Brisket Selection”, “Rocket Fuel Breakfast”</span>
+    </div>
+
+    <div class="form-group">
+        <label>Short package description </label>
+        <input class="form-control input-lg" maxlength="220" ng-model="vendorPackage.shortDescription" />
+    </div>
+
+    <div class="form-group">
+        <label>Package description </label>
+        <textarea class="form-control input-lg" ng-model="vendorPackage.description" required placeholder="Letting customers know how their food will be packaged, whether it’s individual, buffet or cook on site, is really helpful." rows="6"></textarea>
+    </div>
+
+    <input class="btn btn-primary btn-lg" type="submit" value="Save" />
+</form>

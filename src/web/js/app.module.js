@@ -8,7 +8,8 @@ angular.module('cp', [
     'cp.controllers.general',
     'cp.controllers.user',
     'cp.filters',
-    'cp.factories'
+    'cp.factories',
+    'cp.services'
 ]);
 
 angular.module('cp').constant('API_BASE', window.location.protocol + '//api.' +
