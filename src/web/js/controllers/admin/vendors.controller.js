@@ -52,7 +52,7 @@ angular.module('cp.controllers.admin').controller('AdminVendorsController',
                 row.activeAndApproved = getVendorStatusTextFilter(row.isActive, row.isApproved);
             });
             vm.gridOptions.data = response.vendors;
-        });
+        }).error(() => NotificationService.notifyError());
     }
 
     loadVendors();

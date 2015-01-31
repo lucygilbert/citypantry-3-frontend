@@ -2,6 +2,11 @@ angular.module('cp.controllers.admin', []);
 
 angular.module('cp').config(function($routeProvider) {
     $routeProvider.
+        when('/admin/vendors', {
+            controller: 'AdminVendorsController',
+            controllerAs: 'vendors',
+            templateUrl: '/dist/templates/admin/vendors.html'
+        }).
         when('/admin/vendor/:vendorId', {
             controller: 'AdminEditVendorController',
             templateUrl: '/dist/templates/admin/edit-vendor.html'
