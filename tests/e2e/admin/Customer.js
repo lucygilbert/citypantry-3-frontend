@@ -6,8 +6,8 @@ describe('Admin - customer page', function() {
             loginAsUser('alice@bunnies.test');
             browser.get('/admin/customers');
             element.all(by.css('#customers-table a[href^="/admin/customer/"]')).first().click();
-            browser.driver.wait(function() {
-                return browser.driver.getCurrentUrl().then(function(url) {
+            browser.wait(function() {
+                return browser.getCurrentUrl().then(function(url) {
                     return (/\/admin\/customer\/\d+$/.test(url));
                 });
             });
@@ -17,6 +17,6 @@ describe('Admin - customer page', function() {
 
     it('should show the "customer" page', function() {
         expect(browser.getCurrentUrl()).toMatch(/\/admin\/customer\/\d+$/);
-        expect(element(by.css('h1')).getText()).toMatch(/^Customer \d+$/);
+        expect(element(by.css('h1')).getText()).toMatch(/^Customer \d+/);
     });
 });
