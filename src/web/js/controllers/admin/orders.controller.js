@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminOrdersController',
-        function(OrdersFactory, uiGridConstants, getOrderStatusTextFilter) {
+        function(OrdersFactory, uiGridConstants, getOrderStatusTextFilter, NotificationService) {
     var vm = this;
 
     vm.gridOptions = {
@@ -79,5 +79,5 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         angular.forEach(response.orders, row => row.statusTextTranslation = getOrderStatusTextFilter(row.statusText));
 
         vm.gridOptions.data = response.orders;
-    });
+    }).error(() => NotificationService.notifyError());
 });

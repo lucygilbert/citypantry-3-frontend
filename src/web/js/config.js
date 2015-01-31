@@ -33,6 +33,16 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'AdminEditCustomerController',
             templateUrl: '/dist/templates/admin/customer.html'
         }).
+        when('/admin/orders', {
+            controller: 'AdminOrdersController',
+            controllerAs: 'orders',
+            templateUrl: '/dist/templates/admin/orders.html'
+        }).
+        when('/admin/order/:orderId', {
+            controller: 'AdminEditOrderController',
+            controllerAs: 'order',
+            templateUrl: '/dist/templates/admin/edit-order.html'
+        }).
         otherwise({
             // If there is no Angular route, this must be a Symfony route. Trigger a page refresh
             // so the page actually loads.
