@@ -1,1 +1,17 @@
 <h1>Order {{ order.id }}</h1>
+
+<h2>Edit Details</h2>
+
+<p>@todo</p>
+
+<h2>Messages</h2>
+
+<p ng-if="messages.length === 0">No messages</p>
+
+<div ng-if="messages.length > 1">
+    <div ng-repeat="message in messages">
+        <p><b>From {{ message.sender }} on {{ message.dateSent | date:'d MMM yyyy, H:mm' }}:</b>
+        <p>{{ message.message }}</p>
+        <hr />
+    </div>
+</div>

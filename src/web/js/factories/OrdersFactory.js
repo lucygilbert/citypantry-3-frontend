@@ -1,11 +1,16 @@
-angular.module('cp.factories').factory('OrdersFactory', function($http,
-        API_BASE) {
+angular.module('cp.factories').factory('OrdersFactory', function(API_BASE, ApiService) {
     return {
         getAllOrders: function() {
-            return $http.get(`${API_BASE}/orders`);
+            return ApiService.get(`${API_BASE}/orders`);
         },
         getOrder: function(id) {
-            return $http.get(`${API_BASE}/orders/${id}`);
+            return ApiService.get(`${API_BASE}/orders/${id}`);
+        },
+        getOrderMessages: function(id) {
+            return ApiService.get(`${API_BASE}/orders/${id}/messages`);
+        },
+        deleteOrder: function(id) {
+            return ApiService.delete(`${API_BASE}/order/${id}`);
         }
     };
 });
