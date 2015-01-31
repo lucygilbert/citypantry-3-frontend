@@ -146,7 +146,7 @@ class DefaultController extends BaseController
     {
         $api = $this->getApiClient();
 
-        $vendors = $api->request('GET', '/vendors')->json();
+        $vendors = $api->request('GET', '/vendors/all-active-and-approved')->json();
 
         // Vendors should be shown sorted by name.
         usort($vendors, function($a, $b) {
