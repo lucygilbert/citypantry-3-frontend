@@ -60,7 +60,7 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
             angular.forEach(response.packages, row => row.activeAndApproved = getVendorStatusTextFilter(row.active, row.approved));
 
             vm.gridOptions.data = response.packages;
-        });
+        }).error(() => NotificationService.notifyError());
     }
 
     loadPackages();

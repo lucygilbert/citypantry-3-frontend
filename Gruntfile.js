@@ -139,6 +139,13 @@ module.exports = function (grunt) {
                 options: {
                     debounceDelay: 100,
                 },
+            },
+            templates: {
+                files: ['src/web/templates/**/*.html'],
+                tasks: ['copy:dist'],
+                options: {
+                    debounceDelay: 100,
+                },
             }
         }
     });
