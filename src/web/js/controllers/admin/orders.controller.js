@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminOrdersController',
-        function(OrdersFactory, uiGridConstants, getOrderStatusTextFilter, NotificationService) {
+        function($scope, OrdersFactory, uiGridConstants, getOrderStatusTextFilter, NotificationService, $window) {
     var vm = this;
 
     vm.gridOptions = {
@@ -62,6 +62,8 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             {
                 cellTemplate: `<div class="ui-grid-cell-contents">
                     <a href="/admin/order/{{row.entity[col.field]}}">View</a>
+                    <br />
+                    <a ng-click="grid.appScope.delete(row.entity[col.field])">Delete</a>
                     </div>`,
                 displayName: 'Action',
                 field: 'id',
@@ -75,9 +77,23 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         paginationPageSize: 25
     };
 
-    OrdersFactory.getAllOrders().success(response => {
-        angular.forEach(response.orders, row => row.statusTextTranslation = getOrderStatusTextFilter(row.statusText));
+    function loadOrders() {
+        OrdersFactory.getAllOrders().success(response => {
+            angular.forEach(response.orders, row => row.statusTextTranslation = getOrderStatusTextFilter(row.statusText));
 
-        vm.gridOptions.data = response.orders;
-    }).error(() => NotificationService.notifyError());
+            vm.gridOptions.data = response.orders;
+        }).error(() => NotificationService.notifyError());
+    }
+
+    loadOrders();
+
+    $scope.delete = id => {
+        var confirmed = $window.confirm('Are you sure?');
+        if (!confirmed) {
+            return;
+        }
+        OrdersFactory.deleteOrder(id)
+            .then(loadOrders)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
 });
