@@ -2,6 +2,11 @@ angular.module('cp.controllers.admin', []);
 
 angular.module('cp').config(function($routeProvider) {
     $routeProvider.
+        when('/search', {
+            controller: 'SearchController',
+            controllerAs: 'search',
+            templateUrl: '/dist/templates/general/search.html'
+        }).
         when('/admin/vendors', {
             controller: 'AdminVendorsController',
             controllerAs: 'vendors',
