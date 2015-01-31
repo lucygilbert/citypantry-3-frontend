@@ -1,6 +1,6 @@
 angular.module('cp.controllers.admin', []);
 
-angular.module('cp.controllers.admin').config(function($routeProvider) {
+angular.module('cp').config(function($routeProvider) {
     $routeProvider.
         when('/admin/vendor/:vendorId', {
             controller: 'AdminEditVendorController',
@@ -13,5 +13,11 @@ angular.module('cp.controllers.admin').config(function($routeProvider) {
         when('/admin/users', {
             controller: 'AdminUsersController',
             templateUrl: '/dist/templates/admin/users.html'
+        }).
+        otherwise({
+            // If there is no Angular route, this must be a Symfony route. Trigger a page refresh
+            // so the page actually loads.
+            controller: ($window => $window.location.reload()),
+            template: 'Loadidng...'
         });
 });
