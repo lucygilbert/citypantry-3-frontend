@@ -30,5 +30,16 @@ describe('Search', function() {
         expectSearchResultCount(1);
         packageNameFilter.sendKeys('zzz');
         expectSearchResultCount(0);
+        packageNameFilter.clear();
+        expectSearchResultCount(4);
+    });
+
+    it('should change the URL when the search changes', function() {
+        packageNameFilter.sendKeys('curry');
+        expect(browser.getCurrentUrl()).toContain('?name=curry');
+        packageNameFilter.clear();
+        packageNameFilter.sendKeys('marsh');
+        expect(browser.getCurrentUrl()).toContain('?name=marsh');
+        packageNameFilter.clear();
     });
 });

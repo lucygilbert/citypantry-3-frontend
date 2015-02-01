@@ -1,31 +1,21 @@
 angular.module('cp.controllers.general').controller('SearchController',
-        function($scope, $rootScope, PackagesFactory, NotificationService, $routeParams) {
+        function($scope, $rootScope, PackagesFactory, NotificationService, $routeParams, $location) {
     $scope.search = {
-        name: $routeParams.name || $rootScope.bannerSearchName || '',
+        name: $routeParams.name,
         postcode: $routeParams.postcode,
     };
 
+    $scope.isSearching = true;
+
     $rootScope.$watch('bannerSearchName', function(name) {
-        if ($scope.search.name !== name) {
-            $scope.search.name = name;
-            search();
-        }
+        $location.search('name', name).replace();
     });
 
     if ($routeParams.name && !$rootScope.bannerSearchName) {
         $rootScope.bannerSearchName = $routeParams.name;
     }
 
-    let lastSearch;
-
     function search() {
-        if (lastSearch && angular.equals($scope.search, lastSearch)) {
-            return;
-        }
-
-        lastSearch = angular.copy($scope.search);
-        $scope.searching = true;
-
         PackagesFactory.searchPackages($scope.search.name, $scope.search.postcode)
             .success(response => {
                 if (response.exactVendorNameMatch) {
@@ -35,7 +25,7 @@ angular.module('cp.controllers.general').controller('SearchController',
                 $scope.packages = response.packages;
                 $scope.eventTypes = response.eventTypes;
                 $scope.cuisineTypes = response.cuisineTypes;
-                $scope.searching = false;
+                $scope.isSearching = false;
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     }
