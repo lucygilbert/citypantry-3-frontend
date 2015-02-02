@@ -25,6 +25,24 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/search")
+     * @Template()
+     */
+    public function searchAction()
+    {
+        $api = $this->getApiClient();
+
+        if (!$api->isLoggedIn()) {
+            return new RedirectResponse('/login');
+        }
+
+        return [
+            'isLoggedIn' => true,
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
+    }
+
+    /**
      * @Route("/faq")
      * @Template()
      */

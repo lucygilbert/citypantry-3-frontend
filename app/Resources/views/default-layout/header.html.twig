@@ -25,8 +25,9 @@
 
             <form class="banner-search" id="search" method="get" action="/search" role="search">
                 <div class="form-group">
-                    <label class="sr-only" for="q">Search</label>
-                    <input class="form-control" id="q" name="q" type="search" placeholder="Lunch, Mexican, etc." />
+                    <label class="sr-only" for="bannerSearchName">Search</label>
+                    <input class="form-control" name="name" id="bannerSearchName" type="search"
+                        placeholder="Lunch, Mexican, etc." ng-model="bannerSearchName" />
                 </div>
                 <button class="icon-search" type="submit"></button>
             </form>
