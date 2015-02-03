@@ -48,10 +48,14 @@ angular.module('cp').config(function($routeProvider) {
             controllerAs: 'order',
             templateUrl: '/dist/templates/admin/edit-order.html'
         }).
+        when('/admin/orders/courier', {
+            controller: 'AdminCourierOrdersController',
+            templateUrl: '/dist/templates/admin/courier-orders.html'
+        }).
         otherwise({
             // If there is no Angular route, this must be a Symfony route. Trigger a page refresh
             // so the page actually loads.
             controller: ($window => $window.location.reload()),
-            template: 'Loadidng...'
+            template: 'Loading...'
         });
 });
