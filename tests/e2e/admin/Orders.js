@@ -18,8 +18,8 @@ describe('Admin - orders page', function() {
         gridTestUtils.expectHeaderColumnCount('orders-table', 9);
     });
 
-    it('should have 2 rows', function() {
-        gridTestUtils.expectRowCount('orders-table', 2);
+    it('should have 3 rows', function() {
+        gridTestUtils.expectRowCount('orders-table', 3);
     });
 
     it('should have the column name "Order No"', function() {
@@ -64,8 +64,8 @@ describe('Admin - orders page', function() {
         gridTestUtils.expectCellValueMatch('orders-table', 0, 5, 'Carrots');
     });
 
-    it('should find 2 orders when filter is cancelled', function() {
+    it('should find 3 orders when filter is cancelled', function() {
         gridTestUtils.cancelFilterInColumn('orders-table', 5);
-        gridTestUtils.expectRowCount('orders-table', 2);
+        gridTestUtils.expectRowCount('orders-table', 3);
     });
 });

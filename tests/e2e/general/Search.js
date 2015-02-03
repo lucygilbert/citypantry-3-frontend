@@ -18,12 +18,12 @@ describe('Search', function() {
     }
 
     it('should show all packages if there are no search parameters', function() {
-        expectSearchResultCount(4);
+        expectSearchResultCount(5);
     });
 
     it('should be able to filter by package name', function() {
         packageNameFilter.sendKeys('c');
-        expectSearchResultCount(2);
+        expectSearchResultCount(3);
         packageNameFilter.sendKeys('aRrO');
         expectSearchResultCount(1);
         packageNameFilter.sendKeys('t');
@@ -31,7 +31,7 @@ describe('Search', function() {
         packageNameFilter.sendKeys('zzz');
         expectSearchResultCount(0);
         packageNameFilter.clear();
-        expectSearchResultCount(4);
+        expectSearchResultCount(5);
     });
 
     it('should change the URL when the search changes', function() {

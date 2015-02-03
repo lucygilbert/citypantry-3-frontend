@@ -18,7 +18,14 @@ describe('Index as a logged in user', function() {
         expect(links.get(2).getText()).toBe('Event quote');
         expect(links.count()).toBe(4);
 
+        var myAccountDropdown = element(by.css('#main-menu > ul > li.dropdown'));
         var dropdownLinks = element.all(by.css('#main-menu > ul > li.dropdown li'));
+
+        // The 'My Account' dropdown should open on click.
+        expect(dropdownLinks.get(0).isDisplayed()).toBe(false);
+        myAccountDropdown.click();
+        expect(dropdownLinks.get(0).isDisplayed()).toBe(true);
+
         expect(dropdownLinks.get(0).getText()).toBe('Orders');
         expect(dropdownLinks.get(1).getText()).toBe('Addresses');
         expect(dropdownLinks.get(2).getText()).toBe('Cards');
