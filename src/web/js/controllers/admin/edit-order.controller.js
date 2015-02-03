@@ -32,10 +32,10 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
     }
     
     function getHeadCountOptions(maxPeople, minPeople) {
-        var options = [];
         var i;
         var maxPeople = maxPeople || 1;
         var minPeople = minPeople || 1;
+        var options = [];
         
         for (i = minPeople; i <= maxPeople; i += 1) {
             options.push(i);
