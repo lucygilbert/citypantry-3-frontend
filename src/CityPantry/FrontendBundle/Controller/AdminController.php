@@ -213,4 +213,23 @@ class AdminController extends BaseController
             'user' => $user,
         ];
     }
+
+    /**
+     * @Route("/admin/orders/courier")
+     * @Template()
+     */
+    public function courierOrdersAction()
+    {
+        $api = $this->getApiClient();
+
+        $user = $api->getAuthenticatedUser()->json();
+        if (!$user || $user['user']['group']['name'] !== 'staff') {
+            throw $this->createNotFoundException();
+        }
+
+        return [
+            'isLoggedIn' => true,
+            'user' => $user,
+        ];
+    }
 }
