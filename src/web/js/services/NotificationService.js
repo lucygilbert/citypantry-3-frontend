@@ -1,12 +1,16 @@
-angular.module('cp.services').service('NotificationService', function($window) {
+angular.module('cp.services').service('NotificationService', function($rootScope) {
     return {
         notifySuccess: function(message) {
-            // @todo - improve this.
-            $window.alert(message);
+            $rootScope.$broadcast('notify', {
+                type: 'success',
+                message: message
+            });
         },
         notifyError: function(message = 'An unknown error occurred.') {
-            // @todo - improve this.
-            $window.alert(message);
+            $rootScope.$broadcast('notify', {
+                type: 'error',
+                message: message
+            });
         }
     };
 });

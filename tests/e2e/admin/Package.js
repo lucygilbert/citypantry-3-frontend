@@ -1,3 +1,5 @@
+var notificationModal = require('../NotificationModal.js');
+
 describe('Admin - package page', function() {
     var isFirst = true;
 
@@ -25,6 +27,11 @@ describe('Admin - package page', function() {
         expect(element(by.model('vendorPackage.description')).getAttribute('value')).toBe('Yum');
     });
 
-    // @todo - once we have an HTML-based NotificationService, extend these tests to click save
-    // and assert that a success message is shown.
+    it('should be able to save changes', function() {
+        element(by.model('vendorPackage.name')).sendKeys(' (orange)');
+        element(by.css('main form .btn.btn-primary')).click();
+        notificationModal.expectIsOpen();
+        notificationModal.expectSuccessHeader();
+        notificationModal.expectMessage('The package has been edited.');
+    });
 });
