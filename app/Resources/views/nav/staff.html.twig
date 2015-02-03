@@ -1,4 +1,4 @@
-<li class="dropdown">
+<li class="dropdown" ng-click="showMyAccountDropdown = !showMyAccountDropdown" ng-class="{open: showMyAccountDropdown}">
     <a id="dLabel" href="#" role="button" data-toggle="dropdown">My account <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
         <li role="presentation"><a tabindex="-1" href="/customer/account" role="menuitem">My details</a></li>
@@ -11,7 +11,7 @@
 <li><a href="/admin/vendors">Vendors</a></li>
 <li><a href="/admin/customers">Customers</a></li>
 <li><a href="/admin/users">Users</a></li>
-<li class="dropdown">
+<li class="dropdown" ng-click="showMoreDropdown = !showMoreDropdown" ng-class="{open: showMoreDropdown}">
     <a id="more" href="#" role="button" data-toggle="dropdown">More <span class="caret"></span></a>
     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="more">
         <li role="presentation"><a tabindex="-1" href="/admin/vendor/custom_menu" role="menuitem">Create custom menu</a></li>
