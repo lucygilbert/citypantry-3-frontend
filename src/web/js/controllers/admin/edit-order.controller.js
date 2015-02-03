@@ -32,28 +32,28 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
     }
     
     function getHeadCountOptions(maxPeople, minPeople) {
-        var headCountOptions = [];
+        var options = [];
         var i;
         var maxPeople = maxPeople || 1;
         var minPeople = minPeople || 1;
         
         for (i = minPeople; i <= maxPeople; i += 1) {
-            headCountOptions.push(i);
+            options.push(i);
         }
         
-        return headCountOptions;
+        return options;
     }
     
     function getVegetarianHeadCountOptions(headCount) {
         var headCount = headCount || 1;
         var i;
-        var vegetarianHeadCountOptions = [];
+        var options = [];
         
         for (i = 1; i <= headCount; i += 1) {
-            vegetarianHeadCountOptions.push(i);
+            options.push(i);
         }
         
-        return vegetarianHeadCountOptions;
+        return options;
     }
     
     function setHeadCountSelect(headCount, options) {
