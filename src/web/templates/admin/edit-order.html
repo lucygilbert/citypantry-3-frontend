@@ -2,7 +2,29 @@
 
 <h2>Edit Details</h2>
 
-<p>@todo</p>
+<form role="form" ng-submit="save()">
+    <div class="form-group" ng-if="order.pickupDate">
+        <label for="pickup_date">Pickup date and time</label>
+        <input class="form-control input-lg" id="pickup_date" type="text" required aria-required="true" ng-model="order.pickupDate" convert-date>
+    </div>
+    
+    <div class="form-group">
+        <label for="delivery_date">Delivery date and time</label>
+        <input class="form-control input-lg" id="delivery_date" type="text" required aria-required="true" ng-model="order.date" convert-date>
+    </div>
+    
+    <div class="form-group">
+        <label for="head_count">Number of people</label>
+        <select class="form-control input-lg" id="head_count" required aria-required="true" ng-model="headCount" ng-options="option as option for option in headCountOptions"></select>
+    </div>
+    
+    <div class="form-group">
+        <label for="vegetarian_head_count">How many people are vegetarian?</label>
+        <select class="form-control input-lg" id="vegetarian_head_count" required aria-required="true" ng-model="vegetarianHeadCount" ng-options="option as option for option in vegetarianHeadCountOptions"></select>
+    </div>
+    
+    <input class="btn btn-primary btn-lg" type="submit" value="Save">
+</form>
 
 <h2>Messages</h2>
 
@@ -10,7 +32,7 @@
 
 <div ng-if="messages.length > 1">
     <div ng-repeat="message in messages">
-        <p><b>From {{ message.sender }} on {{ message.dateSent | date:'d MMM yyyy, H:mm' }}:</b>
+        <p><b>From {{ message.sender }} on <time datetime="{{ message.dateSent | date:'yyyy-MM-dd HH:mm' }}">{{ message.dateSent | date:'d MMM yyyy, H:mm' }}</time>:</b></p>
         <p>{{ message.message }}</p>
         <hr />
     </div>
