@@ -31,7 +31,6 @@ angular.module('cp').config(function($routeProvider) {
         }).
         when('/admin/customers', {
             controller: 'AdminCustomersController',
-            controllerAs: 'customers',
             templateUrl: '/dist/templates/admin/customers.html'
         }).
         when('/admin/customer/:customerId', {

@@ -8,6 +8,9 @@ angular.module('cp.factories').factory('CustomersFactory', function($http,
         },
         getCustomer: function(id) {
             return $http.get(`${API_BASE}/customers/${id}`);
+        },
+        updateCustomer: function(id, updatedCustomer) {
+            return ApiService.put(`${API_BASE}/customers/${id}`, updatedCustomer);
         }
     };
 });
