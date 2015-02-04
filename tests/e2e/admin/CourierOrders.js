@@ -20,7 +20,7 @@ describe('Admin - courier orders page', function() {
 
     it('should have 9 columns', function() {
         gridTestUtils.expectHeaderColumnCount('courier-orders-table', 9);
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 0, 'Order ID');
+        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 0, 'Order No.');
         gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 1, 'Delivery Date');
         gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 2, 'Pickup Time');
         gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 3, 'Food Left Kitchen');
