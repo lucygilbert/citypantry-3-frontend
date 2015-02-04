@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminCustomersController',
-        function($scope, CustomersFactory, uiGridConstants, getPayOnAccountStatusTextFilter) {
+        function($scope, CustomersFactory, uiGridConstants, getPayOnAccountStatusTextFilter, NotificationService) {
     $scope.gridOptions = {
         columnDefs: [
             {
@@ -15,8 +15,8 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
                 field: 'user.email'
             },
             {
-                displayName: 'Pay on Account',
-                field: 'payOnAccount.statusText'
+                displayName: 'Paid on Account',
+                field: 'isPaidOnAccountTexts.statusText'
             },
             {
                 cellFilter: 'date:\'dd/MM/yyyy\'',
@@ -37,7 +37,7 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
                 cellTemplate: `<div class="ui-grid-cell-contents">
                     <a href="/admin/customer/{{row.entity[col.field]}}">Edit</a>
                     <br />
-                    <a class="pay-on-account" ng-click="grid.appScope.togglePayOnAccount(row.entity.id, row.entity.isPayOnAccount)">{{row.entity.payOnAccount.actionText}} pay on account</a>
+                    <a class="pay-on-account" ng-click="grid.appScope.togglePayOnAccount(row.entity.id, row.entity.isPaidOnAccount)">{{row.entity.isPaidOnAccountTexts.actionText}} pay on account</a>
                     </div>`,
                 displayName: 'Action',
                 field: 'id',
@@ -50,21 +50,21 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
         paginationPageSizes: [25, 50, 75],
         paginationPageSize: 25
     };
-    
+
     function loadCustomers() {
         CustomersFactory.getAllCustomers().success(response => {
             angular.forEach(response.customers, row => {
-                row.payOnAccount = getPayOnAccountStatusTextFilter(row.isPayOnAccount);
+                row.isPaidOnAccountTexts = getPayOnAccountStatusTextFilter(row.isPaidOnAccount);
             });
             $scope.gridOptions.data = response.customers;
         }).error(() => NotificationService.notifyError());
     }
-    
+
     loadCustomers();
-    
-    $scope.togglePayOnAccount = function(id, isPayOnAccount) {
-        var updatedCustomer = {
-            isPayOnAccount: !isPayOnAccount
+
+    $scope.togglePayOnAccount = function(id, isPaidOnAccount) {
+        const updatedCustomer = {
+            isPaidOnAccount: !isPaidOnAccount
         };
         CustomersFactory.updateCustomer(id, updatedCustomer)
             .then(() => {
