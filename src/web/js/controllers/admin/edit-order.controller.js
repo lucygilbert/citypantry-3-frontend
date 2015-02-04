@@ -13,7 +13,7 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
             $scope.headCountOptions = getHeadCountOptions($scope.order.package.maxPeople, $scope.order.package.minPeople);
             $scope.headCount = $scope.order.headCount;
             $scope.vegetarianHeadCountOptions = getVegetarianHeadCountOptions($scope.order.headCount);
-            $scope.vegetarianHeadCount = getVegetarianHeadCountValue($scope.order.vegetarianHeadCount, $scope.vegetarianHeadCountOptions);
+            $scope.vegetarianHeadCount = getVegetarianHeadCountValue($scope.order.vegetarianHeadCount);
         })
         .error(response => NotificationService.notifyError(response.data.errorTranslation));
 
@@ -23,7 +23,7 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
 
     $scope.$watch('headCount', function(updatedHeadCount) {
         $scope.vegetarianHeadCountOptions = getVegetarianHeadCountOptions(updatedHeadCount);
-        $scope.vegetarianHeadCount = getVegetarianHeadCountValue($scope.vegetarianHeadCount, $scope.vegetarianHeadCountOptions);
+        $scope.vegetarianHeadCount = getVegetarianHeadCountValue($scope.vegetarianHeadCount);
     });
 
     function getHeadCountOptions(maxPeople = 1, minPeople = 1) {
