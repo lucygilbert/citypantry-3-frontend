@@ -9,5 +9,9 @@ module.exports = {
 
     expectMessage: function(message) {
         expect(element(by.css('[ng-controller="NotificationModalController"] .modal-body')).getText()).toBe(message);
+    },
+
+    dismiss: function() {
+        element(by.css('[ng-controller="NotificationModalController"] .modal-footer button')).click();
     }
 };
