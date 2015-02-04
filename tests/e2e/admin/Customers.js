@@ -14,32 +14,18 @@ describe('Admin - customers page', function() {
         expect(element(by.css('h1')).getText()).toBe('Customers');
     });
 
-    it('should have 5 columns', function() {
-        gridTestUtils.expectHeaderColumnCount('customers-table', 5);
+    it('should have 6 columns', function() {
+        gridTestUtils.expectHeaderColumnCount('customers-table', 6);
+        gridTestUtils.expectHeaderCellValueMatch('customers-table', 0, 'ID');
+        gridTestUtils.expectHeaderCellValueMatch('customers-table', 1, 'Name');
+        gridTestUtils.expectHeaderCellValueMatch('customers-table', 2, 'Email');
+        gridTestUtils.expectHeaderCellValueMatch('customers-table', 3, 'Pay on Account');
+        gridTestUtils.expectHeaderCellValueMatch('customers-table', 4, 'Customer Since');
+        gridTestUtils.expectHeaderCellValueMatch('customers-table', 5, 'Action');
     });
 
     it('should have 2 rows', function() {
         gridTestUtils.expectRowCount('customers-table', 2);
-    });
-
-    it('should have the column name "ID"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('customers-table', 0, 'ID');
-    });
-
-    it('should have the column name "Name"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('customers-table', 1, 'Name');
-    });
-
-    it('should have the column name "Email"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('customers-table', 2, 'Email');
-    });
-
-    it('should have the column name "Customer Since"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('customers-table', 3, 'Customer Since');
-    });
-
-    it('should have the column name "Action"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('customers-table', 4, 'Action');
     });
 
     it('should find 1 customer when filtered by "alice@bunnies.test"',
@@ -53,5 +39,13 @@ describe('Admin - customers page', function() {
     it('should find 2 customers when filter is cancelled', function() {
         gridTestUtils.cancelFilterInColumn('customers-table', 2);
         gridTestUtils.expectRowCount('customers-table', 2);
+    });
+    
+    it('should toggle the pay on account status', function() {
+        var payOnAccountLink = element.all(by.css('#customers-table a.pay-on-account')).first();
+        payOnAccountLink.click();
+        gridTestUtils.expectCellValueMatch('customers-table', 0, 3, 'Yes');
+        payOnAccountLink.click();
+        gridTestUtils.expectCellValueMatch('customers-table', 0, 3, 'No');
     });
 });
