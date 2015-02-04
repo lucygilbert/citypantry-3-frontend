@@ -97,6 +97,7 @@ module.exports = function (grunt) {
                         'src/web/js/filters/**/*.js',
                         'src/web/js/controllers/**/*.js',
                         'src/web/js/services/**/*.js',
+                        'src/web/js/directives/**/*.js',
                     ],
                 },
             },
