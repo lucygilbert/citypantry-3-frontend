@@ -79,5 +79,16 @@ describe('Admin - order page', function() {
         it('should show the pick-up date field', function() {
             expect(element(by.model('order.pickupDate')).isDisplayed()).toBe(true);
         });
+
+        it('should allow the pickup date to be changed', function() {
+            element(by.model('order.pickupDate')).clear().sendKeys('01/01/2016 12:10');
+        });
+
+        it('should be able to save changes', function() {
+            element(by.css('main form .btn.btn-primary')).click();
+            notificationModal.expectIsOpen();
+            notificationModal.expectSuccessHeader();
+            notificationModal.expectMessage('The order has been edited.');
+        });
     });
 });
