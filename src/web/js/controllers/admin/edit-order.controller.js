@@ -14,6 +14,18 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
             $scope.headCount = $scope.order.headCount;
             $scope.vegetarianHeadCountOptions = getVegetarianHeadCountOptions($scope.order.headCount);
             $scope.vegetarianHeadCount = getVegetarianHeadCountValue($scope.order.vegetarianHeadCount);
+            
+            if ($scope.order.pickupAddress !== null) {
+                var pickupAddress = [
+                    $scope.order.pickupAddress.addressLine1,
+                    $scope.order.pickupAddress.addressLine2,
+                    $scope.order.pickupAddress.addressLine3,
+                    $scope.order.pickupAddress.city,
+                    $scope.order.pickupAddress.county,
+                    $scope.order.pickupAddress.postcode
+                ];
+                $scope.order.pickupAddressString = pickupAddress.filter(element => element !== null).join(', ');
+            }
         })
         .error(response => NotificationService.notifyError(response.data.errorTranslation));
 
