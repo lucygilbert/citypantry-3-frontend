@@ -7,6 +7,14 @@ angular.module('cp').config(function($routeProvider) {
             controllerAs: 'search',
             templateUrl: '/dist/templates/general/search.html'
         }).
+        when('/vendors', {
+            controller: 'ViewVendorController',
+            templateUrl: '/dist/templates/general/view-vendor.html'
+        }).
+        when('/vendor/:idOrSlug', {
+            controller: 'ViewVendorController',
+            templateUrl: '/dist/templates/general/view-vendor.html'
+        }).
         when('/admin/vendors', {
             controller: 'AdminVendorsController',
             controllerAs: 'vendors',

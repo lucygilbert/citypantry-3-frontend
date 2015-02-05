@@ -16,6 +16,9 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
             const url = `${API_BASE}/packages/search?name=${name}&postcode=${postcode}`;
 
             return ApiService.get(url);
+        },
+        getPackagesByVendor: function(id) {
+            return ApiService.get(`${API_BASE}/packages/search/all?vendorId=${id}`);
         }
     };
 });

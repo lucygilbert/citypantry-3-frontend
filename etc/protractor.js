@@ -48,7 +48,7 @@ var helpers = require('./protractor-helpers.js');
         },
 
         allScriptsTimeout: 10000,
-        baseUrl: 'http://citypantry.dev/',
+        baseUrl: 'http://order.citypantry.dev/',
     };
 
     exports.config = config;
