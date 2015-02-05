@@ -35,6 +35,9 @@ describe('Admin - order page', function() {
 
         it('should load the order details', function() {
             expect(element(by.model('order.requestedDeliveryDate')).getAttribute('value')).toMatch(/^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/);
+            expect(element(by.model('order.customerUser.name')).getAttribute('value')).toBe('Customer');
+            expect(element(by.model('order.package.vendor.name')).getAttribute('value')).toBe('Hong Tin');
+            expect(element(by.model('order.package.name')).getAttribute('value')).toBe('Carrots');
             expect(element(by.model('headCount')).getAttribute('value')).toBe('4'); // Actually shows 5.
             expect(element(by.model('vegetarianHeadCount')).getAttribute('value')).toBe('0');
         });
