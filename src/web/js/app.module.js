@@ -12,8 +12,10 @@ angular.module('cp', [
     'cp.services'
 ]);
 
-angular.module('cp').constant('API_BASE', window.location.protocol + '//api.' +
-    window.location.host);
+const baseHost = window.location.host.replace('order.', '');
+angular.module('cp')
+    .constant('FRONTEND_BASE', window.location.protocol + '//order.' + baseHost)
+    .constant('API_BASE', window.location.protocol + '//api.' + baseHost);
 
 angular.module('cp').config(function($locationProvider) {
     $locationProvider.html5Mode({
