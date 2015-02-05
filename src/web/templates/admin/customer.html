@@ -1,3 +1,11 @@
 <h1>Customer {{ customer.id }}: {{ customer.user.name }}, {{ customer.company }}</h1>
 
-@todo - finish the "edit customer" page.
+<p>Is paid on account? {{ customer.isPaidOnAccount ? 'Yes' : 'No' }}</p>
+
+<p>Customer since: {{ customer.dateAdded | date:'dd/MM/yyyy' }}</p>
+
+<p>Email: {{ customer.email }}</p>
+
+<p>Phone number: {{ customer.phoneNumber }}</p>
+
+<p>User group: {{ customer.user.group.description }}</p>
