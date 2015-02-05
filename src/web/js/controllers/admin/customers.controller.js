@@ -35,7 +35,7 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
             },
             {
                 cellTemplate: `<div class="ui-grid-cell-contents">
-                    <a href="/admin/customer/{{row.entity[col.field]}}">Edit</a>
+                    <a href="/admin/customer/{{row.entity[col.field]}}">View</a>
                     <br />
                     <a class="pay-on-account" ng-click="grid.appScope.togglePayOnAccount(row.entity.id, row.entity.isPaidOnAccount)">{{row.entity.isPaidOnAccountTexts.actionText}} pay on account</a>
                     </div>`,
