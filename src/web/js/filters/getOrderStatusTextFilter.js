@@ -1,5 +1,3 @@
-angular.module('cp.filters', []);
-
 angular.module('cp.filters').filter('getOrderStatusText', function() {
     return function(status) {
         switch (status) {

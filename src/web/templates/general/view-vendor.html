@@ -1,0 +1,40 @@
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-4 sidebar">
+            <section class="island vendor">
+                <h3 class="h2 vendor-name">{{ vendor.name }}</h3>
+
+                <p class="vendor-type">{{ vendor.businessType.name }}</p>
+
+                <div ng-if="vendor.images.length > 0"
+                    class="vendor-image"
+                    style="background-image: url('{{ vendor.images[0].medium }}');"></div>
+
+                <div class="vendor-contact-details" ng-if="vendor.addresses.length > 0">
+                    <p>{{ vendor.addresses[0] | addressSingleLineFormatter }}</p>
+                </div>
+
+                <p ng-if="vendor.description">{{ vendor.description }}</p>
+
+                <a class="btn btn-primary btn-lg btn-block"
+                    ng-href="/quote/vendor/{{ vendor.id }}-{{ vendor.name | slugify }}">Hire for an event</a>
+            </section>
+        </div>
+
+        <div class="col-sm-8 vendor-packages">
+            <h1>Packages</h1>
+
+            <ul class="packages">
+                <li class="package" ng-repeat="package in packages">
+                    <a ng-href="/package/{{ package.id}}-{{ package.name | slugify }}">
+                        <div class="package-image" style="background-image: url('{{ package.images[0].medium }}');"></div>
+
+                        <h2 class="package-name">{{ package.name }}</h2>
+
+                        <span class="package-price">£{{ package.costIncludingVat }} <small>per head</small></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

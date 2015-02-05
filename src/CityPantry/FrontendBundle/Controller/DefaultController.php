@@ -179,6 +179,20 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/vendor/{idOrSlug}")
+     * @Template()
+     */
+    public function vendorAction()
+    {
+        $api = $this->getApiClient();
+
+        return [
+            'isLoggedIn' => $api->isLoggedIn(),
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
+    }
+
+    /**
      * @Route("/login")
      * @Template()
      */
