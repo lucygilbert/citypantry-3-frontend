@@ -1,5 +1,8 @@
 angular.module('cp.controllers.general').controller('SearchController',
-        function($scope, $rootScope, PackagesFactory, NotificationService, $routeParams, $location) {
+        function($scope, $rootScope, PackagesFactory, NotificationService, $routeParams, $location, DocumentTitleService, SecurityService) {
+    DocumentTitleService('Search catering packages');
+    SecurityService.requireLoggedIn();
+
     $scope.search = {
         name: $routeParams.name,
         postcode: $routeParams.postcode,

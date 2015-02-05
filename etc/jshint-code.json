@@ -7,7 +7,7 @@
     "bitwise": true,
     "eqeqeq": true,
     "latedef": true,
-    "newcap": true,
+    "newcap": false,
     "trailing": true,
     "sub": true,
     "maxstatements": 20,

@@ -15,7 +15,7 @@ describe('Register', function() {
         expect(browser.getCurrentUrl()).toMatch(/\/login$/);
 
         // Should show an error.
-        var error = element(by.css('div[ng-controller="RegisterController as register"] p.error'));
+        var error = element(by.css('.island-alt.signup p.error'));
         expect(error.getText()).toBe('A user already exists with that email address');
         expect(error.isDisplayed()).toBe(true);
     });
@@ -28,6 +28,6 @@ describe('Register', function() {
         element(by.css('form.register .btn.btn-primary')).click();
 
         // Should redirect to the index page.
-        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/$/);
+        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/search$/);
     });
 });

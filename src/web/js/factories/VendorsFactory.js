@@ -4,6 +4,9 @@ angular.module('cp.factories').factory('VendorsFactory', function(ApiService,
         getAllVendors: function() {
             return ApiService.get(`${API_BASE}/vendors`);
         },
+        getAllActiveAndApprovedVendors: function() {
+            return ApiService.get(`${API_BASE}/vendors/all-active-and-approved`);
+        },
         getVendor: function(idOrSlug) {
             return ApiService.get(`${API_BASE}/vendors/${idOrSlug}`);
         },

@@ -11,203 +11,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class DefaultController extends BaseController
 {
     /**
-     * @Route("/")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $api = $this->getApiClient();
-
-        return [
-            'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
-        ];
-    }
-
-    /**
-     * @Route("/search")
-     * @Template()
-     */
-    public function searchAction()
-    {
-        $api = $this->getApiClient();
-
-        if (!$api->isLoggedIn()) {
-            return new RedirectResponse('/login');
-        }
-
-        return [
-            'isLoggedIn' => true,
-            'user' => $api->getAuthenticatedUser()->json(),
-        ];
-    }
-
-    /**
-     * @Route("/faq")
-     * @Template()
-     */
-    public function faqAction()
-    {
-        $api = $this->getApiClient();
-
-        return [
-            'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
-        ];
-    }
-
-    /**
-     * @Route("/about")
-     * @Template()
-     */
-    public function aboutAction()
-    {
-        $api = $this->getApiClient();
-
-        return [
-            'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
-        ];
-    }
-
-    /**
-     * @Route("/contact")
-     * @Template()
-     */
-    public function contactAction()
-    {
-        $api = $this->getApiClient();
-
-        return [
-            'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
-        ];
-    }
-
-    /**
-     * @Route("/terms")
-     * @Template()
-     */
-    public function termsAction()
-    {
-        $api = $this->getApiClient();
-
-        return [
-            'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
-        ];
-    }
-
-    /**
-     * @Route("/privacy")
-     * @Template()
-     */
-    public function privacyAction()
-    {
-        $api = $this->getApiClient();
-
-        return [
-            'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
-        ];
-    }
-
-    /**
-     * @Route("/event-catering")
-     * @Template()
-     */
-    public function eventCateringAction()
-    {
-        $api = $this->getApiClient();
-
-        return [
-            'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
-        ];
-    }
-
-    /**
-     * @Route("/team-lunch")
-     * @Template()
-     */
-    public function teamLunchAction()
-    {
-        $api = $this->getApiClient();
-
-        return [
-            'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
-        ];
-    }
-
-    /**
-     * @Route("/office-managers")
-     * @Template()
-     */
-    public function officeManagersAction()
-    {
-        $api = $this->getApiClient();
-
-        return [
-            'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
-        ];
-    }
-
-    /**
-     * The 'Meet The Vendors' page.
-     *
-     * @Route("/vendors")
-     * @Template()
-     */
-    public function vendorsAction()
-    {
-        $api = $this->getApiClient();
-
-        $vendors = $api->request('GET', '/vendors/all-active-and-approved')->json();
-
-        // Vendors should be shown sorted by name.
-        usort($vendors, function($a, $b) {
-            return strcmp($a['name'], $b['name']);
-        });
-
-        return [
-            'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
-            'vendors' => $vendors,
-        ];
-    }
-
-    /**
-     * @Route("/vendor/{idOrSlug}")
-     * @Template()
-     */
-    public function vendorAction()
-    {
-        $api = $this->getApiClient();
-
-        return [
-            'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
-        ];
-    }
-
-    /**
-     * @Route("/login")
-     * @Template()
-     */
-    public function loginAction()
-    {
-        $api = $this->getApiClient();
-
-        if ($api->isLoggedIn()) {
-            return new RedirectResponse('/');
-        }
-
-        return [];
-    }
-
-    /**
      * @Route("/logout")
      * @Template()
      */
@@ -218,5 +21,21 @@ class DefaultController extends BaseController
         $response->headers->clearCookie('salt');
 
         return $response;
+    }
+
+    /**
+     * @Route("/{anything}",
+     *     requirements={"anything": ".*"}
+     * )
+     * @Template("angular.html.twig")
+     */
+    public function angularPagesAction()
+    {
+        $api = $this->getApiClient();
+
+        return [
+            'isLoggedIn' => $api->isLoggedIn(),
+            'user' => $api->getAuthenticatedUser()->json(),
+        ];
     }
 }

@@ -1,5 +1,8 @@
 angular.module('cp.controllers.admin').controller('AdminVendorsController',
-        function($scope, VendorsFactory, getVendorStatusTextFilter, $window, NotificationService) {
+        function($scope, VendorsFactory, getVendorStatusTextFilter, $window, NotificationService, DocumentTitleService, SecurityService) {
+    DocumentTitleService('Vendors');
+    SecurityService.requireStaff();
+
     var vm = this;
 
     vm.gridOptions = {

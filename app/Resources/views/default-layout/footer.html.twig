@@ -24,8 +24,8 @@
                 <div class="col-sm-3 col-sm-push-1">
                     <h3>Company</h3>
                     <ul>
-                        <li><a href="/about">About</a></li>
-                        <li><a href="/faq"><abbr>FAQ</abbr></a></li>
+                        <li><a href="{{ hubspotBase }}/about">About</a></li>
+                        <li><a href="{{ hubspotBase }}/faq"><abbr>FAQ</abbr></a></li>
                         <li><a href="/vendors">Meet the vendors</a></li>
 
                         <li class="dropdown">
@@ -51,19 +51,22 @@
                         </li>
 
                         <li><a href="/vendor/signup">Sell food with us</a></li>
-                        <li><a href="/contact">Contact</a></li>
-                        <li><a href="/privacy">Privacy</a></li>
-                        <li><a href="/terms">Terms</a></li>
+                        <li><a href="{{ hubspotBase }}/contact">Contact</a></li>
+                        <li><a href="{{ hubspotBase }}/privacy">Privacy</a></li>
+                        <li><a href="{{ hubspotBase }}/terms">Terms</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3 col-sm-push-1">
                     <h3>Services</h3>
+
                     <ul>
-                        <li><a href="/event-catering">Event catering</a></li>
-                        <li><a href="/team-lunch">Team lunch</a></li>
-                        <li><a href="/office-managers">For office managers</a></li>
+                        <li><a href="{{ hubspotBase }}/event-catering">Event catering</a></li>
+                        <li><a href="{{ hubspotBase }}/team-lunch">Team lunch</a></li>
+                        <li><a href="{{ hubspotBase }}/office-managers">For office managers</a></li>
                     </ul>
+
                     <h3>Connect</h3>
+
                     <ul>
                         <li><a href="{{ blogUrl }}" target="_blank">Blog</a></li>
                         <li class="facebook"><a href="https://www.facebook.com/citypantry" target="_blank" rel="me">Facebook</a></li>
@@ -73,6 +76,7 @@
                 </div>
             </div>
         </section>
+
         <p class="content-info-copyright">Copyright &#169; {{ "now"|date("Y") }} City Pantry</p>
     </div>
 </footer>

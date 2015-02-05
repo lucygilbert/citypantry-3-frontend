@@ -1,5 +1,8 @@
 angular.module('cp.controllers.admin').controller('AdminOrdersController',
-        function($scope, OrdersFactory, uiGridConstants, getOrderStatusTextFilter, NotificationService, $window) {
+        function($scope, OrdersFactory, uiGridConstants, getOrderStatusTextFilter, NotificationService, $window, DocumentTitleService, SecurityService) {
+    DocumentTitleService('Orders');
+    SecurityService.requireStaff();
+
     var vm = this;
 
     vm.gridOptions = {

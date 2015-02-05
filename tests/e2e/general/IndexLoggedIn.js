@@ -6,7 +6,7 @@ describe('Index as a logged in user', function() {
         expect(links.get(0).getText()).toContain('My account');
         expect(links.get(1).getText()).toBe('Orders');
         expect(links.get(2).getText()).toBe('Courier');
-        expect(links.count()).toBe(8);
+        expect(links.count()).toBe(7);
     });
 
     it('should show customer users the customer navigation', function() {

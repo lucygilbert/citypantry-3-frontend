@@ -1,5 +1,8 @@
 angular.module('cp.controllers.admin').controller('AdminCustomersController',
-        function($scope, CustomersFactory, uiGridConstants, getPayOnAccountStatusTextFilter, NotificationService) {
+        function($scope, CustomersFactory, uiGridConstants, getPayOnAccountStatusTextFilter, NotificationService, DocumentTitleService, SecurityService) {
+    DocumentTitleService('Customers');
+    SecurityService.requireStaff();
+
     $scope.gridOptions = {
         columnDefs: [
             {
