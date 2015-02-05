@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminEditOrderController',
-        function($scope, $routeParams, OrdersFactory, NotificationService) {
+        function($scope, $routeParams, OrdersFactory, NotificationService, addressSingleLineFormatterFilter) {
     $scope.headCountOptions = [];
     $scope.headCount = undefined;
     $scope.messages = [];
@@ -14,6 +14,10 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
             $scope.headCount = $scope.order.headCount;
             $scope.vegetarianHeadCountOptions = getVegetarianHeadCountOptions($scope.order.headCount);
             $scope.vegetarianHeadCount = getVegetarianHeadCountValue($scope.order.vegetarianHeadCount);
+            
+            if ($scope.order.pickupAddress !== null) {
+                $scope.order.pickupAddressString = addressSingleLineFormatterFilter($scope.order.pickupAddress);
+            }
         })
         .error(response => NotificationService.notifyError(response.data.errorTranslation));
 

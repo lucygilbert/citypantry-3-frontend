@@ -1,0 +1,14 @@
+.admin-form label {
+    color: #222;
+    font-weight: 700;
+}
+
+.form-control[readonly] {
+    background-color: transparent;
+    border: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    cursor: auto;
+    height: auto;
+    padding: 0;
+}
