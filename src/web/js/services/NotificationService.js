@@ -1,4 +1,4 @@
-angular.module('cp.services').service('NotificationService', function($rootScope) {
+angular.module('cp.services').service('NotificationService', function($rootScope, LoadingService) {
     return {
         notifySuccess: function(message) {
             $rootScope.$broadcast('notify', {
@@ -11,6 +11,7 @@ angular.module('cp.services').service('NotificationService', function($rootScope
                 type: 'error',
                 message: message
             });
+            LoadingService.hide();
         }
     };
 });

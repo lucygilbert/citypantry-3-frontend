@@ -2,7 +2,7 @@ angular.module('cp.services').service('DocumentTitleService', function($document
     return newTitle => {
         newTitle = newTitle + ' | City Pantry';
 
-        $document.title = newTitle;
-        $document.querySelector('head > title').textContent = newTitle;
+        $document[0].title = newTitle;
+        $document[0].querySelector('head > title').textContent = newTitle;
     };
 });

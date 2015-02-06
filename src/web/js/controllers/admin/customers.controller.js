@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminCustomersController',
-        function($scope, CustomersFactory, uiGridConstants, getPayOnAccountStatusTextFilter, NotificationService, DocumentTitleService, SecurityService) {
+        function($scope, CustomersFactory, uiGridConstants, getPayOnAccountStatusTextFilter, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Customers');
     SecurityService.requireStaff();
 
@@ -60,12 +60,15 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
                 row.isPaidOnAccountTexts = getPayOnAccountStatusTextFilter(row.isPaidOnAccount);
             });
             $scope.gridOptions.data = response.customers;
+            LoadingService.hide();
         }).error(() => NotificationService.notifyError());
     }
 
     loadCustomers();
 
     $scope.togglePayOnAccount = function(id, isPaidOnAccount) {
+        LoadingService.show();
+
         const updatedCustomer = {
             isPaidOnAccount: !isPaidOnAccount
         };
@@ -73,6 +76,7 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
             .then(() => {
                 loadCustomers();
                 NotificationService.notifySuccess('The customer has been edited.');
+                LoadingService.hide();
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };

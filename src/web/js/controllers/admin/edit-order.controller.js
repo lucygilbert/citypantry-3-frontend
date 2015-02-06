@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminEditOrderController',
-        function($scope, $routeParams, OrdersFactory, NotificationService, addressSingleLineFormatterFilter, DocumentTitleService, SecurityService) {
+        function($scope, $routeParams, OrdersFactory, NotificationService, addressSingleLineFormatterFilter, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Edit Order');
     SecurityService.requireStaff();
 
@@ -21,6 +21,8 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
             if ($scope.order.pickupAddress !== null) {
                 $scope.order.pickupAddressString = addressSingleLineFormatterFilter($scope.order.pickupAddress);
             }
+
+            LoadingService.hide();
         })
         .error(response => NotificationService.notifyError(response.data.errorTranslation));
 
@@ -68,14 +70,20 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
     }
 
     $scope.save = function() {
+        LoadingService.show();
+
         const updatedOrder = {
             requestedDeliveryDate: $scope.order.requestedDeliveryDate,
             pickupDate: $scope.order.pickupDate,
             headCount: $scope.headCount,
             vegetarianHeadCount: $scope.vegetarianHeadCount
         };
+
         OrdersFactory.updateOrder($routeParams.orderId, updatedOrder)
-            .success(() => NotificationService.notifySuccess('The order has been edited.'))
+            .success(() => {
+                NotificationService.notifySuccess('The order has been edited.');
+                LoadingService.hide();
+            })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 });

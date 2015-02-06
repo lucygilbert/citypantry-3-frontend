@@ -24,6 +24,14 @@ angular.module('cp').config(function($locationProvider) {
         requireBase: false
     });
 })
-.run(function($rootScope, HUBSPOT_BASE) {
+.run(function($rootScope, HUBSPOT_BASE, LoadingService) {
     $rootScope.hubspotBase = HUBSPOT_BASE;
+
+    $rootScope.$on('$routeChangeStart', function() {
+        LoadingService.show();
+    });
+
+    $rootScope.$on('$routeChangeError', function () {
+        LoadingService.hide();
+    });
 });

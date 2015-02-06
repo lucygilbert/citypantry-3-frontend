@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminCourierOrdersController',
-        function($scope, OrdersFactory, DocumentTitleService, SecurityService) {
+        function($scope, OrdersFactory, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Courier Orders');
     SecurityService.requireStaff();
 
@@ -82,5 +82,6 @@ angular.module('cp.controllers.admin').controller('AdminCourierOrdersController'
     OrdersFactory.getCourierOrders().success(response => {
         response.orders.map(order => order.statusText = getOrderStatusText(order));
         $scope.gridOptions.data = response.orders;
+        LoadingService.hide();
     });
 });
