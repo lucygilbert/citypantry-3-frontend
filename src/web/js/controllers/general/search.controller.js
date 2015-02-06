@@ -10,9 +10,15 @@ angular.module('cp.controllers.general').controller('SearchController',
 
     $scope.isSearching = true;
 
+    let isOnSearchPage = true;
+
     $rootScope.$watch('bannerSearchName', function(name) {
-        $location.search('name', name).replace();
+        if (isOnSearchPage) {
+            $location.search('name', name).replace();
+        }
     });
+
+    $scope.$on('$destroy', () => isOnSearchPage = false);
 
     if ($routeParams.name && !$rootScope.bannerSearchName) {
         $rootScope.bannerSearchName = $routeParams.name;
@@ -22,7 +28,7 @@ angular.module('cp.controllers.general').controller('SearchController',
         PackagesFactory.searchPackages($scope.search.name, $scope.search.postcode)
             .success(response => {
                 if (response.exactVendorNameMatch) {
-                    // @todo - redirect to the vendor page.
+                    $location.path(`/vendor/${response.vendor.id}-${response.vendor.slug}`);
                 }
 
                 $scope.packages = response.packages;
