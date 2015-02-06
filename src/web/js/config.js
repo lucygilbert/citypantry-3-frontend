@@ -2,14 +2,21 @@ angular.module('cp.controllers.admin', []);
 
 angular.module('cp').config(function($routeProvider) {
     $routeProvider.
+        when('/', {
+            redirectTo: '/search'
+        }).
+        when('/login', {
+            controller: 'LoginRegisterController',
+            templateUrl: '/dist/templates/auth/login-register.html'
+        }).
         when('/search', {
             controller: 'SearchController',
             controllerAs: 'search',
             templateUrl: '/dist/templates/general/search.html'
         }).
         when('/vendors', {
-            controller: 'ViewVendorController',
-            templateUrl: '/dist/templates/general/view-vendor.html'
+            controller: 'VendorsController',
+            templateUrl: '/dist/templates/general/vendors.html'
         }).
         when('/vendor/:idOrSlug', {
             controller: 'ViewVendorController',
@@ -59,10 +66,11 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'AdminCourierOrdersController',
             templateUrl: '/dist/templates/admin/courier-orders.html'
         }).
+        when('/logout', {
+            controller: () => window.location = '/logout',
+            template: 'Logging out...'
+        }).
         otherwise({
-            // If there is no Angular route, this must be a Symfony route. Trigger a page refresh
-            // so the page actually loads.
-            controller: ($window => $window.location.reload()),
-            template: 'Loading...'
+            template: '<h1 class="wrapper">Page not found</h1>'
         });
 });

@@ -4,7 +4,7 @@ module.exports = {
 
         browser.driver.wait(function() {
             return browser.driver.getCurrentUrl().then(function(url) {
-                return (/\/$/.test(url));
+                return (/\/login$/.test(url));
             });
         });
     },
@@ -22,9 +22,9 @@ module.exports = {
 
         element(by.css('form.login .btn.btn-primary')).click();
 
-        browser.driver.wait(function() {
-            return browser.driver.getCurrentUrl().then(function(url) {
-                return (/\/$/.test(url));
+        browser.wait(function() {
+            return browser.getCurrentUrl().then(function(url) {
+                return (/\.dev\/search$/.test(url));
             });
         });
     },

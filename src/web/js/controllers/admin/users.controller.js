@@ -1,5 +1,8 @@
 angular.module('cp.controllers.admin').controller('AdminUsersController',
-        ($scope, $cookies, $window, UsersFactory, NotificationService) => {
+        ($scope, $cookies, $window, UsersFactory, NotificationService, DocumentTitleService, SecurityService) => {
+    DocumentTitleService('Users');
+    SecurityService.requireStaff();
+
     $scope.gridOptions = {
         columnDefs: [
             {

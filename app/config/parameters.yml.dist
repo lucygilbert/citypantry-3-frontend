@@ -8,6 +8,7 @@ parameters:
     templates.phone_number_international: +4420 3397 8376
     templates.blog_url: https://citypantry.com/blog
     templates.twitter_handle: citypantry
+    templates.hubspot_base: https://citypantry.com
 
     # A key that works for any domain is: AIzaSyDcbvisbl9Wx6CA4qKe7Ld-mVWVKOiRZ_U
     # A key that works for prod is: AIzaSyD1LSq6a2KDw3-pVN20CdqUpNEZ37wADDg

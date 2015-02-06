@@ -1,0 +1,92 @@
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-5 col-sm-push-1">
+            <div class="island login">
+                <h2>Log in with a City Pantry account</h2>
+
+                <p class="error" ng-show="loginError" ng-bind="loginError"></p>
+
+                <form ng-submit="login()" class="login">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="login_email">Email</label>
+                            <input class="form-control input-lg" id="login_email" name="login_email" type="email" required aria-required="true" ng-model="email" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login_password">Password</label>
+                            <input class="form-control input-lg" id="login_password" name="login_password" type="password" required aria-required="true" ng-model="plainPassword" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-inline">
+                                <input name="login_remember" type="checkbox" checked value="true" ng-model="rememberMe" /> Remember me
+                            </label>
+                        </div>
+
+                        <input class="btn btn-primary btn-lg" name="login" type="submit" value="Log in" />
+
+                        <a class="btn btn-link btn-lg" href="#forgotten-password-modal" data-toggle="modal">Forgot Password?</a>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-sm-5 col-sm-push-1">
+            <div class="island-alt signup">
+                <h2>New to City Pantry? Sign up!</h2>
+
+                <p class="error" ng-show="registerError" ng-bind="registerError"></p>
+
+                <form ng-submit="register()" class="register">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="signup_name">Name</label>
+                            <input class="form-control input-lg" id="signup_name" name="signup_name" type="text" required aria-required="true" ng-model="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup_email">Email</label>
+                            <input class="form-control input-lg" id="signup_email" name="signup_email" type="email" required aria-required="true" ng-model="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signup_password">Password</label>
+                            <input class="form-control input-lg" id="signup_password" name="signup_password" type="password" required aria-required="true" ng-model="plainPassword">
+                        </div>
+
+                        <input class="btn btn-primary btn-lg" name="signup" type="submit" value="Sign up">
+
+                        <p class="help-block">By clicking this button you agree to our <a ng-href="{{ hubspotBase }}/terms" target="_blank">Terms and Conditions</a> and <a ng-href="{{ hubspotBase }}/privacy" target="_blank">Privacy Policy</a>.</p>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade forgotten-password-modal" id="forgotten-password-modal">
+    <div class="modal-dialog">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h2 class="modal-title">Reset password</h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="email">Enter your email address and we&#8217;ll send you a link to reset your password.</label>
+                                <input class="form-control input-lg" id="email" name="email" type="email" required placeholder="Email" aria-required="true" />
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input class="btn btn-primary btn-lg" name="submit_forgotten_password" type="submit" value="Send reset link">
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>

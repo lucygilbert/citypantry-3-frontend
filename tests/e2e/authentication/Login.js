@@ -7,7 +7,7 @@ describe('Login', function() {
     function expectSamePageWithErrorShowing() {
         expect(browser.getCurrentUrl()).toMatch(/\/login$/);
 
-        var error = element(by.css('div[ng-controller="LoginController as login"] p.error'));
+        var error = element(by.css('.island.login p.error'));
         expect(error.getText()).toBe('Email/password is incorrect');
         expect(error.isDisplayed()).toBe(true);
     }
@@ -37,6 +37,6 @@ describe('Login', function() {
         element(by.css('form.login .btn.btn-primary')).click();
 
         // Should redirect to the index page.
-        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/$/);
+        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/search$/);
     });
 });

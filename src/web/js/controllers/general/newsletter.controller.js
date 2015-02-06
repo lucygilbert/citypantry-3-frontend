@@ -1,3 +1,5 @@
+angular.module('cp.controllers.general', []);
+
 angular.module('cp.controllers.general').controller('NewsletterController', function($http,
         API_BASE, $window) {
     function subscribe() {

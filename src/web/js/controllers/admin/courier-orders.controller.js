@@ -1,5 +1,8 @@
 angular.module('cp.controllers.admin').controller('AdminCourierOrdersController',
-        function($scope, OrdersFactory) {
+        function($scope, OrdersFactory, DocumentTitleService, SecurityService) {
+    DocumentTitleService('Courier Orders');
+    SecurityService.requireStaff();
+
     $scope.gridOptions = {
         columnDefs: [
             {
