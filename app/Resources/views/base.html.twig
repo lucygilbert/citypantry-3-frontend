@@ -18,8 +18,9 @@
             }
             _kms('//i.kissmetrics.com/i.js');
             _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
-            // @todo - if logged in...
-            // _kmq.push(['identify', <?php echo $this->flexi_auth->get_user_id(); ?>]);
+            {% if user %}
+                _kmq.push(['identify', {{ user.user.id }}]);
+            {% endif %}
         </script>
         {% endif %}
 
