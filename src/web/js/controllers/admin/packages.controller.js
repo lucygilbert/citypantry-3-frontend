@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminPackagesController',
-        function($scope, PackagesFactory, getVendorStatusTextFilter, $window, NotificationService, DocumentTitleService, SecurityService) {
+        function($scope, PackagesFactory, getVendorStatusTextFilter, $window, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Packages');
     SecurityService.requireStaff();
 
@@ -63,14 +63,17 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
             angular.forEach(response.packages, row => row.activeAndApproved = getVendorStatusTextFilter(row.active, row.approved));
 
             vm.gridOptions.data = response.packages;
+
+            LoadingService.hide();
         }).error(() => NotificationService.notifyError());
     }
 
     loadPackages();
 
     $scope.delete = function(id) {
-        var confirmed = $window.confirm('Are you sure?');
+        const confirmed = $window.confirm('Are you sure?');
         if (confirmed) {
+            LoadingService.show();
             PackagesFactory.deletePackage(id)
                 .then(loadPackages)
                 .catch(response => NotificationService.notifyError(response.data.errorTranslation));

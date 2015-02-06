@@ -1,5 +1,5 @@
 angular.module('cp.controllers.general').controller('SearchController',
-        function($scope, $rootScope, PackagesFactory, NotificationService, $routeParams, $location, DocumentTitleService, SecurityService) {
+        function($scope, $rootScope, PackagesFactory, NotificationService, $routeParams, $location, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Search catering packages');
     SecurityService.requireLoggedIn();
 
@@ -29,6 +29,8 @@ angular.module('cp.controllers.general').controller('SearchController',
                 $scope.eventTypes = response.eventTypes;
                 $scope.cuisineTypes = response.cuisineTypes;
                 $scope.isSearching = false;
+
+                LoadingService.hide();
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     }

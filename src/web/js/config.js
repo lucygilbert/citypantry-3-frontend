@@ -68,7 +68,7 @@ angular.module('cp').config(function($routeProvider) {
         }).
         when('/logout', {
             controller: () => window.location = '/logout',
-            template: 'Logging out...'
+            template: '<div class="wrapper">Logging out...</div>'
         }).
         otherwise({
             template: '<h1 class="wrapper">Page not found</h1>'

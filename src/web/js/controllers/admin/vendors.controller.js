@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminVendorsController',
-        function($scope, VendorsFactory, getVendorStatusTextFilter, $window, NotificationService, DocumentTitleService, SecurityService) {
+        function($scope, VendorsFactory, getVendorStatusTextFilter, $window, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Vendors');
     SecurityService.requireStaff();
 
@@ -55,14 +55,18 @@ angular.module('cp.controllers.admin').controller('AdminVendorsController',
                 row.activeAndApproved = getVendorStatusTextFilter(row.isActive, row.isApproved);
             });
             vm.gridOptions.data = response.vendors;
+
+            LoadingService.hide();
         }).error(() => NotificationService.notifyError());
     }
 
     loadVendors();
 
     $scope.delete = function(id) {
-        var confirmed = $window.confirm('Are you sure?');
+        const confirmed = $window.confirm('Are you sure?');
         if (confirmed) {
+            LoadingService.show();
+
             VendorsFactory.deleteVendor(id)
                 .then(loadVendors)
                 .catch(response => NotificationService.notifyError(response.data.errorTranslation));

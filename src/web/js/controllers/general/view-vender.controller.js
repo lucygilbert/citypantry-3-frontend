@@ -1,5 +1,5 @@
 angular.module('cp.controllers.general').controller('ViewVendorController',
-        function($scope, $routeParams, VendorsFactory, PackagesFactory, NotificationService, DocumentTitleService, SecurityService) {
+        function($scope, $routeParams, VendorsFactory, PackagesFactory, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
     SecurityService.requireLoggedIn();
 
     const vendorId = Number($routeParams.idOrSlug.split('-')[0]);
@@ -8,6 +8,7 @@ angular.module('cp.controllers.general').controller('ViewVendorController',
         .success(response => {
             $scope.vendor = response;
             DocumentTitleService(response.name);
+            LoadingService.hide();
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 

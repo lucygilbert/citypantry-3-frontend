@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminOrdersController',
-        function($scope, OrdersFactory, uiGridConstants, getOrderStatusTextFilter, NotificationService, $window, DocumentTitleService, SecurityService) {
+        function($scope, OrdersFactory, uiGridConstants, getOrderStatusTextFilter, NotificationService, $window, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Orders');
     SecurityService.requireStaff();
 
@@ -85,16 +85,21 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             angular.forEach(response.orders, row => row.statusTextTranslation = getOrderStatusTextFilter(row.statusText));
 
             vm.gridOptions.data = response.orders;
+
+            LoadingService.hide();
         }).error(() => NotificationService.notifyError());
     }
 
     loadOrders();
 
     $scope.delete = id => {
-        var confirmed = $window.confirm('Are you sure?');
+        const confirmed = $window.confirm('Are you sure?');
         if (!confirmed) {
             return;
         }
+
+        LoadingService.show();
+
         OrdersFactory.deleteOrder(id)
             .then(loadOrders)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));

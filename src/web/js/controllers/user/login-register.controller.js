@@ -1,11 +1,14 @@
 angular.module('cp.controllers.user', []);
 
 angular.module('cp.controllers.user').controller('LoginRegisterController',
-        function($scope, $http, $cookies, $window, DocumentTitleService, SecurityService, API_BASE) {
+        function($scope, $http, $cookies, $window, DocumentTitleService, SecurityService, API_BASE, LoadingService) {
     DocumentTitleService('Log in / Sign up to City Pantry');
     SecurityService.requireLoggedOut();
+    LoadingService.hide();
 
     $scope.login = function() {
+        LoadingService.show();
+
         $scope.loginError = null;
 
         var loginDetails = {
@@ -23,10 +26,13 @@ angular.module('cp.controllers.user').controller('LoginRegisterController',
             })
             .catch(function(response) {
                 $scope.loginError = response.data.errorTranslation;
+                LoadingService.hide();
             });
     };
 
     $scope.register = function() {
+        LoadingService.show();
+
         $scope.registerError = null;
 
         var registerDetails = {
@@ -45,6 +51,7 @@ angular.module('cp.controllers.user').controller('LoginRegisterController',
             })
             .catch(function(response) {
                 $scope.registerError = response.data.errorTranslation;
+                LoadingService.hide();
             });
     };
 });

@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminUsersController',
-        ($scope, $cookies, $window, UsersFactory, NotificationService, DocumentTitleService, SecurityService) => {
+        ($scope, $cookies, $window, UsersFactory, NotificationService, DocumentTitleService, SecurityService, LoadingService) => {
     DocumentTitleService('Users');
     SecurityService.requireStaff();
 
@@ -46,9 +46,12 @@ angular.module('cp.controllers.admin').controller('AdminUsersController',
 
     UsersFactory.getAllUsers().success(response => {
         $scope.gridOptions.data = response.users;
+        LoadingService.hide();
     });
 
     $scope.masquerade = function(id) {
+        LoadingService.show();
+
         UsersFactory.masqueradeAsUser(id)
             .success(response => {
                 $cookies.userId = response.apiAuth.userId;
