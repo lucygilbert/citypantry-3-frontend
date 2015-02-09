@@ -21,7 +21,12 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
             },
             {
                 displayName: 'Vendor',
-                field: 'vendor.name'
+                field: 'vendor.name',
+                cellTemplate: `
+                    <div class="ui-grid-cell-contents">
+                        <a href="/admin/vendor/{{row.entity.vendor.id}}">{{row.entity.vendor.name}}</a>
+                    </div>
+                `
             },
             {
                 cellFilter: 'currency:\'£\':2',
