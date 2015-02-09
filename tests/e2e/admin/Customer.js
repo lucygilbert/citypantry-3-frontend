@@ -8,7 +8,7 @@ describe('Admin - customer page', function() {
             element.all(by.css('#customers-table a[href^="/admin/customer/"]')).first().click();
             browser.wait(function() {
                 return browser.getCurrentUrl().then(function(url) {
-                    return (/\/admin\/customer\/\d+$/.test(url));
+                    return (/\/admin\/customer\/[\da-f]+$/.test(url));
                 });
             });
             isFirst = false;
@@ -16,8 +16,8 @@ describe('Admin - customer page', function() {
     });
 
     it('should show the "customer" page', function() {
-        expect(browser.getCurrentUrl()).toMatch(/\/admin\/customer\/\d+$/);
-        expect(element(by.css('h1')).getText()).toMatch(/^Customer \d+/);
+        expect(browser.getCurrentUrl()).toMatch(/\/admin\/customer\/[\da-f]+$/);
+        expect(element(by.css('h1')).getText()).toMatch(/^Customer [\da-f]+/);
     });
 
     it('should load and display the customer details', function() {

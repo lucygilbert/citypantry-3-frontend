@@ -7,7 +7,7 @@ angular.module('cp.controllers.admin').controller('AdminUsersController',
         columnDefs: [
             {
                 displayName: 'ID',
-                field: 'id'
+                field: 'humanId'
             },
             {
                 displayName: 'Name',

@@ -8,7 +8,7 @@ describe('Admin - vendor page', function() {
             element.all(by.css('#vendors-table a[href^="/admin/vendor/"]')).first().click();
             browser.driver.wait(function() {
                 return browser.driver.getCurrentUrl().then(function(url) {
-                    return (/\/admin\/vendor\/\d+$/.test(url));
+                    return (/\/admin\/vendor\/[\da-f]+$/.test(url));
                 });
             });
             isFirst = false;
@@ -16,7 +16,7 @@ describe('Admin - vendor page', function() {
     });
 
     it('should show the "vendor" page', function() {
-        expect(browser.getCurrentUrl()).toMatch(/\/admin\/vendor\/\d+$/);
-        expect(element(by.css('h1')).getText()).toMatch(/^Vendor \d+$/);
+        expect(browser.getCurrentUrl()).toMatch(/\/admin\/vendor\/[\da-f]+$/);
+        expect(element(by.css('h1')).getText()).toMatch(/^Vendor [\da-f]+$/);
     });
 });

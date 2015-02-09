@@ -9,7 +9,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         columnDefs: [
             {
                 displayName: 'Order No',
-                field: 'id'
+                field: 'humanId'
             },
             {
                 cellFilter: 'date:\'d MMM yyyy H:mm\'',
