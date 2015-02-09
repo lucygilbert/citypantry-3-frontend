@@ -43,11 +43,21 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             },
             {
                 displayName: 'Customer',
-                field: 'customerUser.name'
+                field: 'customerUser.name',
+                cellTemplate: `
+                    <div class="ui-grid-cell-contents">
+                        <a href="/admin/customer/{{row.entity.customer.id}}">{{row.entity.customerUser.name}}, {{row.entity.customer.company}}</a>
+                    </div>
+                `
             },
             {
                 displayName: 'Vendor',
-                field: 'package.vendor.name'
+                field: 'package.vendor.name',
+                cellTemplate: `
+                    <div class="ui-grid-cell-contents">
+                        <a href="/admin/vendor/{{row.entity.package.vendor.id}}">{{row.entity.package.vendor.name}}</a>
+                    </div>
+                `
             },
             {
                 displayName: 'Package',
