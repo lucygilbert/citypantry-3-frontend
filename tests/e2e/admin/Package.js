@@ -1,4 +1,5 @@
 var notificationModal = require('../NotificationModal.js');
+var gridTestUtils = require('../lib/gridTestUtils.spec.js');
 
 describe('Admin - package page', function() {
     var isFirst = true;
@@ -7,10 +8,11 @@ describe('Admin - package page', function() {
         if (isFirst) {
             loginAsUser('alice@bunnies.test');
             browser.get('/admin/packages');
+            gridTestUtils.enterFilterInColumn('packages-table', 1, 'Carrots');
             element.all(by.css('#packages-table a[href^="/admin/package/"]')).first().click();
             browser.driver.wait(function() {
                 return browser.driver.getCurrentUrl().then(function(url) {
-                    return (/\/admin\/package\/\d+$/.test(url));
+                    return (/\/admin\/package\/[\da-f]+$/.test(url));
                 });
             });
             isFirst = false;
@@ -18,8 +20,8 @@ describe('Admin - package page', function() {
     });
 
     it('should show the "package" page', function() {
-        expect(browser.getCurrentUrl()).toMatch(/\/admin\/package\/\d+$/);
-        expect(element(by.css('h1')).getText()).toMatch(/^Package \d+$/);
+        expect(browser.getCurrentUrl()).toMatch(/\/admin\/package\/[\da-f]+$/);
+        expect(element(by.css('h1')).getText()).toMatch(/^Package [\da-f]+$/);
     });
 
     it('should load the package details', function() {

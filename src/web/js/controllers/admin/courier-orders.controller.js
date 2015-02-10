@@ -7,7 +7,7 @@ angular.module('cp.controllers.admin').controller('AdminCourierOrdersController'
         columnDefs: [
             {
                 displayName: 'Order No.',
-                field: 'id'
+                field: 'humanId'
             },
             {
                 displayName: 'Delivery Date',

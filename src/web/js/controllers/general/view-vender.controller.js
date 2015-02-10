@@ -2,7 +2,7 @@ angular.module('cp.controllers.general').controller('ViewVendorController',
         function($scope, $routeParams, VendorsFactory, PackagesFactory, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
     SecurityService.requireLoggedIn();
 
-    const vendorId = Number($routeParams.idOrSlug.split('-')[0]);
+    const vendorId = $routeParams.idOrSlug.split('-')[0];
 
     VendorsFactory.getVendor(vendorId)
         .success(response => {

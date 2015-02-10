@@ -9,7 +9,7 @@ angular.module('cp.controllers.admin').controller('AdminVendorsController',
         columnDefs: [
             {
                 displayName: 'ID',
-                field: 'id'
+                field: 'humanId'
             },
             {
                 displayName: 'Name',

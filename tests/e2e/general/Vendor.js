@@ -7,7 +7,7 @@ describe('Individual vendor page', function() {
             loginAsUser('customer@bunnies.test');
             browser.get('/vendors');
             element.all(by.css('li.vendor')).get(2).element(by.css('a')).click();
-            expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9]+-[a-z0-9-]+$/);
+            expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9a-f]+-[a-z0-9-]+$/);
         }
     });
 

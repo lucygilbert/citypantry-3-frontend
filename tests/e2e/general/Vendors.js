@@ -23,6 +23,6 @@ describe('Meet the vendor', function() {
 
     it('should link to the individual vendor pages', function() {
         element.all(by.css('li.vendor')).get(0).element(by.css('a')).click();
-        expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9]+-[a-z0-9-]+$/);
+        expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9a-f]+-[a-z0-9-]+$/);
     });
 });

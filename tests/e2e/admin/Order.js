@@ -13,7 +13,7 @@ describe('Admin - order page', function() {
                 element.all(by.css('#orders-table a[href^="/admin/order/"]')).first().click();
                 browser.wait(function() {
                     return browser.getCurrentUrl().then(function(url) {
-                        return (/\/admin\/order\/\d+$/.test(url));
+                        return (/\/admin\/order\/[\da-f]+$/.test(url));
                     });
                 });
                 isFirst = false;
@@ -21,8 +21,8 @@ describe('Admin - order page', function() {
         });
 
         it('should show the "order" page', function() {
-            expect(browser.getCurrentUrl()).toMatch(/\/admin\/order\/\d+$/);
-            expect(element(by.css('h1')).getText()).toMatch(/^Order \d+$/);
+            expect(browser.getCurrentUrl()).toMatch(/\/admin\/order\/[\da-f]+$/);
+            expect(element(by.css('h1')).getText()).toMatch(/^Order [\da-f]+$/);
         });
 
         it('should not show the pick-up date field', function() {
@@ -72,7 +72,7 @@ describe('Admin - order page', function() {
                 element.all(by.css('#orders-table a[href^="/admin/order/"]')).first().click();
                 browser.wait(function() {
                     return browser.getCurrentUrl().then(function(url) {
-                        return (/\/admin\/order\/\d+$/.test(url));
+                        return (/\/admin\/order\/[\da-f]+$/.test(url));
                     });
                 });
                 isFirst = false;
