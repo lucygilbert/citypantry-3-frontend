@@ -26,7 +26,7 @@
 
             <ul class="packages">
                 <li class="package" ng-repeat="package in packages">
-                    <a ng-href="/package/{{ package.id}}-{{ package.name | slugify }}">
+                    <a ng-href="/package/{{ package.humanId}}-{{ package.name | slugify }}">
                         <div class="package-image" style="background-image: url('{{ package.images[0].medium }}');"></div>
 
                         <h2 class="package-name">{{ package.name }}</h2>

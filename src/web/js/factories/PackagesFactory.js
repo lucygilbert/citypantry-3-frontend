@@ -6,6 +6,9 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
         getPackage: function(id) {
             return ApiService.get(`${API_BASE}/packages/${id}`);
         },
+        getPackageByHumanId: function(humanId) {
+            return ApiService.get(`${API_BASE}/packages/${humanId}`);
+        },
         updatePackage: function(id, updatedPackage) {
             return ApiService.put(`${API_BASE}/packages/${id}`, updatedPackage);
         },

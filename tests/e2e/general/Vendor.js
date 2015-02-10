@@ -7,7 +7,7 @@ describe('Individual vendor page', function() {
             loginAsUser('customer@bunnies.test');
             browser.get('/vendors');
             element.all(by.css('li.vendor')).get(2).element(by.css('a')).click();
-            expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9a-f]+-[a-z0-9-]+$/);
+            expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9a-f]{24}-[a-z0-9-]+$/);
         }
     });
 
@@ -18,5 +18,12 @@ describe('Individual vendor page', function() {
 
     it('should show all the active and approved packages', function() {
         expect(element.all(by.repeater('package in packages')).count()).toBe(1);
+    });
+
+    it('should link to the individual package pages', function() {
+        element.all(by.repeater('package in packages')).get(0).element(by.css('a')).click();
+
+        expect(browser.getCurrentUrl()).toMatch(/\.dev\/package\/\d+-beef-and-mixed-veg-curry$/);
+        expect(element(by.css('main h1')).getText()).toBe('Beef and mixed veg curry');
     });
 });
