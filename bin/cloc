@@ -1,0 +1,10 @@
+#!/bin/bash
+/usr/bin/cloc \
+    vendor/citypantry/api-client/src \
+    src/CityPantry \
+    src/web/templates/ \
+    src/web/js/{controllers,directives,factories,filters,services,app.module.js,config.js} \
+    src/web/scss/{admin,home,*.scss} \
+    bin/pre-commit bin/jshint* bin/cloc \
+    etc \
+    tests/e2e/{admin,authentication,customer,general,*.js}
