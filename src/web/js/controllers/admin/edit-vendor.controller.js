@@ -20,7 +20,8 @@ angular.module('cp.controllers.admin').controller('AdminEditVendorController',
             misspellings: misspellings
         };
         VendorsFactory.updateVendor($routeParams.vendorId, updatedVendor)
-            .success(() => {
+            .success(response => {
+                $scope.vendor = response.updatedObject;
                 NotificationService.notifySuccess('The vendor has been edited.');
                 LoadingService.hide();
             })

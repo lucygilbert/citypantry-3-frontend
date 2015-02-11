@@ -80,7 +80,8 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
         };
 
         OrdersFactory.updateOrder($routeParams.orderId, updatedOrder)
-            .success(() => {
+            .success(response => {
+                $scope.order = response.order;
                 NotificationService.notifySuccess('The order has been edited.');
                 LoadingService.hide();
             })

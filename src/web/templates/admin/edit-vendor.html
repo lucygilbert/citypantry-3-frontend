@@ -1,6 +1,12 @@
 <div class="wrapper">
     <h1>Vendor {{vendor.humanId}}</h1>
 
+    <h2>History</h2>
+
+    <history-table history="vendor.history"></history-table>
+
+    <h2>Edit details</h2>
+
     <form role="form" ng-submit="save()">
         <div class="form-group">
             <label for="description">Bio</label>
