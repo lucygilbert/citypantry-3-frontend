@@ -12,3 +12,21 @@
     height: auto;
     padding: 0;
 }
+
+history-table {
+    display: block;
+    margin-bottom: 1em;
+
+    th, td {
+        padding: 5px;
+        border: 1px solid #ccc;
+        vertical-align: top;
+    }
+    th {
+        background-color: #efe;
+        font-weight: bold;
+    }
+    td {
+        white-space: pre-line;
+    }
+}

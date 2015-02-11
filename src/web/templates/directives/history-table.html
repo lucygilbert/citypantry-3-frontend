@@ -1,0 +1,14 @@
+<table>
+    <thead>
+        <th>Date</th>
+        <th>Event</th>
+        <th>Details</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="event in history">
+            <td>{{ event.date | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ event.title }}</td>
+            <td>{{ event.info }}</td>
+        </tr>
+    </tbody>
+</table>
