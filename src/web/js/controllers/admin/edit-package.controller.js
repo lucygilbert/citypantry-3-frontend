@@ -19,7 +19,8 @@ angular.module('cp.controllers.admin').controller('AdminEditPackageController',
         };
 
         PackagesFactory.updatePackage($routeParams.packageId, updatedPackage)
-            .success(() => {
+            .success(response => {
+                $scope.vendorPackage = response.updatedObject;
                 NotificationService.notifySuccess('The package has been edited.');
                 LoadingService.hide();
             })

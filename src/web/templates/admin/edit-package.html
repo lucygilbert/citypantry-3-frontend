@@ -1,6 +1,12 @@
 <div class="wrapper">
     <h1>Package {{ vendorPackage.humanId }}</h1>
 
+    <h2>History</h2>
+
+    <history-table history="vendorPackage.history"></history-table>
+
+    <h2>Edit details</h2>
+
     <form ng-submit="save()" role="form">
         <div class="form-group">
             <label for="package_name">Name your catering package </label>
