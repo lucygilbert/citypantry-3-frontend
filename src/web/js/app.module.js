@@ -24,7 +24,7 @@ angular.module('cp').config(function($locationProvider) {
         requireBase: false
     });
 })
-.run(function($rootScope, HUBSPOT_BASE, LoadingService) {
+.run(function($rootScope, HUBSPOT_BASE, LoadingService, UsersFactory, $location, $cookies) {
     $rootScope.hubspotBase = HUBSPOT_BASE;
 
     $rootScope.$on('$routeChangeStart', function() {
@@ -34,4 +34,17 @@ angular.module('cp').config(function($locationProvider) {
     $rootScope.$on('$routeChangeError', function () {
         LoadingService.hide();
     });
+
+    var isLoggedIn = $cookies.userId && $cookies.salt;
+    if (isLoggedIn) {
+        UsersFactory.getLoggedInUser().catch(function(response) {
+            if (response.status === 401) {
+                // The user's ID or auth token is no longer valid. This is possibly because this is
+                // a dev or staging site and the database fixtures have been reloaded.
+                delete $cookies.userId;
+                delete $cookies.salt;
+                $location.path('/logout');
+            }
+        });
+    }
 });
