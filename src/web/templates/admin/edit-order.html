@@ -134,7 +134,7 @@
     <h2>Customer Service Events</h2>
 
     <p ng-repeat="event in order.customerServiceEvents">
-        <b>{{ event.date | date:'d MMM yyyy, H:mm' }}:</b>
+        <b><time datetime="{{ event.date | date:'yyyy-MM-dd HH:mm' }}">{{ event.date | date:'d MMM yyyy, H:mm' }}</time>:</b>
         {{ event.event }}
     </p>
 
