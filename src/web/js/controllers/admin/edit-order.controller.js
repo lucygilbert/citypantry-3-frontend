@@ -75,6 +75,7 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
         const updatedOrder = {
             requestedDeliveryDate: $scope.order.requestedDeliveryDate,
             pickupDate: $scope.order.pickupDate,
+            cityPantryCommission: $scope.order.cityPantryCommission,
             headCount: $scope.headCount,
             vegetarianHeadCount: $scope.vegetarianHeadCount
         };
