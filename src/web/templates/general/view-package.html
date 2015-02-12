@@ -5,3 +5,22 @@
     <br />
     {{ package }}
 </div>
+
+<section class="package-reviews">
+    <div class="wrapper">
+        <h2>Reviews</h2>
+
+        <p ng-if="reviews === undefined">Loading...</p>
+
+        <p ng-if="reviews.length === 0">There have been no reviews for this package yet.</p>
+
+        <article class="package-review" ng-repeat="review in reviews">
+            <h3 class="package-review-name">
+                {{ review.reviewerName }}
+                <small><time datetime="{{ review.date | date:'yyyy-mm-dd' }}">{{ review.date | date:'d MMMM yyyy' }}</time></small>
+            </h3>
+
+            <p>{{ review.review }}</p>
+        </article>
+    </div>
+</section>

@@ -22,6 +22,7 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
         },
         getPackagesByVendor: function(id) {
             return ApiService.get(`${API_BASE}/packages/search/all?vendorId=${id}`);
-        }
+        },
+        getPackageReviews: id => ApiService.get(`${API_BASE}/reviews/package/${id}`)
     };
 });
