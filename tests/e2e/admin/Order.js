@@ -58,6 +58,19 @@ describe('Admin - order page', function() {
             notificationModal.expectIsOpen();
             notificationModal.expectSuccessHeader();
             notificationModal.expectMessage('The order has been edited.');
+            notificationModal.dismiss();
+        });
+
+        it('should be able to add customer service events', function() {
+            var events = element.all(by.repeater('event in order.customerServiceEvents'));
+            expect(events.count()).toBe(0);
+
+            element.all(by.css('.add-customer-service-event button')).get(0).click();
+            notificationModal.expectIsOpen();
+            notificationModal.expectSuccessHeader();
+            notificationModal.expectMessage('Customer service event has been recorded.');
+            notificationModal.dismiss();
+            expect(events.count()).toBe(1);
         });
     });
 

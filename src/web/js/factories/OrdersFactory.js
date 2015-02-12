@@ -18,5 +18,6 @@ angular.module('cp.factories').factory('OrdersFactory', function(API_BASE, ApiSe
         getCourierOrders: function() {
             return ApiService.get(`${API_BASE}/orders/courier`);
         },
+        addCustomerServiceEvent: (id, event) => ApiService.post(`${API_BASE}/order/${id}/customer-service-events`, {event: event}),
     };
 });
