@@ -9,6 +9,14 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             $scope.package = response;
             DocumentTitleService($scope.package.name);
             LoadingService.hide();
+
+            loadReviews($scope.package.id);
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+
+    const loadReviews = (id) => {
+        PackagesFactory.getPackageReviews(id)
+            .success(response => $scope.reviews = response.reviews)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
 });
