@@ -17,6 +17,7 @@ angular.module('cp.controllers.admin').controller('AdminEditVendorController',
         const misspellings = String($scope.vendor.misspellings).split(/, ?/g);
         const updatedVendor = {
             description: $scope.vendor.description,
+            cityPantryCommission: $scope.vendor.cityPantryCommission,
             misspellings: misspellings
         };
         VendorsFactory.updateVendor($routeParams.vendorId, updatedVendor)
