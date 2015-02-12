@@ -130,4 +130,30 @@
             <hr />
         </div>
     </div>
+
+    <h2>Customer Service Events</h2>
+
+    <p ng-repeat="event in order.customerServiceEvents">
+        <b><time datetime="{{ event.date | date:'yyyy-MM-dd HH:mm' }}">{{ event.date | date:'d MMM yyyy, H:mm' }}</time>:</b>
+        {{ event.event }}
+    </p>
+
+    <p ng-if="order.customerServiceEvents.length === 0">No events.</p>
+
+    <p class="add-customer-service-event">
+        <button ng-click="addCustomerServiceEvent('Customer said food was &lt;= 10 minutes late')">Customer said food was &lt;= 10 minutes late</button>
+        <br />
+
+        <button ng-click="addCustomerServiceEvent('Customer said food was 11-20 minutes late')">Customer said food was 11-20 minutes late</button>
+        <br />
+
+        <button ng-click="addCustomerServiceEvent('Customer said food was &gt;= 21 minutes late')">Customer said food was &gt;= 21 minutes late</button>
+        <br />
+
+        <button ng-click="addCustomerServiceEvent('Customer said the food was bad')">Customer said the food was bad</button>
+        <br />
+
+        <button ng-click="addCustomerServiceEvent('Customer said the food was good')">Customer said the food was good</button>
+        <br />
+    </p>
 </div>

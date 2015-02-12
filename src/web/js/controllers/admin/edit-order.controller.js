@@ -87,4 +87,16 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
+
+    $scope.addCustomerServiceEvent = event => {
+        LoadingService.show();
+
+        OrdersFactory.addCustomerServiceEvent($routeParams.orderId, event)
+            .success(response => {
+                $scope.order = response.order;
+                NotificationService.notifySuccess('Customer service event has been recorded.');
+                LoadingService.hide();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
 });
