@@ -28,11 +28,13 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
                 filters: [
                     {
                         condition: uiGridConstants.filter.GREATER_THAN_OR_EQUAL,
-                        placeholder: 'From'
+                        placeholder: 'From',
+                        flags: { date: true }
                     },
                     {
                         condition: uiGridConstants.filter.LESS_THAN_OR_EQUAL,
-                        placeholder: 'To'
+                        placeholder: 'To',
+                        flags: { date: true }
                     }
                 ]
             },
