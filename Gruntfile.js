@@ -13,8 +13,8 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
-                        src: ['src/web/fonts/*'],
-                        dest: 'web/dist/fonts',
+                        src: ['src/web/lib/ng-grid/fonts/*'],
+                        dest: 'web/dist/css',
                         filter: 'isFile'
                     },
                     {
@@ -102,7 +102,7 @@ module.exports = function (grunt) {
                         'src/web/js/lib/angular-cookies.min.js',
                         'src/web/js/lib/angular-route.min.js',
                         'src/web/js/lib/ui-bootstrap-tpls-0.12.0.min.js',
-                        'src/web/js/lib/ui-grid-unstable.min.js',
+                        'src/web/lib/ng-grid/ui-grid.js',
                     ],
                     'web/dist/js/built-citypantry-es6.js': [
                         'src/web/js/app.module.js',
