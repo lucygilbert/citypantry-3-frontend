@@ -20,10 +20,6 @@ angular.module('cp.controllers.admin').controller('AdminVendorsController',
                 field: 'vendorUsers[0].user.email'
             },
             {
-                displayName: 'Telephone',
-                field: 'addresses[0].telephoneNumber'
-            },
-            {
                 displayName: 'Business Type',
                 field: 'businessType.name'
             },
