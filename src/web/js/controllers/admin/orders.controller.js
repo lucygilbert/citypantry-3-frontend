@@ -118,4 +118,20 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             .then(loadOrders)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
+
+    $scope.showOrdersPlacedToday = () => setFiltersToSpanAllOfToday(this.gridOptions.columnDefs[1].filters);
+
+    $scope.showOrdersDeliveredToday = () => setFiltersToSpanAllOfToday(this.gridOptions.columnDefs[2].filters);
+
+    const setFiltersToSpanAllOfToday = filters => {
+        const today = new Date();
+
+        today.setHours(0);
+        today.setMinutes(0);
+        filters[0].term = today.toISOString();
+
+        today.setHours(23);
+        today.setMinutes(59);
+        filters[1].term = today.toISOString();
+    };
 });
