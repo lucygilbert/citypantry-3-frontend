@@ -1,5 +1,11 @@
 <div class="wrapper">
     <h1>Orders</h1>
 
+    <p>
+        <button ng-click="showOrdersPlacedToday()" class="show-orders-placed-today">Show orders placed today</button>
+        &nbsp;
+        <button ng-click="showOrdersDeliveredToday()" class="show-orders-delivered-today">Show orders delivered today</button>
+    </p>
+
     <div ui-grid="orders.gridOptions" ui-grid-pagination id="orders-table"></div>
 </div>

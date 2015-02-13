@@ -68,4 +68,9 @@ describe('Admin - orders page', function() {
         gridTestUtils.cancelFilterInColumn('orders-table', 5);
         gridTestUtils.expectRowCount('orders-table', 3);
     });
+
+    it('should find 2 orders when the "show orders delivered today" button is clicked', function() {
+        element(by.css('main .show-orders-delivered-today')).click();
+        gridTestUtils.expectRowCount('orders-table', 2);
+    });
 });
