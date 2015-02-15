@@ -26,4 +26,19 @@
 
         <input class="btn btn-primary btn-lg" type="submit" value="Save">
     </form>
+
+    <br />
+
+    <h2>Addresses</h2>
+
+    <ul>
+        <li ng-repeat="address in vendor.addresses">
+            {{ address | addressSingleLineFormatter }}<br />
+            Landline: {{ address.landlineNumber }}<br />
+            Order notification mobile: {{ address.orderNotificationMobileNumber }}<br />
+            Delivery contact mobile: {{ address.deliveryContactMobileNumber }}
+        </li>
+    </ul>
+
+    <p ng-if="vendor.addresses.length === 0">This vendor has no addresses.</p>
 </div>
