@@ -38,6 +38,25 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'VendorPortalAddressController',
             templateUrl: '/dist/templates/vendor/address.html'
         }).
+        when('/vendor/signup', {
+            controller: 'VendorSignUpController',
+            templateUrl: '/dist/templates/general/vendor-sign-up.html'
+        }).
+        when('/vendor/signup/package', {
+            controller: 'VendorSignUpPackageController',
+            templateUrl: '/dist/templates/general/vendor-create-package.html'
+        }).
+        when('/vendor/signup/profile', {
+            controller: 'VendorSignUpProfileController',
+            templateUrl: '/dist/templates/general/vendor-profile.html'
+        }).
+        when('/vendor/signup/agreement', {
+            controller: 'VendorSignUpAgreementController',
+            templateUrl: '/dist/templates/general/vendor-sign-up-agreement.html'
+        }).
+        when('/vendor/signup/thanks', {
+            templateUrl: '/dist/templates/general/vendor-sign-up-thanks.html'
+        }).
         when('/vendor/:idOrSlug', {
             controller: 'ViewVendorController',
             templateUrl: '/dist/templates/general/view-vendor.html'

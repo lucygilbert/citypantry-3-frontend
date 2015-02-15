@@ -1,0 +1,15 @@
+form {
+    margin-bottom: 1.5rem;
+    
+    .form-element-invalid,
+    .form-error {
+        color: #df533a;
+    }
+    
+    .form-group legend {
+        border: 0;
+        color: #444;
+        font-size: 1rem;
+        margin-bottom: .317rem;
+    }
+}

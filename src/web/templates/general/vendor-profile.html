@@ -1,0 +1,87 @@
+<div class="vendor-signup-header"></div>
+<nav class="vendor-signup-steps" role="navigation">
+    <div class="wrapper">
+        <ul>
+            <li><a href="/vendor/signup/package">Step 1: Your Package</a></li><li class="active"><a class="link-inactive">Step 2: Your Profile</a></li><li><a class="link-inactive">Step 3: Supplier Agreement</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Almost there – now for your profile!</h1>
+            <p class="lead">This information appears on your public profile.</p>
+            <p class="form-error" ng-show="saveProfileError" ng-bind="saveProfileError"></p>
+            <form name="vendorProfileForm" novalidate role="form" ng-submit="saveProfile(vendorProfileForm)">
+                <div class="form-group">
+                    <label for="vendor_description">Bio<span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorDescription.$error.required"> (Bio is required.)</span></label>
+                    <textarea class="form-control input-lg" id="vendor_description" name="vendorDescription" required placeholder="Write a few sentences about you, your business and why you do what you do." rows="6" aria-required="true" ng-model="vendorDescription"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="vendor_max_people">The max number of people you can serve a day (across all packages)<span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorMaxPeople.$error.required"> (Please specify the max number of people you can serve a day.)</span></label>
+                    <select class="form-control input-lg" id="vendorMaxPeople" name="vendor_max_people" required aria-required="true" ng-model="vendorMaxPeople" ng-options="option as option for option in vendorMaxPeopleOptions"></select>
+                </div>
+                
+                <div class="form-group">
+                    <fieldset>
+                        <legend>Is your business <abbr title="value added tax">VAT</abbr> registered?<span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorVatRegistered.$error.required"> (Please specify if your business is <abbr title="value added tax">VAT</abbr> registered.)</span></legend>
+                        <label class="radio-inline">
+                            <input name="vendorVatRegistered" type="radio" value="true" required aria-required="true" ng-model="vendorVatRegistered" /> Yes
+                        </label>
+                        <label class="radio-inline">
+                            <input name="vendorVatRegistered" type="radio" value="false" required aria-required="true" ng-model="vendorVatRegistered" /> No
+                        </label>
+                    </fieldset>
+                </div>
+                
+                <div class="form-group" ng-hide="!vendorVatRegistered || vendorVatRegistered === 'false'">
+                    <label for="vendor_vat_number"><abbr title="value added tax">VAT</abbr> number<span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorVatNumber.$error.required"> (<abbr title="value added tax">VAT</abbr> number is required.)</span></label>
+                    <input class="form-control input-lg" id="vendor_vat_number" name="vendorVatNumber" type="text" required aria-required="true" ng-model="vendorVatNumber" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="vendor_facebook_url">Facebook page<span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorFacebookUrl.$error.url"> (Facebook page must be a URL.)</span></label>
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-addon">http://</div>
+                        <input class="form-control input-lg" id="vendor_facebook_url" name="vendorFacebookUrl" type="url" ng-model="vendorFacebookUrl" />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="vendor_twitter_url">Twitter page<span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorTwitterUrl.$error.url"> (Twitter page must be a URL.)</span></label>
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-addon">http://</div>
+                        <input class="form-control input-lg" id="vendor_twitter_url" name="vendorTwitterUrl" type="url" ng-model="vendorTwitterUrl" />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="vendor_google_plus_url">Google+ page<span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorGooglePlusUrl.$error.url"> (Google+ page must be a URL.)</span></label>
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-addon">http://</div>
+                        <input class="form-control input-lg" id="vendor_google_plus_url" name="vendorGooglePlusUrl" type="url" ng-model="vendorGooglePlusUrl" />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="vendor_youtube_url">YouTube page<span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorYoutubeUrl.$error.url"> (YouTube page must be a URL.)</span></label>
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-addon">http://</div>
+                        <input class="form-control input-lg" id="vendor_youtube_url" name="vendorYoutubeUrl" type="url" ng-model="vendorYoutubeUrl" />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="vendor_url">Website<span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorUrl.$error.url"> (Website must be a URL.)</span></label>
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-addon">http://</div>
+                        <input class="form-control input-lg" id="vendor_url" name="vendorUrl" type="url" ng-model="vendorUrl" />
+                    </div>
+                </div>
+                
+                <input class="btn btn-primary btn-lg" type="submit" value="Review Supplier Agreement →" />
+            </form>
+        </div>
+    </div>
+</div>

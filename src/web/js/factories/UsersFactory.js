@@ -4,9 +4,11 @@ angular.module('cp.factories').factory('UsersFactory', function(ApiService, API_
             return ApiService.get(`${API_BASE}/users`);
         },
         masqueradeAsUser: id => {
-            return ApiService.post(`${API_BASE}/user/masquerade`, {id});
+            return ApiService.post(`${API_BASE}/user/masquerade`, id);
         },
-
-        getLoggedInUser: () => ApiService.get(`${API_BASE}/users/get-authenticated-user`)
+        getLoggedInUser: () => ApiService.get(`${API_BASE}/users/get-authenticated-user`),
+        registerVendor: registerDetails => {
+            return ApiService.post(`${API_BASE}/user/register-vendor`, registerDetails);
+        }
     };
 });

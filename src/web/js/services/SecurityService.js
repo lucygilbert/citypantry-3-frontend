@@ -15,12 +15,13 @@ angular.module('cp.services').service('SecurityService', function($location, $co
         },
 
         inGroup: function(groups) {
-            var userGroup = this.getUser()['group']['name'];
-            if (!userGroup) {
+            var user = this.getUser();
+            if (!user || !user.group.name) {
                 return false;
             }
 
             var result = false;
+            var userGroup = user.group.name;
 
             if (groups.constructor === Array) {
                 groups.forEach(group => {

@@ -1,0 +1,29 @@
+<div class="vendor-signup-header"></div>
+<nav class="vendor-signup-steps" role="navigation">
+    <div class="wrapper">
+        <ul>
+            <li><a href="/vendor/signup/package">Step 1: Your Package</a></li><li><a href="/vendor/signup/profile">Step 2: Your Profile</a></li><li class="active"><a class="link-inactive">Step 3: Supplier Agreement</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Supplier Agreement</h1>
+            <p class="lead">We’ll keep this short and sweet, but you still need to read and agree to the <a href="/agreement">full Supplier Agreement</a>.</p>
+            <h2>City Pantry agree to:</h2>
+            <h3>Pay you on the same day every month.</h3>
+            <p>All orders fulfilled over a calendar month are paid to you on the 10th day of the subsequent month. We take a flat 20% + <abbr title="value added tax">VAT</abbr> for the service.</p>
+            <h2>To provide our customers with a great experience, you agree to:</h2>
+            <h3>Respond quickly to orders.</h3>
+            <p>If you don’t respond via text or email within 2 hours (between 8am and 8pm) we’ll call you to discuss the outstanding order. If we still cannot work out a way to fulfil the order it will be cancelled.</p>
+            <h3>Deliver in good time.</h3>
+            <p>If an order is delivered over 15 minutes late we’ll refund the customer £50.</p>
+            <h3>Set your prices at the lowest you can offer.</h3>
+            <p>We aim to generate £1,000s for your business annually, so you needn’t offer discounts to City Pantry customers coming to you directly. We reserve the right to remove your listing should we find that our customers are obtaining discounts in this manner.</p>
+            <p>By clicking this button you agree to our <a href="/agreement">Supplier Agreement</a>.</p>
+            <p class="form-error" ng-show="signUpError" ng-bind="signUpError"></p>
+            <input class="btn btn-primary btn-lg" type="submit" value="Finish sign up →" ng-click="signUp()" />
+        </div>
+    </div>
+</div>

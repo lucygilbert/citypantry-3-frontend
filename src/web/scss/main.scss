@@ -121,10 +121,6 @@ label.error {
     margin: 5px 0 0;
 }
 
-.form-group .form-group {
-    margin-bottom: .563rem;
-}
-
 .form-inline-xs .form-group {
     display: inline-block;
     margin-bottom: 0;
@@ -2169,7 +2165,7 @@ label.error {
 }
 
 .selling-points .used-by-logos .moo img {
-    height: 21px;
+    height: 30px;
     width: 90px;
 }
 
@@ -2604,14 +2600,6 @@ abbr[title] {
     border: 0;
 }
 
-legend {
-    border: 0;
-    color: #444;
-    font-size: 1rem;
-    margin-bottom: .317rem;
-    padding-bottom: .317rem;
-}
-
 label {
     font-weight: normal;
     margin-bottom: .317rem;
@@ -2990,12 +2978,13 @@ fieldset[disabled] .btn-primary.active {
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 
-@import 'links.scss';
-@import 'footer.scss';
-@import 'modal.scss';
-@import 'loading.scss';
 @import 'admin/customers.scss';
 @import 'admin/general.scss';
 @import 'admin/orders.scss';
+@import 'footer.scss';
+@import 'form.scss';
+@import 'links.scss';
+@import 'loading.scss';
+@import 'modal.scss';
 @import 'customer/search.scss';
 @import 'vendor/orders.scss';

@@ -37,6 +37,20 @@ angular.module('cp.factories').factory('VendorsFactory', function(ApiService,
         },
         deleteVendor: function(id) {
             return ApiService.delete(`${API_BASE}/vendors/${id}`);
+        },
+        getBusinessTypes: () => ApiService.get(`${API_BASE}/business-types`),
+        getBusinessAddresses: () => {
+            // @todo – replace with ApiService.
+            return [{
+                label: 'Francis House',
+                addressLine1: 'Francis House',
+                addressLine2: '11 Francis Street',
+                addressLine3: 'Westminster',
+                city: 'London',
+                postcode: 'SW1P 1DE',
+                countryName: 'United Kingdom',
+                telephoneNumber: '020 3397 8376'
+            }];
         }
     };
 });
