@@ -1,37 +1,35 @@
 angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, ApiService) {
     return {
-        getAllPackages: function() {
-            return ApiService.get(`${API_BASE}/packages`);
-        },
-        getPackage: function(id) {
-            return ApiService.get(`${API_BASE}/packages/${id}`);
-        },
-        getPackageByHumanId: function(humanId) {
-            return ApiService.get(`${API_BASE}/packages/${humanId}`);
-        },
-        createPackage: (packageDetails) => {
-            return ApiService.post(`${API_BASE}/packages`, packageDetails);
-        },
-        updatePackage: function(id, updatedPackage) {
-            return ApiService.put(`${API_BASE}/packages/${id}`, updatedPackage);
-        },
-        deletePackage: function(id) {
-            return ApiService.delete(`${API_BASE}/packages/${id}`);
-        },
-        searchPackages: function(name = '', postcode = '', maxBudget = '') {
-            const url = `${API_BASE}/packages/search?name=${name}&postcode=${postcode}` +
-                `&maxBudget=${maxBudget}`;
+        getAllPackages: () => ApiService.get(`${API_BASE}/packages`),
+
+        getPackage: id => ApiService.get(`${API_BASE}/packages/${id}`),
+
+        getPackageByHumanId: humanId => ApiService.get(`${API_BASE}/packages/${humanId}`),
+
+        createPackage: packageDetails => ApiService.post(`${API_BASE}/packages`, packageDetails),
+
+        updatePackage: (id, updatedPackage) => ApiService.put(`${API_BASE}/packages/${id}`, updatedPackage),
+
+        deletePackage: id => ApiService.delete(`${API_BASE}/packages/${id}`),
+
+        searchPackages: function(name = '', postcode = '') {
+            const url = `${API_BASE}/packages/search?name=${name}&postcode=${postcode}`;
 
             return ApiService.get(url);
         },
-        getPackagesByVendor: function(id) {
-            return ApiService.get(`${API_BASE}/packages/search/all?vendorId=${id}`);
-        },
+
+        getPackagesByVendor: id => ApiService.get(`${API_BASE}/packages/search/all?vendorId=${id}`),
+
         getPackageReviews: id => ApiService.get(`${API_BASE}/reviews/package/${id}`),
+
         getAllergenTypes: () => ApiService.get(`${API_BASE}/allergen-types`),
+
         getDietaryTypes: () => ApiService.get(`${API_BASE}/dietary-requirements`),
+
         getEventTypes: () => ApiService.get(`${API_BASE}/event-types`),
+
         getFoodTypes: () => ApiService.get(`${API_BASE}/cuisine-types`),
+
         getDeliveryDayOptions: () => {
             return [
                 { label: 'Monday',    value: 'Monday' },
@@ -55,7 +53,7 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
                 });
                 minutes += 30;
             }
-        
+
             return options;
         },
         getNoticeOptions: () => {

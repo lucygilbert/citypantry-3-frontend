@@ -39,6 +39,7 @@ angular.module('cp.factories').factory('VendorsFactory', function(ApiService,
             return ApiService.delete(`${API_BASE}/vendors/${id}`);
         },
         getBusinessTypes: () => ApiService.get(`${API_BASE}/business-types`),
+
         getBusinessAddresses: () => {
             // @todo – replace with ApiService.
             return [{
