@@ -15,7 +15,7 @@
             <p class="form-error" ng-show="createPackageError" ng-bind="createPackageError"></p>
             <form name="createPackageForm" novalidate role="form" ng-submit="createPackage(createPackageForm)">
                 <fieldset>
-                    <legend>Details & pricing</legend>
+                    <legend>Details &#38; pricing</legend>
                     <div class="form-group">
                         <label for="package_food_type">Food type<span class="form-element-invalid" ng-show="createPackageForm.$submitted && createPackageForm.packageFoodType.$error.required"> (Food type is required.)</span></label>
                         <select class="form-control input-lg" id="package_food_type" name="packageFoodType" required aria-required="true" ng-model="packageFoodType" ng-options="foodTypeOption.id as foodTypeOption.name for foodTypeOption in foodTypeOptions"></select>
