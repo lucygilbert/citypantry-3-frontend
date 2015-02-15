@@ -91,6 +91,22 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 
+    $scope.saveNotes = function() {
+        LoadingService.show();
+
+        const updatedOrder = {
+            cityPantryNotes: $scope.order.cityPantryNotes
+        };
+
+        OrdersFactory.updateOrder($routeParams.orderId, updatedOrder)
+            .success(response => {
+                $scope.order = response.order;
+                NotificationService.notifySuccess('Your notes have been saved.');
+                LoadingService.hide();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
     $scope.addCustomerServiceEvent = event => {
         LoadingService.show();
 

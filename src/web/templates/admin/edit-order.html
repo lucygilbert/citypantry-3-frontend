@@ -143,6 +143,20 @@
 
     <p ng-if="order.customerServiceEvents.length === 0">No customer service actions so far.</p>
 
+    <h3>Add a note to this order</h3>
+
+    <form ng-submit="saveNotes()">
+        <fieldset>
+            <div class="form-group">
+                <textarea class="form-control input-lg" id="city_pantry_notes" rows="3" ng-model="order.cityPantryNotes"></textarea>
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Save notes" />
+        </fieldset>
+    </form>
+
+    <br />
+
     <h2>Message history</h2>
 
     <p ng-if="messages.length === 0">No messages</p>
