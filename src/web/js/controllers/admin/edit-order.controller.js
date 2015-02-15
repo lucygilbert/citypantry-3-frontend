@@ -77,7 +77,9 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
             pickupDate: $scope.order.pickupDate,
             cityPantryCommission: $scope.order.cityPantryCommission,
             headCount: $scope.headCount,
-            vegetarianHeadCount: $scope.vegetarianHeadCount
+            vegetarianHeadCount: $scope.vegetarianHeadCount,
+            deliveryInstruction: $scope.order.deliveryInstruction,
+            customDietaryRequirements: $scope.order.customDietaryRequirements
         };
 
         OrdersFactory.updateOrder($routeParams.orderId, updatedOrder)
