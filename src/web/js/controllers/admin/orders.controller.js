@@ -69,7 +69,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             },
             {
                 cellFilter: 'currency:\'£\':2',
-                displayName: 'Amount',
+                displayName: 'Cost',
                 field: 'totalAmount'
             },
             {
@@ -79,10 +79,8 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             {
                 cellTemplate: `<div class="ui-grid-cell-contents">
                     <a href="/admin/order/{{row.entity[col.field]}}">View</a>
-                    <br />
-                    <a ng-click="grid.appScope.delete(row.entity[col.field])">Delete</a>
                     </div>`,
-                displayName: 'Action',
+                displayName: 'View',
                 field: 'id',
                 name: ' ',
                 enableFiltering: false
@@ -105,19 +103,6 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
     }
 
     loadOrders();
-
-    $scope.delete = id => {
-        const confirmed = $window.confirm('Are you sure?');
-        if (!confirmed) {
-            return;
-        }
-
-        LoadingService.show();
-
-        OrdersFactory.deleteOrder(id)
-            .then(loadOrders)
-            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-    };
 
     $scope.showOrdersPlacedToday = () => setFiltersToSpanAllOfToday(this.gridOptions.columnDefs[1].filters);
 

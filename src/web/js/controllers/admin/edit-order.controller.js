@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminEditOrderController',
-        function($scope, $routeParams, OrdersFactory, NotificationService, addressSingleLineFormatterFilter, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, $routeParams, $window, $location, OrdersFactory, NotificationService, addressSingleLineFormatterFilter, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Edit Order');
     SecurityService.requireStaff();
 
@@ -98,6 +98,21 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
                 NotificationService.notifySuccess('Customer service event has been recorded.');
                 LoadingService.hide();
             })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
+    $scope.delete = () => {
+        // @todo - prompt for a reason as in Stu's wireframe? if it's deleted, where would the
+        // reason by shown? to ask Stu.
+        const confirmed = $window.confirm('Are you sure?');
+        if (!confirmed) {
+            return;
+        }
+
+        LoadingService.show();
+
+        OrdersFactory.deleteOrder($routeParams.orderId)
+            .then(() => $location.path('/admin/orders'))
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 });

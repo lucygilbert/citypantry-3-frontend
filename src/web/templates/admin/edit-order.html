@@ -1,17 +1,85 @@
 <div class="wrapper">
     <h1>Order {{ order.humanId }}</h1>
 
-    <h2>History</h2>
+    <h2>Key details</h2>
 
-    <history-table history="order.history"></history-table>
+    <form class="admin-form">
+        <fieldset>
+            <div class="form-group">
+                <label for="company_name">Company name</label>
+                <input class="form-control input-lg" id="company_name" type="text" readonly ng-model="order.customer.company" />
+            </div>
+
+            <div class="form-group">
+                <label for="customer_name">Contact name</label>
+                <input class="form-control input-lg" id="customer_name" type="text" readonly ng-model="order.customerUser.name" />
+            </div>
+
+            <div class="form-group">
+                <label for="delivery_address">Drop-off address</label>
+                <input class="form-control input-lg" id="delivery_address" type="text" readonly ng-model="order.deliveryAddress | addressSingleLineFormatter" />
+            </div>
+
+            <div class="form-group">
+                <label for="contact_number">Drop-off contact phone number</label>
+                <input class="form-control input-lg" id="contact_number" type="tel" readonly ng-model="order.deliveryAddress.landlineNumber" />
+            </div>
+
+            <div class="form-group">
+                <label>Vendor</label>
+                <p><a href="/admin/vendor/{{ order.package.vendor.id }}">{{ order.package.vendor.name }}</a></p>
+            </div>
+
+            <div class="form-group">
+                <label>Package</label>
+                <p><a href="/admin/package/{{ order.package.id }}">{{ order.package.name }}</a></p>
+            </div>
+
+            <div class="form-group">
+                <label for="order_date">Order date and time</label>
+                <input class="form-control input-lg" id="order_date" type="text" readonly ng-model="order.date" convert-date />
+            </div>
+
+            <div class="form-group">
+                <label for="order_status">Order status</label>
+                <input class="form-control input-lg" id="order_status" type="text" readonly ng-model="order.statusText" format-order-status-text />
+            </div>
+
+            <div class="form-group">
+                <label for="subtotal_amount">Subtotal</label>
+                <input class="form-control input-lg" id="subtotal_amount" type="text" readonly ng-model="order.subTotalExcludingVat" format-currency />
+            </div>
+
+            <div class="form-group">
+                <label for="delivery_amount">Delivery</label>
+                <input class="form-control input-lg" id="delivery_amount" type="text" readonly ng-model="order.shippingTotalExcludingVatAmount" format-currency />
+            </div>
+
+            <div class="form-group">
+                <label for="discount_amount">Discount</label>
+                <input class="form-control input-lg" id="discount_amount" type="text" readonly ng-model="order.voucherAmount" format-currency />
+            </div>
+
+            <div class="form-group">
+                <label for="vat_amount"><abbr title="value added tax">VAT</abbr></label>
+                <input class="form-control input-lg" id="vat_amount" type="text" readonly ng-model="order.taxAmount" format-currency />
+            </div>
+
+            <div class="form-group">
+                <label for="total_amount">Grand total</label>
+                <input class="form-control input-lg" id="total_amount" type="text" readonly ng-model="order.totalAmount" format-currency />
+            </div>
+        </fieldset>
+    </form>
 
     <h2>Edit details</h2>
 
     <form class="admin-form" role="form" ng-submit="save()">
         <fieldset>
             <div class="form-group">
-                <label for="order_date">Order date and time</label>
-                <input class="form-control input-lg" id="order_date" type="text" readonly ng-model="order.date" convert-date />
+                <label for="delivery_date">Delivery date and time</label>
+                <input class="form-control input-lg" id="delivery_date" type="text" required aria-describedby="delivery_date_help" aria-required="true" ng-model="order.requestedDeliveryDate" convert-date />
+                <span class="help-block" id="delivery_date_help">Changing this will trigger an email to the vendor and customer. The vendor will have to confirm if they can accept the order.</span>
             </div>
 
             <div class="form-group" ng-if="order.isCourier">
@@ -20,50 +88,14 @@
                 <span class="help-block" id="pickup_date_help">Changing this will trigger an email to the vendor.</span>
             </div>
 
-            <div class="form-group">
-                <label for="delivery_date">Delivery date and time</label>
-                <input class="form-control input-lg" id="delivery_date" type="text" required aria-describedby="delivery_date_help" aria-required="true" ng-model="order.requestedDeliveryDate" convert-date />
-                <span class="help-block" id="delivery_date_help">Changing this will trigger an email to the vendor and customer. The vendor will have to confirm if they can accept the order.</span>
-            </div>
-
-            <div class="form-group">
-                <label for="customer_name">Customer name</label>
-                <input class="form-control input-lg" id="customer_name" type="text" readonly ng-model="order.customerUser.name" />
-            </div>
-
-            <div class="form-group" ng-if="order.companyName !== null">
-                <label for="company_name">Company name</label>
-                <input class="form-control input-lg" id="company_name" type="text" readonly ng-model="order.companyName" />
-            </div>
-
             <div class="form-group" ng-if="order.pickupAddress !== null">
                 <label for="pickup_address">Pickup address</label>
                 <input class="form-control input-lg" id="pickup_address" type="text" readonly ng-model="order.pickupAddressString" />
             </div>
 
-            <div class="form-group" ng-if="order.deliveryAddressString !== null">
-                <label for="delivery_address">Delivery address</label>
-                <input class="form-control input-lg" id="delivery_address" type="text" readonly ng-model="order.deliveryAddressString" />
-            </div>
-
-            <div class="form-group" ng-if="order.contactTelephoneNumber !== null">
-                <label for="contact_number">Contact phone number</label>
-                <input class="form-control input-lg" id="contact_number" type="tel" readonly ng-model="order.contactTelephoneNumber" />
-            </div>
-
-            <div class="form-group" ng-if="order.deliveryInstruction !== null">
+            <div class="form-group">
                 <label for="delivery_instructions">Delivery instructions</label>
                 <textarea class="form-control input-lg" id="delivery_instructions" readonly rows="1" ng-model="order.deliveryInstruction"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="vendor_name">Vendor name</label>
-                <input class="form-control input-lg" id="vendor_name" type="text" readonly ng-model="order.package.vendor.name" />
-            </div>
-
-            <div class="form-group">
-                <label for="package_name">Package name</label>
-                <input class="form-control input-lg" id="package_name" type="text" readonly ng-model="order.package.name" />
             </div>
 
             <div class="form-group">
@@ -78,39 +110,9 @@
                 <span class="help-block" id="vegetarian_head_count_help">Changing this will trigger an email to the vendor and customer. The vendor will have to confirm if they can accept the order.</span>
             </div>
 
-            <div class="form-group" ng-if="order.customDietaryRequirements !== null">
+            <div class="form-group">
                 <label for="dietary_requirements">Dietary requirements</label>
                 <textarea class="form-control input-lg" id="dietary_requirements" readonly rows="3" ng-model="order.customDietaryRequirements"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="order_status">Order status</label>
-                <input class="form-control input-lg" id="order_status" type="text" readonly ng-model="order.statusText" format-order-status-text />
-            </div>
-
-            <div class="form-group" ng-if="order.subTotalExcludingVat !== null">
-                <label for="subtotal_amount">Subtotal</label>
-                <input class="form-control input-lg" id="subtotal_amount" type="text" readonly ng-model="order.subTotalExcludingVat" format-currency />
-            </div>
-
-            <div class="form-group" ng-if="order.shippingTotalExcludingVatAmount !== null">
-                <label for="delivery_amount">Delivery</label>
-                <input class="form-control input-lg" id="delivery_amount" type="text" readonly ng-model="order.shippingTotalExcludingVatAmount" format-currency />
-            </div>
-
-            <div class="form-group" ng-if="order.promotion !== null">
-                <label for="discount_amount">Discount</label>
-                <input class="form-control input-lg" id="discount_amount" type="text" readonly ng-model="order.voucherAmount" format-currency />
-            </div>
-
-            <div class="form-group" ng-if="order.taxAmount !== null">
-                <label for="vat_amount"><abbr title="value added tax">VAT</abbr></label>
-                <input class="form-control input-lg" id="vat_amount" type="text" readonly ng-model="order.taxAmount" format-currency />
-            </div>
-
-            <div class="form-group" ng-if="order.totalAmount !== null">
-                <label for="total_amount">Grand total</label>
-                <input class="form-control input-lg" id="total_amount" type="text" readonly ng-model="order.totalAmount" format-currency />
             </div>
 
             <div class="form-group">
@@ -124,7 +126,24 @@
 
     <br />
 
-    <h2>Messages</h2>
+    <h2>Customer service actions</h2>
+
+    <p class="add-customer-service-event">
+        <p><button ng-click="delete()" class="btn btn-primary">Delete order</button></p>
+
+        <p><button ng-click="addCustomerServiceEvent('Order delivered +15 mins late')" class="btn btn-primary">Order delivered +15 mins late</button></p>
+
+        <p><button ng-click="addCustomerServiceEvent('Order delivered +30 mins late')" class="btn btn-primary">Order delivered +30 mins late</button></p>
+    </p>
+
+    <p ng-repeat="event in order.customerServiceEvents">
+        <b><time datetime="{{ event.date | date:'yyyy-MM-dd HH:mm' }}">{{ event.date | date:'d MMM yyyy, H:mm' }}</time>:</b>
+        {{ event.event }}
+    </p>
+
+    <p ng-if="order.customerServiceEvents.length === 0">No customer service actions so far.</p>
+
+    <h2>Message history</h2>
 
     <p ng-if="messages.length === 0">No messages</p>
 
@@ -136,29 +155,7 @@
         </div>
     </div>
 
-    <h2>Customer Service Events</h2>
+    <h2>Order history</h2>
 
-    <p ng-repeat="event in order.customerServiceEvents">
-        <b><time datetime="{{ event.date | date:'yyyy-MM-dd HH:mm' }}">{{ event.date | date:'d MMM yyyy, H:mm' }}</time>:</b>
-        {{ event.event }}
-    </p>
-
-    <p ng-if="order.customerServiceEvents.length === 0">No events.</p>
-
-    <p class="add-customer-service-event">
-        <button ng-click="addCustomerServiceEvent('Customer said food was &lt;= 10 minutes late')">Customer said food was &lt;= 10 minutes late</button>
-        <br />
-
-        <button ng-click="addCustomerServiceEvent('Customer said food was 11-20 minutes late')">Customer said food was 11-20 minutes late</button>
-        <br />
-
-        <button ng-click="addCustomerServiceEvent('Customer said food was &gt;= 21 minutes late')">Customer said food was &gt;= 21 minutes late</button>
-        <br />
-
-        <button ng-click="addCustomerServiceEvent('Customer said the food was bad')">Customer said the food was bad</button>
-        <br />
-
-        <button ng-click="addCustomerServiceEvent('Customer said the food was good')">Customer said the food was good</button>
-        <br />
-    </p>
+    <history-table history="order.history"></history-table>
 </div>
