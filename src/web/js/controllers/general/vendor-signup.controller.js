@@ -53,6 +53,7 @@ angular.module('cp.controllers.general').controller('VendorSignUpController',
             .success(response => {
                 $cookies.userId = response.apiAuth.userId;
                 $cookies.salt = response.apiAuth.salt;
+                $cookies.vendorId = response.vendor.id;
                 $window.localStorage.setItem('user', JSON.stringify(response.user));
                 $window.location = '/vendor/signup/package';
             })

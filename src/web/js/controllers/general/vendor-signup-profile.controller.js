@@ -1,5 +1,5 @@
 angular.module('cp.controllers.general').controller('VendorSignUpProfileController',
-        function($scope, $window, DocumentTitleService, LoadingService, VendorsFactory, PackagesFactory) {
+        function($scope, $window, $cookies, DocumentTitleService, LoadingService, VendorsFactory, PackagesFactory) {
     DocumentTitleService('Vendor sign up');
     LoadingService.hide();
 
@@ -28,8 +28,7 @@ angular.module('cp.controllers.general').controller('VendorSignUpProfileControll
             url: $scope.vendorUrl
         };
 
-        // @todo – pass vendor ID to updateVendor()
-        VendorsFactory.updateVendor(vendorDetails)
+        VendorsFactory.updateVendor($cookies.vendorId, vendorDetails)
             .success(response => {
                 $window.location = '/vendor/signup/agreement';
             })
