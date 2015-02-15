@@ -10,7 +10,6 @@
     "newcap": false,
     "trailing": true,
     "sub": true,
-    "maxstatements": 20,
     "freeze": true,
     "esnext": true,
     "globals": {

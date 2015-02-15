@@ -1,5 +1,5 @@
 angular.module('cp.controllers.general').controller('VendorSignUpPackageController',
-        function($scope, $window, DocumentTitleService, LoadingService, SecurityService, VendorsFactory, PackagesFactory) {
+        function($scope, $window, $q, DocumentTitleService, LoadingService, SecurityService, VendorsFactory, PackagesFactory) {
     DocumentTitleService('Vendor sign up');
     LoadingService.hide();
 
@@ -23,23 +23,24 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
     $scope.packageMinPeople = 1;
     $scope.quantityOptions = PackagesFactory.getQuantityOptions();
 
-    init();
-
     function init() {
-        PackagesFactory.getAllergenTypes().success(response => {
+        let promise1 = PackagesFactory.getAllergenTypes().success(response => {
             $scope.allergenTypeOptions = response.allergenTypes;
         });
-        PackagesFactory.getDietaryTypes().success(response => {
+        let promise2 = PackagesFactory.getDietaryTypes().success(response => {
             $scope.dietaryTypeOptions = response.dietaryRequirements;
         });
-        PackagesFactory.getEventTypes().success(response => {
+        let promise3 = PackagesFactory.getEventTypes().success(response => {
             $scope.eventTypeOptions = response.eventTypes;
         });
-        PackagesFactory.getFoodTypes().success(response => {
+        let promise4 = PackagesFactory.getFoodTypes().success(response => {
             $scope.foodTypeOptions = response.cuisineTypes;
         });
-        LoadingService.hide();
+
+        $q.all([promise1, promise2, promise3, promise4]).then(() => LoadingService.hide());
     }
+
+    init();
 
     $scope.addNewBusinessAddress = function() {
         $scope.newBusinessAddresses.push({
@@ -62,45 +63,47 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
     };
 
     $scope.createPackage = function(createPackageForm) {
-        if (createPackageForm.$valid) {
-            LoadingService.show();
-
-            $scope.createPackageError = null;
-
-            // @todo – add $scope.packageItems
-            // @todo – add vendor ID.
-            const packageDetails = {
-                cuisineType: $scope.packageFoodType,
-                name: $scope.packageName,
-                shortDescription: $scope.packageShortDescription,
-                description: $scope.packageDescription,
-                // @todo – dietary requirements should return array of objects.
-                dietaryRequirements: $scope.packageDietaryTypes,
-                allergenTypes: $scope.packageAllergenTypes,
-                eventTypes: $scope.packageEventTypes,
-                hotFood: $scope.packageHotFood,
-                costIncludingVat: $scope.packageCost,
-                minPeople: $scope.packageMinPeople,
-                maxPeople: $scope.packageMaxPeople,
-                notice: $scope.packageNotice,
-                deliveryDays: $scope.packageDeliveryDays,
-                deliveryTimeStart: $scope.packageDeliveryTimeStart,
-                deliveryTimeEnd: $scope.packageDeliveryTimeEnd,
-                deliveryCostIncludingVat: $scope.packageDeliveryCost,
-                freeDeliveryThreshold: $scope.packageFreeDeliveryThreshold
-            };
-
-            PackagesFactory.createPackage(packageDetails)
-                .success(response => {
-                    $window.location = '/vendor/signup/profile';
-                })
-                .catch(response => {
-                    $scope.createPackageError = response.data.errorTranslation;
-                    LoadingService.hide();
-                });
-
-            // @todo – add new business addresses.
-            if ($scope.newBusinessAddresses.length > 0) {}
+        if (!createPackageForm.$valid) {
+            return;
         }
+
+        LoadingService.show();
+
+        $scope.createPackageError = null;
+
+        // @todo – add $scope.packageItems
+        // @todo – add vendor ID.
+        const packageDetails = {
+            cuisineType: $scope.packageFoodType,
+            name: $scope.packageName,
+            shortDescription: $scope.packageShortDescription,
+            description: $scope.packageDescription,
+            // @todo – dietary requirements should return array of objects.
+            dietaryRequirements: $scope.packageDietaryTypes,
+            allergenTypes: $scope.packageAllergenTypes,
+            eventTypes: $scope.packageEventTypes,
+            hotFood: $scope.packageHotFood,
+            costIncludingVat: $scope.packageCost,
+            minPeople: $scope.packageMinPeople,
+            maxPeople: $scope.packageMaxPeople,
+            notice: $scope.packageNotice,
+            deliveryDays: $scope.packageDeliveryDays,
+            deliveryTimeStart: $scope.packageDeliveryTimeStart,
+            deliveryTimeEnd: $scope.packageDeliveryTimeEnd,
+            deliveryCostIncludingVat: $scope.packageDeliveryCost,
+            freeDeliveryThreshold: $scope.packageFreeDeliveryThreshold
+        };
+
+        PackagesFactory.createPackage(packageDetails)
+            .success(response => {
+                $window.location = '/vendor/signup/profile';
+            })
+            .catch(response => {
+                $scope.createPackageError = response.data.errorTranslation;
+                LoadingService.hide();
+            });
+
+        // @todo – add new business addresses.
+        if ($scope.newBusinessAddresses.length > 0) {}
     };
 });

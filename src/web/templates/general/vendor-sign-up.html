@@ -1,17 +1,21 @@
 <div class="vendor-signup-header"></div>
+
 <div class="wrapper">
     <div class="row">
         <div class="col-sm-8">
             <h1>Apply to sell catering with us</h1>
+
             <p class="lead">Fill out the form below to start creating your account.</p>
+
             <p class="form-error" ng-show="signUpError" ng-bind="signUpError"></p>
+
             <form name="vendorSignUpForm" novalidate role="form" ng-submit="signUp(vendorSignUpForm)">
                 <fieldset>
                     <div class="form-group">
                         <label for="business_name">Business name<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.businessName.$error.required"> (Business name is required.)</span><span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.businessName.$error.unique"> (Business name is already taken.)</span></label>
                         <input class="form-control input-lg" id="business_name" name="businessName" type="text" required aria-required="true" ng-model="businessName" cp-unique="vendors.name" />
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="business_type">Business type<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.businessType.$error.required"> (Business type is required.)</span></label>
                         <select class="form-control input-lg" id="business_type" name="businessType" required aria-required="true" ng-model="businessType" ng-options="businessTypeOption.id as businessTypeOption.name for businessTypeOption in businessTypeOptions"></select>
@@ -80,19 +84,24 @@
                 <input class="btn btn-primary btn-lg" type="submit" value="List your first package →" />
             </form>
         </div>
+
         <div class="col-sm-3 col-sm-offset-1 selling-points">
             <h3 class="used-by-heading">Catering for</h3>
+
             <ul class="used-by-logos">
                 <li class="google"><img src="/dist/images/google_logo@2x.png" alt="Google"></li><li class="eventbrite"><img src="/dist/images/eventbrite_logo@2x.png" alt="Eventbrite"></li><li class="moo"><img src="/dist/images/moo_logo@2x.png" alt="MOO"></li></li><li class="spotify"><img src="/dist/images/spotify_logo@2x.png" alt="Spotify"></li>
             </ul>
+
             <div class="selling-point">
                 <h3>Reach new customers</h3>
                 <p>Vendors (like you) list catering packages for sale on our website. Our users then order directly online.</p>
             </div>
+
             <div class="selling-point">
                 <h3>Join for free</h3>
                 <p>You won’t be charged for being on the site: we only take a 20% + <abbr title="value added tax">VAT</abbr> commission when an order is placed.</p>
             </div>
+
             <div class="selling-point">
                 <h3>Get paid easily</h3>
                 <p>All orders fulfilled over a calendar month are paid to you on the 10th day of the subsequent month.</p>
