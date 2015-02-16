@@ -52,6 +52,7 @@ angular.module('cp').config(function($locationProvider) {
                 // a dev or staging site and the database fixtures have been reloaded.
                 delete $cookies.userId;
                 delete $cookies.salt;
+                localStorage.removeItem('user');
                 $location.path('/logout');
             }
         });
