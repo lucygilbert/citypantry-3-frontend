@@ -1,7 +1,18 @@
-angular.module('cp.services').service('SecurityService', function($location, $cookies) {
+angular.module('cp.services').service('SecurityService', function($location, $cookies, $q, UsersFactory) {
     return {
         getUser: function() {
             return (localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : false;
+        },
+
+        getVendor: function() {
+            var deferred = $q.defer();
+
+            UsersFactory.getLoggedInUser().then(function(loggedInUser) {
+                console.log('loggedInUser', loggedInUser);
+                deferred.resolve(loggedInUser.vendor);
+            });
+
+            return deferred.promise;
         },
 
         inGroup: function(groups) {

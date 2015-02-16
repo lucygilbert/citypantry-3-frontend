@@ -1,5 +1,3 @@
-angular.module('cp.factories', []);
-
 angular.module('cp.factories').factory('CustomersFactory', function(ApiService, API_BASE) {
     return {
         getAllCustomers: function() {
