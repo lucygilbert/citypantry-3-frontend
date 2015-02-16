@@ -46,6 +46,12 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             if (!this.isLoggedIn() || this.getUser()['group']['name'] !== 'staff') {
                 $location.path('/');
             }
+        },
+
+        requireVendor: function() {
+            if (!this.isLoggedIn() || (!this.inGroup('admin') && !this.inGroup('user'))) {
+                $location.path('/');
+            }
         }
     };
 });

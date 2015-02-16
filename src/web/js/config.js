@@ -22,6 +22,10 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'ViewVendorController',
             templateUrl: '/dist/templates/general/view-vendor.html'
         }).
+        when('/vendor-portal/orders', {
+            controller: 'VendorPortalOrdersController',
+            templateUrl: '/dist/templates/vendor/orders.html'
+        }).
         when('/package/:humanIdAndSlug', {
             controller: 'ViewPackageController',
             templateUrl: '/dist/templates/general/view-package.html'

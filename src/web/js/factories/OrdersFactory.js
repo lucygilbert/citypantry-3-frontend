@@ -3,6 +3,9 @@ angular.module('cp.factories').factory('OrdersFactory', function(API_BASE, ApiSe
         getAllOrders: function() {
             return ApiService.get(`${API_BASE}/orders`);
         },
+
+        getOrdersByCurrentVendor: () => ApiService.get(`${API_BASE}/orders/by-current-vendor`),
+
         getOrder: function(id) {
             return ApiService.get(`${API_BASE}/orders/${id}`);
         },
