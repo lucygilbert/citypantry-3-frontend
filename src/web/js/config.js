@@ -16,7 +16,7 @@ angular.module('cp').config(function($routeProvider) {
         }).
         when('/vendors', {
             controller: 'VendorsController',
-            templateUrl: '/dist/templates/general/vendors.html'
+            templateUrl: '/dist/templates/vendor/vendors.html'
         }).
         when('/vendor/orders', {
             controller: 'VendorPortalOrdersController',
@@ -40,26 +40,26 @@ angular.module('cp').config(function($routeProvider) {
         }).
         when('/vendor/signup', {
             controller: 'VendorSignUpController',
-            templateUrl: '/dist/templates/general/vendor-sign-up.html'
+            templateUrl: '/dist/templates/vendor/vendor-sign-up.html'
         }).
         when('/vendor/signup/package', {
             controller: 'VendorSignUpPackageController',
-            templateUrl: '/dist/templates/general/vendor-create-package.html'
+            templateUrl: '/dist/templates/vendor/vendor-create-package.html'
         }).
         when('/vendor/signup/profile', {
             controller: 'VendorSignUpProfileController',
-            templateUrl: '/dist/templates/general/vendor-profile.html'
+            templateUrl: '/dist/templates/vendor/vendor-profile.html'
         }).
         when('/vendor/signup/agreement', {
             controller: 'VendorSignUpAgreementController',
-            templateUrl: '/dist/templates/general/vendor-sign-up-agreement.html'
+            templateUrl: '/dist/templates/vendor/vendor-sign-up-agreement.html'
         }).
         when('/vendor/signup/thanks', {
-            templateUrl: '/dist/templates/general/vendor-sign-up-thanks.html'
+            templateUrl: '/dist/templates/vendor/vendor-sign-up-thanks.html'
         }).
         when('/vendor/:idOrSlug', {
             controller: 'ViewVendorController',
-            templateUrl: '/dist/templates/general/view-vendor.html'
+            templateUrl: '/dist/templates/vendor/view-vendor.html'
         }).
         when('/package/:humanIdAndSlug', {
             controller: 'ViewPackageController',
