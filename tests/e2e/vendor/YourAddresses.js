@@ -13,7 +13,7 @@ describe('Vendor portal - your addresses', function() {
         expect(element(by.css('h1')).getText()).toBe('Your business addresses');
     });
 
-    it('should have one addresse', function() {
+    it('should have one address', function() {
         var addresses = element.all(by.repeater('address in addresses'));
         expect(addresses.count()).toBe(1);
         expect(addresses.get(0).getText()).toContain('Shepherds Bush Road, London, W6, United Kingdom');

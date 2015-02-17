@@ -8,7 +8,6 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             var deferred = $q.defer();
 
             UsersFactory.getLoggedInUser().then(function(loggedInUser) {
-                console.log('loggedInUser', loggedInUser);
                 deferred.resolve(loggedInUser.vendor);
             });
 
