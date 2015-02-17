@@ -15,9 +15,9 @@ angular.module('cp.factories').factory('OrdersFactory', function(API_BASE, ApiSe
         updateOrder: function(id, updatedOrder) {
             return ApiService.put(`${API_BASE}/order/${id}`, updatedOrder);
         },
-        deleteOrder: function(id) {
-            return ApiService.delete(`${API_BASE}/order/${id}`);
-        },
+
+        deleteOrder: (id, reason = '') => ApiService.delete(`${API_BASE}/order/${id}?deletionReason=${reason}`),
+
         getCourierOrders: function() {
             return ApiService.get(`${API_BASE}/orders/courier`);
         },
