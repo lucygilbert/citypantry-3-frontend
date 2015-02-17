@@ -120,16 +120,16 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
     };
 
     $scope.delete = () => {
-        // @todo - prompt for a reason as in Stu's wireframe? if it's deleted, where would the
-        // reason by shown? to ask Stu.
         const confirmed = $window.confirm('Are you sure?');
         if (!confirmed) {
             return;
         }
 
+        const reason = $window.prompt('Enter a reason for deleting the order');
+
         LoadingService.show();
 
-        OrdersFactory.deleteOrder($routeParams.orderId)
+        OrdersFactory.deleteOrder($routeParams.orderId, reason)
             .then(() => $location.path('/admin/orders'))
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
