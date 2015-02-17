@@ -7,7 +7,7 @@
         <ul>
             <li ng-repeat="address in addresses">
                 {{ address | addressSingleLineFormatter }}
-                <button class="btn btn-primary"><a ng-href="/vendor-portal/addresses/{{ address.id }}">Edit</a></button>
+                <button class="btn btn-primary"><a ng-href="/vendor/addresses/{{ address.id }}">Edit</a></button>
                 <br />
                 Landline: {{ address.landlineNumber }}
                 <br />
@@ -15,7 +15,7 @@
             </li>
 
             <li>
-                <button class="btn btn-primary"><a href="/vendor-portal/new-address">Add another business address</a></button>
+                <button class="btn btn-primary"><a href="/vendor/new-address">Add another business address</a></button>
             </li>
         </ul>
     </div>

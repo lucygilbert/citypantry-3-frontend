@@ -5,7 +5,7 @@ describe('Vendor portal - your addresses', function() {
         if (first) {
             first = false;
             loginAsUser('vendor@bunnies.test');
-            browser.get('/vendor-portal/addresses');
+            browser.get('/vendor/addresses');
         }
     });
 

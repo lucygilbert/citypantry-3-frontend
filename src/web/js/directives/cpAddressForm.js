@@ -26,7 +26,7 @@ angular.module('cp').directive('cpAddressForm', function() {
 
                 promise.then(function() {
                     NotificationService.notifySuccess('Address saved');
-                    $location.path('/vendor-portal/addresses');
+                    $location.path('/vendor/addresses');
                 });
             };
         }
