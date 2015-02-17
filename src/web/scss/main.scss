@@ -2661,6 +2661,11 @@ label {
 
 .btn-primary {
     background-color: #2e8272;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
 }
 
 .btn-primary:hover,
@@ -2994,3 +2999,4 @@ fieldset[disabled] .btn-primary.active {
 @import 'admin/customers.scss';
 @import 'admin/general.scss';
 @import 'admin/orders.scss';
+@import 'vendor/orders.scss';

@@ -1,0 +1,11 @@
+#table_orders {
+    width: 100%;
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}
+
+#order-details-modal.fade.in {
+    display: block;
+}

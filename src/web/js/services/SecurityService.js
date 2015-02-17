@@ -1,7 +1,17 @@
-angular.module('cp.services').service('SecurityService', function($location, $cookies) {
+angular.module('cp.services').service('SecurityService', function($location, $cookies, $q, UsersFactory) {
     return {
         getUser: function() {
             return (localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : false;
+        },
+
+        getVendor: function() {
+            var deferred = $q.defer();
+
+            UsersFactory.getLoggedInUser().then(function(loggedInUser) {
+                deferred.resolve(loggedInUser.vendor);
+            });
+
+            return deferred.promise;
         },
 
         inGroup: function(groups) {
@@ -44,6 +54,12 @@ angular.module('cp.services').service('SecurityService', function($location, $co
 
         requireStaff: function() {
             if (!this.isLoggedIn() || this.getUser()['group']['name'] !== 'staff') {
+                $location.path('/');
+            }
+        },
+
+        requireVendor: function() {
+            if (!this.isLoggedIn() || (!this.inGroup('admin') && !this.inGroup('user'))) {
                 $location.path('/');
             }
         }
