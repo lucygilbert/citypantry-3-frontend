@@ -10,7 +10,8 @@ angular.module('cp', [
     'cp.controllers.user',
     'cp.filters',
     'cp.factories',
-    'cp.services'
+    'cp.services',
+    'uiGmapgoogle-maps'
 ]);
 
 const baseHost = window.location.host.replace('order.', '');

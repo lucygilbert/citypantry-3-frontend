@@ -117,3 +117,10 @@ angular.module('cp').config(function($routeProvider) {
             template: '<h1 class="wrapper">Page not found</h1>'
         });
 });
+
+angular.module('cp').config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyCgsL3Y_ku4QY06aDa6WVkIyy_E8IXPJYg',
+        v: '3.17'
+    });
+});

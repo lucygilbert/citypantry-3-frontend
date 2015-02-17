@@ -1,4 +1,5 @@
 <div class="vendor-signup-header"></div>
+
 <nav class="vendor-signup-steps" role="navigation">
     <div class="wrapper">
         <ul>
@@ -6,12 +7,16 @@
         </ul>
     </div>
 </nav>
+
 <div class="wrapper">
     <div class="row">
         <div class="col-sm-8">
             <h1>Almost there – now for your profile!</h1>
+
             <p class="lead">This information appears on your public profile.</p>
+
             <p class="form-error" ng-show="saveProfileError" ng-bind="saveProfileError"></p>
+
             <form name="vendorProfileForm" novalidate role="form" ng-submit="saveProfile(vendorProfileForm)">
                 <div class="form-group">
                     <label for="vendor_description">Bio<span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorDescription.$error.required"> (Bio is required.)</span></label>

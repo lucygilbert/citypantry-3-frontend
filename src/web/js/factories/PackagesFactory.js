@@ -100,6 +100,21 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
             }
 
             return options;
+        },
+        getRadiusOptions: () => {
+            const options = [];
+
+            for (let i = 1, step = 1; i <= 50; i += step) {
+                options.push({
+                    label: i + ' mile radius',
+                    value: i
+                });
+                if (i == 5) {
+                    step = 5;
+                }
+            }
+
+            return options;
         }
     };
 });
