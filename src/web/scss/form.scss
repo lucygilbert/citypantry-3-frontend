@@ -1,8 +1,7 @@
 form {
     margin-bottom: 1.5rem;
     
-    .form-element-invalid,
-    .form-error {
+    .form-element-invalid {
         color: #df533a;
     }
     
@@ -16,4 +15,8 @@ form {
 
 .angular-google-map-container {
     height: 400px;
+}
+
+.form-error {
+    color: #df533a;
 }

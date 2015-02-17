@@ -18,7 +18,7 @@
 
             <p class="form-error" ng-show="createPackageError" ng-bind="createPackageError"></p>
 
-            <form name="createPackageForm" novalidate role="form" ng-submit="createPackage(createPackageForm)">
+            <form name="createPackageForm" novalidate role="form" ng-submit="createPackage()">
                 <fieldset>
                     <legend>Details &#38; pricing</legend>
                     <div class="form-group">
@@ -115,77 +115,77 @@
                                 <ui-gmap-circle ng-repeat="deliveryZone in deliveryZones track by deliveryZone.id" center="deliveryZone.center" fill="deliveryZone.fill" radius="deliveryZone.radius" stroke="deliveryZone.stroke"></ui-gmap-circle>
                             </ui-gmap-google-map>
 
-                            <div class="row" ng-repeat="businessAddress in businessAddresses">
+                            <div class="row" ng-repeat="vendorAddress in vendor.addresses">
                                 <div class="col-sm-8">
-                                    {{businessAddress | addressSingleLineFormatter}}
+                                    {{vendorAddress | addressSingleLineFormatter}}
                                 </div>
                                 <div class="col-sm-4">
                                     <label class="sr-only" for="delivery_radius{{$index + 1}}">Mile radius</label>
-                                    <select class="form-control input-lg" id="delivery_radius{{$index + 1}}" name="businessAddress.deliveryRadius" ng-change="createDeliveryZones()" ng-model="businessAddress.deliveryRadius" ng-options="radiusOption.value as radiusOption.label for radiusOption in radiusOptions"></select>
+                                    <select class="form-control input-lg" id="delivery_radius{{$index + 1}}" name="vendorAddress.deliveryRadius" ng-change="createDeliveryZones()" ng-model="vendorAddress.deliveryRadius" ng-options="radiusOption.value as radiusOption.label for radiusOption in radiusOptions"></select>
                                 </div>
                             </div>
 
-                            <div ng-show="!isAddBusinessAddressFormHidden">
-                                <ng-form name="addBusinessAddressForm">
+                            <div ng-show="!isAddAddressFormHidden">
+                                <ng-form name="addAddressForm">
 
-                                    <p class="form-error" ng-show="addBusinessAddressError" ng-bind="addBusinessAddressError"></p>
+                                    <p class="form-error" ng-show="addAddressError" ng-bind="addAddressError"></p>
 
                                     <div class="form-group">
-                                        <label for="business_address_line1">Business address line 1<span class="form-element-invalid" ng-show="addBusinessAddressForm.$submitted && addBusinessAddressForm.businessAddressLine1.$error.required"> (Business address line 1 is required.)</span></label>
-                                        <input class="form-control input-lg" id="business_address_line1" name="businessAddressLine1" type="text" required aria-required="true" ng-model="businessAddressLine1" />
+                                        <label for="address_line1">Address line 1<span class="form-element-invalid" ng-show="addAddressForm.addressLine1.$error.required"> (Address line 1 is required.)</span></label>
+                                        <input class="form-control input-lg" id="address_line1" name="addressLine1" type="text" required aria-required="true" ng-model="address.addressLine1" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="business_address_line2">Business address line 2</label>
-                                        <input class="form-control input-lg" id="business_address_line2" name="businessAddressLine2" type="text" ng-model="businessAddressLine2" />
+                                        <label for="address_line2">Address line 2</label>
+                                        <input class="form-control input-lg" id="address_line2" name="addressLine2" type="text" ng-model="address.addressLine2" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="business_address_line3">Business address line 3</label>
-                                        <input class="form-control input-lg" id="business_address_line3" name="businessAddressLine3" type="text" ng-model="businessAddressLine3" />
+                                        <label for="address_line3">Address line 3</label>
+                                        <input class="form-control input-lg" id="address_line3" name="addressLine3" type="text" ng-model="address.addressLine3" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="business_city">City<span class="form-element-invalid" ng-show="addBusinessAddressForm.$submitted && addBusinessAddressForm.businessCity.$error.required"> (City is required.)</span></label>
-                                        <input class="form-control input-lg" id="business_city" name="businessCity" type="text" required aria-required="true" ng-model="businessCity" />
+                                        <label for="city">City<span class="form-element-invalid" ng-show="addAddressForm.city.$error.required"> (City is required.)</span></label>
+                                        <input class="form-control input-lg" id="city" name="city" type="text" required aria-required="true" ng-model="address.city" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="business_county">County</label>
-                                        <input class="form-control input-lg" id="business_county" name="businessCounty" type="text" ng-model="businessCounty" />
+                                        <label for="county">County</label>
+                                        <input class="form-control input-lg" id="county" name="county" type="text" ng-model="address.county" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="business_postcode">Postcode<span class="form-element-invalid" ng-show="addBusinessAddressForm.$submitted && addBusinessAddressForm.businessPostcode.$error.required"> (Postcode is required.)</span><span class="form-element-invalid" ng-show="addBusinessAddressForm.$submitted && addBusinessAddressForm.businessPostcode.$error.pattern"> (Postcode is invalid.)</span></label>
-                                        <input class="form-control input-lg" id="business_postcode" name="businessPostcode" type="text" required aria-required="true" ng-model="businessPostcode" ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
+                                        <label for="postcode">Postcode<span class="form-element-invalid" ng-show="addAddressForm.postcode.$error.required"> (Postcode is required.)</span><span class="form-element-invalid" ng-show="addAddressForm.postcode.$error.pattern"> (Postcode is invalid.)</span></label>
+                                        <input class="form-control input-lg" id="postcode" name="postcode" type="text" required aria-required="true" ng-model="address.postcode" ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
                                     </div>
 
-                                    <input name="businessCountryName" type="hidden" required aria-required="true" ng-model="businessCountryName" />
+                                    <input name="countryName" type="hidden" required aria-required="true" ng-model="address.countryName" />
 
                                     <div class="form-group">
-                                        <label for="business_landline_number">Landline number<span class="form-element-invalid" ng-show="addBusinessAddressForm.$submitted && addBusinessAddressForm.businessLandlineNumber.$error.required"> (Landline number is required.)</span></label>
-                                        <input class="form-control input-lg" id="business_landline_number" name="businessLandlineNumber" type="tel" required aria-required="true" ng-model="businessLandlineNumber" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="business_order_notification_mobile_number">Order notification mobile number<span class="form-element-invalid" ng-show="addBusinessAddressForm.$submitted && addBusinessAddressForm.businessOrderNotificationMobileNumber.$error.required"> (Order notification mobile number is required.)</span><span class="form-element-invalid" ng-show="addBusinessAddressForm.$submitted && addBusinessAddressForm.businessOrderNotificationMobileNumber.$error.pattern"> (Order notification mobile number is invalid.)</span></label>
-                                        <input class="form-control input-lg" id="business_order_notification_mobile_number" name="businessOrderNotificationMobileNumber" type="tel" required aria-required="true" ng-model="businessOrderNotificationMobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
+                                        <label for="landline_number">Landline number<span class="form-element-invalid" ng-show="addAddressForm.landlineNumber.$error.required"> (Landline number is required.)</span></label>
+                                        <input class="form-control input-lg" id="landline_number" name="landlineNumber" type="tel" required aria-required="true" ng-model="address.landlineNumber" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="business_delivery_contact_mobile_number">Delivery contact mobile number<span class="form-element-invalid" ng-show="addBusinessAddressForm.$submitted && addBusinessAddressForm.businessDeliveryContactMobileNumber.$error.required"> (Delivery contact mobile number is required.)</span><span class="form-element-invalid" ng-show="addBusinessAddressForm.$submitted && addBusinessAddressForm.businessDeliveryContactMobileNumber.$error.pattern"> (Delivery contact mobile number is invalid.)</span></label>
-                                        <input class="form-control input-lg" id="business_delivery_contact_mobile_number" name="businessDeliveryContactMobileNumber" type="tel" required aria-required="true" ng-model="businessDeliveryContactMobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
+                                        <label for="order_notification_mobile_number">Order notification mobile number<span class="form-element-invalid" ng-show="addAddressForm.orderNotificationMobileNumber.$error.required"> (Order notification mobile number is required.)</span><span class="form-element-invalid" ng-show="addAddressForm.orderNotificationMobileNumber.$error.pattern"> (Order notification mobile number is invalid.)</span></label>
+                                        <input class="form-control input-lg" id="order_notification_mobile_number" name="orderNotificationMobileNumber" type="tel" required aria-required="true" ng-model="address.orderNotificationMobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="business_contact_name">Contact name<span class="form-element-invalid" ng-show="addBusinessAddressForm.$submitted && addBusinessAddressForm.businessContactName.$error.required"> (Contact name is required.)</span></label>
-                                        <input class="form-control input-lg" id="business_contact_name" name="businessContactName" type="text" required aria-required="true" ng-model="businessContactName" />
+                                        <label for="delivery_contact_mobile_number">Delivery contact mobile number<span class="form-element-invalid" ng-show="addAddressForm.deliveryContactMobileNumber.$error.required"> (Delivery contact mobile number is required.)</span><span class="form-element-invalid" ng-show="addAddressForm.deliveryContactMobileNumber.$error.pattern"> (Delivery contact mobile number is invalid.)</span></label>
+                                        <input class="form-control input-lg" id="delivery_contact_mobile_number" name="deliveryContactMobileNumber" type="tel" required aria-required="true" ng-model="address.deliveryContactMobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
                                     </div>
 
-                                    <button class="btn btn-primary btn-lg" type="button" ng-click="addBusinessAddress()">Add address</button>
+                                    <div class="form-group">
+                                        <label for="contact_name">Contact name<span class="form-element-invalid" ng-show="addAddressForm.contactName.$error.required"> (Contact name is required.)</span></label>
+                                        <input class="form-control input-lg" id="contact_name" name="contactName" type="text" required aria-required="true" ng-model="address.contactName" />
+                                    </div>
+
+                                    <button class="btn btn-primary btn-lg" type="button" ng-click="addAddress()">Add address</button>
                                 </ng-form>
                             </div>
-                            <a ng-click="addNewBusinessAddress()" ng-show="isAddBusinessAddressFormHidden">Add another address.</a>
+                            <a ng-click="addAnotherAddress()" ng-show="isAddAddressFormHidden">Add another address.</a>
                         </fieldset>
                     </div>
                     

@@ -1,18 +1,17 @@
 angular.module('cp.controllers.general').controller('VendorSignUpPackageController',
-        function($scope, $window, $q, DocumentTitleService, LoadingService, SecurityService, VendorsFactory, PackagesFactory, uiGmapGoogleMapApi) {
+        function($scope, $cookies, $window, $q, DocumentTitleService, LoadingService, SecurityService, LocationsFactory, PackagesFactory, uiGmapGoogleMapApi) {
     DocumentTitleService('Vendor sign up');
     LoadingService.hide();
 
+    $scope.address = { countryName: 'United Kingdom' };
     $scope.allergenTypeOptions = [];
-    $scope.businessAddresses = VendorsFactory.getBusinessAddresses();
-    $scope.businessCountryName = 'United Kingdom';
     $scope.deliveryDayOptions = PackagesFactory.getDeliveryDayOptions();
     $scope.deliveryTimeOptions = PackagesFactory.getDeliveryTimeOptions();
     $scope.deliveryZones = [];
     $scope.dietaryTypeOptions = [];
     $scope.eventTypeOptions = [];
     $scope.foodTypeOptions = [];
-    $scope.isAddBusinessAddressFormHidden = true;
+    $scope.isAddAddressFormHidden = true;
     $scope.map = {};
     $scope.noticeOptions = PackagesFactory.getNoticeOptions();
     $scope.packageAllergenTypes = [];
@@ -26,6 +25,7 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
     $scope.packageMinPeople = 1;
     $scope.quantityOptions = PackagesFactory.getQuantityOptions();
     $scope.radiusOptions = PackagesFactory.getRadiusOptions();
+    $scope.vendorAddresses = [];
 
     function init() {
         let promise1 = PackagesFactory.getAllergenTypes().success(response => {
@@ -40,8 +40,11 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
         let promise4 = PackagesFactory.getFoodTypes().success(response => {
             $scope.foodTypeOptions = response.cuisineTypes;
         });
+        let promise5 = LocationsFactory.getAddresses().success(response => {
+            $scope.vendorAddresses = response;
+        });
 
-        $q.all([promise1, promise2, promise3, promise4]).then(() => LoadingService.hide());
+        $q.all([promise1, promise2, promise3, promise4, promise5]).then(() => LoadingService.hide());
     }
 
     init();
@@ -62,49 +65,46 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
         $scope.createDeliveryZones();
     });
 
-    $scope.addBusinessAddress = function() {
-        // LoadingService.show();
+    $scope.addAddress = function() {
+        if (!$scope.addAddressForm.$valid) {
+            return;
+        }
+
+        LoadingService.show();
 
         const addressDetails = {
-            label: $scope.businessAddressLine1,
-            addressLine1: $scope.businessAddressLine1,
-            addressLine2: $scope.businessAddressLine2,
-            addressLine3: $scope.businessAddressLine3,
-            city: $scope.businessCity,
-            county: $scope.businessCounty,
-            postcode: $scope.businessPostcode,
-            countryName: $scope.businessCountryName,
-            landlineNumber: $scope.businessLandlineNumber,
-            orderNotificationMobileNumber: $scope.businessOrderNotificationMobileNumber,
-            deliveryContactMobileNumber: $scope.businessDeliveryContactMobileNumber,
-            contactName: $scope.businessContactName
-            // @todo – delete _id, deliveryRadius, latitude and longitude.
-            ,_id: 1,
-            deliveryRadius: 2,
-            latitude: '51.522737',
-            longitude: '-0.085485'
+            label: $scope.address.addressLine1,
+            addressLine1: $scope.address.addressLine1,
+            addressLine2: $scope.address.addressLine2,
+            addressLine3: $scope.address.addressLine3,
+            city: $scope.address.city,
+            county: $scope.address.county,
+            postcode: $scope.address.postcode,
+            countryName: $scope.address.countryName,
+            landlineNumber: $scope.address.landlineNumber,
+            orderNotificationMobileNumber: $scope.address.orderNotificationMobileNumber,
+            deliveryContactMobileNumber: $scope.address.deliveryContactMobileNumber,
+            contactName: $scope.address.contactName
         };
 
-        // @todo – post address details.
-        // VendorsFactory.(addressDetails)
-        //     .success(response => {
-        //
-        //     })
-        //     .catch(response => {
-        //         $scope.addBusinessAddressError = response.data.errorTranslation;
-        //         LoadingService.hide();
-        //     });
+        LocationsFactory.createAddress(addressDetails)
+            .success(response => {
+                $scope.isAddAddressFormHidden = true;
+                $scope.address = { countryName: 'United Kingdom' }; // Reset address form fields.
+            })
+            .catch(response => {
+                $scope.addAddressError = response.data.errorTranslation;
+                LoadingService.hide();
+            });
 
-        $scope.isAddBusinessAddressFormHidden = true;
-
-        // @todo – re-fetch business addresses.
-        // $scope.businessAddresses = VendorsFactory.getBusinessAddresses();
-        $scope.businessAddresses.push(addressDetails);
-        $scope.createDeliveryZones();
+        LocationsFactory.getAddresses().success(response => {
+            $scope.vendorAddresses = response;
+            $scope.createDeliveryZones();
+        });
     };
 
-    $scope.addNewBusinessAddress = function() {
-        $scope.isAddBusinessAddressFormHidden = false;
+    $scope.addAnotherAddress = function() {
+        $scope.isAddAddressFormHidden = false;
     };
 
     $scope.addPackageItem = function() {
@@ -114,18 +114,18 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
     $scope.createDeliveryZones = function() {
         $scope.deliveryZones = [];
 
-        $scope.businessAddresses.forEach(function(businessAddress, index) {
+        $scope.vendorAddresses.forEach(function(address, index) {
             $scope.deliveryZones.push({
                 id: index,
                 center: {
-                    latitude: businessAddress.latitude,
-                    longitude: businessAddress.longitude
+                    latitude: address.latitude,
+                    longitude: address.longitude
                 },
                 fill: {
                     color: '#ff0000',
                     opacity: .3
                 },
-                radius: businessAddress.deliveryRadius * 1609.344, // Metres.
+                radius: address.deliveryRadius * 1609.344, // Metres.
                 stroke: {
                     weight: 0
                 }
@@ -135,8 +135,8 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
         $scope.map.refresh = true;
     };
 
-    $scope.createPackage = function(createPackageForm) {
-        if (!createPackageForm.$valid) {
+    $scope.createPackage = function() {
+        if (!$scope.createPackageForm.$valid) {
             return;
         }
 
@@ -146,12 +146,11 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
 
         var deliveryRadiuses = new Map();
 
-        $scope.businessAddresses.forEach(function(businessAddress) {
-            deliveryRadiuses.set(businessAddress._id, businessAddress.deliveryRadius);
+        $scope.vendorAddresses.forEach(function(address) {
+            deliveryRadiuses.set(address._id, address.deliveryRadius);
         });
 
         // @todo – add $scope.packageItems
-        // @todo – add vendor ID.
         const packageDetails = {
             cuisineType: $scope.packageFoodType,
             name: $scope.packageName,
@@ -172,7 +171,8 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
             deliveryTimeStart: $scope.packageDeliveryTimeStart,
             deliveryTimeEnd: $scope.packageDeliveryTimeEnd,
             deliveryCostIncludingVat: $scope.packageDeliveryCost,
-            freeDeliveryThreshold: $scope.packageFreeDeliveryThreshold
+            freeDeliveryThreshold: $scope.packageFreeDeliveryThreshold,
+            vendor: $cookies.vendorId
         };
 
         PackagesFactory.createPackage(packageDetails)
@@ -183,8 +183,5 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
                 $scope.createPackageError = response.data.errorTranslation;
                 LoadingService.hide();
             });
-
-        // @todo – add new business addresses.
-        if ($scope.newBusinessAddresses.length > 0) {}
     };
 });
