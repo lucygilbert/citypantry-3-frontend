@@ -55,6 +55,7 @@ angular.module('cp').config(function($routeProvider) {
             templateUrl: '/dist/templates/vendor/vendor-sign-up-agreement.html'
         }).
         when('/vendor/signup/thanks', {
+            controller: 'VendorSignUpThanksController',
             templateUrl: '/dist/templates/vendor/vendor-sign-up-thanks.html'
         }).
         when('/vendor/:idOrSlug', {

@@ -32,46 +32,8 @@ angular.module('cp.factories').factory('VendorsFactory', function(ApiService,
             return deferred.promise;
         },
 
-        updateVendor: function(id, updatedVendor) {
-            return ApiService.put(`${API_BASE}/vendors/${id}`, updatedVendor);
-        },
-        deleteVendor: function(id) {
-            return ApiService.delete(`${API_BASE}/vendors/${id}`);
-        },
         getBusinessTypes: () => ApiService.get(`${API_BASE}/business-types`),
 
-        getBusinessAddresses: () => {
-            // @todo – replace with ApiService.
-            return [
-                {
-                    _id: 1,
-                    label: 'Francis House',
-                    addressLine1: 'Francis House',
-                    addressLine2: '11 Francis Street',
-                    addressLine3: 'Westminster',
-                    city: 'London',
-                    postcode: 'SW1P 1DE',
-                    countryName: 'United Kingdom',
-                    telephoneNumber: '020 3397 8376',
-                    latitude: '51.496406',
-                    longitude: '-0.136674',
-                    deliveryRadius: 2
-                },
-                {
-                    _id: 2,
-                    label: '17a Electric Lane',
-                    addressLine1: '17a Electric Lane',
-                    addressLine2: 'Brixton',
-                    addressLine3: '',
-                    city: 'London',
-                    postcode: 'SW9 8LA',
-                    countryName: 'United Kingdom',
-                    telephoneNumber: '020 3397 8376',
-                    latitude: '51.461982',
-                    longitude: '-0.113982',
-                    deliveryRadius: 2
-                }
-            ];
-        }
+        getAddresses: () => ApiService.get(`${API_BASE}/addresses`)
     };
 });

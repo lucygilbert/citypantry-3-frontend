@@ -3,7 +3,7 @@ angular.module('cp.controllers.general').directive('cpCheckList', function() {
         restrict: 'A',
         scope: {
             list: '=cpCheckList',
-            value: '@'
+            value: '='
         },
         link: function(scope, element, attrs) {
             var handler = function(setup) {

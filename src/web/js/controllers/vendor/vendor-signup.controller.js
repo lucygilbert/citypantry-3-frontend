@@ -6,7 +6,7 @@ angular.module('cp.controllers.general').controller('VendorSignUpController',
         $window.location = '/';
     }
 
-    $scope.businessCountryName = 'United Kingdom';
+    $scope.countryName = 'United Kingdom';
     $scope.businessTypeOptions = [];
 
     function getBusinessTypeOptions() {
@@ -31,17 +31,16 @@ angular.module('cp.controllers.general').controller('VendorSignUpController',
             businessName: $scope.businessName,
             businessTypeId: $scope.businessType,
             address: {
-                label: $scope.businessAddressLine1,
-                addressLine1: $scope.businessAddressLine1,
-                addressLine2: $scope.businessAddressLine2,
-                addressLine3: $scope.businessAddressLine3,
-                city: $scope.businessCity,
-                county: $scope.businessCounty,
-                postcode: $scope.businessPostcode,
-                countryName: $scope.businessCountryName,
-                landlineNumber: $scope.businessLandlineNumber,
-                orderNotificationMobileNumber: $scope.businessMobileNumber,
-                deliveryContactMobileNumber: $scope.businessMobileNumber,
+                addressLine1: $scope.addressLine1,
+                addressLine2: $scope.addressLine2 ? $scope.addressLine2 : null,
+                addressLine3: $scope.addressLine3 ? $scope.addressLine3 : null,
+                city: $scope.city,
+                county: $scope.county ? $scope.county : null,
+                postcode: $scope.postcode,
+                countryName: $scope.countryName,
+                landlineNumber: $scope.landlineNumber,
+                orderNotificationMobileNumber: $scope.mobileNumber,
+                deliveryContactMobileNumber: $scope.mobileNumber,
                 contactName: $scope.name
             },
             name: $scope.name,

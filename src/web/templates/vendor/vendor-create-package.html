@@ -22,8 +22,8 @@
                 <fieldset>
                     <legend>Details &#38; pricing</legend>
                     <div class="form-group">
-                        <label for="package_food_type">Food type<span class="form-element-invalid" ng-show="createPackageForm.$submitted && createPackageForm.packageFoodType.$error.required"> (Food type is required.)</span></label>
-                        <select class="form-control input-lg" id="package_food_type" name="packageFoodType" required aria-required="true" ng-model="packageFoodType" ng-options="foodTypeOption.id as foodTypeOption.name for foodTypeOption in foodTypeOptions"></select>
+                        <label for="package_cuisine_type">Food type<span class="form-element-invalid" ng-show="createPackageForm.$submitted && createPackageForm.packageCuisineType.$error.required"> (Food type is required.)</span></label>
+                        <select class="form-control input-lg" id="package_cuisine_type" name="packageCuisineType" required aria-required="true" ng-model="packageCuisineType" ng-options="cuisineTypeOption.id as cuisineTypeOption.name for cuisineTypeOption in cuisineTypeOptions"></select>
                     </div>
                     
                     <div class="form-group">
@@ -57,22 +57,23 @@
                     <div class="form-group">
                         <fieldset>
                             <legend>Suitable for (check all that apply)</legend>
-                            <label class="checkbox-inline" ng-repeat="dietaryTypeOption in dietaryTypeOptions">
-                                <input name="packageDietaryTypes[]" type="checkbox" value="{{dietaryTypeOption.name}}" cp-check-list="packageDietaryTypes" /> {{dietaryTypeOption.name}}
-                            </label>
+                            <div ng-repeat="dietaryTypeOption in dietaryTypeOptions">
+                                <label class="checkbox">
+                                    <input name="packageDietaryTypes[]" type="checkbox" value="dietaryTypeOption" ng-click="dietaryTypeSelected($event, dietaryTypeOption)" cp-check-list="packageDietaryTypes" /> {{dietaryTypeOption.name}}
+                                </label>
+                                <div class="form-group" ng-show="packageDietaryTypes.indexOf(dietaryTypeOption) !== -1">
+                                    <label for="package_dietary_type_notes{{$index + 1}}">Notes</label>
+                                    <input class="form-control input-lg" id="package_dietary_type_notes{{$index + 1}}" name="dietaryTypeOption.notes" type="text" ng-model="dietaryTypeOption.notes" />
+                                </div>
+                            </div>
                         </fieldset>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="package_vegetarian_option">Vegetarian option</label>
-                        <input class="form-control input-lg" id="package_vegetarian_option" name="packageVegetarianOption" type="text" ng-model="packageVegetarianOption" />
                     </div>
                     
                     <div class="form-group">
                         <fieldset>
                             <legend>Applicable allergens (check all that apply)</legend>
                             <label class="checkbox" ng-repeat="allergenTypeOption in allergenTypeOptions">
-                                <input name="packageAllergenTypes[]" type="checkbox" value="{{allergenTypeOption.id}}" cp-check-list="packageAllergenTypes" /> {{allergenTypeOption.name}}
+                                <input name="packageAllergenTypes[]" type="checkbox" value="allergenTypeOption.id" cp-check-list="packageAllergenTypes" /> {{allergenTypeOption.name}}
                             </label>
                         </fieldset>
                     </div>
@@ -81,7 +82,7 @@
                         <fieldset>
                             <legend>Package type (check all that apply) </legend>
                             <label class="checkbox-inline" ng-repeat="eventTypeOption in eventTypeOptions">
-                                <input name="packageEventTypes[]" type="checkbox" value="{{eventTypeOption.id}}" cp-check-list="packageEventTypes" /> {{eventTypeOption.name}}
+                                <input name="packageEventTypes[]" type="checkbox" value="eventTypeOption.id" cp-check-list="packageEventTypes" /> {{eventTypeOption.name}}
                             </label>
                         </fieldset>
                         <span class="help-block">Please only check “Dinner” if you’re able to deliver in the evening.</span>
@@ -115,13 +116,17 @@
                                 <ui-gmap-circle ng-repeat="deliveryZone in deliveryZones track by deliveryZone.id" center="deliveryZone.center" fill="deliveryZone.fill" radius="deliveryZone.radius" stroke="deliveryZone.stroke"></ui-gmap-circle>
                             </ui-gmap-google-map>
 
-                            <div class="row" ng-repeat="vendorAddress in vendor.addresses">
-                                <div class="col-sm-8">
-                                    {{vendorAddress | addressSingleLineFormatter}}
-                                </div>
-                                <div class="col-sm-4">
-                                    <label class="sr-only" for="delivery_radius{{$index + 1}}">Mile radius</label>
-                                    <select class="form-control input-lg" id="delivery_radius{{$index + 1}}" name="vendorAddress.deliveryRadius" ng-change="createDeliveryZones()" ng-model="vendorAddress.deliveryRadius" ng-options="radiusOption.value as radiusOption.label for radiusOption in radiusOptions"></select>
+                            <div id="addresses">
+                                <div class="row" ng-repeat="vendorAddress in vendorAddresses">
+                                    <div class="col-sm-8">
+                                        <label class="checkbox">
+                                            <input name="vendorAddress.isSelected" type="checkbox" ng-model="vendorAddress.isSelected" ng-show="vendorAddresses.length > 1" /> {{vendorAddress | addressSingleLineFormatter}}
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="sr-only" for="delivery_radius{{$index + 1}}">Mile radius</label>
+                                        <select class="form-control input-lg" id="delivery_radius{{$index + 1}}" name="vendorAddress.deliveryRadius" ng-change="createDeliveryZones()" ng-model="vendorAddress.deliveryRadius" ng-options="radiusOption.value as radiusOption.label for radiusOption in radiusOptions"></select>
+                                    </div>
                                 </div>
                             </div>
 
@@ -208,7 +213,7 @@
                         <fieldset>
                             <legend>What days can you deliver this package?<span class="form-element-invalid" ng-show="createPackageForm.$submitted && packageDeliveryDays.length === 0"> (Please specify at least one delivery day.)</span></legend>
                             <label class="checkbox-inline" ng-repeat="deliveryDayOption in deliveryDayOptions">
-                                <input name="packageDeliveryDays[]" type="checkbox" value="{{deliveryDayOption.value}}" required aria-required="true" cp-check-list="packageDeliveryDays" /> {{deliveryDayOption.label}}
+                                <input name="packageDeliveryDays[]" type="checkbox" value="deliveryDayOption.value" required aria-required="true" cp-check-list="packageDeliveryDays" /> {{deliveryDayOption.label}}
                             </label>
                         </fieldset>
                     </div>

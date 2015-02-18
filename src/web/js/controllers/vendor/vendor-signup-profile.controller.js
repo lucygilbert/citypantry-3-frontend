@@ -20,12 +20,12 @@ angular.module('cp.controllers.general').controller('VendorSignUpProfileControll
             description: $scope.vendorDescription,
             maxPeople: $scope.vendorMaxPeople,
             isVatRegistered: $scope.vendorVatRegistered,
-            vatNumber: $scope.vendorVatNumber,
-            facebookUrl: $scope.vendorFacebookUrl,
-            twitterUrl: $scope.vendorTwitterUrl,
-            googlePlusUrl: $scope.vendorGooglePlusUrl,
-            youtubeUrl: $scope.vendorYoutubeUrl,
-            url: $scope.vendorUrl
+            vatNumber: $scope.vendorVatNumber ? $scope.vendorVatNumber : null,
+            facebookUrl: $scope.vendorFacebookUrl ? $scope.vendorFacebookUrl : null,
+            twitterUrl: $scope.vendorTwitterUrl ? $scope.vendorTwitterUrl : null,
+            googlePlusUrl: $scope.vendorGooglePlusUrl ? $scope.vendorGooglePlusUrl : null,
+            youtubeUrl: $scope.vendorYoutubeUrl ? $scope.vendorYoutubeUrl : null,
+            url: $scope.vendorUrl ? $scope.vendorUrl : null
         };
 
         VendorsFactory.updateVendor($cookies.vendorId, vendorDetails)

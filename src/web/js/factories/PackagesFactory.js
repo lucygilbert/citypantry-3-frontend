@@ -28,7 +28,7 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
 
         getEventTypes: () => ApiService.get(`${API_BASE}/event-types`),
 
-        getFoodTypes: () => ApiService.get(`${API_BASE}/cuisine-types`),
+        getCuisineTypes: () => ApiService.get(`${API_BASE}/cuisine-types`),
 
         getDeliveryDayOptions: () => {
             return [

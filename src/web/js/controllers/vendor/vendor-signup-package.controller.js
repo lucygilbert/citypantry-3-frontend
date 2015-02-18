@@ -1,16 +1,18 @@
 angular.module('cp.controllers.general').controller('VendorSignUpPackageController',
-        function($scope, $cookies, $window, $q, DocumentTitleService, LoadingService, SecurityService, LocationsFactory, PackagesFactory, uiGmapGoogleMapApi) {
+        function($scope, $cookies, $location, $anchorScroll, $window, $q, DocumentTitleService, LoadingService,
+                 SecurityService, AddressFactory, PackagesFactory, VendorsFactory, uiGmapGoogleMapApi) {
+
     DocumentTitleService('Vendor sign up');
     LoadingService.hide();
 
-    $scope.address = { countryName: 'United Kingdom' };
+    $scope.address = {countryName: 'United Kingdom'};
     $scope.allergenTypeOptions = [];
+    $scope.cuisineTypeOptions = [];
     $scope.deliveryDayOptions = PackagesFactory.getDeliveryDayOptions();
     $scope.deliveryTimeOptions = PackagesFactory.getDeliveryTimeOptions();
     $scope.deliveryZones = [];
     $scope.dietaryTypeOptions = [];
     $scope.eventTypeOptions = [];
-    $scope.foodTypeOptions = [];
     $scope.isAddAddressFormHidden = true;
     $scope.map = {};
     $scope.noticeOptions = PackagesFactory.getNoticeOptions();
@@ -32,16 +34,27 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
             $scope.allergenTypeOptions = response.allergenTypes;
         });
         let promise2 = PackagesFactory.getDietaryTypes().success(response => {
-            $scope.dietaryTypeOptions = response.dietaryRequirements;
+            var dietaryTypes = response.dietaryRequirements;
+
+            dietaryTypes.forEach(dietaryType => {
+                $scope.dietaryTypeOptions.push({
+                    name: dietaryType.name
+                });
+            });
         });
         let promise3 = PackagesFactory.getEventTypes().success(response => {
             $scope.eventTypeOptions = response.eventTypes;
         });
-        let promise4 = PackagesFactory.getFoodTypes().success(response => {
-            $scope.foodTypeOptions = response.cuisineTypes;
+        let promise4 = PackagesFactory.getCuisineTypes().success(response => {
+            $scope.cuisineTypeOptions = response.cuisineTypes;
         });
-        let promise5 = LocationsFactory.getAddresses().success(response => {
-            $scope.vendorAddresses = response;
+        let promise5 = VendorsFactory.getAddresses().success(response => {
+            $scope.vendorAddresses = response.addresses;
+            $scope.vendorAddresses.forEach(function(address) {
+                address.deliveryRadius = 2; // Default delivery radius.
+                address.isSelected = true;
+            });
+            $scope.createDeliveryZones();
         });
 
         $q.all([promise1, promise2, promise3, promise4, promise5]).then(() => LoadingService.hide());
@@ -61,8 +74,6 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
             },
             zoom: 12
         };
-
-        $scope.createDeliveryZones();
     });
 
     $scope.addAddress = function() {
@@ -73,12 +84,11 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
         LoadingService.show();
 
         const addressDetails = {
-            label: $scope.address.addressLine1,
             addressLine1: $scope.address.addressLine1,
-            addressLine2: $scope.address.addressLine2,
-            addressLine3: $scope.address.addressLine3,
+            addressLine2: $scope.address.addressLine2 ? $scope.address.addressLine2 : null,
+            addressLine3: $scope.address.addressLine3 ? $scope.address.addressLine3 : null,
             city: $scope.address.city,
-            county: $scope.address.county,
+            county: $scope.address.county ? $scope.address.county : null,
             postcode: $scope.address.postcode,
             countryName: $scope.address.countryName,
             landlineNumber: $scope.address.landlineNumber,
@@ -87,19 +97,21 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
             contactName: $scope.address.contactName
         };
 
-        LocationsFactory.createAddress(addressDetails)
+        AddressFactory.createAddress(addressDetails)
             .success(response => {
                 $scope.isAddAddressFormHidden = true;
-                $scope.address = { countryName: 'United Kingdom' }; // Reset address form fields.
+                $scope.address = {countryName: 'United Kingdom'}; // Reset address form fields.
+                $location.hash('addresses');
+                $anchorScroll();
             })
             .catch(response => {
                 $scope.addAddressError = response.data.errorTranslation;
-                LoadingService.hide();
             });
 
-        LocationsFactory.getAddresses().success(response => {
-            $scope.vendorAddresses = response;
+        VendorsFactory.getAddresses().success(response => {
+            $scope.vendorAddresses = response.addresses;
             $scope.createDeliveryZones();
+            LoadingService.hide();
         });
     };
 
@@ -147,19 +159,20 @@ angular.module('cp.controllers.general').controller('VendorSignUpPackageControll
         var deliveryRadiuses = new Map();
 
         $scope.vendorAddresses.forEach(function(address) {
-            deliveryRadiuses.set(address._id, address.deliveryRadius);
+            if (address.isSelected) {
+                deliveryRadiuses.set(address._id, address.deliveryRadius);
+            }
         });
 
-        // @todo – add $scope.packageItems
         const packageDetails = {
-            cuisineType: $scope.packageFoodType,
+            cuisineType: $scope.packageCuisineType,
             name: $scope.packageName,
-            shortDescription: $scope.packageShortDescription,
+            shortDescription: $scope.packageShortDescription ? $scope.packageShortDescription : null,
             description: $scope.packageDescription,
-            // @todo – dietary requirements should return array of objects.
-            dietaryRequirements: $scope.packageDietaryTypes,
-            allergenTypes: $scope.packageAllergenTypes,
-            eventTypes: $scope.packageEventTypes,
+            items: ($scope.packageItems.length > 0) ? $scope.packageItems : null,
+            dietaryRequirements: ($scope.packageDietaryTypes.length > 0) ? $scope.packageDietaryTypes : null,
+            allergenTypes: ($scope.packageAllergenTypes.length > 0) ? $scope.packageAllergenTypes : null,
+            eventTypes: ($scope.packageEventTypes.length > 0) ? $scope.packageEventTypes : null,
             hotFood: $scope.packageHotFood,
             costIncludingVat: $scope.packageCost,
             // @todo – confirm a map is the correct format.

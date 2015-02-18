@@ -12,8 +12,7 @@ angular.module('cp.controllers.general').controller('VendorSignUpAgreementContro
             isActive: true
         };
 
-        // @todo – pass vendor ID to updateVendor()
-        VendorsFactory.updateVendor(updatedVendor)
+        VendorsFactory.updateVendor($cookies.vendorId, updatedVendor)
             .success(response => {
                 $window.location = '/vendor/signup/thanks';
             })
