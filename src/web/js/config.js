@@ -34,13 +34,13 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'VendorPortalAddressController',
             templateUrl: '/dist/templates/vendor/address.html'
         }).
-        when('/vendor/:idOrSlug', {
-            controller: 'ViewVendorController',
-            templateUrl: '/dist/templates/general/view-vendor.html'
-        }).
         when('/vendor/new-address', {
             controller: 'VendorPortalAddressController',
             templateUrl: '/dist/templates/vendor/address.html'
+        }).
+        when('/vendor/:idOrSlug', {
+            controller: 'ViewVendorController',
+            templateUrl: '/dist/templates/general/view-vendor.html'
         }).
         when('/package/:humanIdAndSlug', {
             controller: 'ViewPackageController',
