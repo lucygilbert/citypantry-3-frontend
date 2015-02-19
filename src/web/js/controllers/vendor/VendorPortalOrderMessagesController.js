@@ -19,4 +19,13 @@ angular.module('cp.controllers.general').controller('VendorPortalOrderMessagesCo
     }
 
     loadOrder();
+
+    $scope.sendMessage = function() {
+        LoadingService.show();
+        $scope.message = null;
+
+        OrdersFactory.sendMessage($routeParams.id, $scope.message)
+            .success(loadOrder)
+            .error(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
 });
