@@ -19,4 +19,14 @@ describe('Vendor portal - your orders', function() {
         expect(orders.get(0).getText()).toContain('Carrots');
         expect(orders.get(1).getText()).toContain('Marshmallows');
     });
+
+    it('should be able to accept an order', function() {
+        var pendingOrder = element.all(by.repeater('order in orders')).get(0);
+        expect(pendingOrder.getText()).toContain('Pending vendor approval');
+
+        pendingOrder.element(by.css('.dropdown a.btn')).click();
+        pendingOrder.element(by.css('.dropdown-menu a[ng-click]')).click();
+
+        expect(pendingOrder.getText()).toContain('Active');
+    });
 });
