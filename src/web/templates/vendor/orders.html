@@ -9,7 +9,7 @@
         <table ng-if="count > 0" class="table" id="table_orders" summary="Your orders">
             <thead>
                 <tr>
-                    <th>Order No</th>
+                    <th>Order no.</th>
                     <th>Order date</th>
                     <th>Delivery date</th>
                     <th>Package</th>
@@ -20,25 +20,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-click="showReceipt(order);" href="#order-details-modal" data-toggle="modal"
-                        ng-repeat="order in orders">
-                    <td class="order-number">{{ order.humanId }}</td>
-                    <td>{{ order.date | date:'d MMM yyyy' }}</td>
-                    <td>{{ order.requestedDeliveryDate | date:'d MMM yyyy HH:mm' }}</td>
-                    <td>{{ order.package.name }}</td>
-                    <td>{{ order.headCount }}</td>
-                    <td>&#163;{{ order.totalAmountAfterVoucher }}</td>
-                    <td>{{ order.statusText | getOrderStatusText }}</td>
+                <tr ng-repeat="order in orders">
+                    <td ng-click="showReceipt(order)" class="order-number">{{ order.humanId }}</td>
+                    <td ng-click="showReceipt(order)">{{ order.date | date:'d MMM yyyy' }}</td>
+                    <td ng-click="showReceipt(order)">{{ order.requestedDeliveryDate | date:'d MMM yyyy HH:mm' }}</td>
+                    <td ng-click="showReceipt(order)">{{ order.package.name }}</td>
+                    <td ng-click="showReceipt(order)">{{ order.headCount }}</td>
+                    <td ng-click="showReceipt(order)">&#163;{{ order.totalAmountAfterVoucher }}</td>
+                    <td ng-click="showReceipt(order)">{{ order.statusText | getOrderStatusText }}</td>
                     <td class="dropdown">
-                        <a class="btn btn-primary" id="actions" href="#" role="button" data-toggle="dropdown">
+                        <a class="btn btn-primary" id="actions-{{ order.id }}" role="button">
                             Actions
                             <span class="caret"></span>
                         </a>
 
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="actions">
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="actions-{{ order.id }}">
                             <li ng-if="order.statusText === 'pending_vendor_approval'"><a ng-click="acceptOrder(order)">Accept order</a></li>
 
-                            <li><a href="/vendor/orders/{{ order.id }}/messages">@todo - Customer contact</a></li>
+                            <li><a href="/vendor/orders/{{ order.id }}/messages">Customer contact</a></li>
 
                             <li>@todo - invoice/receipt</li>
                         </ul>
@@ -101,23 +100,27 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Subtotal</th>
-                                    <td class="order-details-cell" id="subtotal">{{ modalOrder.subTotalIncludingVat }}</td>
+                                    <td class="order-details-cell" id="subtotal">{{ modalOrder.subTotalIncludingVat | currency:'£' }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Delivery</th>
-                                    <td class="order-details-cell" id="delivery">{{ modalOrder.shippingIncludingVatAmount }}</td>
+                                    <td class="order-details-cell" id="delivery">{{ modalOrder.shippingIncludingVatAmount | currency:'£' }}</td>
                                 </tr>
                                 <tr id="row_promo_code">
                                     <th scope="row">Promo code</th>
-                                    <td class="order-details-cell" id="promo_code">{{ modalOrder.voucherAmount }}</td>
+                                    <td class="order-details-cell" id="promo_code">{{ modalOrder.voucherAmount | currency:'£' }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Total cost</th>
-                                    <td class="order-details-cell" id="total_cost">{{ modalOrder.totalAmountAfterVoucher }}</td>
+                                    <td class="order-details-cell" id="total_cost">{{ modalOrder.totalAmountAfterVoucher | currency:'£' }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Special delivery instructions</th>
                                     <td class="order-details-cell" id="special_delivery_instructions">{{ modalOrder.deliveryInstruction }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Estimated driving time</th>
+                                    <td class="order-details-cell" id="estimated_driving_time">{{ modalOrder.drivingTimeFromPickupAddressToDeliveryAddress }} minutes</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Status</th>

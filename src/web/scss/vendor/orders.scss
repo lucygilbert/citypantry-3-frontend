@@ -4,6 +4,11 @@
     .dropdown:hover .dropdown-menu {
         display: block;
     }
+
+    .dropdown-menu {
+        margin-top: 0;
+        top: 90%;
+    }
 }
 
 #order-details-modal.fade.in {

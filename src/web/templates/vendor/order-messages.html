@@ -1,0 +1,15 @@
+<div class="vendor-signup-header"></div>
+
+<div class="wrapper">
+    <h1>Order {{ order.humanId }} message history</h1>
+
+    <p ng-if="messages.length === 0">No messages</p>
+
+    <div ng-if="messages.length > 1">
+        <div ng-repeat="message in messages">
+            <p><b>From {{ message.sender === 'vendor' ? 'you' : 'the customer' }} on <time datetime="{{ message.dateSent | date:'yyyy-MM-dd HH:mm' }}">{{ message.dateSent | date:'d MMM yyyy, H:mm' }}</time>:</b></p>
+            <p>{{ message.message }}</p>
+            <hr />
+        </div>
+    </div>
+</div>

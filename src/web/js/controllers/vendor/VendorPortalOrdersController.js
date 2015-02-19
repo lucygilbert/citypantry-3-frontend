@@ -3,17 +3,29 @@ angular.module('cp.controllers.general').controller('VendorPortalOrdersControlle
     SecurityService.requireVendor();
     DocumentTitleService('Your orders');
 
-    OrdersFactory.getOrdersByCurrentVendor()
-        .success(response => {
-            $scope.count = response.count;
-            $scope.orders = response.orders;
-            $scope.vendor = response.vendor;
-            LoadingService.hide();
-        })
-        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    function loadOrders() {
+        OrdersFactory.getOrdersByCurrentVendor()
+            .success(response => {
+                $scope.vendor = response.vendor;
+                // Only orders that are active and pending vendor approval should be visible on this page.
+                $scope.orders = response.orders.filter(order => order.statusText !== 'not_placed')
+                    .sort((a, b) => a.humanId > b.humanId)
+                    .reverse();
+                $scope.count = $scope.orders.length;
+                LoadingService.hide();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    }
+
+    loadOrders();
 
     $scope.acceptOrder = function(order) {
-        // @todo
+        LoadingService.show();
+        $scope.modal = false;
+
+        OrdersFactory.acceptOrder(order.id)
+            .success(loadOrders)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 
     $scope.showReceipt = function(order) {

@@ -18,13 +18,13 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'VendorsController',
             templateUrl: '/dist/templates/general/vendors.html'
         }).
-        when('/vendor/:idOrSlug', {
-            controller: 'ViewVendorController',
-            templateUrl: '/dist/templates/general/view-vendor.html'
-        }).
         when('/vendor/orders', {
             controller: 'VendorPortalOrdersController',
             templateUrl: '/dist/templates/vendor/orders.html'
+        }).
+        when('/vendor/orders/:id/messages', {
+            controller: 'VendorPortalOrderMessagesController',
+            templateUrl: '/dist/templates/vendor/order-messages.html'
         }).
         when('/vendor/addresses', {
             controller: 'VendorPortalAddressesController',
@@ -33,6 +33,10 @@ angular.module('cp').config(function($routeProvider) {
         when('/vendor/addresses/:id', {
             controller: 'VendorPortalAddressController',
             templateUrl: '/dist/templates/vendor/address.html'
+        }).
+        when('/vendor/:idOrSlug', {
+            controller: 'ViewVendorController',
+            templateUrl: '/dist/templates/general/view-vendor.html'
         }).
         when('/vendor/new-address', {
             controller: 'VendorPortalAddressController',
