@@ -1,6 +1,5 @@
 angular.module('cp.controllers.general').controller('VendorPortalAddressController',
         function ($scope, $routeParams, VendorsFactory, LoadingService, DocumentTitleService) {
-    // @todo - e2e tests.
     DocumentTitleService('Your addresses');
 
     if ($routeParams.id) {
