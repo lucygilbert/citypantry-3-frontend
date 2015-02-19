@@ -1,4 +1,4 @@
-angular.module('cp.controllers.general').controller('VendorSignUpThanksController',
+angular.module('cp.controllers.vendor').controller('VendorSignUpThanksController',
         function($scope, DocumentTitleService, LoadingService) {
     DocumentTitleService('Vendor sign up');
     LoadingService.hide();

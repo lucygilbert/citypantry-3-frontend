@@ -1,4 +1,4 @@
-angular.module('cp.controllers.general').controller('VendorSignUpController',
+angular.module('cp.controllers.vendor').controller('VendorSignUpController',
         function($scope, $cookies, $window, DocumentTitleService, LoadingService, SecurityService, UsersFactory, VendorsFactory) {
     DocumentTitleService('Vendor sign up');
 
@@ -6,7 +6,7 @@ angular.module('cp.controllers.general').controller('VendorSignUpController',
         $window.location = '/';
     }
 
-    $scope.countryName = 'United Kingdom';
+    $scope.address = {countryName: 'United Kingdom'};
     $scope.businessTypeOptions = [];
 
     function getBusinessTypeOptions() {
@@ -18,29 +18,29 @@ angular.module('cp.controllers.general').controller('VendorSignUpController',
 
     getBusinessTypeOptions();
 
-    $scope.signUp = function(vendorSignUpForm) {
-        if (!vendorSignUpForm.$valid) {
+    $scope.submit = function() {
+        if (!$scope.vendorSignUpForm.$valid) {
             return;
         }
 
         LoadingService.show();
 
-        $scope.signUpError = null;
+        $scope.vendorSignUpFormError = null;
 
         const signUpDetails = {
-            businessName: $scope.businessName,
-            businessTypeId: $scope.businessType,
+            businessName: $scope.vendor.name,
+            businessTypeId: $scope.vendor.type,
             address: {
-                addressLine1: $scope.addressLine1,
-                addressLine2: $scope.addressLine2 ? $scope.addressLine2 : null,
-                addressLine3: $scope.addressLine3 ? $scope.addressLine3 : null,
-                city: $scope.city,
-                county: $scope.county ? $scope.county : null,
-                postcode: $scope.postcode,
-                countryName: $scope.countryName,
-                landlineNumber: $scope.landlineNumber,
-                orderNotificationMobileNumber: $scope.mobileNumber,
-                deliveryContactMobileNumber: $scope.mobileNumber,
+                addressLine1: $scope.address.addressLine1,
+                addressLine2: $scope.address.addressLine2 ? $scope.address.addressLine2 : null,
+                addressLine3: $scope.address.addressLine3 ? $scope.address.addressLine3 : null,
+                city: $scope.address.city,
+                county: $scope.address.county ? $scope.address.county : null,
+                postcode: $scope.address.postcode,
+                countryName: $scope.address.countryName,
+                landlineNumber: $scope.address.landlineNumber,
+                orderNotificationMobileNumber: $scope.address.mobileNumber,
+                deliveryContactMobileNumber: $scope.address.mobileNumber,
                 contactName: $scope.name
             },
             name: $scope.name,
@@ -57,7 +57,7 @@ angular.module('cp.controllers.general').controller('VendorSignUpController',
                 $window.location = '/vendor/signup/package';
             })
             .catch(response => {
-                $scope.signUpError = response.data.errorTranslation;
+                $scope.vendorSignUpFormError = response.data.errorTranslation;
                 LoadingService.hide();
             });
     };

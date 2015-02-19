@@ -36,9 +36,9 @@
             <p>We aim to generate £1,000s for your business annually, so you needn’t offer discounts to City Pantry customers coming to you directly. We reserve the right to remove your listing should we find that our customers are obtaining discounts in this manner.</p>
             <p>By clicking this button you agree to our <a href="/agreement">Supplier Agreement</a>.</p>
 
-            <p class="form-error" ng-show="signUpError" ng-bind="signUpError"></p>
+            <p class="form-error" ng-show="vendorSignUpFormError" ng-bind="vendorSignUpFormError"></p>
 
-            <input class="btn btn-primary btn-lg" type="submit" value="Finish sign up →" ng-click="signUp()" />
+            <input class="btn btn-primary btn-lg" type="submit" value="Finish sign up →" ng-click="submit()" />
         </div>
     </div>
 </div>

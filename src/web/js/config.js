@@ -38,17 +38,33 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'VendorPortalAddressController',
             templateUrl: '/dist/templates/vendor/address.html'
         }).
+        when('/vendor/create-package', {
+            controller: 'VendorPortalPackageController',
+            templateUrl: '/dist/templates/vendor/vendor-portal-create-package.html'
+        }).
+        when('/vendor/packages', {
+            controller: 'VendorPortalPackagesController',
+            templateUrl: '/dist/templates/vendor/vendor-portal-packages.html'
+        }).
+        when('/vendor/packages/:id', {
+            controller: 'VendorPortalPackageController',
+            templateUrl: '/dist/templates/vendor/vendor-portal-edit-package.html'
+        }).
+        when('/vendor/profile', {
+            controller: 'VendorPortalProfileController',
+            templateUrl: '/dist/templates/vendor/vendor-portal-profile.html'
+        }).
         when('/vendor/signup', {
             controller: 'VendorSignUpController',
             templateUrl: '/dist/templates/vendor/vendor-sign-up.html'
         }).
         when('/vendor/signup/package', {
             controller: 'VendorSignUpPackageController',
-            templateUrl: '/dist/templates/vendor/vendor-create-package.html'
+            templateUrl: '/dist/templates/vendor/vendor-sign-up-package.html'
         }).
         when('/vendor/signup/profile', {
             controller: 'VendorSignUpProfileController',
-            templateUrl: '/dist/templates/vendor/vendor-profile.html'
+            templateUrl: '/dist/templates/vendor/vendor-sign-up-profile.html'
         }).
         when('/vendor/signup/agreement', {
             controller: 'VendorSignUpAgreementController',

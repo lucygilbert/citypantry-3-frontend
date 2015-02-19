@@ -7,60 +7,60 @@
 
             <p class="lead">Fill out the form below to start creating your account.</p>
 
-            <p class="form-error" ng-show="signUpError" ng-bind="signUpError"></p>
+            <p class="form-error" ng-show="vendorSignUpFormError" ng-bind="vendorSignUpFormError"></p>
 
-            <form name="vendorSignUpForm" novalidate role="form" ng-submit="signUp(vendorSignUpForm)">
+            <form name="vendorSignUpForm" novalidate role="form" ng-submit="submit()">
                 <fieldset>
                     <div class="form-group">
-                        <label for="business_name">Business name<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.businessName.$error.required"> (Business name is required.)</span><span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.businessName.$error.unique"> (Business name is already taken.)</span></label>
-                        <input class="form-control input-lg" id="business_name" name="businessName" type="text" required aria-required="true" ng-model="businessName" cp-unique="vendors.name" />
+                        <label for="vendor_name">Business name<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.vendorName.$error.required"> (Business name is required.)</span><span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.vendorName.$error.unique"> (Business name is already taken.)</span></label>
+                        <input class="form-control input-lg" id="vendor_name" name="vendorName" type="text" required aria-required="true" ng-model="vendor.name" cp-unique="vendors.name" />
                     </div>
 
                     <div class="form-group">
-                        <label for="business_type">Business type<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.businessType.$error.required"> (Business type is required.)</span></label>
-                        <select class="form-control input-lg" id="business_type" name="businessType" required aria-required="true" ng-model="businessType" ng-options="businessTypeOption.id as businessTypeOption.name for businessTypeOption in businessTypeOptions"></select>
+                        <label for="vendor_type">Business type<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.vendorType.$error.required"> (Business type is required.)</span></label>
+                        <select class="form-control input-lg" id="vendor_type" name="vendorType" required aria-required="true" ng-model="vendor.type" ng-options="businessTypeOption.id as businessTypeOption.name for businessTypeOption in businessTypeOptions"></select>
                     </div>
 
                     <div class="form-group">
-                        <label for="address_line1">Business address line 1<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.addressLine1.$error.required"> (Business address line 1 is required.)</span></label>
-                        <input class="form-control input-lg" id="address_line1" name="addressLine1" type="text" required aria-required="true" ng-model="addressLine1" />
+                        <label for="address_address_line1">Business address line 1<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.addressAddressLine1.$error.required"> (Business address line 1 is required.)</span></label>
+                        <input class="form-control input-lg" id="address_address_line1" name="addressAddressLine1" type="text" required aria-required="true" ng-model="address.addressLine1" />
                     </div>
 
                     <div class="form-group">
-                        <label for="address_line2">Business address line 2</label>
-                        <input class="form-control input-lg" id="address_line2" name="addressLine2" type="text" ng-model="addressLine2" />
+                        <label for="address_address_line2">Business address line 2</label>
+                        <input class="form-control input-lg" id="address_address_line2" name="addressAddressLine2" type="text" ng-model="address.addressLine2" />
                     </div>
 
                     <div class="form-group">
-                        <label for="address_line3">Business address line 3</label>
-                        <input class="form-control input-lg" id="address_line3" name="addressLine3" type="text" ng-model="addressLine3" />
+                        <label for="address_address_line3">Business address line 3</label>
+                        <input class="form-control input-lg" id="address_address_line3" name="addressAddressLine3" type="text" ng-model="address.addressLine3" />
                     </div>
 
                     <div class="form-group">
-                        <label for="city">City<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.city.$error.required"> (City is required.)</span></label>
-                        <input class="form-control input-lg" id="city" name="city" type="text" required aria-required="true" ng-model="city" />
+                        <label for="address_city">City<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.addressCity.$error.required"> (City is required.)</span></label>
+                        <input class="form-control input-lg" id="address_city" name="addressCity" type="text" required aria-required="true" ng-model="address.city" />
                     </div>
 
                     <div class="form-group">
-                        <label for="county">County</label>
-                        <input class="form-control input-lg" id="county" name="county" type="text" ng-model="county" />
+                        <label for="address_county">County</label>
+                        <input class="form-control input-lg" id="address_county" name="addressCounty" type="text" ng-model="address.county" />
                     </div>
 
                     <div class="form-group">
-                        <label for="postcode">Postcode<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.postcode.$error.required"> (Postcode is required.)</span><span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.postcode.$error.pattern"> (Postcode is invalid.)</span></label>
-                        <input class="form-control input-lg" id="postcode" name="postcode" type="text" required aria-required="true" ng-model="postcode" ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
+                        <label for="address_postcode">Postcode<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.addressPostcode.$error.required"> (Postcode is required.)</span><span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.addressPostcode.$error.pattern"> (Postcode is invalid.)</span></label>
+                        <input class="form-control input-lg" id="address_postcode" name="addressPostcode" type="text" required aria-required="true" ng-model="address.postcode" ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
                     </div>
 
-                    <input name="countryName" type="hidden" required aria-required="true" ng-model="countryName" />
+                    <input name="addressCountryName" type="hidden" required aria-required="true" ng-model="address.countryName" />
 
                     <div class="form-group">
-                        <label for="landline_number">Landline number<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.landlineNumber.$error.required"> (Landline number is required.)</span></label>
-                        <input class="form-control input-lg" id="landline_number" name="landlineNumber" type="tel" required aria-required="true" ng-model="landlineNumber" />
+                        <label for="address_landline_number">Landline number<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.addressLandlineNumber.$error.required"> (Landline number is required.)</span></label>
+                        <input class="form-control input-lg" id="address_landline_number" name="addressLandlineNumber" type="tel" required aria-required="true" ng-model="address.landlineNumber" />
                     </div>
 
                     <div class="form-group">
-                        <label for="mobile_number">Mobile number<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.mobileNumber.$error.required"> (Mobile number is required.)</span><span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.mobileNumber.$error.pattern"> (Mobile number is invalid.)</span></label>
-                        <input class="form-control input-lg" id="mobile_number" name="mobileNumber" type="tel" required aria-required="true" ng-model="mobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
+                        <label for="address_mobile_number">Mobile number<span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.addressMobileNumber.$error.required"> (Mobile number is required.)</span><span class="form-element-invalid" ng-show="vendorSignUpForm.$submitted && vendorSignUpForm.addressMobileNumber.$error.pattern"> (Mobile number is invalid.)</span></label>
+                        <input class="form-control input-lg" id="address_mobile_number" name="addressMobileNumber" type="tel" required aria-required="true" ng-model="address.mobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
                     </div>
                 </fieldset>
 
@@ -81,7 +81,7 @@
                     </div>
 
                 </fieldset>
-                <input class="btn btn-primary btn-lg" type="submit" value="List your first package →" />
+                <input class="btn btn-primary btn-lg" type="submit" value="Create your first package →" />
             </form>
         </div>
 
