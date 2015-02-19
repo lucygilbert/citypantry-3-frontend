@@ -12,6 +12,9 @@ angular.module('cp.factories').factory('OrdersFactory', function(API_BASE, ApiSe
         getOrderMessages: function(id) {
             return ApiService.get(`${API_BASE}/orders/${id}/messages`);
         },
+
+        sendMessage: (id, message) => ApiService.put(`${API_BASE}/orders/${id}/messages`, {message: message}),
+
         updateOrder: function(id, updatedOrder) {
             return ApiService.put(`${API_BASE}/order/${id}`, updatedOrder);
         },
