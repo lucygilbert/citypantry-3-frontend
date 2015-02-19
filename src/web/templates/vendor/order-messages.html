@@ -5,7 +5,7 @@
 
     <p ng-if="messages.length === 0">No messages</p>
 
-    <div ng-if="messages.length > 1">
+    <div ng-if="messages.length > 0">
         <div ng-repeat="message in messages">
             <p><b>From {{ message.sender === 'vendor' ? 'you' : 'the customer' }} on <time datetime="{{ message.dateSent | date:'yyyy-MM-dd HH:mm' }}">{{ message.dateSent | date:'d MMM yyyy, H:mm' }}</time>:</b></p>
             <p>{{ message.message }}</p>
