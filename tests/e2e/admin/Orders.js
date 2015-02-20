@@ -46,16 +46,16 @@ describe('Admin - orders page', function() {
         gridTestUtils.expectHeaderCellValueMatch('orders-table', 5, 'Package');
     });
 
-    it('should have the column name "Amount"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 6, 'Amount');
+    it('should have the column name "Cost"', function() {
+        gridTestUtils.expectHeaderCellValueMatch('orders-table', 6, 'Cost');
     });
 
     it('should have the column name "Status"', function() {
         gridTestUtils.expectHeaderCellValueMatch('orders-table', 7, 'Status');
     });
 
-    it('should have the column name "Action"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 8, 'Action');
+    it('should have the column name "View"', function() {
+        gridTestUtils.expectHeaderCellValueMatch('orders-table', 8, 'View');
     });
 
     it('should find 1 order when filtered by "Carrots"', function() {
