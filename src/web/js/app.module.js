@@ -28,7 +28,15 @@ angular.module('cp').config(function($locationProvider) {
 .run(function($rootScope, HUBSPOT_BASE, LoadingService, UsersFactory, $location, $cookies) {
     $rootScope.hubspotBase = HUBSPOT_BASE;
 
-    $rootScope.$on('$routeChangeStart', function() {
+    $rootScope.$on('$routeChangeStart', function(event, oldRoute, newRoute) {
+        // Don't show the loading service animation when the page change is just the search query
+        // changing. It's not pretty when typing fast and the animation flickers with each key press.
+        let isFromSearchToSearch = oldRoute.$route && oldRoute.$route.controller === 'SearchController' &&
+            newRoute.$route && newRoute.$route.controller === 'SearchController';
+        if (isFromSearchToSearch) {
+            return;
+        }
+
         LoadingService.show();
     });
 
