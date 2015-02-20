@@ -4,6 +4,7 @@ angular.module('cp', [
     'ui.bootstrap',
     'ui.grid',
     'ui.grid.pagination',
+    'uiSlider',
     'cp.controllers.admin',
     'cp.controllers.general',
     'cp.controllers.user',
