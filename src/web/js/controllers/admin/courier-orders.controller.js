@@ -1,5 +1,6 @@
 angular.module('cp.controllers.admin').controller('AdminCourierOrdersController',
-        function($scope, OrdersFactory, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, OrdersFactory, DocumentTitleService, SecurityService, LoadingService,
+        getOrderStatusTextFilter, getDeliveryStatusTextFilter) {
     DocumentTitleService('Courier Orders');
     SecurityService.requireStaff();
 
@@ -43,8 +44,12 @@ angular.module('cp.controllers.admin').controller('AdminCourierOrdersController'
                 field: 'pickupReferenceNumber'
             },
             {
-                displayName: 'Status',
-                field: 'statusText'
+                displayName: 'Order Status',
+                field: 'statusTextTranslation'
+            },
+            {
+                displayName: 'Delivery Status',
+                field: 'deliveryStatusTextTranslation'
             },
             {
                 cellTemplate: `<div class="ui-grid-cell-contents">
@@ -62,25 +67,12 @@ angular.module('cp.controllers.admin').controller('AdminCourierOrdersController'
         paginationPageSize: 25
     };
 
-    function getOrderStatusText(order) {
-        if (order.status === 1 && order.pickupReferenceNumber === null) {
-            return 'Pending courier approval';
-        } else if (order.status === 1 && typeof order.pickupReferenceNumber === 'string') {
-            return 'Pending vendor approval';
-        } else if (order.actualDeliveryDate !== null) {
-            return 'Delivered';
-        } else if (order.leftKitchenDate !== null) {
-            return 'Left kitchen';
-        } else if (order.kitchenCourierDate !== null) {
-            return 'Collected';
-        } else {
-            console.log('Unknown status text for order: ', order);
-            return 'Unknown';
-        }
-    }
-
     OrdersFactory.getCourierOrders().success(response => {
-        response.orders.map(order => order.statusText = getOrderStatusText(order));
+        angular.forEach(response.orders, row => {
+            row.statusTextTranslation = getOrderStatusTextFilter(row.statusText);
+            row.deliveryStatusTextTranslation = getDeliveryStatusTextFilter(row.deliveryStatus);
+        });
+
         $scope.gridOptions.data = response.orders;
         LoadingService.hide();
     });

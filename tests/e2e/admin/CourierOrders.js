@@ -18,8 +18,8 @@ describe('Admin - courier orders page', function() {
         gridTestUtils.expectRowCount('courier-orders-table', 1);
     });
 
-    it('should have 9 columns', function() {
-        gridTestUtils.expectHeaderColumnCount('courier-orders-table', 9);
+    it('should have 10 columns', function() {
+        gridTestUtils.expectHeaderColumnCount('courier-orders-table', 10);
         gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 0, 'Order No.');
         gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 1, 'Delivery Date');
         gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 2, 'Pickup Time');
@@ -27,7 +27,8 @@ describe('Admin - courier orders page', function() {
         gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 4, 'Collected');
         gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 5, 'Delivered');
         gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 6, 'Courier Ref');
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 7, 'Status');
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 8, 'Action');
+        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 7, 'Order Status');
+        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 8, 'Delivery Status');
+        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 9, 'Action');
     });
 });

@@ -14,8 +14,8 @@ describe('Admin - orders page', function() {
         expect(element(by.css('h1')).getText()).toBe('Orders');
     });
 
-    it('should have 9 columns', function() {
-        gridTestUtils.expectHeaderColumnCount('orders-table', 9);
+    it('should have 10 columns', function() {
+        gridTestUtils.expectHeaderColumnCount('orders-table', 10);
     });
 
     it('should have 3 rows', function() {
@@ -51,11 +51,15 @@ describe('Admin - orders page', function() {
     });
 
     it('should have the column name "Status"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 7, 'Status');
+        gridTestUtils.expectHeaderCellValueMatch('orders-table', 7, 'Order Status');
+    });
+
+    it('should have the column name "Delivery Status"', function() {
+        gridTestUtils.expectHeaderCellValueMatch('orders-table', 8, 'Delivery Status');
     });
 
     it('should have the column name "View"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 8, 'View');
+        gridTestUtils.expectHeaderCellValueMatch('orders-table', 9, 'View');
     });
 
     it('should find 1 order when filtered by "Carrots"', function() {
