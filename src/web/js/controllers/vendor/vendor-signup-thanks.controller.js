@@ -1,5 +1,5 @@
-angular.module('cp.controllers.vendor').controller('VendorSignUpThanksController',
+angular.module('cp.controllers.vendor').controller('VendorSignupThanksController',
         function($scope, DocumentTitleService, LoadingService) {
-    DocumentTitleService('Vendor sign up');
+    DocumentTitleService('Vendor signup');
     LoadingService.hide();
 });

@@ -1,6 +1,6 @@
-angular.module('cp.controllers.vendor').controller('VendorSignUpController',
+angular.module('cp.controllers.vendor').controller('VendorSignupController',
         function($scope, $cookies, $window, DocumentTitleService, LoadingService, SecurityService, UsersFactory, VendorsFactory) {
-    DocumentTitleService('Vendor sign up');
+    DocumentTitleService('Vendor signup');
 
     if (SecurityService.inGroup(['admin', 'user'])) {
         $window.location = '/';
@@ -25,7 +25,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignUpController',
 
         LoadingService.show();
 
-        $scope.vendorSignUpFormError = null;
+        $scope.vendorSignupFormError = null;
 
         const signUpDetails = {
             businessName: $scope.vendor.name,
@@ -40,7 +40,6 @@ angular.module('cp.controllers.vendor').controller('VendorSignUpController',
                 countryName: $scope.address.countryName,
                 landlineNumber: $scope.address.landlineNumber,
                 orderNotificationMobileNumber: $scope.address.mobileNumber,
-                deliveryContactMobileNumber: $scope.address.mobileNumber,
                 contactName: $scope.name
             },
             name: $scope.name,
@@ -57,7 +56,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignUpController',
                 $window.location = '/vendor/signup/package';
             })
             .catch(response => {
-                $scope.vendorSignUpFormError = response.data.errorTranslation;
+                $scope.vendorSignupFormError = response.data.errorTranslation;
                 LoadingService.hide();
             });
     };

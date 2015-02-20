@@ -55,24 +55,24 @@ angular.module('cp').config(function($routeProvider) {
             templateUrl: '/dist/templates/vendor/vendor-portal-profile.html'
         }).
         when('/vendor/signup', {
-            controller: 'VendorSignUpController',
-            templateUrl: '/dist/templates/vendor/vendor-sign-up.html'
+            controller: 'VendorSignupController',
+            templateUrl: '/dist/templates/vendor/vendor-signup.html'
         }).
         when('/vendor/signup/package', {
-            controller: 'VendorSignUpPackageController',
-            templateUrl: '/dist/templates/vendor/vendor-sign-up-package.html'
+            controller: 'VendorSignupPackageController',
+            templateUrl: '/dist/templates/vendor/vendor-signup-package.html'
         }).
         when('/vendor/signup/profile', {
-            controller: 'VendorSignUpProfileController',
-            templateUrl: '/dist/templates/vendor/vendor-sign-up-profile.html'
+            controller: 'VendorSignupProfileController',
+            templateUrl: '/dist/templates/vendor/vendor-signup-profile.html'
         }).
         when('/vendor/signup/agreement', {
-            controller: 'VendorSignUpAgreementController',
-            templateUrl: '/dist/templates/vendor/vendor-sign-up-agreement.html'
+            controller: 'VendorSignupAgreementController',
+            templateUrl: '/dist/templates/vendor/vendor-signup-agreement.html'
         }).
         when('/vendor/signup/thanks', {
-            controller: 'VendorSignUpThanksController',
-            templateUrl: '/dist/templates/vendor/vendor-sign-up-thanks.html'
+            controller: 'VendorSignupThanksController',
+            templateUrl: '/dist/templates/vendor/vendor-signup-thanks.html'
         }).
         when('/vendor/:idOrSlug', {
             controller: 'ViewVendorController',

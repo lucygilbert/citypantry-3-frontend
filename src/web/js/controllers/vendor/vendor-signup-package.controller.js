@@ -1,6 +1,6 @@
-angular.module('cp.controllers.vendor').controller('VendorSignUpPackageController',
+angular.module('cp.controllers.vendor').controller('VendorSignupPackageController',
         function($scope, DocumentTitleService) {
-    DocumentTitleService('Vendor sign up');
+    DocumentTitleService('Vendor signup');
 
     $scope.package = {
         allergenTypes: [],

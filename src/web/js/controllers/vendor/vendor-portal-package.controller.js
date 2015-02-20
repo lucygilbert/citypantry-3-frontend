@@ -19,7 +19,7 @@ angular.module('cp.controllers.vendor').controller('VendorPortalPackageControlle
     if ($routeParams.id) {
         PackagesFactory.getPackage($routeParams.id).then(response => {
             $scope.package = response;
-            DocumentTitleService('Edit package ' + $scope.package.humanId);
+            DocumentTitleService('Edit package');
             LoadingService.hide();
         });
     } else {

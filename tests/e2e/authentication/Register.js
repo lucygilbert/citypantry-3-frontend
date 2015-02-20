@@ -4,7 +4,7 @@ describe('Register', function() {
         browser.get('/login');
     });
 
-    it('should show an error if a email is entered that is already registered', function() {
+    it('should show an error if an email is entered that is already registered', function() {
         element(by.id('signup_name')).sendKeys('Name');
         element(by.id('signup_email')).sendKeys('vendor@bunnies.test');
         element(by.id('signup_password')).sendKeys('password');

@@ -1,6 +1,6 @@
-angular.module('cp.controllers.vendor').controller('VendorSignUpAgreementController',
+angular.module('cp.controllers.vendor').controller('VendorSignupAgreementController',
         function($scope, $cookies, $window, DocumentTitleService, LoadingService, VendorsFactory) {
-    DocumentTitleService('Vendor sign up');
+    DocumentTitleService('Vendor signup');
     LoadingService.hide();
 
     $scope.submit = function() {
