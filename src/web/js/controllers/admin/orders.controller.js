@@ -1,5 +1,7 @@
 angular.module('cp.controllers.admin').controller('AdminOrdersController',
-        function($scope, OrdersFactory, uiGridConstants, getOrderStatusTextFilter, NotificationService, $window, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, OrdersFactory, uiGridConstants, getOrderStatusTextFilter,
+        getDeliveryStatusTextFilter, NotificationService, $window, DocumentTitleService,
+        SecurityService, LoadingService) {
     DocumentTitleService('Orders');
     SecurityService.requireStaff();
 
@@ -73,8 +75,12 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
                 field: 'totalAmount'
             },
             {
-                displayName: 'Status',
+                displayName: 'Order Status',
                 field: 'statusTextTranslation'
+            },
+            {
+                displayName: 'Delivery Status',
+                field: 'deliveryStatusTextTranslation'
             },
             {
                 cellTemplate: `<div class="ui-grid-cell-contents">
@@ -94,7 +100,10 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
 
     function loadOrders() {
         OrdersFactory.getAllOrders().success(response => {
-            angular.forEach(response.orders, row => row.statusTextTranslation = getOrderStatusTextFilter(row.statusText));
+            angular.forEach(response.orders, row => {
+                row.statusTextTranslation = getOrderStatusTextFilter(row.statusText);
+                row.deliveryStatusTextTranslation = getDeliveryStatusTextFilter(row.deliveryStatus);
+            });
 
             vm.gridOptions.data = response.orders;
 

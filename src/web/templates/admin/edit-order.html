@@ -46,6 +46,11 @@
             </div>
 
             <div class="form-group">
+                <label for="order_status">Delivery status</label>
+                <input class="form-control input-lg" id="order_status" type="text" readonly ng-model="order.deliveryStatus | getDeliveryStatusText" />
+            </div>
+
+            <div class="form-group">
                 <label for="subtotal_amount">Subtotal</label>
                 <input class="form-control input-lg" id="subtotal_amount" type="text" readonly ng-model="order.subTotalExcludingVat" format-currency />
             </div>

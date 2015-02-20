@@ -861,12 +861,9 @@ label.error {
     max-width: 64rem; /* 1024px */
     padding: 2rem 15px;
 }
-
-@media only screen and (min-width: 768px) {
-    .wrapper {
-        //padding-top: 2rem;
-        //padding-bottom: 2rem;
-    }
+// Wide wrapper used in admin pages.
+.wide-wrapper {
+    padding: 2rem 1rem;
 }
 
 /**
