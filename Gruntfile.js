@@ -110,6 +110,7 @@ module.exports = function (grunt) {
                         'src/web/js/lib/angular-route.min.js',
                         'src/web/js/lib/ui-bootstrap-tpls-0.12.0.min.js',
                         'src/web/lib/ng-grid/ui-grid.js',
+                        'src/web/lib/angular-slider/angular-slider.js',
                     ],
                     'web/dist/js/built-citypantry-es6.js': [
                         'src/web/js/app.module.js',

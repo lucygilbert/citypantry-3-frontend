@@ -1,4 +1,78 @@
-<div class="wrapper">
+<div class="wrapper" id="search-page">
+    <div class="col-sm-3 sidebar">
+        <h3 class="sr-only">Filter</h3>
+
+        <form class="filter-form" role="form">
+            <!-- @todo - Date filter. -->
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input class="form-control input-lg" name="date" type="date" placeholder="DD/MM/YYYY" />
+            </div>
+
+            <!-- @todo - Time filter. -->
+            <div class="form-group">
+                <label for="time">Time</label>
+                <select class="form-control input-lg" name="time" ng-options="time in timeOptions">
+                    <option value="">-</option>
+                </select>
+            </div>
+
+            <!-- @todo - Number of people filter. -->
+            <div class="form-group">
+                <label for="people">Number of people</label>
+                <select class="form-control input-lg" id="people" name="people">
+                    <option value="">-</option>
+                </select>
+            </div>
+        </form>
+
+        <section class="filter-package collapse" id="filter-package">
+            <div class="form-group filter-package-budget">
+                <label for="budget">Budget per person</label>
+
+                <slider floor="{{ minPackageCost }}" ceiling="{{ maxPackageCost }}" step="1" precision="0.1" ng-model="search.maxBudget"></slider>
+
+                <p class="budget-range" ng-show="search.maxBudget > 0">
+                    Max: <strong>{{ search.maxBudget | currency:'£' }}</strong>
+                </p>
+            </div>
+
+            <!-- @todo - Event type filter. -->
+            <h4 ng-show="eventTypes.length > 0">Package type</h4>
+
+            <ul class="nav" ng-show="eventTypes.length > 0">
+                <li ng-repeat="eventType in eventTypes">
+                    <a>
+                        {{ eventType.name }}
+                        <span>{{ eventType.searchResultsCount }}</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="filter-selected">
+                <span>@todo</span>
+                <button class="close" type="button">×</button>
+            </div>
+
+            <!-- @todo - Cuisine type filter. -->
+            <h4 ng-show="cuisineTypes.length > 0">Cuisine</h4>
+
+            <ul class="nav" ng-show="cuisineTypes.length > 0">
+                <li ng-repeat="cuisineType in cuisineTypes">
+                    <a>
+                        {{ cuisineType.name }}
+                        <span>{{ cuisineType.searchResultsCount }}</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="filter-selected">
+                <span>@todo</span>
+                <button class="close" type="button">×</button>
+            </div>
+        </section>
+    </div>
+
     <p ng-show="isSearching">Seaching...</p>
 
     <div ng-show="!isSearching">
@@ -12,7 +86,7 @@
                         <span class="btn btn-order">Order Now</span>
                     </div>
                     <h2 class="package-name">{{ package.name }}</h2>
-                    <span class="package-price">{{ package.costIncludingVat }} <small>per head</small></span>
+                    <span class="package-price">{{ package.costIncludingVat | currency:'£' }} <small>per head</small></span>
                 </a>
 
                 <a class="hidden-xs package-vendor" href="/vendor/{{ package.vendor.id }}-{{ package.vendor.slug }}">
@@ -21,4 +95,6 @@
             </li>
         </ul>
     </div>
+
+    <div class="clearfix"></div>
 </div>

@@ -6,15 +6,25 @@ angular.module('cp.controllers.general').controller('SearchController',
     $scope.search = {
         name: $routeParams.name,
         postcode: $routeParams.postcode,
+        maxBudget: undefined
     };
 
     $scope.isSearching = true;
+
+    $scope.minPackageCost = 1;
+    $scope.maxPackageCost = 20;
 
     let isOnSearchPage = true;
 
     $rootScope.$watch('bannerSearchName', function(name) {
         if (isOnSearchPage) {
             $location.search('name', name).replace();
+        }
+    });
+
+    $scope.$watch('search.maxBudget', function(maxBudget) {
+        if (Number(maxBudget) > 0) {
+            search();
         }
     });
 
@@ -25,7 +35,7 @@ angular.module('cp.controllers.general').controller('SearchController',
     }
 
     function search() {
-        PackagesFactory.searchPackages($scope.search.name, $scope.search.postcode)
+        PackagesFactory.searchPackages($scope.search.name, $scope.search.postcode, $scope.search.maxBudget)
             .success(response => {
                 if (response.exactVendorNameMatch) {
                     $location.path(`/vendor/${response.vendor.id}-${response.vendor.slug}`);

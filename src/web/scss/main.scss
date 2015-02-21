@@ -2,6 +2,7 @@
 @import 'lib/bootstrap.scss';
 @import 'lib/datepicker.scss';
 @import '../lib/ng-grid/ui-grid.scss';
+@import '../lib/angular-slider/angular-slider.scss';
 
 body {
     background: #fff;
@@ -2996,4 +2997,5 @@ fieldset[disabled] .btn-primary.active {
 @import 'admin/customers.scss';
 @import 'admin/general.scss';
 @import 'admin/orders.scss';
+@import 'customer/search.scss';
 @import 'vendor/orders.scss';
