@@ -1,15 +1,11 @@
 angular.module('cp.factories').factory('VendorsFactory', function(ApiService,
         API_BASE, $q) {
     return {
-        getAllVendors: function() {
-            return ApiService.get(`${API_BASE}/vendors`);
-        },
-        getAllActiveAndApprovedVendors: function() {
-            return ApiService.get(`${API_BASE}/vendors/all-active-and-approved`);
-        },
-        getVendor: function(idOrSlug) {
-            return ApiService.get(`${API_BASE}/vendors/${idOrSlug}`);
-        },
+        getAllVendors: () => ApiService.get(`${API_BASE}/vendors`),
+
+        getAllActiveAndApprovedVendors: () => ApiService.get(`${API_BASE}/vendors/all-active-and-approved`),
+
+        getVendor: (idOrSlug) => ApiService.get(`${API_BASE}/vendors/${idOrSlug}`),
 
         getAddresses: () => ApiService.get(`${API_BASE}/addresses`),
 
