@@ -19,7 +19,11 @@ const baseHost = window.location.host.replace('order.', '');
 angular.module('cp')
     .constant('FRONTEND_BASE', window.location.protocol + '//order.' + baseHost)
     .constant('API_BASE', window.location.protocol + '//api.' + baseHost)
-    .constant('HUBSPOT_BASE', window.hubspotBase);
+    .constant('HUBSPOT_BASE', window.hubspotBase)
+    .constant('MAP_CENTER', {
+        latitude: 51.527787,
+        longitude: -0.127691
+    });
 
 angular.module('cp').config(function($locationProvider) {
     $locationProvider.html5Mode({
@@ -54,7 +58,6 @@ angular.module('cp').config(function($locationProvider) {
                 // a dev or staging site and the database fixtures have been reloaded.
                 delete $cookies.userId;
                 delete $cookies.salt;
-                localStorage.removeItem('user');
                 $location.path('/logout');
             }
         });

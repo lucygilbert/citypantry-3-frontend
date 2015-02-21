@@ -1,5 +1,4 @@
-angular.module('cp.factories').factory('VendorsFactory', function(ApiService,
-        API_BASE, $q) {
+angular.module('cp.factories').factory('VendorsFactory', function(ApiService, API_BASE, $q) {
     return {
         getAllVendors: () => ApiService.get(`${API_BASE}/vendors`),
 
@@ -28,8 +27,6 @@ angular.module('cp.factories').factory('VendorsFactory', function(ApiService,
             return deferred.promise;
         },
 
-        getBusinessTypes: () => ApiService.get(`${API_BASE}/business-types`),
-
-        getAddresses: () => ApiService.get(`${API_BASE}/addresses`)
+        getBusinessTypes: () => ApiService.get(`${API_BASE}/business-types`)
     };
 });

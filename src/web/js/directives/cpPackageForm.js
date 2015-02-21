@@ -1,5 +1,6 @@
 angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies, $location, $q,
-        $window, LoadingService, AddressFactory, PackagesFactory, VendorsFactory, uiGmapGoogleMapApi) {
+        $window, LoadingService, AddressFactory, PackagesFactory, VendorsFactory, uiGmapGoogleMapApi,
+        MAP_CENTER) {
     return {
         restrict: 'E',
         scope: {
@@ -22,6 +23,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             $scope.noticeOptions = PackagesFactory.getNoticeOptions();
             $scope.quantityOptions = PackagesFactory.getQuantityOptions();
             $scope.radiusOptions = PackagesFactory.getRadiusOptions();
+            $scope.vendor = {};
             $scope.vendor.addresses = [];
 
             function init() {
@@ -56,19 +58,15 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
 
                 $q.all([promise1, promise2, promise3, promise4, promise5]).then(() => {
                     $scope.createDeliveryZones();
-                    LoadingService.hide()
+                    LoadingService.hide();
                 });
             }
 
             init();
 
             uiGmapGoogleMapApi.then(function(maps) {
-                // @todo – latitude and longitude should be constants.
                 $scope.map = {
-                    center: {
-                        latitude: 51.527787,
-                        longitude: -0.127691
-                    },
+                    center: MAP_CENTER,
                     options: {
                         scrollwheel: false
                     },
@@ -174,7 +172,6 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                     eventTypes: ($scope.package.eventTypes.length > 0) ? $scope.package.eventTypes : null,
                     hotFood: $scope.package.hotFood,
                     costIncludingVat: $scope.package.cost,
-                    // @todo – confirm a map is the correct format.
                     deliveryRadiuses: deliveryRadiuses,
                     minPeople: $scope.package.minPeople,
                     maxPeople: $scope.package.maxPeople,
