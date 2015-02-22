@@ -23,17 +23,17 @@ angular.module('cp')
     .constant('MAP_CENTER', {
         latitude: 51.527787,
         longitude: -0.127691
-    });
+    })
+    .constant('GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY', window.googleMapsJavascriptApiV3Key);
 
-angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvider) {
+angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvider, GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY) {
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false
     });
 
     uiGmapGoogleMapApiProvider.configure({
-        // @todo – use a constant for key – discuss with Amy (23/02).
-        key: 'AIzaSyCgsL3Y_ku4QY06aDa6WVkIyy_E8IXPJYg',
+        key: GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY,
         v: '3.17'
     });
 })
