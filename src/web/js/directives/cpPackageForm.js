@@ -23,8 +23,9 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             $scope.noticeOptions = PackagesFactory.getNoticeOptions();
             $scope.quantityOptions = PackagesFactory.getQuantityOptions();
             $scope.radiusOptions = PackagesFactory.getRadiusOptions();
-            $scope.vendor = {};
-            $scope.vendor.addresses = [];
+            $scope.vendor = {
+                addresses: []
+            };
 
             function init() {
                 let promise1 = PackagesFactory.getAllergenTypes().success(response => {
@@ -36,7 +37,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                     dietaryTypes.forEach(dietaryType => {
                         $scope.dietaryTypeOptions.push({
                             name: dietaryType.name,
-                            notes: null
+                            notes: ''
                         });
                     });
                 });
@@ -50,7 +51,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                     $scope.vendor.addresses = response.addresses;
 
                     // Set address defaults.
-                    $scope.vendor.addresses.forEach(function(address) {
+                    $scope.vendor.addresses.forEach(address => {
                         address.deliveryRadius = 2;
                         address.isSelected = true;
                     });
@@ -157,7 +158,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
 
                 $scope.vendor.addresses.forEach(function(address) {
                     if (address.isSelected) {
-                        deliveryRadiuses.set(address._id, address.deliveryRadius);
+                        deliveryRadiuses.set(address.id, address.deliveryRadius);
                     }
                 });
 

@@ -26,7 +26,7 @@ describe('Vendor portal - create package', function() {
         expect(element(by.model('package.hotFood')).getAttribute('value')).toBe(false);
         expect(element(by.model('package.cost')).getAttribute('value')).toBe(20);
         // @todo – test for cuisine type, dietary type(s), allergen type(s), event type(s) and
-        // delivery day(s).
+        // delivery day(s) (23/02).
     });
 
     it('should show the vendor’s addresses', function() {

@@ -6,7 +6,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignupAgreementControl
     $scope.submit = function() {
         LoadingService.show();
 
-        $scope.vendorSignUpFormError = null;
+        $scope.vendorSignupFormError = null;
 
         const updatedVendor = {
             isActive: true
@@ -17,7 +17,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignupAgreementControl
                 $window.location = '/vendor/signup/thanks';
             })
             .catch(response => {
-                $scope.vendorSignUpFormError = response.data.errorTranslation;
+                $scope.vendorSignupFormError = response.data.errorTranslation;
                 LoadingService.hide();
             });
     };

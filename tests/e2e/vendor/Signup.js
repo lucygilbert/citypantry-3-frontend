@@ -34,7 +34,7 @@ describe('Vendor signup', function() {
 
     it('should show an error if an invalid postcode is entered', function() {
         element(by.model('address.postcode')).sendKeys('SW1P');
-        element(by.css('main form btn.btn-primary')).click();
+        element(by.css('main form .btn.btn-primary')).click();
 
         expect(browser.getCurrentUrl()).toMatch(/\/vendor\/signup$/);
         var error = element.all(by.css('label[for="address_postcode"] > span.form-element-invalid').get(1));
@@ -44,7 +44,7 @@ describe('Vendor signup', function() {
 
     it('should show an error if an invalid mobile number is entered', function() {
         element(by.model('address.mobileNumber')).sendKeys('07777');
-        element(by.css('main form btn.btn-primary')).click();
+        element(by.css('main form .btn.btn-primary')).click();
 
         expect(browser.getCurrentUrl()).toMatch(/\/vendor\/signup$/);
         var error = element.all(by.css('label[for="address_mobile_number"] > span.form-element-invalid').get(1));

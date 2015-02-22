@@ -5,5 +5,5 @@ angular.module('cp.controllers.vendor').controller('VendorSignupProfileControlle
 
     $scope.vendor = {
         maxPeople: 1
-    }
+    };
 });

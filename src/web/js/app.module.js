@@ -25,10 +25,16 @@ angular.module('cp')
         longitude: -0.127691
     });
 
-angular.module('cp').config(function($locationProvider) {
+angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvider) {
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false
+    });
+
+    uiGmapGoogleMapApiProvider.configure({
+        // @todo – use a constant for key – discuss with Amy (23/02).
+        key: 'AIzaSyCgsL3Y_ku4QY06aDa6WVkIyy_E8IXPJYg',
+        v: '3.17'
     });
 })
 .run(function($rootScope, HUBSPOT_BASE, LoadingService, UsersFactory, $location, $cookies) {

@@ -1,5 +1,5 @@
 angular.module('cp').directive('cpVendorProfileForm', function($cookies, $window, LoadingService,
-        VendorsFactory, PackagesFactory) {
+        PackagesFactory, VendorsFactory) {
     return {
         restrict: 'E',
         scope: {

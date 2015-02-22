@@ -1,5 +1,6 @@
 angular.module('cp.controllers.vendor').controller('VendorSignupController',
-        function($scope, $cookies, $window, DocumentTitleService, LoadingService, SecurityService, UsersFactory, VendorsFactory) {
+        function($scope, $cookies, $window, DocumentTitleService, LoadingService, SecurityService,
+        UsersFactory, VendorsFactory) {
     DocumentTitleService('Vendor signup');
 
     if (SecurityService.inGroup(['admin', 'user'])) {
@@ -19,7 +20,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignupController',
     getBusinessTypeOptions();
 
     $scope.submit = function() {
-        if (!$scope.vendorSignUpForm.$valid) {
+        if (!$scope.vendorSignupForm.$valid) {
             return;
         }
 
@@ -27,7 +28,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignupController',
 
         $scope.vendorSignupFormError = null;
 
-        const signUpDetails = {
+        const signupDetails = {
             businessName: $scope.vendor.name,
             businessTypeId: $scope.vendor.type,
             address: {
@@ -47,7 +48,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignupController',
             plainPassword: $scope.plainPassword
         };
 
-        UsersFactory.registerVendor(signUpDetails)
+        UsersFactory.registerVendor(signupDetails)
             .success(response => {
                 $cookies.userId = response.apiAuth.userId;
                 $cookies.salt = response.apiAuth.salt;

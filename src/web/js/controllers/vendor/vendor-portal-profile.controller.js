@@ -4,7 +4,7 @@ angular.module('cp.controllers.vendor').controller('VendorPortalProfileControlle
 
     $scope.vendor = {
         maxPeople: 1
-    }
+    };
 
     VendorsFactory.getVendor($cookies.vendorId).then(response => {
         $scope.vendor = response;
