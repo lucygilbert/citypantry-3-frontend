@@ -133,7 +133,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                         },
                         fill: {
                             color: '#ff0000',
-                            opacity: .3
+                            opacity: 0.3
                         },
                         radius: address.deliveryRadius * 1609.344, // Metres.
                         stroke: {

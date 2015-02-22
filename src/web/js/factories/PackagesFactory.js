@@ -109,7 +109,7 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
                     label: i + ' mile radius',
                     value: i
                 });
-                if (i == 5) {
+                if (i === 5) {
                     step = 5;
                 }
             }
