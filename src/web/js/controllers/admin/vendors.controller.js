@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminVendorsController',
-        function($scope, VendorsFactory, getVendorStatusTextFilter, $window, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, VendorsFactory, getActiveAndApprovedStatusTextFilter, $window, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Vendors');
     SecurityService.requireStaff();
 
@@ -48,7 +48,7 @@ angular.module('cp.controllers.admin').controller('AdminVendorsController',
     function loadVendors() {
         VendorsFactory.getAllVendors().success(response => {
             angular.forEach(response.vendors, row => {
-                row.activeAndApproved = getVendorStatusTextFilter(row.isActive, row.isApproved);
+                row.activeAndApproved = getActiveAndApprovedStatusTextFilter(row.isActive, row.isApproved);
             });
             vm.gridOptions.data = response.vendors;
 

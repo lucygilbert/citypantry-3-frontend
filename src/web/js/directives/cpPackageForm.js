@@ -193,7 +193,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
 
                 PackagesFactory[$scope.operation + 'Package'].apply(this, packageArguments)
                     .success(response => {
-                        $window.location = $scope.destination;
+                        $location.path($scope.destination);
                     })
                     .catch(response => {
                         $scope.packageFormError = response.data.errorTranslation;

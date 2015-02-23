@@ -1,6 +1,6 @@
 angular.module('cp.controllers.vendor').controller('VendorSignupController',
-        function($scope, $cookies, $window, DocumentTitleService, LoadingService, SecurityService,
-        UsersFactory, VendorsFactory) {
+        function($scope, $cookies, $location, $window, DocumentTitleService, LoadingService,
+        SecurityService, UsersFactory, VendorsFactory) {
     DocumentTitleService('Vendor signup');
 
     if (SecurityService.inGroup(['admin', 'user'])) {
@@ -54,7 +54,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignupController',
                 $cookies.salt = response.apiAuth.salt;
                 $cookies.vendorId = response.vendor.id;
                 $window.localStorage.setItem('user', JSON.stringify(response.user));
-                $window.location = '/vendor/signup/package';
+                $location.path('/vendor/signup/package');
             })
             .catch(response => {
                 $scope.vendorSignupFormError = response.data.errorTranslation;

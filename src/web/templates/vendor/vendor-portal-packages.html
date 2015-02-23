@@ -22,7 +22,7 @@
                 <tr ng-repeat="package in packages">
                     <td>@todo – package thumbnail (23/02)</td>
                     <td>{{ package.name }}</td>
-                    <td>&#163;{{ package.costIncludingVat }}</td>
+                    <td>&#163;{{ package.costIncludingVat | currency:'£' }}</td>
                     <td>{{ package.activeAndApproved }}</td>
                     <td class="dropdown">
                         <a class="btn btn-primary" id="actions_{{ package.id }}" role="button">

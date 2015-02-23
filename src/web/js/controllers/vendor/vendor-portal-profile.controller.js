@@ -2,9 +2,7 @@ angular.module('cp.controllers.vendor').controller('VendorPortalProfileControlle
         function($scope, $cookies, DocumentTitleService, LoadingService, SecurityService, VendorsFactory) {
     SecurityService.requireVendor();
 
-    $scope.vendor = {
-        maxPeople: 1
-    };
+    $scope.vendor = {};
 
     VendorsFactory.getVendor($cookies.vendorId).then(response => {
         $scope.vendor = response;

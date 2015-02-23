@@ -1,5 +1,5 @@
-angular.module('cp').directive('cpVendorProfileForm', function($cookies, $window, LoadingService,
-        PackagesFactory, VendorsFactory) {
+angular.module('cp').directive('cpVendorProfileForm', function($cookies, $location, LoadingService,
+    PackagesFactory, VendorsFactory) {
     return {
         restrict: 'E',
         scope: {
@@ -34,7 +34,7 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $window
 
                 VendorsFactory.updateVendor($cookies.vendorId, vendorDetails)
                     .success(response => {
-                        $window.location = $scope.destination;
+                        $location.path($scope.destination);
                     })
                     .catch(response => {
                         $scope.vendorProfileFormError = response.data.errorTranslation;

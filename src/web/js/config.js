@@ -16,7 +16,7 @@ angular.module('cp').config(function($routeProvider) {
         }).
         when('/vendors', {
             controller: 'VendorsController',
-            templateUrl: '/dist/templates/vendor/vendors.html'
+            templateUrl: '/dist/templates/general/vendors.html'
         }).
         when('/vendor/orders', {
             controller: 'VendorPortalOrdersController',
@@ -76,7 +76,7 @@ angular.module('cp').config(function($routeProvider) {
         }).
         when('/vendor/:idOrSlug', {
             controller: 'ViewVendorController',
-            templateUrl: '/dist/templates/vendor/view-vendor.html'
+            templateUrl: '/dist/templates/general/view-vendor.html'
         }).
         when('/package/:humanIdAndSlug', {
             controller: 'ViewPackageController',

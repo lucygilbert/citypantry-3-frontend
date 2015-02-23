@@ -1,5 +1,5 @@
 angular.module('cp.controllers.vendor').controller('VendorSignupAgreementController',
-        function($scope, $cookies, $window, DocumentTitleService, LoadingService, VendorsFactory) {
+        function($scope, $cookies, $location, DocumentTitleService, LoadingService, VendorsFactory) {
     DocumentTitleService('Vendor signup');
     LoadingService.hide();
 
@@ -14,7 +14,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignupAgreementControl
 
         VendorsFactory.updateVendor($cookies.vendorId, updatedVendor)
             .success(response => {
-                $window.location = '/vendor/signup/thanks';
+                $location.path('/vendor/signup/thanks');
             })
             .catch(response => {
                 $scope.vendorSignupFormError = response.data.errorTranslation;

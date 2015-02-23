@@ -5,12 +5,12 @@ angular.module('cp.controllers.vendor').controller('VendorSignupPackageControlle
     $scope.package = {
         allergenTypes: [],
         deliveryDays: [],
-        deliveryTimeEnd: 0,
-        deliveryTimeStart: 0,
+        deliveryTimeEnd: '2000',
+        deliveryTimeStart: '0800',
         dietaryTypes: [],
         eventTypes: [],
         items: [{}, {}, {}, {}],
-        maxPeople: 1,
-        minPeople: 1
+        maxPeople: 50,
+        minPeople: 10
     };
 });

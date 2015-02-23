@@ -47,10 +47,14 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
             const options = [];
 
             while (minutes < 60 * 24) {
+                let hour = ('0' + Math.floor(minutes / 60)).slice(-2);
+                let minute = ('0' + minutes % 60).slice(-2);
+
                 options.push({
-                    label: ('0' + Math.floor(minutes / 60)).slice(-2) + ':' + ('0' + minutes % 60).slice(-2),
-                    value: minutes
+                    label: hour + ':' + minute,
+                    value: hour + minute
                 });
+
                 minutes += 30;
             }
 

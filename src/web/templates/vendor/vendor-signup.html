@@ -12,17 +12,27 @@
             <form name="vendorSignupForm" novalidate role="form" ng-submit="submit()">
                 <fieldset>
                     <div class="form-group">
-                        <label for="vendor_name">Business name<span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.vendorName.$error.required"> (Business name is required.)</span><span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.vendorName.$error.unique"> (Business name is already taken.)</span></label>
+                        <label for="vendor_name">
+                            Business name
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.vendorName.$error.required"> (Business name is required.)</span>
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.vendorName.$error.unique"> (Business name is already taken.)</span>
+                        </label>
                         <input class="form-control input-lg" id="vendor_name" name="vendorName" type="text" required aria-required="true" ng-model="vendor.name" cp-unique="vendors.name" />
                     </div>
 
                     <div class="form-group">
-                        <label for="vendor_type">Business type<span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.vendorType.$error.required"> (Business type is required.)</span></label>
+                        <label for="vendor_type">
+                            Business type
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.vendorType.$error.required"> (Business type is required.)</span>
+                        </label>
                         <select class="form-control input-lg" id="vendor_type" name="vendorType" required aria-required="true" ng-model="vendor.type" ng-options="businessTypeOption.id as businessTypeOption.name for businessTypeOption in businessTypeOptions"></select>
                     </div>
 
                     <div class="form-group">
-                        <label for="address_address_line1">Business address line 1<span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressAddressLine1.$error.required"> (Business address line 1 is required.)</span></label>
+                        <label for="address_address_line1">
+                            Business address line 1
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressAddressLine1.$error.required"> (Business address line 1 is required.)</span>
+                        </label>
                         <input class="form-control input-lg" id="address_address_line1" name="addressAddressLine1" type="text" required aria-required="true" ng-model="address.addressLine1" />
                     </div>
 
@@ -37,7 +47,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="address_city">City<span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressCity.$error.required"> (City is required.)</span></label>
+                        <label for="address_city">
+                            City
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressCity.$error.required"> (City is required.)</span>
+                        </label>
                         <input class="form-control input-lg" id="address_city" name="addressCity" type="text" required aria-required="true" ng-model="address.city" />
                     </div>
 
@@ -47,36 +60,59 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="address_postcode">Postcode<span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressPostcode.$error.required"> (Postcode is required.)</span><span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressPostcode.$error.pattern"> (Postcode is invalid.)</span></label>
+                        <label for="address_postcode">
+                            Postcode
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressPostcode.$error.required"> (Postcode is required.)</span>
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressPostcode.$error.pattern"> (Postcode is invalid.)</span>
+                        </label>
                         <input class="form-control input-lg" id="address_postcode" name="addressPostcode" type="text" required aria-required="true" ng-model="address.postcode" ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
                     </div>
 
                     <input name="addressCountryName" type="hidden" required aria-required="true" ng-model="address.countryName" />
 
                     <div class="form-group">
-                        <label for="address_landline_number">Landline number<span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressLandlineNumber.$error.required"> (Landline number is required.)</span></label>
+                        <label for="address_landline_number">
+                            Landline number
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressLandlineNumber.$error.required"> (Landline number is required.)</span>
+                        </label>
                         <input class="form-control input-lg" id="address_landline_number" name="addressLandlineNumber" type="tel" required aria-required="true" ng-model="address.landlineNumber" />
                     </div>
 
                     <div class="form-group">
-                        <label for="address_mobile_number">Mobile number<span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressMobileNumber.$error.required"> (Mobile number is required.)</span><span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressMobileNumber.$error.pattern"> (Mobile number is invalid.)</span></label>
+                        <label for="address_mobile_number">
+                            Mobile number
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressMobileNumber.$error.required"> (Mobile number is required.)</span>
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.addressMobileNumber.$error.pattern"> (Mobile number is invalid.)</span>
+                        </label>
                         <input class="form-control input-lg" id="address_mobile_number" name="addressMobileNumber" type="tel" required aria-required="true" ng-model="address.mobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
                     </div>
                 </fieldset>
 
                 <fieldset>
                     <div class="form-group">
-                        <label for="name">Name<span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.name.$error.required"> (Name is required.)</span></label>
+                        <label for="name">
+                            Name
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.name.$error.required"> (Name is required.)</span>
+                        </label>
                         <input class="form-control input-lg" id="name" name="name" type="text" required aria-required="true" ng-model="name" />
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email<span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.email.$error.required"> (Email is required.)</span><span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.email.$error.email"> (Email is invalid.)</span><span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.email.$error.unique"> (A user already exists with that email address.)</span></label>
+                        <label for="email">
+                            Email
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.email.$error.required"> (Email is required.)</span>
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.email.$error.email"> (Email is invalid.)</span>
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.email.$error.unique"> (A user already exists with that email address.)</span>
+                        </label>
                         <input class="form-control input-lg" id="email" name="email" type="email" required aria-required="true" ng-model="email" cp-unique="users.email" />
                     </div>
 
                     <div class="form-group">
-                        <label for="signup_password">Password<span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.password.$error.required"> (Password is required.)</span><span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.password.$error.minlength"> (Password must be at least eight characters.)</span></label>
+                        <label for="signup_password">
+                            Password
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.password.$error.required"> (Password is required.)</span>
+                            <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted && vendorSignupForm.password.$error.minlength"> (Password must be at least eight characters.)</span>
+                        </label>
                         <input class="form-control input-lg" id="password" name="password" type="password" required aria-required="true" ng-minlength="8" ng-model="plainPassword" />
                     </div>
 
@@ -89,7 +125,10 @@
             <h3 class="used-by-heading">Catering for</h3>
 
             <ul class="used-by-logos">
-                <li class="google"><img src="/dist/images/google_logo@2x.png" alt="Google"></li><li class="eventbrite"><img src="/dist/images/eventbrite_logo@2x.png" alt="Eventbrite"></li><li class="moo"><img src="/dist/images/moo_logo@2x.png" alt="MOO"></li></li><li class="spotify"><img src="/dist/images/spotify_logo@2x.png" alt="Spotify"></li>
+                <li class="google"><img src="/dist/images/google_logo@2x.png" alt="Google"></li>
+                <li class="eventbrite"><img src="/dist/images/eventbrite_logo@2x.png" alt="Eventbrite"></li>
+                <li class="moo"><img src="/dist/images/moo_logo@2x.png" alt="MOO"></li>
+                <li class="spotify"><img src="/dist/images/spotify_logo@2x.png" alt="Spotify"></li>
             </ul>
 
             <div class="selling-point">

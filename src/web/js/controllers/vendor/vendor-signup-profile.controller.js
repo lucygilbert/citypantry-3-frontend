@@ -4,6 +4,6 @@ angular.module('cp.controllers.vendor').controller('VendorSignupProfileControlle
     LoadingService.hide();
 
     $scope.vendor = {
-        maxPeople: 1
+        maxPeople: 50
     };
 });
