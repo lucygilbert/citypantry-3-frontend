@@ -99,4 +99,18 @@ describe('Search', function() {
         clearFilter.click();
         expectSearchResultCount(5);
     });
+
+    it('should be able to filter by cuisine type', function() {
+        var cuisineTypes = element.all(by.repeater('cuisineType in cuisineTypes'));
+        expect(cuisineTypes.get(0).getText()).toBe('Asian');
+        expect(cuisineTypes.get(1).getText()).toBe('British');
+        expect(cuisineTypes.get(2).getText()).toBe('European');
+
+        cuisineTypes.get(0).click();
+        expectSearchResultCount(2);
+
+        var clearFilter = element(by.css('.cuisine-type-filter-selected button'));
+        clearFilter.click();
+        expectSearchResultCount(5);
+    });
 });
