@@ -20,6 +20,6 @@ describe('Vendor portal - edit profile', function() {
     it('should be able to save changes', function() {
         element(by.model('vendor.vatRegistered')).sendKeys(false);
         element(by.css('main form .btn.btn-primary')).click();
-        // @todo – show notification (23/02).
+        // @todo – show notification (24/02).
     });
 });

@@ -13,12 +13,14 @@ angular.module('cp.controllers.general').directive('cpUnique', function($q, ApiS
                 var collection = attrVal[0];
                 var field = attrVal[1];
 
+                viewValue = encodeURIComponent(viewValue);
+
                 ApiService.get(`${API_BASE}/${collection}/is-${field}-in-use?${field}=${viewValue}`)
-                    .then(unique => {
-                        if (unique) {
-                            deferred.resolve();
-                        } else {
+                    .then(response => {
+                        if (response.data.isInUse) {
                             deferred.reject();
+                        } else {
+                            deferred.resolve();
                         }
                     });
 
