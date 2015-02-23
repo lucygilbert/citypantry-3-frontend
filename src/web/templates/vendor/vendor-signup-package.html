@@ -1,13 +1,6 @@
 <div class="vendor-signup-header"></div>
 
-<!-- @todo – refactor steps into directive. (23/02) -->
-<nav class="vendor-signup-steps" role="navigation">
-    <div class="wrapper">
-        <ul>
-            <li class="active"><a class="link-inactive">Step 1: Your Package</a></li><li><a class="link-inactive">Step 2: Your Profile</a></li><li><a class="link-inactive">Step 3: Supplier Agreement</a></li>
-        </ul>
-    </div>
-</nav>
+<ng-include src="'/dist/templates/directives/cp-vendor-signup-steps.html'" ng-init="activeStep = 0"></ng-include>
 
 <div class="wrapper">
     <div class="row">

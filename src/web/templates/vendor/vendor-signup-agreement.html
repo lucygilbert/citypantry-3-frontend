@@ -1,12 +1,6 @@
 <div class="vendor-signup-header"></div>
 
-<nav class="vendor-signup-steps" role="navigation">
-    <div class="wrapper">
-        <ul>
-            <li><a href="/vendor/signup/package">Step 1: Your Package</a></li><li><a href="/vendor/signup/profile">Step 2: Your Profile</a></li><li class="active"><a class="link-inactive">Step 3: Supplier Agreement</a></li>
-        </ul>
-    </div>
-</nav>
+<ng-include src="'/dist/templates/directives/cp-vendor-signup-steps.html'" ng-init="activeStep = 2"></ng-include>
 
 <div class="wrapper">
     <div class="row">
