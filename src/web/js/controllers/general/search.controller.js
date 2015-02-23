@@ -8,7 +8,8 @@ angular.module('cp.controllers.general').controller('SearchController',
         name: $routeParams.name,
         postcode: $routeParams.postcode,
         maxBudget: undefined,
-        headCount: undefined
+        headCount: undefined,
+        time: undefined
     };
 
     $scope.isSearching = true;
@@ -16,6 +17,7 @@ angular.module('cp.controllers.general').controller('SearchController',
     $scope.minPackageCost = 1;
     $scope.maxPackageCost = 20;
     $scope.headCountOptions = OrdersFactory.getHeadCountOptions(1000, 1);
+    $scope.timeOptions = PackagesFactory.getDeliveryTimeOptions();
 
     let isOnSearchPage = true;
 
@@ -33,6 +35,8 @@ angular.module('cp.controllers.general').controller('SearchController',
 
     $scope.$watch('search.headCount', () => search());
 
+    $scope.$watch('search.time', () => search());
+
     $scope.$on('$destroy', () => isOnSearchPage = false);
 
     if ($routeParams.name && !$rootScope.bannerSearchName) {
@@ -41,7 +45,7 @@ angular.module('cp.controllers.general').controller('SearchController',
 
     function search() {
         PackagesFactory.searchPackages($scope.search.name, $scope.search.postcode,
-                $scope.search.maxBudget, $scope.search.headCount)
+                $scope.search.maxBudget, $scope.search.headCount, $scope.search.time)
             .success(response => {
                 if (response.exactVendorNameMatch) {
                     $location.path(`/vendor/${response.vendor.id}-${response.vendor.slug}`);

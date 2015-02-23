@@ -66,4 +66,24 @@ describe('Search', function() {
 
         expectSearchResultCount(5);
     });
+
+    it('should be able to filter by delivery time', function() {
+        var timeFilter = element(by.model('search.time'));
+        var options = timeFilter.all(by.css('option'));
+        var firstOption = options.get(0);
+
+        options.get(4).click();
+        expectSearchResultCount(3);
+        firstOption.click();
+
+        options.get(12).click();
+        expectSearchResultCount(3);
+        firstOption.click();
+
+        options.get(40).click();
+        expectSearchResultCount(5);
+        firstOption.click();
+
+        expectSearchResultCount(5);
+    });
 });

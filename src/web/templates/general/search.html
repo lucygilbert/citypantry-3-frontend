@@ -9,10 +9,10 @@
                 <input class="form-control input-lg" name="date" type="date" placeholder="DD/MM/YYYY" />
             </div>
 
-            <!-- @todo - Time filter. -->
             <div class="form-group">
                 <label for="time">Time</label>
-                <select class="form-control input-lg" name="time" ng-options="time in timeOptions">
+                <select class="form-control input-lg" name="time" ng-model="search.time"
+                        ng-options="time.value as time.label for time in timeOptions">
                     <option value="">-</option>
                 </select>
             </div>
