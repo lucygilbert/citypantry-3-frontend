@@ -1,18 +1,21 @@
 angular.module('cp.controllers.general').controller('SearchController',
-        function($scope, $rootScope, PackagesFactory, NotificationService, $routeParams, $location, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, $rootScope, PackagesFactory, OrdersFactory, NotificationService,
+        $routeParams, $location, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Search catering packages');
     SecurityService.requireLoggedIn();
 
     $scope.search = {
         name: $routeParams.name,
         postcode: $routeParams.postcode,
-        maxBudget: undefined
+        maxBudget: undefined,
+        headCount: undefined
     };
 
     $scope.isSearching = true;
 
     $scope.minPackageCost = 1;
     $scope.maxPackageCost = 20;
+    $scope.headCountOptions = OrdersFactory.getHeadCountOptions(1000, 1);
 
     let isOnSearchPage = true;
 
@@ -28,6 +31,8 @@ angular.module('cp.controllers.general').controller('SearchController',
         }
     });
 
+    $scope.$watch('search.headCount', () => search());
+
     $scope.$on('$destroy', () => isOnSearchPage = false);
 
     if ($routeParams.name && !$rootScope.bannerSearchName) {
@@ -35,7 +40,8 @@ angular.module('cp.controllers.general').controller('SearchController',
     }
 
     function search() {
-        PackagesFactory.searchPackages($scope.search.name, $scope.search.postcode, $scope.search.maxBudget)
+        PackagesFactory.searchPackages($scope.search.name, $scope.search.postcode,
+                $scope.search.maxBudget, $scope.search.headCount)
             .success(response => {
                 if (response.exactVendorNameMatch) {
                     $location.path(`/vendor/${response.vendor.id}-${response.vendor.slug}`);

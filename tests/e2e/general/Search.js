@@ -42,4 +42,28 @@ describe('Search', function() {
         expect(browser.getCurrentUrl()).toContain('?name=marsh');
         packageNameFilter.clear();
     });
+
+    it('should be able to filter by head count', function() {
+        var headCountFilter = element(by.model('search.headCount'));
+        var options = headCountFilter.all(by.css('option'));
+        var firstOption = options.get(0);
+
+        options.get(4).click();
+        expectSearchResultCount(4);
+        firstOption.click();
+
+        options.get(5).click();
+        expectSearchResultCount(5);
+        firstOption.click();
+
+        options.get(10).click();
+        expectSearchResultCount(5);
+        firstOption.click();
+
+        options.get(11).click();
+        expectSearchResultCount(4);
+        firstOption.click();
+
+        expectSearchResultCount(5);
+    });
 });

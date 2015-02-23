@@ -17,10 +17,10 @@
                 </select>
             </div>
 
-            <!-- @todo - Number of people filter. -->
             <div class="form-group">
                 <label for="people">Number of people</label>
-                <select class="form-control input-lg" id="people" name="people">
+                <select class="form-control input-lg" name="people" ng-model="search.headCount"
+                        ng-options="option as option for option in headCountOptions">
                     <option value="">-</option>
                 </select>
             </div>
