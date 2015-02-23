@@ -38,6 +38,8 @@ angular.module('cp.controllers.general').controller('SearchController',
 
     $scope.$watch('search.time', () => search());
 
+    $scope.$watch('search.eventType', () => search());
+
     $scope.$watch('pickedDate', (date) => {
         if (!date) {
             return;
@@ -66,7 +68,7 @@ angular.module('cp.controllers.general').controller('SearchController',
     function search() {
         PackagesFactory.searchPackages($scope.search.name, $scope.search.postcode,
                 $scope.search.maxBudget, $scope.search.headCount, $scope.search.time,
-                $scope.search.date)
+                $scope.search.date, ($scope.search.eventType ? $scope.search.eventType.id : undefined))
             .success(response => {
                 if (response.exactVendorNameMatch) {
                     $location.path(`/vendor/${response.vendor.id}-${response.vendor.slug}`);

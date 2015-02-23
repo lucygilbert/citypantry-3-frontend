@@ -86,4 +86,17 @@ describe('Search', function() {
 
         expectSearchResultCount(5);
     });
+
+    it('should be able to filter by event type', function() {
+        var eventTypes = element.all(by.repeater('eventType in eventTypes'));
+        expect(eventTypes.get(0).getText()).toBe('Breakfast');
+        expect(eventTypes.get(1).getText()).toBe('Christmas');
+
+        eventTypes.get(0).click();
+        expectSearchResultCount(1);
+
+        var clearFilter = element(by.css('.event-type-filter-selected button'));
+        clearFilter.click();
+        expectSearchResultCount(5);
+    });
 });
