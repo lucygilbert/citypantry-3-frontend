@@ -8,8 +8,7 @@ angular.module('cp.controllers.vendor').controller('VendorPortalPackagesControll
     $scope.packages = [];
 
     function loadPackages() {
-        // @todo – replace getPackagesByVendor() with getPackagesByCurrentVendor() (23/02).
-        PackagesFactory.getPackagesByVendor($cookies.vendorId)
+        PackagesFactory.getPackagesByCurrentVendor()
             .success(response => {
                 angular.forEach(response.packages, row => row.activeAndApproved = getActiveAndApprovedStatusTextFilter(row.active, row.approved));
                 $scope.packages = response.packages;

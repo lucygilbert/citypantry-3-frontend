@@ -27,6 +27,8 @@ angular.module('cp.factories').factory('VendorsFactory', function(ApiService, AP
             return deferred.promise;
         },
 
-        getBusinessTypes: () => ApiService.get(`${API_BASE}/business-types`)
+        getBusinessTypes: () => ApiService.get(`${API_BASE}/business-types`),
+
+        updateVendor: (updatedVendor) => ApiService.put(`${API_BASE}/vendors/me`, updatedVendor)
     };
 });

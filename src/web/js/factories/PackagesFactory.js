@@ -20,6 +20,8 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
 
         getPackagesByVendor: id => ApiService.get(`${API_BASE}/packages/search/all?vendorId=${id}`),
 
+        getPackagesByCurrentVendor: () => ApiService.get(`${API_BASE}/packages/by-current-vendor`),
+
         getPackageReviews: id => ApiService.get(`${API_BASE}/reviews/package/${id}`),
 
         getAllergenTypes: () => ApiService.get(`${API_BASE}/allergen-types`),

@@ -19,7 +19,6 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $locati
 
                 $scope.vendorProfileFormError = null;
 
-                // @todo – http:// prefix directive for URLs (23/02).
                 const vendorDetails = {
                     description: $scope.vendor.description,
                     maxPeople: $scope.vendor.maxPeople,
@@ -32,7 +31,7 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $locati
                     url: $scope.vendor.url ? $scope.vendor.url : null
                 };
 
-                VendorsFactory.updateVendor($cookies.vendorId, vendorDetails)
+                VendorsFactory.updateVendor(vendorDetails)
                     .success(response => {
                         $location.path($scope.destination);
                     })
