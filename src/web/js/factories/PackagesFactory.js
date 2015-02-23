@@ -12,9 +12,9 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
 
         deletePackage: id => ApiService.delete(`${API_BASE}/packages/${id}`),
 
-        searchPackages(name = '', postcode = '', maxBudget = '', headCount = '', time = '') {
+        searchPackages(name = '', postcode = '', maxBudget = '', headCount = '', time = '', date = '') {
             const url = `${API_BASE}/packages/search?name=${name}&postcode=${postcode}` +
-                `&maxBudget=${maxBudget}&headCount=${headCount}&time=${time}`;
+                `&maxBudget=${maxBudget}&headCount=${headCount}&time=${time}&date=${date}`;
 
             return ApiService.get(url);
         },

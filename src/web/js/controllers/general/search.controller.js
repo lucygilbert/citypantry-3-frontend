@@ -9,7 +9,8 @@ angular.module('cp.controllers.general').controller('SearchController',
         postcode: $routeParams.postcode,
         maxBudget: undefined,
         headCount: undefined,
-        time: undefined
+        time: undefined,
+        date: undefined
     };
 
     $scope.isSearching = true;
@@ -37,7 +38,26 @@ angular.module('cp.controllers.general').controller('SearchController',
 
     $scope.$watch('search.time', () => search());
 
+    $scope.$watch('pickedDate', (date) => {
+        if (!date) {
+            return;
+        }
+
+        $scope.search.date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+        console.log(date, $scope.search.date);
+        search();
+    });
+
     $scope.$on('$destroy', () => isOnSearchPage = false);
+
+    $scope.openDatePicker = function($event) {
+        // Need to call these, otherwise the popup won't open (a click outside
+        // of the popup closes it).
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.isDatePickerOpen = true;
+    };
 
     if ($routeParams.name && !$rootScope.bannerSearchName) {
         $rootScope.bannerSearchName = $routeParams.name;
@@ -45,7 +65,8 @@ angular.module('cp.controllers.general').controller('SearchController',
 
     function search() {
         PackagesFactory.searchPackages($scope.search.name, $scope.search.postcode,
-                $scope.search.maxBudget, $scope.search.headCount, $scope.search.time)
+                $scope.search.maxBudget, $scope.search.headCount, $scope.search.time,
+                $scope.search.date)
             .success(response => {
                 if (response.exactVendorNameMatch) {
                     $location.path(`/vendor/${response.vendor.id}-${response.vendor.slug}`);
