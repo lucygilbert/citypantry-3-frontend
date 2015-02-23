@@ -17,7 +17,7 @@ angular.module('cp.controllers.general').controller('SearchController',
 
     $scope.minPackageCost = 1;
     $scope.maxPackageCost = 20;
-    $scope.headCountOptions = OrdersFactory.getHeadCountOptions(1000, 1);
+    $scope.headCountOptions = OrdersFactory.getHeadCountOptions(500, 1);
     $scope.timeOptions = PackagesFactory.getDeliveryTimeOptions();
 
     let isOnSearchPage = true;
@@ -28,27 +28,60 @@ angular.module('cp.controllers.general').controller('SearchController',
         }
     });
 
-    $scope.$watch('search.maxBudget', function(maxBudget) {
-        if (Number(maxBudget) > 0) {
-            search();
+    $scope.$watch('search.maxBudget', (newValue, oldValue) => {
+        if (newValue === oldValue) {
+            return;
         }
+        if (isNaN(newValue)) {
+            return;
+        }
+        search();
     });
 
-    $scope.$watch('search.headCount', () => search());
+    $scope.$watch('search.headCount', (newValue, oldValue) => {
+        if (newValue === oldValue) {
+            return;
+        }
+        search();
+    });
 
-    $scope.$watch('search.time', () => search());
+    $scope.$watch('search.time', (newValue, oldValue) => {
+        if (newValue === oldValue) {
+            return;
+        }
+        search();
+    });
 
-    $scope.$watch('search.eventType', () => search());
+    $scope.$watch('search.eventType', (newValue, oldValue) => {
+        if (newValue === oldValue) {
+            return;
+        }
+        search();
+    });
 
-    $scope.$watch('search.cuisineType', () => search());
+    $scope.$watch('search.cuisineType', (newValue, oldValue) => {
+        if (newValue === oldValue) {
+            return;
+        }
+        search();
+    });
 
-    $scope.$watch('pickedDate', (date) => {
-        if (!date) {
+    $scope.$watch('pickedDate', (date, oldDate) => {
+        if (typeof date === 'undefined') {
+            return;
+        }
+        if (date === oldDate) {
             return;
         }
 
-        $scope.search.date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-        console.log(date, $scope.search.date);
+        if (date === null) {
+            // User clicked the "clear" button. Set to undefined so that the default param value
+            // (empty string) in PackagesFactory.search() gets used in the search URL query string.
+            $scope.search.date = undefined;
+        } else {
+            $scope.search.date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+        }
+
         search();
     });
 

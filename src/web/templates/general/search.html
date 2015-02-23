@@ -40,9 +40,9 @@
                 </p>
             </div>
 
-            <h4 ng-show="eventTypes.length > 0">Package type</h4>
+            <h4 ng-show="eventTypes.length > 0 || search.eventType">Package type</h4>
 
-            <ul class="nav" ng-show="eventTypes.length > 0">
+            <ul class="nav" ng-show="eventTypes.length > 0 && !search.eventType">
                 <li ng-repeat="eventType in eventTypes">
                     <a ng-click="search.eventType = eventType">
                         {{ eventType.name }}
@@ -56,9 +56,9 @@
                 <button class="close" type="button" ng-click="search.eventType = null">×</button>
             </div>
 
-            <h4 ng-show="cuisineTypes.length > 0">Cuisine</h4>
+            <h4 ng-show="cuisineTypes.length > 0 || search.cuisineType">Cuisine</h4>
 
-            <ul class="nav" ng-show="cuisineTypes.length > 0">
+            <ul class="nav" ng-show="cuisineTypes.length > 0 && !search.cuisineType">
                 <li ng-repeat="cuisineType in cuisineTypes">
                     <a ng-click="search.cuisineType = cuisineType">
                         {{ cuisineType.name }}
