@@ -1,4 +1,4 @@
-angular.module('cp.controllers.admin').directive('formatCurrency',
+angular.module('cp.controllers.admin').directive('cpFormatOrderStatusText',
         function($filter) {
     return {
         restrict: 'A',
@@ -6,7 +6,7 @@ angular.module('cp.controllers.admin').directive('formatCurrency',
         link: function(scope, element, attrs, ngModelController) {
             ngModelController.$formatters.push(function(modelValue) {
                 if (modelValue) {
-                    return $filter('currency')(modelValue, '£', 2);
+                    return $filter('getOrderStatusText')(modelValue);
                 }
             });
         }
