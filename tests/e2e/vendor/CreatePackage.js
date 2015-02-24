@@ -31,7 +31,7 @@ describe('Vendor portal - create package', function() {
     });
 
     it('should show an error if an invalid postcode is entered', function() {
-        element(by.css('a[ng-click^="addAnotherAddress"]')).click();
+        element(by.css('button[ng-click^="addAnotherAddress"]')).click();
         element(by.model('address.postcode')).sendKeys('SW1P');
         element(by.css('button[ng-click^="addAddress"]')).click();
 
@@ -42,7 +42,7 @@ describe('Vendor portal - create package', function() {
     });
 
     it('should show an error if an invalid mobile number is entered', function() {
-        element(by.css('a[ng-click^="addAnotherAddress"]')).click();
+        element(by.css('button[ng-click^="addAnotherAddress"]')).click();
         element(by.model('address.orderNotificationMobileNumber')).sendKeys('07777');
         element(by.css('button[ng-click^="addAddress"]')).click();
 

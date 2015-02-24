@@ -131,82 +131,7 @@
                     </div>
                 </div>
 
-                <div ng-if="!isAddAddressFormHidden">
-                    <ng-form name="addAddressForm">
-
-                        <p class="form-error" ng-show="addAddressError" ng-bind="addAddressError"></p>
-
-                        <div class="form-group">
-                            <label for="address_address_line1">
-                                Address line 1
-                                <span class="form-element-invalid" ng-show="addAddressForm.addressAddressLine1.$error.required"> (Address line 1 is required.)</span>
-                            </label>
-                            <input class="form-control input-lg" id="address_address_line1" name="addressAddressLine1" type="text" required aria-required="true" ng-model="address.addressLine1" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address_address_line2">Address line 2</label>
-                            <input class="form-control input-lg" id="address_address_line2" name="addressAddressLine2" type="text" ng-model="address.addressLine2" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address_address_line3">Address line 3</label>
-                            <input class="form-control input-lg" id="address_address_line3" name="addressAddressLine3" type="text" ng-model="address.addressLine3" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address_city">
-                                City
-                                <span class="form-element-invalid" ng-show="addAddressForm.addressCity.$error.required"> (City is required.)</span>
-                            </label>
-                            <input class="form-control input-lg" id="address_city" name="addressCity" type="text" required aria-required="true" ng-model="address.city" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address_county">County</label>
-                            <input class="form-control input-lg" id="address_county" name="addressCounty" type="text" ng-model="address.county" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address_postcode">
-                                Postcode
-                                <span class="form-element-invalid" ng-show="addAddressForm.addressPostcode.$error.required"> (Postcode is required.)</span>
-                                <span class="form-element-invalid" ng-show="addAddressForm.addressPostcode.$error.pattern"> (Postcode is invalid.)</span>
-                            </label>
-                            <input class="form-control input-lg" id="address_postcode" name="addressPostcode" type="text" required aria-required="true" ng-model="address.postcode" ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
-                        </div>
-
-                        <input name="addressCountryName" type="hidden" required aria-required="true" ng-model="address.countryName" />
-
-                        <div class="form-group">
-                            <label for="address_landline_number">
-                                Landline number
-                                <span class="form-element-invalid" ng-show="addAddressForm.addressLandlineNumber.$error.required"> (Landline number is required.)</span>
-                            </label>
-                            <input class="form-control input-lg" id="address_landline_number" name="addressLandlineNumber" type="tel" required aria-required="true" ng-model="address.landlineNumber" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address_order_notification_mobile_number">
-                                Order notification mobile number
-                                <span class="form-element-invalid" ng-show="addAddressForm.addressOrderNotificationMobileNumber.$error.required"> (Order notification mobile number is required.)</span>
-                                <span class="form-element-invalid" ng-show="addAddressForm.addressOrderNotificationMobileNumber.$error.pattern"> (Order notification mobile number is invalid.)</span>
-                            </label>
-                            <input class="form-control input-lg" id="address_order_notification_mobile_number" name="addressOrderNotificationMobileNumber" type="tel" required aria-required="true" ng-model="address.orderNotificationMobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address_contact_name">
-                                Contact name
-                                <span class="form-element-invalid" ng-show="addAddressForm.addressContactName.$error.required"> (Contact name is required.)</span>
-                            </label>
-                            <input class="form-control input-lg" id="address_contact_name" name="addressContactName" type="text" required aria-required="true" ng-model="address.contactName" />
-                        </div>
-
-                        <button class="btn btn-primary" type="button" ng-click="addAddress()">Add address</button>
-                    </ng-form>
-                </div>
-                <a ng-click="addAnotherAddress()" ng-show="isAddAddressFormHidden">Add another address.</a>
+                <button class="btn btn-primary" type="button" ng-click="addAnotherAddress()">Add another address</button>
             </fieldset>
         </div>
 
@@ -282,3 +207,91 @@
     </fieldset>
     <input class="btn btn-primary btn-lg" type="submit" value="{{submitValue}}" />
 </form>
+
+<div class="modal" ng-class="{open: isAddAddressFormOpen}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" ng-click="isAddAddressFormOpen = false">&times;</button>
+                <h4 class="modal-title">Add address</h4>
+            </div>
+            <div class="modal-body">
+                <p class="form-error" ng-show="addAddressError" ng-bind="addAddressError"></p>
+
+                <form id="add_address_form" name="addAddressForm" novalidate role="form">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="address_address_line1">
+                                Address line 1
+                                <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressAddressLine1.$error.required"> (Address line 1 is required.)</span>
+                            </label>
+                            <input class="form-control input-lg" id="address_address_line1" name="addressAddressLine1" type="text" required aria-required="true" ng-model="address.addressLine1" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address_address_line2">Address line 2</label>
+                            <input class="form-control input-lg" id="address_address_line2" name="addressAddressLine2" type="text" ng-model="address.addressLine2" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address_address_line3">Address line 3</label>
+                            <input class="form-control input-lg" id="address_address_line3" name="addressAddressLine3" type="text" ng-model="address.addressLine3" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address_city">
+                                City
+                                <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressCity.$error.required"> (City is required.)</span>
+                            </label>
+                            <input class="form-control input-lg" id="address_city" name="addressCity" type="text" required aria-required="true" ng-model="address.city" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address_county">County</label>
+                            <input class="form-control input-lg" id="address_county" name="addressCounty" type="text" ng-model="address.county" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address_postcode">
+                                Postcode
+                                <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressPostcode.$error.required"> (Postcode is required.)</span>
+                                <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressPostcode.$error.pattern"> (Postcode is invalid.)</span>
+                            </label>
+                            <input class="form-control input-lg" id="address_postcode" name="addressPostcode" type="text" required aria-required="true" ng-model="address.postcode" ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
+                        </div>
+
+                        <input name="addressCountryName" type="hidden" required aria-required="true" ng-model="address.countryName" />
+
+                        <div class="form-group">
+                            <label for="address_landline_number">
+                                Landline number
+                                <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressLandlineNumber.$error.required"> (Landline number is required.)</span>
+                            </label>
+                            <input class="form-control input-lg" id="address_landline_number" name="addressLandlineNumber" type="tel" required aria-required="true" ng-model="address.landlineNumber" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address_order_notification_mobile_number">
+                                Order notification mobile number
+                                <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressOrderNotificationMobileNumber.$error.required"> (Order notification mobile number is required.)</span>
+                                <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressOrderNotificationMobileNumber.$error.pattern"> (Order notification mobile number is invalid.)</span>
+                            </label>
+                            <input class="form-control input-lg" id="address_order_notification_mobile_number" name="addressOrderNotificationMobileNumber" type="tel" required aria-required="true" ng-model="address.orderNotificationMobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address_contact_name">
+                                Contact name
+                                <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressContactName.$error.required"> (Contact name is required.)</span>
+                            </label>
+                            <input class="form-control input-lg" id="address_contact_name" name="addressContactName" type="text" required aria-required="true" ng-model="address.contactName" />
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" form="add_address_form" type="submit" ng-click="addAddress()">Add address</button>
+            </div>
+        </div>
+    </div>
+</div>

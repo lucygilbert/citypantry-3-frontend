@@ -18,7 +18,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             $scope.deliveryZones = [];
             $scope.dietaryTypeOptions = [];
             $scope.eventTypeOptions = [];
-            $scope.isAddAddressFormHidden = true;
+            $scope.isAddAddressFormOpen = false;
             $scope.map = {};
             $scope.noticeOptions = PackagesFactory.getNoticeOptions();
             $scope.quantityOptions = PackagesFactory.getQuantityOptions();
@@ -97,7 +97,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
 
                 AddressFactory.createAddress(addressDetails)
                     .success(response => {
-                        $scope.isAddAddressFormHidden = true;
+                        $scope.isAddAddressFormOpen = false;
                         $scope.address = {countryName: 'United Kingdom'}; // Reset address form fields.
                         $location.hash('addresses');
                         $anchorScroll();
@@ -114,7 +114,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             };
 
             $scope.addAnotherAddress = function() {
-                $scope.isAddAddressFormHidden = false;
+                $scope.isAddAddressFormOpen = true;
             };
 
             $scope.addPackageItem = function() {
