@@ -1,4 +1,4 @@
-angular.module('cp.controllers.admin').directive('convertDate',
+angular.module('cp.controllers.admin').directive('cpConvertDate',
         function($filter) {
     return {
         restrict: 'A',
