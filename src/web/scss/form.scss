@@ -1,0 +1,27 @@
+form {
+    margin-bottom: 1.5rem;
+
+    .form-element-invalid {
+        color: #df533a;
+    }
+
+    .form-group[ng-repeat] {
+        margin-bottom: .317rem;
+    }
+
+    .form-group legend {
+        border: 0;
+        color: #444;
+        font-size: 1rem;
+        margin-bottom: .317rem;
+    }
+}
+
+.angular-google-map-container {
+    height: 400px;
+    margin-bottom: .75rem;
+}
+
+.form-error {
+    color: #df533a;
+}

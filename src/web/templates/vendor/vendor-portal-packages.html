@@ -1,0 +1,43 @@
+<div class="vendor-signup-header"></div>
+
+<main role="main">
+    <div class="wrapper">
+        <h1>Your packages</h1>
+
+        <p><a class="btn btn-primary" href="/vendor/create-package">Create package</a></p>
+
+        <p ng-if="count === 0">You have no packages.</p>
+
+        <table class="table" id="table_packages" summary="Your packages" ng-if="count > 0">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Cost</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="package in packages">
+                    <td>@todo – package thumbnail (23/02)</td>
+                    <td>{{ package.name }}</td>
+                    <td>&#163;{{ package.costIncludingVat | currency:'£' }}</td>
+                    <td>{{ package.activeAndApproved }}</td>
+                    <td class="dropdown">
+                        <a class="btn btn-primary" id="actions_{{ package.id }}" role="button">
+                            Actions
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="actions_{{ package.id }}">
+                            <li><a href="/vendor/packages/{{ package.id }}">Edit</a></li>
+
+                            <li><a ng-click="delete(package.id)">Delete</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>

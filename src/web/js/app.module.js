@@ -8,21 +8,33 @@ angular.module('cp', [
     'cp.controllers.admin',
     'cp.controllers.general',
     'cp.controllers.user',
+    'cp.controllers.vendor',
     'cp.filters',
     'cp.factories',
-    'cp.services'
+    'cp.services',
+    'uiGmapgoogle-maps'
 ]);
 
 const baseHost = window.location.host.replace('order.', '');
 angular.module('cp')
     .constant('FRONTEND_BASE', window.location.protocol + '//order.' + baseHost)
     .constant('API_BASE', window.location.protocol + '//api.' + baseHost)
-    .constant('HUBSPOT_BASE', window.hubspotBase);
+    .constant('HUBSPOT_BASE', window.hubspotBase)
+    .constant('MAP_CENTER', {
+        latitude: 51.527787,
+        longitude: -0.127691
+    })
+    .constant('GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY', window.googleMapsJavascriptApiV3Key);
 
-angular.module('cp').config(function($locationProvider) {
+angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvider, GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY) {
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false
+    });
+
+    uiGmapGoogleMapApiProvider.configure({
+        key: GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY,
+        v: '3.17'
     });
 })
 .run(function($rootScope, HUBSPOT_BASE, LoadingService, UsersFactory, $location, $cookies) {

@@ -65,6 +65,13 @@ module.exports = function (grunt) {
                         src: ['src/web/templates/directives/*'],
                         dest: 'web/dist/templates/directives',
                         filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ['src/web/templates/vendor/*'],
+                        dest: 'web/dist/templates/vendor',
+                        filter: 'isFile'
                     }
                 ]
             }
@@ -107,7 +114,9 @@ module.exports = function (grunt) {
                     'web/dist/js/built-libs.js': [
                         'src/web/js/lib/angular.min.js',
                         'src/web/js/lib/angular-cookies.min.js',
+                        'src/web/js/lib/angular-google-maps.min.js',
                         'src/web/js/lib/angular-route.min.js',
+                        'src/web/js/lib/lodash.min.js',
                         'src/web/js/lib/ui-bootstrap-tpls-0.12.0.min.js',
                         'src/web/lib/ng-grid/ui-grid.js',
                         'src/web/lib/angular-slider/angular-slider.js',

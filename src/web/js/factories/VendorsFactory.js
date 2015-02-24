@@ -1,15 +1,10 @@
-angular.module('cp.factories').factory('VendorsFactory', function(ApiService,
-        API_BASE, $q) {
+angular.module('cp.factories').factory('VendorsFactory', function(ApiService, API_BASE, $q) {
     return {
-        getAllVendors: function() {
-            return ApiService.get(`${API_BASE}/vendors`);
-        },
-        getAllActiveAndApprovedVendors: function() {
-            return ApiService.get(`${API_BASE}/vendors/all-active-and-approved`);
-        },
-        getVendor: function(idOrSlug) {
-            return ApiService.get(`${API_BASE}/vendors/${idOrSlug}`);
-        },
+        getAllVendors: () => ApiService.get(`${API_BASE}/vendors`),
+
+        getAllActiveAndApprovedVendors: () => ApiService.get(`${API_BASE}/vendors/all-active-and-approved`),
+
+        getVendor: (idOrSlug) => ApiService.get(`${API_BASE}/vendors/${idOrSlug}`),
 
         getAddresses: () => ApiService.get(`${API_BASE}/addresses`),
 
@@ -32,11 +27,8 @@ angular.module('cp.factories').factory('VendorsFactory', function(ApiService,
             return deferred.promise;
         },
 
-        updateVendor: function(id, updatedVendor) {
-            return ApiService.put(`${API_BASE}/vendors/${id}`, updatedVendor);
-        },
-        deleteVendor: function(id) {
-            return ApiService.delete(`${API_BASE}/vendors/${id}`);
-        }
+        getBusinessTypes: () => ApiService.get(`${API_BASE}/business-types`),
+
+        updateVendor: (updatedVendor) => ApiService.put(`${API_BASE}/vendors/me`, updatedVendor)
     };
 });

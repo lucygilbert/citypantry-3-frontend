@@ -38,6 +38,42 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'VendorPortalAddressController',
             templateUrl: '/dist/templates/vendor/address.html'
         }).
+        when('/vendor/create-package', {
+            controller: 'VendorPortalPackageController',
+            templateUrl: '/dist/templates/vendor/vendor-portal-create-package.html'
+        }).
+        when('/vendor/packages', {
+            controller: 'VendorPortalPackagesController',
+            templateUrl: '/dist/templates/vendor/vendor-portal-packages.html'
+        }).
+        when('/vendor/packages/:id', {
+            controller: 'VendorPortalPackageController',
+            templateUrl: '/dist/templates/vendor/vendor-portal-edit-package.html'
+        }).
+        when('/vendor/profile', {
+            controller: 'VendorPortalProfileController',
+            templateUrl: '/dist/templates/vendor/vendor-portal-profile.html'
+        }).
+        when('/vendor/signup', {
+            controller: 'VendorSignupController',
+            templateUrl: '/dist/templates/vendor/vendor-signup.html'
+        }).
+        when('/vendor/signup/package', {
+            controller: 'VendorSignupPackageController',
+            templateUrl: '/dist/templates/vendor/vendor-signup-package.html'
+        }).
+        when('/vendor/signup/profile', {
+            controller: 'VendorSignupProfileController',
+            templateUrl: '/dist/templates/vendor/vendor-signup-profile.html'
+        }).
+        when('/vendor/signup/agreement', {
+            controller: 'VendorSignupAgreementController',
+            templateUrl: '/dist/templates/vendor/vendor-signup-agreement.html'
+        }).
+        when('/vendor/signup/thanks', {
+            controller: 'VendorSignupThanksController',
+            templateUrl: '/dist/templates/vendor/vendor-signup-thanks.html'
+        }).
         when('/vendor/:idOrSlug', {
             controller: 'ViewVendorController',
             templateUrl: '/dist/templates/general/view-vendor.html'

@@ -1,4 +1,4 @@
-angular.module('cp.filters').filter('getVendorStatusText', function() {
+angular.module('cp.filters').filter('getActiveAndApprovedStatusText', function() {
     return function(active, approved) {
         if (active === false && approved === false) {
             return 'In progress';

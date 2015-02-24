@@ -1,0 +1,13 @@
+<div class="vendor-signup-header"></div>
+
+<ng-include src="'/dist/templates/directives/cp-vendor-signup-steps.html'" ng-init="activeStep = 1"></ng-include>
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Almost there – now for your profile!</h1>
+
+            <cp-vendor-profile-form cp-destination="/vendor/signup/agreement" cp-submit-value="Review Supplier Agreement →" cp-vendor="vendor"></cp-vendor-profile-form>
+        </div>
+    </div>
+</div>
