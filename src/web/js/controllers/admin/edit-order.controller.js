@@ -13,7 +13,7 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
     OrdersFactory.getOrder($routeParams.orderId)
         .success(function(order) {
             $scope.order = order;
-            $scope.headCountOptions = getHeadCountOptions($scope.order.package.maxPeople, $scope.order.package.minPeople);
+            $scope.headCountOptions = OrdersFactory.getHeadCountOptions($scope.order.package.maxPeople, $scope.order.package.minPeople);
             $scope.headCount = $scope.order.headCount;
             $scope.vegetarianHeadCountOptions = getVegetarianHeadCountOptions($scope.order.headCount);
             $scope.vegetarianHeadCount = getVegetarianHeadCountValue($scope.order.vegetarianHeadCount);
@@ -34,23 +34,6 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
         $scope.vegetarianHeadCountOptions = getVegetarianHeadCountOptions(updatedHeadCount);
         $scope.vegetarianHeadCount = getVegetarianHeadCountValue($scope.vegetarianHeadCount);
     });
-
-    function getHeadCountOptions(maxPeople = 1, minPeople = 1) {
-        if (maxPeople === null) {
-            maxPeople = 1000;
-        }
-        if (minPeople === null) {
-            minPeople = 1;
-        }
-
-        const options = [];
-
-        for (let i = minPeople; i <= maxPeople; i += 1) {
-            options.push(i);
-        }
-
-        return options;
-    }
 
     function getVegetarianHeadCountOptions(headCount = 1) {
         const options = [];

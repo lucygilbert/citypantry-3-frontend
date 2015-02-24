@@ -1,0 +1,59 @@
+div[datepicker],
+ul[datepicker-popup-wrap] {
+    display: block;
+    // Any 'width' or 'max-width' for this should be set in a specific element's use CSS.
+    // There are additional colours set on this element and it's children in the client-specific CSS.
+
+    table {
+        outline: none;
+        background-color: #ffffff;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        table-layout: auto;
+
+        td, th {
+            text-align: center;
+            padding: 0;
+
+            button {
+                background-color: #ffffff;
+                border: none;
+                color: #666666;
+                cursor: pointer;
+                width: 100%;
+                height: 22px;
+                line-height: 22px;
+                padding: 0;
+            }
+            .text-muted {
+                color: #B3B3B3;
+            }
+        }
+        td {
+            width: 45px;
+        }
+        th {
+            border: none;
+            padding: 5px;
+
+            tr {
+                border:none;
+            }
+            button {
+                padding: 0;
+            }
+        }
+    }
+
+    .button-bar-left {
+        float: left;
+        margin-left: 9px;
+        margin-top: 5px;
+    }
+
+    .button-bar-right {
+        float: right;
+        margin-right: 9px;
+        margin-top: 5px;
+    }
+}

@@ -3,24 +3,27 @@
         <h3 class="sr-only">Filter</h3>
 
         <form class="filter-form" role="form">
-            <!-- @todo - Date filter. -->
             <div class="form-group">
-                <label for="date">Date</label>
-                <input class="form-control input-lg" name="date" type="date" placeholder="DD/MM/YYYY" />
+                <label for="date" ng-click="openDatePicker($event)">Date</label>
+
+                <input type="text" class="form-control input-lg" datepicker-popup="dd MMMM yyyy"
+                    ng-model="pickedDate" datepicker-mode="day" year-range="2"
+                    datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}"
+                    is-open="isDatePickerOpen" ng-click="openDatePicker($event)" />
             </div>
 
-            <!-- @todo - Time filter. -->
             <div class="form-group">
                 <label for="time">Time</label>
-                <select class="form-control input-lg" name="time" ng-options="time in timeOptions">
+                <select class="form-control input-lg" name="time" ng-model="search.time"
+                        ng-options="time.value as time.label for time in timeOptions">
                     <option value="">-</option>
                 </select>
             </div>
 
-            <!-- @todo - Number of people filter. -->
             <div class="form-group">
                 <label for="people">Number of people</label>
-                <select class="form-control input-lg" id="people" name="people">
+                <select class="form-control input-lg" name="people" ng-model="search.headCount"
+                        ng-options="option as option for option in headCountOptions">
                     <option value="">-</option>
                 </select>
             </div>
@@ -37,38 +40,36 @@
                 </p>
             </div>
 
-            <!-- @todo - Event type filter. -->
-            <h4 ng-show="eventTypes.length > 0">Package type</h4>
+            <h4 ng-show="eventTypes.length > 0 || search.eventType">Package type</h4>
 
-            <ul class="nav" ng-show="eventTypes.length > 0">
+            <ul class="nav" ng-show="eventTypes.length > 0 && !search.eventType">
                 <li ng-repeat="eventType in eventTypes">
-                    <a>
+                    <a ng-click="search.eventType = eventType">
                         {{ eventType.name }}
                         <span>{{ eventType.searchResultsCount }}</span>
                     </a>
                 </li>
             </ul>
 
-            <div class="filter-selected">
-                <span>@todo</span>
-                <button class="close" type="button">×</button>
+            <div class="filter-selected event-type-filter-selected" ng-show="search.eventType">
+                <span>{{ search.eventType.name }}</span>
+                <button class="close" type="button" ng-click="search.eventType = null">×</button>
             </div>
 
-            <!-- @todo - Cuisine type filter. -->
-            <h4 ng-show="cuisineTypes.length > 0">Cuisine</h4>
+            <h4 ng-show="cuisineTypes.length > 0 || search.cuisineType">Cuisine</h4>
 
-            <ul class="nav" ng-show="cuisineTypes.length > 0">
+            <ul class="nav" ng-show="cuisineTypes.length > 0 && !search.cuisineType">
                 <li ng-repeat="cuisineType in cuisineTypes">
-                    <a>
+                    <a ng-click="search.cuisineType = cuisineType">
                         {{ cuisineType.name }}
                         <span>{{ cuisineType.searchResultsCount }}</span>
                     </a>
                 </li>
             </ul>
 
-            <div class="filter-selected">
-                <span>@todo</span>
-                <button class="close" type="button">×</button>
+            <div class="filter-selected cuisine-type-filter-selected" ng-show="search.cuisineType">
+                <span>{{ search.cuisineType.name }}</span>
+                <button class="close" type="button" ng-click="search.cuisineType = null">×</button>
             </div>
         </section>
     </div>

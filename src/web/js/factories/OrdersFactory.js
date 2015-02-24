@@ -18,6 +18,23 @@ angular.module('cp.factories').factory('OrdersFactory', function(API_BASE, ApiSe
 
         addCustomerServiceEvent: (id, event) => ApiService.post(`${API_BASE}/order/${id}/customer-service-events`, {event: event}),
 
-        acceptOrder: (id) => ApiService.put(`${API_BASE}/order/${id}/accept`)
+        acceptOrder: (id) => ApiService.put(`${API_BASE}/order/${id}/accept`),
+
+        getHeadCountOptions(maxPeople = 1, minPeople = 1) {
+            if (maxPeople === null) {
+                maxPeople = 1000;
+            }
+            if (minPeople === null) {
+                minPeople = 1;
+            }
+
+            const options = [];
+
+            for (let i = minPeople; i <= maxPeople; i += 1) {
+                options.push(i);
+            }
+
+            return options;
+        }
     };
 });

@@ -42,4 +42,75 @@ describe('Search', function() {
         expect(browser.getCurrentUrl()).toContain('?name=marsh');
         packageNameFilter.clear();
     });
+
+    it('should be able to filter by head count', function() {
+        var headCountFilter = element(by.model('search.headCount'));
+        var options = headCountFilter.all(by.css('option'));
+        var firstOption = options.get(0);
+
+        options.get(4).click();
+        expectSearchResultCount(4);
+        firstOption.click();
+
+        options.get(5).click();
+        expectSearchResultCount(5);
+        firstOption.click();
+
+        options.get(10).click();
+        expectSearchResultCount(5);
+        firstOption.click();
+
+        options.get(11).click();
+        expectSearchResultCount(4);
+        firstOption.click();
+
+        expectSearchResultCount(5);
+    });
+
+    it('should be able to filter by delivery time', function() {
+        var timeFilter = element(by.model('search.time'));
+        var options = timeFilter.all(by.css('option'));
+        var firstOption = options.get(0);
+
+        options.get(4).click();
+        expectSearchResultCount(3);
+        firstOption.click();
+
+        options.get(12).click();
+        expectSearchResultCount(3);
+        firstOption.click();
+
+        options.get(40).click();
+        expectSearchResultCount(5);
+        firstOption.click();
+
+        expectSearchResultCount(5);
+    });
+
+    it('should be able to filter by event type', function() {
+        var eventTypes = element.all(by.repeater('eventType in eventTypes'));
+        expect(eventTypes.get(0).getText()).toBe('Breakfast');
+        expect(eventTypes.get(1).getText()).toBe('Christmas');
+
+        eventTypes.get(0).click();
+        expectSearchResultCount(1);
+
+        var clearFilter = element(by.css('.event-type-filter-selected button'));
+        clearFilter.click();
+        expectSearchResultCount(5);
+    });
+
+    it('should be able to filter by cuisine type', function() {
+        var cuisineTypes = element.all(by.repeater('cuisineType in cuisineTypes'));
+        expect(cuisineTypes.get(0).getText()).toBe('Asian');
+        expect(cuisineTypes.get(1).getText()).toBe('British');
+        expect(cuisineTypes.get(2).getText()).toBe('European');
+
+        cuisineTypes.get(0).click();
+        expectSearchResultCount(2);
+
+        var clearFilter = element(by.css('.cuisine-type-filter-selected button'));
+        clearFilter.click();
+        expectSearchResultCount(5);
+    });
 });

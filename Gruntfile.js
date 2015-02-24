@@ -120,6 +120,9 @@ module.exports = function (grunt) {
                         'src/web/js/lib/ui-bootstrap-tpls-0.12.0.min.js',
                         'src/web/lib/ng-grid/ui-grid.js',
                         'src/web/lib/angular-slider/angular-slider.js',
+                        'src/web/lib/angular-ui-position.js',
+                        'src/web/lib/angular-ui-dateparser.js',
+                        'src/web/lib/angular-ui-datepicker.js',
                     ],
                     'web/dist/js/built-citypantry-es6.js': [
                         'src/web/js/app.module.js',
