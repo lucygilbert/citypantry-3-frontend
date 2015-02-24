@@ -27,12 +27,12 @@
 
             <div class="form-group">
                 <label>Vendor</label>
-                <p><a href="/admin/vendor/{{ order.package.vendor.id }}">{{ order.package.vendor.name }}</a></p>
+                <p><a class="vendor-link" href="/admin/vendor/{{ order.package.vendor.id }}">{{ order.package.vendor.name }}</a></p>
             </div>
 
             <div class="form-group">
                 <label>Package</label>
-                <p><a href="/admin/package/{{ order.package.id }}">{{ order.package.name }}</a></p>
+                <p><a class="package-link" href="/admin/package/{{ order.package.id }}">{{ order.package.name }}</a></p>
             </div>
 
             <div class="form-group">
@@ -133,13 +133,13 @@
 
     <h2>Customer service actions</h2>
 
-    <p class="add-customer-service-event">
+    <div class="add-customer-service-event">
         <p><button ng-click="delete()" class="btn btn-primary">Delete order</button></p>
 
         <p><button ng-click="addCustomerServiceEvent('Order delivered +15 mins late')" class="btn btn-primary">Order delivered +15 mins late</button></p>
 
         <p><button ng-click="addCustomerServiceEvent('Order delivered +30 mins late')" class="btn btn-primary">Order delivered +30 mins late</button></p>
-    </p>
+    </div>
 
     <p ng-repeat="event in order.customerServiceEvents">
         <b><time datetime="{{ event.date | date:'yyyy-MM-dd HH:mm' }}">{{ event.date | date:'d MMM yyyy, H:mm' }}</time>:</b>

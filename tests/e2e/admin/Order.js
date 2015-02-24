@@ -36,8 +36,8 @@ describe('Admin - order page', function() {
         it('should load the order details', function() {
             expect(element(by.model('order.requestedDeliveryDate')).getAttribute('value')).toMatch(/^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/);
             expect(element(by.model('order.customerUser.name')).getAttribute('value')).toBe('Customer');
-            expect(element(by.model('order.package.vendor.name')).getAttribute('value')).toBe('Hong Tin');
-            expect(element(by.model('order.package.name')).getAttribute('value')).toBe('Carrots');
+            expect(element(by.css('a.vendor-link')).getText()).toBe('Hong Tin');
+            expect(element(by.css('a.package-link')).getText()).toBe('Carrots');
             expect(element(by.model('headCount')).getAttribute('value')).toBe('4'); // Actually shows 5.
             expect(element(by.model('vegetarianHeadCount')).getAttribute('value')).toBe('0');
         });
@@ -65,7 +65,7 @@ describe('Admin - order page', function() {
             var events = element.all(by.repeater('event in order.customerServiceEvents'));
             expect(events.count()).toBe(0);
 
-            element.all(by.css('.add-customer-service-event button')).get(0).click();
+            element.all(by.css('.add-customer-service-event button')).get(1).click();
             notificationModal.expectIsOpen();
             notificationModal.expectSuccessHeader();
             notificationModal.expectMessage('Customer service event has been recorded.');

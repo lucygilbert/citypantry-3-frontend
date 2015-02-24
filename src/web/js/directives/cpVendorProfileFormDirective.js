@@ -31,7 +31,7 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $locati
                     url: $scope.vendor.url ? $scope.vendor.url : null
                 };
 
-                VendorsFactory.updateVendor(vendorDetails)
+                VendorsFactory.updateSelf(vendorDetails)
                     .success(response => {
                         $location.path($scope.destination);
                     })

@@ -14,8 +14,8 @@ describe('Admin - vendors page', function() {
         expect(element(by.css('h1')).getText()).toBe('Vendors');
     });
 
-    it('should have 7 columns', function() {
-        gridTestUtils.expectHeaderColumnCount('vendors-table', 7);
+    it('should have 6 columns', function() {
+        gridTestUtils.expectHeaderColumnCount('vendors-table', 6);
     });
 
     it('should have 4 rows', function() {
@@ -34,30 +34,26 @@ describe('Admin - vendors page', function() {
         gridTestUtils.expectHeaderCellValueMatch('vendors-table', 2, 'Email');
     });
 
-    it('should have the column name "Telephone"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 3, 'Telephone');
-    });
-
     it('should have the column name "Business Type"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 4, 'Business Type');
+        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 3, 'Business Type');
     });
 
     it('should have the column name "Status"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 5, 'Status');
+        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 4, 'Status');
     });
 
     it('should have the column name "Action"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 6, 'Action');
+        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 5, 'Action');
     });
 
     it('should find 2 vendor when filtered by "Chef"', function() {
-        gridTestUtils.enterFilterInColumn('vendors-table', 4, 'Chef');
+        gridTestUtils.enterFilterInColumn('vendors-table', 3, 'Chef');
         gridTestUtils.expectRowCount('vendors-table', 2);
-        gridTestUtils.expectCellValueMatch('vendors-table', 0, 4, 'Chef');
+        gridTestUtils.expectCellValueMatch('vendors-table', 0, 3, 'Chef');
     });
 
     it('should find 4 vendors when filter is cancelled', function() {
-        gridTestUtils.cancelFilterInColumn('vendors-table', 4);
+        gridTestUtils.cancelFilterInColumn('vendors-table', 3);
         gridTestUtils.expectRowCount('vendors-table', 4);
     });
 });

@@ -73,8 +73,11 @@ describe('Admin - orders page', function() {
         gridTestUtils.expectRowCount('orders-table', 3);
     });
 
-    it('should find 2 orders when the "show orders delivered today" button is clicked', function() {
+    it('should find 1 order when the "show orders delivered today" button is clicked', function() {
+        // If this fails saying 2 rows were found, are you running just this test and not the Order.js
+        // file which edits one order's delivery date? When all tests are run, there should only be
+        // 1 order found.
         element(by.css('main .show-orders-delivered-today')).click();
-        gridTestUtils.expectRowCount('orders-table', 2);
+        gridTestUtils.expectRowCount('orders-table', 1);
     });
 });

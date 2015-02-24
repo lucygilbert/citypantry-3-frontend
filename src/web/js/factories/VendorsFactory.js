@@ -29,6 +29,8 @@ angular.module('cp.factories').factory('VendorsFactory', function(ApiService, AP
 
         getBusinessTypes: () => ApiService.get(`${API_BASE}/business-types`),
 
-        updateVendor: (updatedVendor) => ApiService.put(`${API_BASE}/vendors/me`, updatedVendor)
+        updateVendor: (id, updatedVendor) => ApiService.put(`${API_BASE}/vendors/${id}`, updatedVendor),
+
+        updateSelf: (updatedVendor) => ApiService.put(`${API_BASE}/vendors/me`, updatedVendor)
     };
 });

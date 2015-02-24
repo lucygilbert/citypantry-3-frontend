@@ -61,7 +61,7 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
             angular.forEach(response.customers, row => {
                 row.isPaidOnAccountTexts = getPayOnAccountStatusTextFilter(row.isPaidOnAccount);
             });
-            $scope.gridOptions.data = response.customers;
+            $scope.gridOptions.data = response.customers.sort((a, b) => a.humanId < b.humanId);
             LoadingService.hide();
         }).error(() => NotificationService.notifyError());
     }

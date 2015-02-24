@@ -12,7 +12,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignupAgreementControl
             isActive: true
         };
 
-        VendorsFactory.updateVendor($cookies.vendorId, updatedVendor)
+        VendorsFactory.updateSelf(updatedVendor)
             .success(response => {
                 $location.path('/vendor/signup/thanks');
             })

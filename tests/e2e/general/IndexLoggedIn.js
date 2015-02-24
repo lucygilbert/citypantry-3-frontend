@@ -50,12 +50,13 @@ describe('Index as a logged in user', function() {
         expect(dropdownLinks.get(0).isDisplayed()).toBe(true);
 
         expect(dropdownLinks.get(0).getText()).toBe('Orders');
-        expect(dropdownLinks.get(1).getText()).toBe('Profile');
-        expect(dropdownLinks.get(2).getText()).toBe('Packages');
-        expect(dropdownLinks.get(3).getText()).toBe('Create package');
-        expect(dropdownLinks.get(4).getText()).toBe('Supplier agreement');
-        expect(dropdownLinks.get(5).getText()).toBe('My details');
-        expect(dropdownLinks.get(6).getText()).toBe('Log out');
-        expect(dropdownLinks.count()).toBe(7);
+        expect(dropdownLinks.get(1).getText()).toBe('Addresses');
+        expect(dropdownLinks.get(2).getText()).toBe('Profile');
+        expect(dropdownLinks.get(3).getText()).toBe('Packages');
+        expect(dropdownLinks.get(4).getText()).toBe('Create package');
+        expect(dropdownLinks.get(5).getText()).toBe('Supplier agreement');
+        expect(dropdownLinks.get(6).getText()).toBe('My details');
+        expect(dropdownLinks.get(7).getText()).toBe('Log out');
+        expect(dropdownLinks.count()).toBe(8);
     });
 });

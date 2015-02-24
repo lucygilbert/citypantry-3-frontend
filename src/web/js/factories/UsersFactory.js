@@ -2,7 +2,7 @@ angular.module('cp.factories').factory('UsersFactory', function(ApiService, API_
     return {
         getAllUsers: () => ApiService.get(`${API_BASE}/users`),
 
-        masqueradeAsUser: id => ApiService.post(`${API_BASE}/user/masquerade`, id),
+        masqueradeAsUser: id => ApiService.post(`${API_BASE}/user/masquerade`, {id: id}),
 
         getLoggedInUser: () => ApiService.get(`${API_BASE}/users/get-authenticated-user`),
 
