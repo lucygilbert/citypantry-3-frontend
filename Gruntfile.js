@@ -123,6 +123,8 @@ module.exports = function (grunt) {
                         'src/web/lib/angular-ui-position.js',
                         'src/web/lib/angular-ui-dateparser.js',
                         'src/web/lib/angular-ui-datepicker.js',
+                        'src/web/lib/angular-ui-transition.js',
+                        'src/web/lib/angular-ui-carousel.js',
                     ],
                     'web/dist/js/built-citypantry-es6.js': [
                         'src/web/js/app.module.js',
