@@ -1852,6 +1852,9 @@ label.error {
 .related-packages h2 {
     margin-bottom: 1.5rem;
 }
+.related-packages [cp-package-card] h2 {
+    margin-bottom: 0;
+}
 
 @media only screen and (min-width: 768px) {
     .related-packages .package {
@@ -2985,6 +2988,7 @@ fieldset[disabled] .btn-primary.active {
 @import 'admin/general.scss';
 @import 'admin/orders.scss';
 @import 'customer/search.scss';
+@import 'customer/view-package.scss';
 @import 'vendor/orders.scss';
 @import 'footer.scss';
 @import 'form.scss';

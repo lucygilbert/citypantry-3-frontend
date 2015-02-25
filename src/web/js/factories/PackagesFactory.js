@@ -27,6 +27,8 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
 
         getPackageReviews: id => ApiService.get(`${API_BASE}/reviews/package/${id}`),
 
+        getSimilarPackages: id => ApiService.get(`${API_BASE}/packages/${id}/similar`),
+
         getAllergenTypes: () => ApiService.get(`${API_BASE}/allergen-types`),
 
         getDietaryTypes: () => ApiService.get(`${API_BASE}/dietary-requirements`),
