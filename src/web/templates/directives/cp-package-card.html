@@ -1,0 +1,12 @@
+<a href="/package/{{ package.humanId }}-{{ package.name | slugify }}">
+    <div class="package-image-wrap">
+        <div class="package-image" style="background-image: url('{{ package.images[0].medium }}');"></div>
+        <span class="btn btn-order">Order Now</span>
+    </div>
+    <h2 class="package-name">{{ package.name }}</h2>
+    <span class="package-price">{{ package.costIncludingVat | currency:'£' }} <small>per head</small></span>
+</a>
+
+<a class="hidden-xs package-vendor" href="/vendor/{{ package.vendor.id }}-{{ package.vendor.slug }}">
+    {{ package.vendor.name }}
+</a>
