@@ -1,12 +1,93 @@
-<div class="wrapper">
-    <h1 class="package-heading">{{ package.name }}</h1>
+<section class="wrapper" id="view-package">
+    <div class="pkg-header">
+        <h1 class="package-heading">{{ package.name }}</h1>
 
-    @todo - view package page
-    <br />
-    {{ package }}
-</div>
+        <p class="package-short-description" ng-if="package.shortDescription">
+            {{ package.shortDescription }}
+        </p>
 
-<section class="package-reviews">
+        <ul class="package-labels">
+            <li ng-repeat="requirement in package.dietaryRequirements">
+                {{ requirement.name | lowercase }}
+            </li>
+        </ul>
+    </div>
+
+    <div class="text-right">
+        <a class="btn btn-default btn-lg"
+                href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">
+            See all packages by this vendor
+        </a>
+
+        <ul class="share-links">
+            <li><iframe style="border:none; overflow:hidden; width:90px; height:21px;"
+                allowTransparency="true" frameborder="0" scrolling="no"
+                ng-src="{{ facebookUrl }}"
+                ></iframe></li>
+            <li><iframe style="width:76px; height:21px;"
+                allowtransparency="true" frameborder="0" scrolling="no"
+                ng-src="{{ twitterUrl }}"
+                ></iframe></li>
+        </ul>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="package-detail">
+        <carousel interval="myInterval">
+            <slide ng-repeat="image in package.images" active="slide.active">
+                <img ng-src="{{ image.medium }}" height="434" />
+            </slide>
+        </carousel>
+
+        <p class="lead">{{ package.description }}</p>
+
+        <h2>{{ package.name }} includes</h2>
+
+        <ul>
+            <li ng-repeat="item in package.items">{{ item }}</li>
+        </ul>
+
+        <div ng-if="vegetarianOption">
+            <h2>Vegetarian alternative</h2>
+
+            <p ng-if="vegetarianOption">
+                {{ vegetarianOption.notes ? vegetarianOption.notes : 'A vegetarian alternative is available.' }}
+            </p>
+        </div>
+
+        <div ng-if="package.allergenTypes.length > 0">
+            <h2>{{ package.name }} contains the following allergens</h2>
+
+            <ul>
+                <li ng-repeat="allergen in package.allergenTypes">{{ allergen.name }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="hidden-xs vendor">
+        <h3 class="h2 vendor-name">
+            <a href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">{{ package.vendor.name }}</a>
+        </h3>
+
+        <p class="vendor-type">{{ package.vendor.businessType.name }}</p>
+
+        <a class="vendor-image" style="background-image: url('{{ package.vendor.images[0].medium }}');"
+            href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}"></a>
+
+        <div class="vendor-contact-details">
+            <p>{{ package.vendor.addresses[0] | addressSingleLineFormatter }}</p>
+        </div>
+
+        <p>{{ package.vendor.description }}</p>
+
+        <a class="btn btn-default btn-lg btn-block" href="/quote/vendor/{{ package.vendor.id }}">Hire for an event</a>
+    </section>
+
+    <div class="clearfix"></div>
+</section>
+
+<div class="package-reviews">
     <div class="wrapper">
         <h2>Reviews</h2>
 
@@ -16,11 +97,29 @@
 
         <article class="package-review" ng-repeat="review in reviews">
             <h3 class="package-review-name">
-                {{ review.reviewerName }}
+                {{ review.reviewerName | firstName }}
                 <small><time datetime="{{ review.date | date:'yyyy-mm-dd' }}">{{ review.date | date:'d MMMM yyyy' }}</time></small>
             </h3>
 
             <p>{{ review.review }}</p>
         </article>
+    </div>
+</div>
+
+<section class="related-packages">
+    <div class="wrapper">
+        <h2 ng-if="similarPackagesByDifferentVendors.length">Similar packages</h2>
+
+        <ul class="packages" ng-if="similarPackagesByDifferentVendors.length">
+            <li class="package" ng-repeat="package in similarPackagesByDifferentVendors"
+                cp-package-card package="package"></li>
+        </ul>
+
+        <h2 ng-if="otherPackagesBySameVendor.length">Other packages by {{ package.vendor.name }}</h2>
+
+        <ul class="packages" ng-if="otherPackagesBySameVendor.length">
+            <li class="package" ng-repeat="package in otherPackagesBySameVendor"
+                cp-package-card package="package"></li>
+        </ul>
     </div>
 </section>
