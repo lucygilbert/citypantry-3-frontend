@@ -12,7 +12,8 @@ angular.module('cp', [
     'cp.filters',
     'cp.factories',
     'cp.services',
-    'uiGmapgoogle-maps'
+    'uiGmapgoogle-maps',
+    'ui.bootstrap.carousel'
 ]);
 
 const baseHost = window.location.host.replace('order.', '');
