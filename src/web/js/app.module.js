@@ -27,7 +27,8 @@ angular.module('cp')
     })
     .constant('GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY', window.googleMapsJavascriptApiV3Key);
 
-angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvider, GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY) {
+angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvider, GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY,
+        $sceDelegateProvider) {
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false
@@ -37,6 +38,14 @@ angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvid
         key: GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY,
         v: '3.17'
     });
+
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'self',
+        'https://platform.twitter.com/**',
+        '//www.facebook.com/**',
+        'http://www.facebook.com/**',
+        'https://www.facebook.com/**'
+    ]);
 })
 .run(function($rootScope, HUBSPOT_BASE, LoadingService, UsersFactory, $location, $cookies) {
     $rootScope.hubspotBase = HUBSPOT_BASE;

@@ -6,3 +6,15 @@
         display: block;
     }
 }
+
+.pkg-header {
+    width: 66.6%;
+    float: left;
+}
+
+#view-package {
+    > .vendor {
+        float: right;
+        width: 29%;
+    }
+}

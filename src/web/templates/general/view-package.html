@@ -1,6 +1,10 @@
-<section class="wrapper">
+<section class="wrapper" id="view-package">
     <div class="pkg-header">
         <h1 class="package-heading">{{ package.name }}</h1>
+
+        <p class="package-short-description" ng-if="package.shortDescription">
+            {{ package.shortDescription }}
+        </p>
 
         <ul class="package-labels">
             <li ng-repeat="requirement in package.dietaryRequirements">
@@ -8,6 +12,26 @@
             </li>
         </ul>
     </div>
+
+    <div class="text-right">
+        <a class="btn btn-default btn-lg"
+                href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">
+            See all packages by this vendor
+        </a>
+
+        <ul class="share-links">
+            <li><iframe style="border:none; overflow:hidden; width:90px; height:21px;"
+                allowTransparency="true" frameborder="0" scrolling="no"
+                ng-src="{{ facebookUrl }}"
+                ></iframe></li>
+            <li><iframe style="width:76px; height:21px;"
+                allowtransparency="true" frameborder="0" scrolling="no"
+                ng-src="{{ twitterUrl }}"
+                ></iframe></li>
+        </ul>
+    </div>
+
+    <div class="clearfix"></div>
 
     <div class="package-detail">
         <carousel interval="myInterval">
@@ -40,6 +64,25 @@
             </ul>
         </div>
     </div>
+
+    <section class="hidden-xs vendor">
+        <h3 class="h2 vendor-name">
+            <a href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">{{ package.vendor.name }}</a>
+        </h3>
+
+        <p class="vendor-type">{{ package.vendor.businessType.name }}</p>
+
+        <a class="vendor-image" style="background-image: url('{{ package.vendor.images[0].medium }}');"
+            href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}"></a>
+
+        <div class="vendor-contact-details">
+            <p>{{ package.vendor.addresses[0] | addressSingleLineFormatter }}</p>
+        </div>
+
+        <p>{{ package.vendor.description }}</p>
+
+        <a class="btn btn-default btn-lg btn-block" href="/quote/vendor/{{ package.vendor.id }}">Hire for an event</a>
+    </section>
 
     <div class="clearfix"></div>
 </section>
