@@ -2980,6 +2980,7 @@ fieldset[disabled] .btn-primary.active {
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 
+@import 'directives/cp-package-card.scss';
 @import 'admin/customers.scss';
 @import 'admin/general.scss';
 @import 'admin/orders.scss';
