@@ -1,12 +1,12 @@
 angular.module('cp.controllers.vendor').controller('VendorPortalProfileController',
         function($scope, $cookies, DocumentTitleService, LoadingService, SecurityService, VendorsFactory) {
     SecurityService.requireVendor();
+    DocumentTitleService('Edit profile');
 
     $scope.vendor = {};
 
-    VendorsFactory.getVendor($cookies.vendorId).then(response => {
-        $scope.vendor = response;
-        DocumentTitleService('Edit profile');
+    SecurityService.getVendor().then(vendor => {
+        $scope.vendor = vendor;
         LoadingService.hide();
     });
 });

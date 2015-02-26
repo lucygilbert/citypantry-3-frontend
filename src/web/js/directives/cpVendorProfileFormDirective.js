@@ -1,5 +1,5 @@
 angular.module('cp').directive('cpVendorProfileForm', function($cookies, $location, LoadingService,
-    PackagesFactory, VendorsFactory) {
+        PackagesFactory, VendorsFactory, NotificationService) {
     return {
         restrict: 'E',
         scope: {
@@ -9,6 +9,10 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $locati
         },
         controller: function($scope) {
             $scope.vendorMaxPeopleOptions = PackagesFactory.getQuantityOptions();
+
+            $scope.$watch('vendor.isVatRegistered', () =>
+                $scope.vendor.isVatRegisteredString = ($scope.vendor.isVatRegistered ? 'true' : 'false')
+            );
 
             $scope.submit = function() {
                 if (!$scope.vendorProfileForm.$valid) {
@@ -22,7 +26,7 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $locati
                 const vendorDetails = {
                     description: $scope.vendor.description,
                     maxPeople: $scope.vendor.maxPeople,
-                    isVatRegistered: $scope.vendor.vatRegistered,
+                    isVatRegistered: $scope.vendor.isVatRegisteredString === 'true',
                     vatNumber: $scope.vendor.vatNumber ? $scope.vendor.vatNumber : null,
                     facebookUrl: $scope.vendor.facebookUrl ? $scope.vendor.facebookUrl : null,
                     twitterUrl: $scope.vendor.twitterUrl ? $scope.vendor.twitterUrl : null,
@@ -34,6 +38,10 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $locati
                 VendorsFactory.updateSelf(vendorDetails)
                     .success(response => {
                         $location.path($scope.destination);
+                        // If the location in $scope.destination is the current location,
+                        // the controller will not refresh, so call LoadingService.hide() here for
+                        // that case only.
+                        LoadingService.hide();
                     })
                     .catch(response => {
                         $scope.vendorProfileFormError = response.data.errorTranslation;
