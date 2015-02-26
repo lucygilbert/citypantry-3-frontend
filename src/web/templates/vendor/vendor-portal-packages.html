@@ -20,7 +20,11 @@
             </thead>
             <tbody>
                 <tr ng-repeat="package in packages">
-                    <td>@todo – package thumbnail (23/02)</td>
+                    <td>
+                        <img ng-if="package.images.length"
+                            ng-src="{{ package.images[0].thumbnail }}"
+                            alt="A photo of {{ package.name }}" />
+                    </td>
                     <td>{{ package.name }}</td>
                     <td>{{ package.costIncludingVat | currency:'£' }}</td>
                     <td>{{ package.activeAndApproved }}</td>
