@@ -7,7 +7,7 @@ angular.module('cp.services').service('SecurityService', function($location, $co
         getVendor: function() {
             var deferred = $q.defer();
 
-            UsersFactory.getLoggedInUser().then(function(loggedInUser) {
+            UsersFactory.getLoggedInUser().success(function(loggedInUser) {
                 deferred.resolve(loggedInUser.vendor);
             });
 

@@ -26,15 +26,15 @@
                 <span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorVatRegistered.$error.required"> (Please specify if your business is <abbr title="value added tax">VAT</abbr> registered.)</span>
             </legend>
             <label class="radio-inline">
-                <input name="vendorVatRegistered" type="radio" value="true" required aria-required="true" ng-model="vendor.vatRegistered" /> Yes
+                <input name="vendorVatRegistered" type="radio" value="true" required aria-required="true" ng-model="vendor.isVatRegisteredString" /> Yes
             </label>
             <label class="radio-inline">
-                <input name="vendorVatRegistered" type="radio" value="false" required aria-required="true" ng-model="vendor.vatRegistered" /> No
+                <input name="vendorVatRegistered" type="radio" value="false" required aria-required="true" ng-model="vendor.isVatRegisteredString" /> No
             </label>
         </fieldset>
     </div>
 
-    <div class="form-group" ng-if="vendor.vatRegistered === true || vendor.vatRegistered === 'true'">
+    <div class="form-group" ng-if="vendor.isVatRegisteredString === 'true'">
         <label for="vendor_vat_number">
             <abbr title="value added tax">VAT</abbr> number
             <span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorVatNumber.$error.required"> (<abbr title="value added tax">VAT</abbr> number is required.)</span>
