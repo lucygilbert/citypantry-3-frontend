@@ -13,6 +13,12 @@ describe('Vendor portal - your packages', function() {
         expect(element(by.css('h1')).getText()).toBe('Your packages');
     });
 
+    it('should have a button to create a new package', function() {
+        var createPackageButton = element(by.css('main a.create-package'));
+        expect(createPackageButton.isDisplayed()).toBe(true);
+        expect(createPackageButton.getText()).toBe('Create package');
+    });
+
     it('should have two packages', function() {
         var packages = element.all(by.repeater('package in packages'));
         expect(packages.count()).toBe(2);
