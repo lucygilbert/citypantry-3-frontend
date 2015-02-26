@@ -1,6 +1,6 @@
 angular.module('cp.controllers.general').controller('ViewPackageController',
         function($scope, $routeParams, PackagesFactory, NotificationService, DocumentTitleService,
-        LoadingService, SecurityService, $sce) {
+        LoadingService, SecurityService, $sce, FRONTEND_BASE) {
     SecurityService.requireLoggedIn();
 
     const humanId = Number($routeParams.humanIdAndSlug.split('-')[0]);
@@ -22,7 +22,7 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             loadReviews($scope.package.id);
             loadSimilarPackages($scope.package.id);
 
-            $scope.facebookUrl = $sce.trustAsResourceUrl('//www.facebook.com/plugins/like.php?href=https://citypantry.com/package/' + $scope.package.id + '&width=90&height=21&colorscheme=light&layout=button_count&action=like&show_faces=false&send=false');
+            $scope.facebookUrl = $sce.trustAsResourceUrl('//www.facebook.com/plugins/like.php?href=' + encodeURIComponent(FRONTEND_BASE) + '/package/' + $scope.package.id + '&width=90&height=21&colorscheme=light&layout=button_count&action=like&show_faces=false&send=false');
             $scope.twitterUrl = $sce.trustAsResourceUrl('https://platform.twitter.com/widgets/tweet_button.html?via=CityPantry&text=' + encodeURIComponent($scope.package.name + ' by ' + $scope.package.vendor.name));
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
