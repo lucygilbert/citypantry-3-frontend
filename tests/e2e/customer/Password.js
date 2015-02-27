@@ -1,4 +1,4 @@
-ddescribe('Password page', function() {
+describe('Password page', function() {
     var first = true;
     var currentPassword, newPassword, confirmPassword, saveBtn;
     var notificationModal = require('../NotificationModal.js');

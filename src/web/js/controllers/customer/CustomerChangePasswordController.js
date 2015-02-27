@@ -15,22 +15,22 @@ angular.module('cp.controllers.customer').controller('CustomerChangePasswordCont
             LoadingService.show();
 
             UsersFactory.changeOwnPassword(updatedPasswords).success(() => {
-                $scope.newPassword = "";
-                $scope.confirmPassword = "";
-                $scope.currentPassword = "";
+                clearPasswordFields();
                 NotificationService.notifySuccess('Your password has been updated.');
                 LoadingService.hide();
             }).catch(response => {
-                $scope.newPassword = "";
-                $scope.confirmPassword = "";
-                $scope.currentPassword = "";
+                clearPasswordFields();
                 NotificationService.notifyError(response.data.errorTranslation)
             });
         } else {
-            $scope.newPassword = "";
-            $scope.confirmPassword = "";
-            $scope.currentPassword = "";
+            clearPasswordFields();
             NotificationService.notifyError('The two passwords you entered do not match.');
         }
+    }
+
+    function clearPasswordFields() {
+        $scope.newPassword = "";
+        $scope.confirmPassword = "";
+        $scope.currentPassword = "";
     }
 });
