@@ -1,0 +1,6 @@
+#!/bin/bash
+./node_modules/jshint/bin/jshint \
+    --config="etc/jshint-node.json" \
+    --exclude-path=etc/.jshintignore \
+    tests/e2e \
+    Gruntfile.js
