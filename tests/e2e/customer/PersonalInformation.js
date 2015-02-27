@@ -36,7 +36,7 @@ describe('Personal information page', function() {
         expect(company.getAttribute('value')).toBe('Carrot farm');
         expect(email.getAttribute('value')).toBe('RabbitsDontH@ve.email');
 
-        //Reverting changes so other tests will pass
+        // Reverting changes so other tests will pass.
         name.clear().sendKeys('Customer');
         company.clear().sendKeys('Aperture Science');
         email.clear().sendKeys('customer@bunnies.test');
