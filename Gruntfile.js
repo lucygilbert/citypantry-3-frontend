@@ -69,8 +69,8 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
-                        src: ['src/web/templates/vendor/*'],
-                        dest: 'web/dist/templates/vendor',
+                        src: ['src/web/templates/customer/*'],
+                        dest: 'web/dist/templates/customer',
                         filter: 'isFile'
                     }
                 ]

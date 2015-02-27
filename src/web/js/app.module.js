@@ -9,6 +9,7 @@ angular.module('cp', [
     'cp.controllers.general',
     'cp.controllers.user',
     'cp.controllers.vendor',
+    'cp.controllers.customer',
     'cp.filters',
     'cp.factories',
     'cp.services',
