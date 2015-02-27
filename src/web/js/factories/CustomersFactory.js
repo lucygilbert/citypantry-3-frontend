@@ -4,6 +4,8 @@ angular.module('cp.factories').factory('CustomersFactory', function(ApiService, 
 
         getCustomer: id => ApiService.get(`${API_BASE}/customers/${id}`),
 
-        updateCustomer: (id, updatedCustomer) => ApiService.put(`${API_BASE}/customers/${id}`, updatedCustomer)
+        updateCustomer: (id, updatedCustomer) => ApiService.put(`${API_BASE}/customers/${id}`, updatedCustomer),
+
+        updateSelf: attributes => ApiService.put(`${API_BASE}/customers/self`, attributes)
     };
 });

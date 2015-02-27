@@ -2,8 +2,8 @@
     <nav class="sidebar-menu" role="navigation">
         <ul class="nav nav-pills nav-stacked">
             <!-- @todo - class 'active' on current page. -->
-            <li><a href="/customer/account">Personal information</a></li>
-            <li><a href="/customer/password">Password</a></li>
+            <li ng-class="{active: page == 'personalDetails'}"><a href="/customer/account">Personal information</a></li>
+            <li ng-class="{active: page == 'changePassword'}"><a href="/customer/password">Password</a></li>
         </ul>
     </nav>
 </aside>
