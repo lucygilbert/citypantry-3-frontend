@@ -20,7 +20,7 @@ describe('Personal information page', function() {
         expect(activeLinks.first().getText()).toBe('Personal information');
     });
 
-    iit('should update the personal information in the database', function () {
+    it('should update the personal information in the database', function () {
         var name = element(by.id('name'));
         var company = element(by.id('company'));
         var email = element(by.id('email'));
