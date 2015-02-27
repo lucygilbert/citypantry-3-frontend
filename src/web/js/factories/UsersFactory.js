@@ -6,6 +6,8 @@ angular.module('cp.factories').factory('UsersFactory', function(ApiService, API_
 
         getLoggedInUser: () => ApiService.get(`${API_BASE}/users/get-authenticated-user`),
 
-        registerVendor: registerDetails => ApiService.post(`${API_BASE}/user/register-vendor`, registerDetails)
+        registerVendor: registerDetails => ApiService.post(`${API_BASE}/user/register-vendor`, registerDetails),
+
+        changeOwnPassword: passwords => ApiService.put(`${API_BASE}/user/self/change-password`, passwords)
     };
 });
