@@ -7,6 +7,10 @@ module.exports = {
         expect(element(by.css('[ng-controller="NotificationModalController"] .modal-header')).getText()).toBe('Success');
     },
 
+    expectErrorHeader: function() {
+        expect(element(by.css('[ng-controller="NotificationModalController"] .modal-header')).getText()).toBe('Error');
+    },
+
     expectMessage: function(message) {
         expect(element(by.css('[ng-controller="NotificationModalController"] .modal-body')).getText()).toBe(message);
     },
