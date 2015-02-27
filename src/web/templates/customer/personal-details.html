@@ -1,0 +1,34 @@
+<div class="vendor-signup-header"></div>
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>My details</h1>
+
+            <h2>Personal information</h2>
+
+            <form>
+                <fieldset>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input class="form-control input-lg" id="name" name="name" type="text" value="{{ user.user.name }}" required="" aria-required="true">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Company name</label>
+                        <input class="form-control input-lg" id="company" name="company" type="text" value="{{ user.customer.company }}" required="" aria-required="true">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control input-lg" id="email" name="email" type="email" value="{{ user.user.email }}" required="" aria-required="true">
+                    </div>
+
+                    <input class="btn btn-primary btn-lg" type="submit" value="Save changes">
+                </fieldset>
+            </form>
+        </div>
+
+        <ng-include src="'/dist/templates/customer/sidebar.html'" ng-init="page = 'personalDetails'"></ng-include>
+    </div>
+</div>
