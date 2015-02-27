@@ -25,13 +25,21 @@ describe('Personal information page', function() {
         var company = element(by.id('company'));
         var email = element(by.id('email'));
         var saveBtn = element(by.css('input.btn'));
+
         name.clear().sendKeys('Bunny');
         company.clear().sendKeys('Carrot farm');
         email.clear().sendKeys('RabbitsDontH@ve.email');
         saveBtn.click();
         browser.refresh();
+
         expect(name.getAttribute('value')).toBe('Bunny');
         expect(company.getAttribute('value')).toBe('Carrot farm');
         expect(email.getAttribute('value')).toBe('RabbitsDontH@ve.email');
+
+        //Reverting changes so other tests will pass
+        name.clear().sendKeys('Customer');
+        company.clear().sendKeys('Aperture Science');
+        email.clear().sendKeys('customer@bunnies.test');
+        saveBtn.click();
     });
 });
