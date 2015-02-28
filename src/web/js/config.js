@@ -22,6 +22,10 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'CustomerChangePasswordController',
             templateUrl: '/dist/templates/customer/change-password.html'
         }).
+        when('/reset-password/:userId/:token', {
+            controller: 'AuthResetPasswordController',
+            templateUrl: '/dist/templates/auth/reset-password.html'
+        }).
         when('/vendors', {
             controller: 'VendorsController',
             templateUrl: '/dist/templates/general/vendors.html'

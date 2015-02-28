@@ -5,6 +5,8 @@ angular.module('cp.factories').factory('AuthenticationFactory', function(ApiServ
 
         register: registerDetails => ApiService.post(`${API_BASE}/user/register`),
 
-        requestResetEmail: email => ApiService.post(`${API_BASE}/user/request-reset-email`, email)
+        requestResetEmail: email => ApiService.post(`${API_BASE}/user/request-reset-email`, email),
+
+        setPassword: resetDetails => ApiService.post(`${API_BASE}/user/set-password`, resetDetails)
     };
 });
