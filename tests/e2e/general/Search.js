@@ -72,16 +72,12 @@ describe('Search', function() {
         var options = timeFilter.all(by.css('option'));
         var firstOption = options.get(0);
 
-        options.get(4).click();
+        element(by.cssContainingText('option', '01:30')).click();
         expectSearchResultCount(3);
         firstOption.click();
 
-        options.get(12).click();
-        expectSearchResultCount(3);
-        firstOption.click();
-
-        options.get(40).click();
-        expectSearchResultCount(5);
+        element(by.cssContainingText('option', '20:30')).click();
+        expectSearchResultCount(4);
         firstOption.click();
 
         expectSearchResultCount(5);
