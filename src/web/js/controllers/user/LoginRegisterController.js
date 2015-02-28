@@ -17,7 +17,7 @@ angular.module('cp.controllers.user').controller('LoginRegisterController',
             plainPassword: $scope.plainPassword
         };
 
-        $http.post(API_BASE + '/user/login', loginDetails)
+        AuthenticationFactory.login(loginDetails)
             .then(function(response) {
                 $cookies.userId = response.data.apiAuth.userId;
                 $cookies.salt = response.data.apiAuth.salt;
@@ -42,7 +42,7 @@ angular.module('cp.controllers.user').controller('LoginRegisterController',
             plainPassword: $scope.plainPassword
         };
 
-        $http.post(API_BASE + '/user/register', registerDetails)
+        AuthenticationFactory.register(registerDetails)
             .then(function(response) {
                 $cookies.userId = response.data.apiAuth.userId;
                 $cookies.salt = response.data.apiAuth.salt;
