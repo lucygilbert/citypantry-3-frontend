@@ -37,9 +37,9 @@ describe('Password page', function() {
         notificationModal.expectMessage('Your password has been updated.');
         notificationModal.dismiss();
 
-        expect(currentPassword.getAttribute.value).toBeUndefined();
-        expect(newPassword.getAttribute.value).toBeUndefined();
-        expect(confirmPassword.getAttribute.value).toBeUndefined();
+        expect(currentPassword.getAttribute('value')).toBe('');
+        expect(newPassword.getAttribute('value')).toBe('');
+        expect(confirmPassword.getAttribute('value')).toBe('');
 
         // Revert changes so that other tests will pass
         currentPassword.sendKeys('bunny');
@@ -59,9 +59,9 @@ describe('Password page', function() {
         notificationModal.expectErrorHeader();
         notificationModal.dismiss();
 
-        expect(currentPassword.getAttribute.value).toBeUndefined();
-        expect(newPassword.getAttribute.value).toBeUndefined();
-        expect(confirmPassword.getAttribute.value).toBeUndefined();
+        expect(currentPassword.getAttribute('value')).toBe('');
+        expect(newPassword.getAttribute('value')).toBe('');
+        expect(confirmPassword.getAttribute('value')).toBe('');
     });
 
     it('should fail if the two passwords don\'t match and reset fields', function () {
@@ -75,8 +75,8 @@ describe('Password page', function() {
         notificationModal.expectMessage('The two passwords you entered do not match.');
         notificationModal.dismiss();
 
-        expect(currentPassword.getAttribute.value).toBeUndefined();
-        expect(newPassword.getAttribute.value).toBeUndefined();
-        expect(confirmPassword.getAttribute.value).toBeUndefined();
+        expect(currentPassword.getAttribute('value')).toBe('');
+        expect(newPassword.getAttribute('value')).toBe('');
+        expect(confirmPassword.getAttribute('value')).toBe('');
     });
 });

@@ -20,17 +20,17 @@ angular.module('cp.controllers.customer').controller('CustomerChangePasswordCont
                 LoadingService.hide();
             }).catch(response => {
                 clearPasswordFields();
-                NotificationService.notifyError(response.data.errorTranslation)
+                NotificationService.notifyError(response.data.errorTranslation);
             });
         } else {
             clearPasswordFields();
             NotificationService.notifyError('The two passwords you entered do not match.');
         }
-    }
+    };
 
     function clearPasswordFields() {
-        $scope.newPassword = "";
-        $scope.confirmPassword = "";
-        $scope.currentPassword = "";
+        $scope.newPassword = '';
+        $scope.confirmPassword = '';
+        $scope.currentPassword = '';
     }
 });
