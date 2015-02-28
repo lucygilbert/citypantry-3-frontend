@@ -26,7 +26,7 @@
 
                         <input class="btn btn-primary btn-lg" name="login" type="submit" value="Log in" />
 
-                        <a class="btn btn-link btn-lg" href="#forgotten-password-modal" data-toggle="modal">Forgot Password?</a>
+                        <a class="btn btn-link btn-lg" id="forgotBtn" ng-click="isOpen = true">Forgot Password?</a>
                     </fieldset>
                 </form>
             </div>
@@ -65,12 +65,12 @@
     </div>
 </div>
 
-<div class="modal fade forgotten-password-modal" id="forgotten-password-modal">
+<div class="modal" id="forgotten-password-modal" ng-class="{open: isOpen}">
     <div class="modal-dialog">
             <div class="modal-content">
-                <form>
+                <form role="form" ng-submit="forgotPassword()">
                     <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button class="close" type="button" ng-click="closeDialog()" aria-hidden="true">&times;</button>
                         <h2 class="modal-title">Reset password</h2>
                     </div>
 
@@ -78,13 +78,13 @@
                         <fieldset>
                             <div class="form-group">
                                 <label for="email">Enter your email address and we&#8217;ll send you a link to reset your password.</label>
-                                <input class="form-control input-lg" id="email" name="email" type="email" required placeholder="Email" aria-required="true" />
+                                <input class="form-control input-lg" id="email" type="email" required placeholder="Email" ng-model="resetEmail" aria-required="true" />
                             </div>
                         </fieldset>
                     </div>
 
                     <div class="modal-footer">
-                        <input class="btn btn-primary btn-lg" name="submit_forgotten_password" type="submit" value="Send reset link">
+                        <input class="btn btn-primary btn-lg" id="forgotSubmit" type="submit" value="Send reset link">
                     </div>
                 </form>
             </div>

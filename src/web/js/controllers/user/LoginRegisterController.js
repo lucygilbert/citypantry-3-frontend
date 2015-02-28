@@ -1,7 +1,8 @@
 angular.module('cp.controllers.user', []);
 
 angular.module('cp.controllers.user').controller('LoginRegisterController',
-        function($scope, $http, $cookies, $window, DocumentTitleService, SecurityService, API_BASE, LoadingService) {
+        function($scope, $http, $cookies, $window, AuthenticationFactory, DocumentTitleService, SecurityService,
+        API_BASE, LoadingService, NotificationService) {
     DocumentTitleService('Log in / Sign up to City Pantry');
     SecurityService.requireLoggedOut();
     LoadingService.hide();
@@ -53,5 +54,24 @@ angular.module('cp.controllers.user').controller('LoginRegisterController',
                 $scope.registerError = response.data.errorTranslation;
                 LoadingService.hide();
             });
+    };
+
+    $scope.forgotPassword = function () {
+        LoadingService.show();
+        var resetEmail = { email: $scope.resetEmail };
+
+        AuthenticationFactory.requestResetEmail(resetEmail).success(response => {
+            NotificationService.notifySuccess('The email has been sent.');
+            LoadingService.hide();
+            $scope.closeDialog();
+        }).catch(response => {
+            NotificationService.notifyError(response.data.errorTranslation);
+        });
+    };
+
+    $scope.closeDialog = function () {
+        $scope.resetEmail = '';
+        $scope.isOpen = false;
+
     };
 });
