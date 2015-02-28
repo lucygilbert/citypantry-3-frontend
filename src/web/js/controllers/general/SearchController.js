@@ -87,6 +87,8 @@ angular.module('cp.controllers.general').controller('SearchController',
 
     $scope.$on('$destroy', () => isOnSearchPage = false);
 
+    $scope.$watch('sort', () => $scope.packages = sortPackages());
+
     $scope.openDatePicker = function($event) {
         // Need to call these, otherwise the popup won't open (a click outside
         // of the popup closes it).
@@ -115,9 +117,22 @@ angular.module('cp.controllers.general').controller('SearchController',
                 $scope.cuisineTypes = response.cuisineTypes;
                 $scope.isSearching = false;
 
+                if ($scope.sort) {
+                    $scope.packages = sortPackages();
+                }
+
                 LoadingService.hide();
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    }
+
+    function sortPackages() {
+        if ($scope.sort === 'priceLowToHigh') {
+            return $scope.packages.sort((a, b) => a.costIncludingVat >= b.costIncludingVat);
+        }
+        if ($scope.sort === 'priceHighToLow') {
+            return $scope.packages.sort((a, b) => a.costIncludingVat <= b.costIncludingVat);
+        }
     }
 
     search();

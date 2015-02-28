@@ -74,6 +74,12 @@
         </section>
     </div>
 
+    <select ng-model="sort" class="input-lg sort-btn">
+        <option value="">Sort by...</option>
+        <option value="priceLowToHigh">Price: low to high</option>
+        <option value="priceHighToLow">Price: high to low</option>
+    </select>
+
     <p ng-show="isSearching">Seaching...</p>
 
     <div ng-show="!isSearching">
