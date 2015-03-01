@@ -10,6 +10,7 @@ angular.module('cp', [
     'cp.controllers.user',
     'cp.controllers.vendor',
     'cp.controllers.customer',
+    'cp.controllers.authentication',
     'cp.filters',
     'cp.factories',
     'cp.services',
