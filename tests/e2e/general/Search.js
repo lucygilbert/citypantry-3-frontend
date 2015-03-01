@@ -109,4 +109,20 @@ describe('Search', function() {
         clearFilter.click();
         expectSearchResultCount(5);
     });
+
+    it('should sort packages from highest price to lowest', function () {
+        element(by.cssContainingText('option', 'Price: high to low')).click();
+
+        var packages = element.all(by.repeater('package in packages'));
+        expect(packages.first().getText()).toContain('Carrots');
+        expect(packages.last().getText()).toContain('Marshmallows');
+    });
+
+    it('should sort packages from lowest price to highest', function () {
+        element(by.cssContainingText('option', 'Price: low to high')).click();
+
+        var packages = element.all(by.repeater('package in packages'));
+        expect(packages.first().getText()).toContain('Marshmallows');
+        expect(packages.last().getText()).toContain('Carrots');
+    });
 });
