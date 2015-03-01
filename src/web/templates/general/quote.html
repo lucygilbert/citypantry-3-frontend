@@ -1,0 +1,36 @@
+<div class="vendor-signup-header"></div>
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Get a quote for an event</h1>
+
+            <p class="lead">Have you got a conference to cater or maybe a wedding to organise? Not a problem. We work with hundreds of truly amazing food producers from chefs to street-food across London and the UK. Give us some details below and we&#8217;ll be in touch within 2 hours to discuss how we can take the hassle out of making your event mega.</p>
+            <form role="form" ng-submit="send()">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input class="form-control input-lg" ng-model="name" id="name" type="text" required aria-required="true">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control input-lg" ng-model="email" id="email" type="email" required aria-required="true">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tel">Telephone number</label>
+                        <input class="form-control input-lg" ng-model="tel" id="tel" type="tel" required aria-required="true">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="purpose">What is the purpose of the event?</label>
+                        <textarea class="form-control input-lg" ng-model="purpose" id="purpose" placeholder="Please be as descriptive as possible." rows="10" aria-required="true"></textarea>
+                    </div>
+
+                    <input class="btn btn-primary btn-lg" type="submit" value="Get a quote">
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

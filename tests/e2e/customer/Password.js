@@ -26,7 +26,7 @@ describe('Password page', function() {
         expect(activeLinks.first().getText()).toBe('Password');
     });
 
-    it('should update the password and reset fields', function () {
+    it('should update the password and reset the fields', function () {
         currentPassword.sendKeys('password');
         newPassword.sendKeys('bunny');
         confirmPassword.sendKeys('bunny');
