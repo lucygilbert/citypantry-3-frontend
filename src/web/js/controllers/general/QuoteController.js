@@ -18,7 +18,7 @@ angular.module('cp.controllers.general').controller('QuoteController',
             $scope.tel = '';
             $scope.purpose = '';
             LoadingService.hide();
-            NotificationService.notifySuccess('Your request has been sent.');
+            NotificationService.notifySuccess('Thanks! We\'ll get back to you shortly. In the meantime, enjoy some fine reading over at our blog while you\'re still here.');
         }).catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 });
