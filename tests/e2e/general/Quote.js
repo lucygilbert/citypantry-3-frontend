@@ -29,7 +29,7 @@ describe('Search', function() {
 
         notificationModal.expectIsOpen();
         notificationModal.expectSuccessHeader();
-        notificationModal.expectMessage('Your request has been sent.');
+        notificationModal.expectMessage('Thanks! We\'ll get back to you shortly. In the meantime, enjoy some fine reading over at our blog while you\'re still here.');
         notificationModal.dismiss();
 
         expect(name.getAttribute('value')).toBe('');
