@@ -1,5 +1,3 @@
-angular.module('cp.controllers.admin', []);
-
 angular.module('cp').config(function($routeProvider) {
     $routeProvider.
         when('/', {
