@@ -8,3 +8,28 @@
         background-color: white;
     }
 }
+
+slider {
+    span.bar {
+        background: #ccc;
+        -webkit-box-shadow: none;
+                box-shadow: none;
+    }
+
+    span.pointer {
+        background-color: #242157;
+        border: 0;
+        opacity: .9;
+        top: -7px;
+    }
+
+    span.pointer:hover,
+    span.pointer:focus,
+    span.pointer:active {
+        opacity: 1;
+    }
+
+    span.pointer::after {
+        display: none;
+    }
+}
