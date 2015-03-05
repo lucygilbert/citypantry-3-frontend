@@ -1,0 +1,12 @@
+#! /usr/bin/env node
+
+var reattempt = require('reattempt-promise-function'),
+    requestPromise = require('request-promise'),
+    uri = 'http://order.citypantry.dev',
+    requestOptions = { 'method': 'GET', 'uri': uri, 'timeout': 5000 };
+
+reattempt(requestPromise, [requestOptions], 250, 5)
+    .catch(function (error) {
+        console.log('Couldn\'t connect to `' + uri + '`.');
+        process.exit(1);
+    });

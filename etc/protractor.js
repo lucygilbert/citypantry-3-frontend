@@ -24,9 +24,6 @@ var helpers = require('./protractor-helpers.js');
     config = {
         framework: 'jasmine',
 
-        // The address of a running selenium server.
-        seleniumAddress: 'http://localhost:4444/wd/hub',
-
         // Capabilities to be passed to the webdriver instance.
         capabilities: {
             'browserName': 'chrome',

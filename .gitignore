@@ -8,7 +8,7 @@
 /app/phpunit.xml
 /build/
 /vendor/
-/bin/
+/bin/security-checker
 /composer.phar
 /web/dist
 /node_modules
