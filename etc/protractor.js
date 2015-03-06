@@ -49,5 +49,9 @@ var helpers = require('./protractor-helpers.js');
         baseUrl: 'http://order.citypantry.dev/',
     };
 
+    if (process.env.LOCAL_SELENIUM === '1') {
+        config.seleniumAddress = 'http://localhost:4444/wd/hub';
+    }
+
     exports.config = config;
 }).call(this);

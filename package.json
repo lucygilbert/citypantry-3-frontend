@@ -5,7 +5,9 @@
     "postinstall": "npm run webdriverupdate && grunt copy:dist sass csso js",
     "test": "vagrant up && ./bin/wait-for-dev && ./bin/load-db-fixtures && ./node_modules/protractor/bin/protractor etc/protractor.js; vagrant halt;",
     "test-no-halt": "vagrant up && ./bin/wait-for-dev && ./bin/load-db-fixtures && ./node_modules/protractor/bin/protractor etc/protractor.js;",
-    "update-webdriver": "node_modules/protractor/bin/webdriver-manager update"
+    "test-local": "/home/citypantry/project/api/app/console doctrine:mongodb:fixtures:load && LOCAL_SELENIUM=1 ./node_modules/protractor/bin/protractor etc/protractor.js;",
+    "update-webdriver": "node_modules/protractor/bin/webdriver-manager update",
+    "link-chromedriver": "ln -s /home/citypantry/project/frontend/node_modules/chromedriver/bin/chromedriver node_modules/protractor/selenium/chromedriver.exe"
   },
   "url": "https://citypantry.com/",
   "copyright": "2015",
