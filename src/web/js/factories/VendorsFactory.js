@@ -31,6 +31,8 @@ angular.module('cp.factories').factory('VendorsFactory', function(ApiService, AP
 
         updateVendor: (id, updatedVendor) => ApiService.put(`${API_BASE}/vendors/${id}`, updatedVendor),
 
-        updateSelf: (updatedVendor) => ApiService.put(`${API_BASE}/vendors/me`, updatedVendor)
+        updateSelf: (updatedVendor) => ApiService.put(`${API_BASE}/vendors/me`, updatedVendor),
+
+        deleteVendor: (id) => ApiService.delete(`${API_BASE}/vendors/${id}`)
     };
 });
