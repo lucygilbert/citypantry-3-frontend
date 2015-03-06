@@ -48,8 +48,11 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
             {
                 cellTemplate: `<div class="ui-grid-cell-contents">
                     <a href="/admin/package/{{row.entity[col.field]}}">Edit</a>
-                    /
+                    <br />
                     <a ng-click="grid.appScope.delete(row.entity[col.field])">Delete</a>
+                    <br />
+                    <a ng-if="!row.entity.approved" ng-click="grid.appScope.approve(row.entity[col.field])"
+                        class="approve-package">Approve</a>
                     </div>`,
                 displayName: 'Action',
                 field: 'id',
@@ -83,5 +86,11 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
                 .then(loadPackages)
                 .catch(response => NotificationService.notifyError(response.data.errorTranslation));
         }
+    };
+
+    $scope.approve = function(id) {
+        PackagesFactory.approvePackage(id)
+            .success(loadPackages)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 });
