@@ -68,4 +68,11 @@ describe('Admin - packages page', function() {
         gridTestUtils.cancelFilterInColumn('packages-table', 3);
         gridTestUtils.expectRowCount('packages-table', 6);
     });
+
+    it('should be able to approve unapproved packages', function() {
+        gridTestUtils.enterFilterInColumn('packages-table', 7, 'Awaiting approval');
+        gridTestUtils.expectRowCount('packages-table', 1);
+        element(by.css('#packages-table a.approve-package')).click();
+        gridTestUtils.expectRowCount('packages-table', 0);
+    });
 });
