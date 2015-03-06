@@ -33,6 +33,8 @@ angular.module('cp.factories').factory('VendorsFactory', function(ApiService, AP
 
         updateSelf: (updatedVendor) => ApiService.put(`${API_BASE}/vendors/me`, updatedVendor),
 
-        deleteVendor: (id) => ApiService.delete(`${API_BASE}/vendors/${id}`)
+        deleteVendor: (id) => ApiService.delete(`${API_BASE}/vendors/${id}`),
+
+        approveVendor: (id) => ApiService.put(`${API_BASE}/vendors/${id}/approve`)
     };
 });
