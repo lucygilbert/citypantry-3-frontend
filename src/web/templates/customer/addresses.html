@@ -1,0 +1,34 @@
+<div class="vendor-signup-header"></div>
+
+<div class="wrapper">
+    <h1>Delivery addresses</h1>
+
+    <p>
+        <a href="/customer/addresses/new" role="button" class="btn btn-primary btn-lg">Add a new address</a>
+    </p>
+
+    <p ng-if="addresses.length === 0">
+        You have no delivery addresses stored. <a href="/customer/addresses/new">Why not add one?</a>
+    </p>
+
+    <table class="table" id="table_addresses" ng-if="addresses.length > 0">
+        <thead>
+            <tr>
+                <th>Address</th>
+                <th>Company</th>
+                <th>Office manager</th>
+                <th>Phone number</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="address in addresses">
+                <td>{{ address | addressSingleLineFormatter }}</td>
+                <td>{{ address.companyName }}</td>
+                <td>{{ address.officeManagerName }}</td>
+                <td>{{ address.landlineNumber }}</td>
+                <td><a class="btn btn-primary" ng-href="/customer/addresses/{{ address.id }}">Edit</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

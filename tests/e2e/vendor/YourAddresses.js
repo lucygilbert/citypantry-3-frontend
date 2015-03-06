@@ -33,7 +33,7 @@ describe('Vendor portal - your addresses', function() {
         element(by.model('address.orderNotificationMobileNumber')).sendKeys('07111222333');
         element(by.model('address.contactName')).sendKeys('Stu');
 
-        element(by.css('input.btn-primary')).click();
+        element(by.css('main input.btn-primary')).click();
 
         expect(browser.getCurrentUrl()).toMatch(/vendor\/addresses$/);
 

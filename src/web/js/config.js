@@ -24,6 +24,18 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'CustomerChangePasswordController',
             templateUrl: '/dist/templates/customer/change-password.html'
         }).
+        when('/customer/addresses', {
+            controller: 'CustomerAddressesController',
+            templateUrl: '/dist/templates/customer/addresses.html'
+        }).
+        when('/customer/addresses/new', {
+            controller: 'CustomerAddressController',
+            templateUrl: '/dist/templates/customer/address.html'
+        }).
+        when('/customer/addresses/:id', {
+            controller: 'CustomerAddressController',
+            templateUrl: '/dist/templates/customer/address.html'
+        }).
         when('/reset-password/:userId/:token', {
             controller: 'AuthResetPasswordController',
             templateUrl: '/dist/templates/auth/reset-password.html'
