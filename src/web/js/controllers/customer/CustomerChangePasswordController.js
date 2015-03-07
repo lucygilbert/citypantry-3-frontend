@@ -1,5 +1,3 @@
-angular.module('cp.controllers.customer', []);
-
 angular.module('cp.controllers.customer').controller('CustomerChangePasswordController',
         function($scope, UsersFactory, DocumentTitleService, SecurityService, LoadingService, NotificationService) {
     DocumentTitleService('My details');

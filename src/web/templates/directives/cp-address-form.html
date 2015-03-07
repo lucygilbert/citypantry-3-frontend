@@ -58,7 +58,7 @@
         <input class="form-control input-lg" id="landline_number" name="landlineNumber" type="tel" required aria-required="true" ng-model="address.landlineNumber" />
     </div>
 
-    <div class="form-group">
+    <div class="form-group" ng-if="userType === 'vendor'">
         <label for="order_notification_mobile_number">
             Order notification mobile number
             <span class="form-element-invalid" ng-show="form.$submitted && form.orderNotificationMobileNumber.$error.required">(Order notification mobile number is required.)</span>
@@ -68,13 +68,31 @@
         <input class="form-control input-lg" id="order_notification_mobile_number" name="orderNotificationMobileNumber" type="tel" required aria-required="true" ng-model="address.orderNotificationMobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
     </div>
 
-    <div class="form-group">
+    <div class="form-group" ng-if="userType === 'vendor'">
         <label for="contact_name">
             Contact name
             <span class="form-element-invalid" ng-show="form.$submitted && form.contactName.$error.required">(Contact name is required.)</span>
         </label>
 
         <input class="form-control input-lg" id="contact_name" name="contactName" required aria-required="true" ng-model="address.contactName" />
+    </div>
+
+    <div class="form-group" ng-if="userType === 'customer'">
+        <label for="office_manager_name">
+            Office manager name
+            <span class="form-element-invalid" ng-show="form.$submitted && form.officeManagerName.$error.required">(Office manager's name is required.)</span>
+        </label>
+
+        <input class="form-control input-lg" id="office_manager_name" name="officeManagerName" required aria-required="true" ng-model="address.officeManagerName" />
+    </div>
+
+    <div class="form-group" ng-if="userType === 'customer'">
+        <label for="company_name">
+            Company name
+            <span class="form-element-invalid" ng-show="form.$submitted && form.companyName.$error.required">(Company's name is required.)</span>
+        </label>
+
+        <input class="form-control input-lg" id="company_name" name="companyName" required aria-required="true" ng-model="address.companyName" />
     </div>
 
     <input type="submit" value="Save" class="btn btn-primary" />

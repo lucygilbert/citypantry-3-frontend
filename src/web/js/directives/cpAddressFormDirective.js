@@ -2,11 +2,18 @@ angular.module('cp').directive('cpAddressForm', function() {
     return {
         restrict: 'E',
         scope: {
-            address: '='
+            address: '=',
+            userType: '=',
         },
         templateUrl: '/dist/templates/directives/cp-address-form.html',
         controller: function($scope, $location, AddressFactory, NotificationService, LoadingService) {
+            if ($scope.userType !== 'vendor' && $scope.userType !== 'customer') {
+                throw new Error('userType must be vendor or customer');
+            }
+
             let isNew = !$scope.address.id;
+
+            $scope.address.label = $scope.address.addressLine1;
 
             $scope.save = function() {
                 if ($scope.form.$invalid) {
@@ -26,7 +33,8 @@ angular.module('cp').directive('cpAddressForm', function() {
 
                 promise.then(function() {
                     NotificationService.notifySuccess('Address saved');
-                    $location.path('/vendor/addresses');
+                    const redirectTo = '/' + $scope.userType + '/addresses';
+                    $location.path(redirectTo);
                 });
             };
         }
