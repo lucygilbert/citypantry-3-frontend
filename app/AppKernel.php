@@ -30,4 +30,27 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+    public function getCacheDir()
+    {
+        if ($this->isVagrant()) {
+            return '/tmp/cp-cache-' . $this->environment;
+        }
+
+        return parent::getCacheDir();
+    }
+
+    public function getLogDir()
+    {
+        if ($this->isVagrant()) {
+            return '/tmp/cp-logs-' . $this->environment;
+        }
+
+        return parent::getLogDir();
+    }
+
+    private function isVagrant()
+    {
+        return strpos(gethostname(), 'vagrant') !== false;
+    }
 }
