@@ -1,4 +1,4 @@
-ddescribe('Customer orders', function() {
+describe('Customer orders', function() {
     var first = true;
 
     beforeEach(function() {

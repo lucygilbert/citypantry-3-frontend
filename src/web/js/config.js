@@ -40,6 +40,10 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'CustomerOrdersController',
             templateUrl: '/dist/templates/customer/orders.html'
         }).
+        when('/customer/orders/:id/messages', {
+            controller: 'CustomerOrderMessagesController',
+            templateUrl: '/dist/templates/customer/order-messages.html'
+        }).
         when('/reset-password/:userId/:token', {
             controller: 'AuthResetPasswordController',
             templateUrl: '/dist/templates/auth/reset-password.html'
