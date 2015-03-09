@@ -63,6 +63,12 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             if (!this.isLoggedIn() || !this.inGroup(['admin', 'user'])) {
                 $location.path('/');
             }
+        },
+
+        requireCustomer: function() {
+            if (!this.isLoggedIn() || !this.inGroup('customer')) {
+                $location.path('/');
+            }
         }
     };
 });

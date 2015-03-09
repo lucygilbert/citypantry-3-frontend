@@ -4,6 +4,8 @@ angular.module('cp.factories').factory('OrdersFactory', function(API_BASE, ApiSe
 
         getOrdersByCurrentVendor: () => ApiService.get(`${API_BASE}/orders/by-current-vendor`),
 
+        getOrdersByCurrentCustomer: () => ApiService.get(`${API_BASE}/orders/by-current-customer`),
+
         getOrder: (id) => ApiService.get(`${API_BASE}/orders/${id}`),
 
         getOrderMessages: (id) => ApiService.get(`${API_BASE}/orders/${id}/messages`),
