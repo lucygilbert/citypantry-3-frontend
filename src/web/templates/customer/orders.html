@@ -1,0 +1,120 @@
+<div class="vendor-signup-header"></div>
+
+<main role="main">
+    <div class="wrapper">
+        <h1>Your orders</h1>
+
+        <p ng-if="count === 0">No orders have been made.</p>
+
+        <table ng-if="count > 0" class="table" id="table_orders" summary="Your orders">
+            <thead>
+                <tr>
+                    <th>Order no.</th>
+                    <th>Order date</th>
+                    <th>Delivery date</th>
+                    <th>Package</th>
+                    <th>People</th>
+                    <th>Cost</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="order in orders">
+                    <td ng-click="showReceipt(order)" class="order-number">{{ order.humanId }}</td>
+                    <td ng-click="showReceipt(order)">{{ order.date | date:'d MMM yyyy' }}</td>
+                    <td ng-click="showReceipt(order)">{{ order.requestedDeliveryDate | date:'d MMM yyyy HH:mm' }}</td>
+                    <td ng-click="showReceipt(order)">{{ order.package.name }}</td>
+                    <td ng-click="showReceipt(order)">{{ order.headCount }}</td>
+                    <td ng-click="showReceipt(order)">&#163;{{ order.totalAmountAfterVoucher }}</td>
+                    <td ng-click="showReceipt(order)">{{ order.statusText | getOrderStatusText }}</td>
+                    <td class="dropdown">
+                        <a class="btn btn-primary" id="actions-{{ order.id }}" role="button">
+                            Actions
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="actions-{{ order.id }}">
+                            <li><a href="/customer/orders/{{ order.id }}/messages">@todo - Message vendor</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="modal fade order-details-modal" id="order-details-modal" ng-class="{in: modal}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" aria-hidden="true" ng-click="modal = false">&times;</button>
+
+                        <h2 class="modal-title">Order #<span class="order-details-cell" id="order_number">{{ modalOrder.humanId }}</span></h2>
+                    </div>
+
+                    <div class="modal-body">
+                        <table class="table order-details-table" id="table_receipt" width="100%" summary="Your receipt">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Order date and time</th>
+                                    <td class="order-details-cell" id="order_date_and_time">{{ modalOrder.date | date:'d MMM yyyy' }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Delivery date</th>
+                                    <td class="order-details-cell" id="delivery_date">{{ modalOrder.requestedDeliveryDate | date:'d MMM yyyy HH:mm' }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Vendor name</th>
+                                    <td class="order-details-cell" id="customer_name">{{ modalOrder.vendor.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Delivery address</th>
+                                    <td class="order-details-cell" id="delivery_address">{{ modalOrder.deliveryAddress | addressSingleLineFormatter }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Package name</th>
+                                    <td class="order-details-cell" id="package_name">{{ modalOrder.package.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Number of people</th>
+                                    <td class="order-details-cell" id="number_of_people">{{ modalOrder.headCount }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Vegetarian</th>
+                                    <td class="order-details-cell" id="vegetarian">{{ modalOrder.vegetarianHeadCount }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Dietary requirements</th>
+                                    <td class="order-details-cell" id="dietary_requirements">{{ modalOrder.customDietaryRequirements }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Subtotal</th>
+                                    <td class="order-details-cell" id="subtotal">{{ modalOrder.subTotalIncludingVat | currency:'£' }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Delivery</th>
+                                    <td class="order-details-cell" id="delivery">{{ modalOrder.shippingIncludingVatAmount | currency:'£' }}</td>
+                                </tr>
+                                <tr id="row_promo_code">
+                                    <th scope="row">Promo code</th>
+                                    <td class="order-details-cell" id="promo_code">{{ modalOrder.voucherAmount | currency:'£' }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total cost</th>
+                                    <td class="order-details-cell" id="total_cost">{{ modalOrder.totalAmountAfterVoucher | currency:'£' }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Special delivery instructions</th>
+                                    <td class="order-details-cell" id="special_delivery_instructions">{{ modalOrder.deliveryInstruction }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Status</th>
+                                    <td class="order-details-cell" id="status">{{ modalOrder.statusText | getOrderStatusText }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
