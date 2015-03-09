@@ -1,7 +1,7 @@
-angular.module('cp.controllers.general').controller('VendorPortalOrderMessagesController',
+angular.module('cp.controllers.customer').controller('CustomerOrderMessagesController',
         function($scope, $routeParams, $q, OrdersFactory, NotificationService, DocumentTitleService,
         SecurityService, LoadingService) {
-    SecurityService.requireVendor();
+    SecurityService.requireCustomer();
 
     function loadOrder() {
         let promise1 = OrdersFactory.getOrder($routeParams.id)
