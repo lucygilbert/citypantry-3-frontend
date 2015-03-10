@@ -29,6 +29,6 @@ describe('Payment cards', function() {
         expect(element.all(by.css('main select')).count()).toBe(2);
     });
 
-    // There is no test for actually adding a card because we don't want to cutter up the Braintree
+    // There is no test for actually adding a card because we don't want to clutter up the Braintree
     // account with test data.
 });
