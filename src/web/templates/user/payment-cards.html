@@ -1,0 +1,31 @@
+<div class="vendor-signup-header"></div>
+
+<div class="wrapper">
+    <h1>Payment cards</h1>
+
+    <p>
+        <a href="/user/payment-cards/new" role="button" class="btn btn-primary btn-lg">Add a new card</a>
+    </p>
+
+    <p ng-if="cards.length === 0">
+        You have no payment cards stored.
+        <a href="/user/payment-cards/new">Why not add one?</a>
+    </p>
+
+    <table class="table" id="table_cards" ng-if="cards.length > 0">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Number</th>
+                <th>Expiry date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="card in cards">
+                <td>{{ card.type }}</td>
+                <td>xxxx xxxx xxxx {{ card.last4 }}</td>
+                <td>{{ card.expiryDate }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
