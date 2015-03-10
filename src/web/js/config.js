@@ -112,6 +112,14 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'ViewVendorController',
             templateUrl: '/dist/templates/general/view-vendor.html'
         }).
+        when('/user/payment-cards', {
+            controller: 'UserPaymentCardsController',
+            templateUrl: '/dist/templates/user/payment-cards.html'
+        }).
+        when('/user/payment-cards/new', {
+            controller: 'UserNewPaymentCardController',
+            templateUrl: '/dist/templates/user/new-payment-card.html'
+        }).
         when('/package/:humanIdAndSlug', {
             controller: 'ViewPackageController',
             templateUrl: '/dist/templates/general/view-package.html'

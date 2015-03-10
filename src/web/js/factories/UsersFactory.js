@@ -8,6 +8,10 @@ angular.module('cp.factories').factory('UsersFactory', function(ApiService, API_
 
         registerVendor: registerDetails => ApiService.post(`${API_BASE}/user/register-vendor`, registerDetails),
 
-        changeOwnPassword: passwords => ApiService.put(`${API_BASE}/user/self/change-password`, passwords)
+        changeOwnPassword: passwords => ApiService.put(`${API_BASE}/user/self/change-password`, passwords),
+
+        getPaymentCards: () => ApiService.get(`${API_BASE}/payment-cards`),
+
+        addPaymentCard: (cardDetails) => ApiService.post(`${API_BASE}/payment-cards`, cardDetails)
     };
 });
