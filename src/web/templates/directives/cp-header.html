@@ -1,26 +1,26 @@
 <nav class="cp-header">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="cp-button-nav-menu" ng-click="togglePresentNavMenu()" data-target="#bs-example-navbar-collapse-1">
-          Menu
-      </button>
-      <a class="navbar-brand" href="#">
-          <img class="cp-logo" src="/dist/images/cp_logo.png" alt="City Pantry">
-      </a>
-    </div>
-
-    <div collapse="navMenuPresented" class="navbar-collapse">
-      <ul ng-include="navMenuItemsTemplateUrl()" class="cp-nav-menu"></ul>
-      <form class="cp-form-search" role="search">
-        <div class="input-group">
-          <input type="text" class="cp-input-search" placeholder="Lunch, Mexican, etc.">
-            <span class="input-group-btn">
-              <button class="cp-btn-search" type="button">
-                <span class="sr-only">Search</span>
-              </button>
-            </span>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="cp-button-nav-menu" ng-click="togglePresentNavMenu()" data-target="#bs-example-navbar-collapse-1">
+                Menu
+            </button>
+            <a class="navbar-brand" href="#">
+                <img class="cp-logo" src="/dist/images/cp_logo.png" alt="City Pantry">
+            </a>
         </div>
-      </form>
+
+        <div collapse="navMenuPresented" class="navbar-collapse">
+            <ul ng-include="navMenuItemsTemplateUrl()" class="cp-nav-menu"></ul>
+            <form class="cp-form-search" role="search">
+                <div class="input-group">
+                    <input type="text" class="cp-input-search" placeholder="Lunch, Mexican, etc.">
+                    <span class="input-group-btn">
+                        <button class="cp-btn-search" type="button">
+                            <span class="sr-only">Search</span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
 </nav>
