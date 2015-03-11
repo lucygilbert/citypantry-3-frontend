@@ -29,7 +29,7 @@
             </div>
         </form>
 
-        <section class="filter-package collapse" id="filter-package">
+        <section class="filter-package" id="filter-package">
             <div class="form-group filter-package-budget">
                 <label for="budget">Budget per person</label>
 
@@ -82,7 +82,7 @@
 
     <p ng-show="isSearching">Seaching...</p>
 
-    <div ng-show="!isSearching">
+    <div class="col-sm-9" ng-show="!isSearching">
         <h1>{{ packages.length }} package{{ packages.length == 1 ? '' : 's' }} found</h1>
 
         <ul class="packages">
