@@ -1,7 +1,8 @@
 angular.module('cp.services').service('SecurityService', function($location, $cookies, $q, UsersFactory) {
     return {
         getUser: function() {
-            return (localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : false;
+            var userIsLoggedInAndAvailable = this.isLoggedIn() && localStorage.getItem('user');
+            return userIsLoggedInAndAvailable ? JSON.parse(localStorage.getItem('user')) : false;
         },
 
         getVendor: function() {
@@ -54,21 +55,38 @@ angular.module('cp.services').service('SecurityService', function($location, $co
         },
 
         requireStaff: function() {
-            if (!this.isLoggedIn() || this.getUser()['group']['name'] !== 'staff') {
+            if (!this.staffIsLoggedIn()) {
                 $location.path('/');
             }
         },
 
         requireVendor: function() {
-            if (!this.isLoggedIn() || !this.inGroup(['admin', 'user'])) {
+            if (!this.vendorIsLoggedIn()) {
                 $location.path('/');
             }
         },
 
         requireCustomer: function() {
-            if (!this.isLoggedIn() || !this.inGroup('customer')) {
+            if (!this.customerIsLoggedIn()) {
                 $location.path('/');
             }
-        }
-    };
+        },
+
+        group: function() {
+            var user = this.getUser(),
+                parseGroup = (x) => x === 'admin' || x === 'user' ? 'vendor' : x;
+
+            if (user && user['group'] && user['group']['name']) {
+                return parseGroup(this.getUser()['group']['name']);
+            } else {
+                return '';
+            }
+        },
+
+        customerIsLoggedIn: function() { return this.group() === 'customer' },
+
+        staffIsLoggedIn: function() { return this.group() === 'staff' },
+
+        vendorIsLoggedIn: function() { return this.group() == 'vendor' }
+    }
 });
