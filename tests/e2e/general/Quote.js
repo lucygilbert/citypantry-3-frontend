@@ -1,11 +1,10 @@
-describe('Search', function() {
+describe('Quote', function() {
     var first = true;
     var notificationModal = require('../NotificationModal.js');
 
     beforeEach(function() {
         if (first) {
             first = false;
-            loginAsUser('customer@bunnies.test');
             browser.get('/quote');
         }
     });
@@ -19,7 +18,7 @@ describe('Search', function() {
         var email = element(by.id('email'));
         var tel = element(by.id('tel'));
         var purpose = element(by.id('purpose'));
-        var sendBtn = element(by.css('input[type="submit"]'));
+        var sendBtn = element(by.css('main input[type="submit"]'));
 
         name.sendKeys('Bunny');
         email.sendKeys('bunnyr@b.bit');
