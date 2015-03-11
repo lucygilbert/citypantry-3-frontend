@@ -7,21 +7,39 @@
 
             <h2>Personal information</h2>
 
-            <form role="form" ng-submit="save()">
+            <form role="form" ng-submit="save()" name="detailsForm">
                 <fieldset>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input class="form-control input-lg" id="name" name="name" type="text" ng-model="user.user.name" required="" aria-required="true">
+
+                        <span class="form-element-invalid" ng-show="detailsForm.$submitted && detailsForm.name.$error.required">
+                            (Name is required.)
+                        </span>
+
+                        <input class="form-control input-lg" id="name" name="name" type="text"
+                            ng-model="user.user.name" required aria-required="true">
                     </div>
 
                     <div class="form-group">
                         <label for="company">Company name</label>
-                        <input class="form-control input-lg" id="company" name="company" type="text" ng-model="user.customer.company" required="" aria-required="true">
+
+                        <span class="form-element-invalid" ng-show="detailsForm.$submitted && detailsForm.company.$error.required">
+                            (Company is required.)
+                        </span>
+
+                        <input class="form-control input-lg" id="company" name="company" type="text"
+                            ng-model="user.customer.company" required aria-required="true">
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input class="form-control input-lg" id="email" name="email" type="email" ng-model="user.user.email" required="" aria-required="true">
+
+                        <span class="form-element-invalid" ng-show="detailsForm.$submitted && detailsForm.email.$error.required">
+                            (Email is required.)
+                        </span>
+
+                        <input class="form-control input-lg" id="email" name="email" type="email"
+                            ng-model="user.user.email" required aria-required="true">
                     </div>
 
                     <input class="btn btn-primary btn-lg" type="submit" value="Save changes">
