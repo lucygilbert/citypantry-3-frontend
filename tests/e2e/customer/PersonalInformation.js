@@ -24,7 +24,7 @@ describe('Personal information page', function() {
         var name = element(by.id('name'));
         var company = element(by.id('company'));
         var email = element(by.id('email'));
-        var saveBtn = element(by.css('input.btn'));
+        var saveBtn = element(by.css('main input.btn'));
 
         name.clear().sendKeys('Bunny');
         company.clear().sendKeys('Carrot farm');

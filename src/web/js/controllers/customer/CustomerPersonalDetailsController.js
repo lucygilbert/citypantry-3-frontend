@@ -10,6 +10,11 @@ angular.module('cp.controllers.customer').controller('CustomerPersonalDetailsCon
     });
 
     $scope.save = function () {
+        if (!$scope.detailsForm.$valid) {
+            $scope.detailsForm.$submitted = true;
+            return;
+        }
+
         LoadingService.show();
 
         var attributes = {
