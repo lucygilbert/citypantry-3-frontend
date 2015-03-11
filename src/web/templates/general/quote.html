@@ -1,11 +1,13 @@
-<div class="vendor-signup-header"></div>
+<div class="quote-header"></div>
 
 <div class="wrapper">
     <div class="row">
         <div class="col-sm-8">
-            <h1>Get a quote for an event</h1>
+            <h1 ng-if="!vendor">Get a quote for an event</h1>
+            <h1 ng-if="vendor">Hire {{ vendor.name }} for an event</h1>
 
             <p class="lead">Have you got a conference to cater or maybe a wedding to organise? Not a problem. We work with hundreds of truly amazing food producers from chefs to street-food across London and the UK. Give us some details below and we&#8217;ll be in touch within 2 hours to discuss how we can take the hassle out of making your event mega.</p>
+
             <form role="form" ng-submit="send()">
                 <fieldset>
                     <div class="form-group">

@@ -1,7 +1,18 @@
 angular.module('cp.controllers.general').controller('QuoteController',
-        function($scope, QuoteFactory, DocumentTitleService, LoadingService, NotificationService) {
-    DocumentTitleService('Get a quote for an event');
-    LoadingService.hide();
+        function($scope, QuoteFactory, DocumentTitleService, LoadingService, NotificationService,
+        VendorsFactory, $routeParams) {
+    if ($routeParams.vendorId) {
+        VendorsFactory.getVendor($routeParams.vendorId)
+            .success(response => {
+                $scope.vendor = response;
+                DocumentTitleService(`Hire ${response.name} for an event`);
+                LoadingService.hide();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    } else {
+        DocumentTitleService('Get a quote for an event');
+        LoadingService.hide();
+    }
 
     $scope.send = function () {
         var quoteDetails = {
@@ -10,6 +21,11 @@ angular.module('cp.controllers.general').controller('QuoteController',
             tel: $scope.tel,
             purpose: $scope.purpose
         };
+
+        if ($routeParams.vendorId) {
+            quoteDetails.vendorId = $routeParams.vendorId;
+        }
+
         LoadingService.show();
 
         QuoteFactory.sendQuote(quoteDetails).success(() => {
