@@ -41,7 +41,7 @@
                 <span class="help-block" id="package_items_help">(e.g. “1 pulled pork sandwich”, “Can of orange or lemon”, “Utensils included”, “Staff on hand to serve your party”).</span>
                 <div class="form-group" ng-repeat="packageItem in package.items">
                     <label class="sr-only" for="package_item{{$index + 1}}">Package item {{$index + 1}}</label>
-                    <input class="form-control input-lg" id="package_item{{$index + 1}}" name="packageItems[]" type="text" aria-describedby="package_items_help" ng-model="packageItem.value" />
+                    <input class="form-control input-lg" id="package_item{{$index + 1}}" name="packageItems[]" type="text" aria-describedby="package_items_help" ng-model="packageItem" />
                 </div>
                 <a ng-click="addPackageItem()">Add another item.</a>
             </fieldset>

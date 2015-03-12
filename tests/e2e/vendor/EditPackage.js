@@ -1,23 +1,18 @@
 // @todo(amy) - fix
-xdescribe('Vendor portal - create package', function() {
+xdescribe('Vendor portal - edit package', function() {
     var isFirst = true;
 
     beforeEach(function() {
         if (isFirst) {
             loginAsUser('vendor@bunnies.test');
             browser.get('/vendor/packages');
-            element.all(by.css('#table_packages a[href^="/vendor/packages/"]')).first().click();
-            browser.driver.wait(function() {
-                return browser.driver.getCurrentUrl().then(function(url) {
-                    return (/\/vendor\/packages\/[\da-f]+$/.test(url));
-                });
-            });
+            element.all(by.css('#table_packages a.edit-package')).first().click();
             isFirst = false;
         }
     });
 
     it('should show the "Edit package" page', function() {
-        expect(browser.getCurrentUrl()).toMatch(/\/vendor\/packages\/[\da-f]+$/);
+        expect(browser.getCurrentUrl()).toMatch(/\/vendor\/packages\/[\da-f]{24}$/);
         expect(element(by.css('h1')).getText()).toBe('Edit package');
     });
 

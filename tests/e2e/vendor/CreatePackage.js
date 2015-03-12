@@ -1,5 +1,4 @@
-// @todo(amy) - fix
-xdescribe('Vendor portal - create package', function() {
+describe('Vendor portal - create package', function() {
     var isFirst = true;
 
     beforeEach(function() {
@@ -28,7 +27,9 @@ xdescribe('Vendor portal - create package', function() {
     });
 
     it('should show the vendor’s addresses', function() {
-        expect(element.all(by.repeater('vendorAddress in vendor.addresses')).count()).toBe(1);
+        var addresses = element.all(by.repeater('vendorAddress in vendor.addresses'));
+        expect(addresses.count()).toBe(1);
+        expect(addresses.get(0).getText()).toContain('Shepherds Bush Road, London, W6, United Kingdom');
     });
 
     it('should show an error if an invalid postcode is entered', function() {
@@ -40,6 +41,8 @@ xdescribe('Vendor portal - create package', function() {
         var error = element.all(by.css('label[for="address_postcode"] > span.form-element-invalid')).get(1);
         expect(error.getText()).toBe('(Postcode is invalid.)');
         expect(error.isDisplayed()).toBe(true);
+
+        element(by.css('.modal .close')).click();
     });
 
     it('should show an error if an invalid mobile number is entered', function() {
@@ -51,13 +54,15 @@ xdescribe('Vendor portal - create package', function() {
         var error = element.all(by.css('label[for="address_order_notification_mobile_number"] > span.form-element-invalid')).get(1);
         expect(error.getText()).toBe('(Order notification mobile number is invalid.)');
         expect(error.isDisplayed()).toBe(true);
+
+        element(by.css('.modal .close')).click();
     });
 
     it('should be able to create a package', function() {
         element(by.model('package.cuisineType')).sendKeys('British');
         element(by.model('package.name')).sendKeys('Fish cake');
         element(by.model('package.description')).sendKeys('Consisting of leftover fish and cold potatoes.');
-        element(by.model('package.hotFood')).sendKeys(true);
+        element(by.css('[ng-model="package.hotFood"][value="true"]')).click();
         element(by.model('package.cost')).sendKeys(1.30);
         element(by.model('package.maxPeople')).sendKeys(50);
         element(by.model('package.notice')).sendKeys(1);
