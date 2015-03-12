@@ -3,10 +3,9 @@
   "title": "CityPantry",
   "scripts": {
     "postinstall": "npm run webdriverupdate && grunt copy:dist sass csso js",
-    "test": "npm run postinstall && vagrant up && ./bin/wait-for-dev && ./bin/load-db-fixtures && ./node_modules/protractor/bin/protractor etc/protractor.js; vagrant halt;",
-    "test-amy": "bin/load-db-fixtures && LOCAL_SELENIUM=1 node_modules/protractor/bin/protractor etc/protractor.js",
-    "test-no-halt": "npm run postinstall && vagrant up && ./bin/wait-for-dev && ./bin/load-db-fixtures && ./node_modules/protractor/bin/protractor etc/protractor.js;",
-    "test-local": "/home/citypantry/project/api/app/console doctrine:mongodb:fixtures:load && LOCAL_SELENIUM=1 ./node_modules/protractor/bin/protractor etc/protractor.js;",
+    "test": "npm run postinstall && vagrant up && ./bin/wait-for-dev && && ./node_modules/protractor/bin/protractor etc/protractor.js; vagrant halt;",
+    "test-no-halt": "npm run postinstall && vagrant up && ./bin/wait-for-dev && && ./node_modules/protractor/bin/protractor etc/protractor.js;",
+    "test-local": "LOCAL_SELENIUM=1 ./node_modules/protractor/bin/protractor etc/protractor.js;",
     "update-webdriver": "node_modules/protractor/bin/webdriver-manager update",
     "link-chromedriver": "ln -s /home/citypantry/project/frontend/node_modules/chromedriver/bin/chromedriver node_modules/protractor/selenium/chromedriver.exe",
     "install-pre-commit": "ln -s ../../bin/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
@@ -14,7 +13,10 @@
   "url": "https://citypantry.com/",
   "copyright": "2015",
   "version": "3.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "sync-exec": "~0.5.0",
+    "jasmine-bail-fast": "0.0.1"
+  },
   "devDependencies": {
     "chromedriver": "~2.9.1-1",
     "grunt": "~0.4.1",

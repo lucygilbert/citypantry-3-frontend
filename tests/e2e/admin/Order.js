@@ -11,11 +11,7 @@ describe('Admin - order page', function() {
                 browser.get('/admin/orders');
                 gridTestUtils.enterFilterInColumn('orders-table', 5, 'Car');
                 element.all(by.css('#orders-table a[href^="/admin/order/"]')).first().click();
-                browser.wait(function() {
-                    return browser.getCurrentUrl().then(function(url) {
-                        return (/\/admin\/order\/[\da-f]+$/.test(url));
-                    });
-                });
+                expect(browser.getCurrentUrl()).toMatch(/\/admin\/order\/[\da-f]+$/);
                 isFirst = false;
             }
         });
@@ -54,7 +50,7 @@ describe('Admin - order page', function() {
         });
 
         it('should be able to save changes', function() {
-            element(by.css('main form .btn.btn-primary')).click();
+            element(by.css('main form.admin-form .btn.btn-primary')).click();
             notificationModal.expectIsOpen();
             notificationModal.expectSuccessHeader();
             notificationModal.expectMessage('The order has been edited.');
@@ -101,7 +97,7 @@ describe('Admin - order page', function() {
         });
 
         it('should be able to save changes', function() {
-            element(by.css('main form .btn.btn-primary')).click();
+            element(by.css('main form.admin-form .btn.btn-primary')).click();
             notificationModal.expectIsOpen();
             notificationModal.expectSuccessHeader();
             notificationModal.expectMessage('The order has been edited.');

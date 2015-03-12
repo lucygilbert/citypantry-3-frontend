@@ -23,7 +23,7 @@ describe('Leaving a review for an order', function() {
     });
 
     it('should display the package name in the title', function() {
-        expect(element(by.css('main h1')).getText()).toBe('Leave a review for: Marshmallows');
+        expect(element(by.css('main h1')).getText()).toBe('Leave a review for: Beef and mixed veg curry');
     });
 
     it('should not allow an empty review to be saved', function() {
