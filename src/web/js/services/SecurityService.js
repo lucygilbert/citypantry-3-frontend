@@ -83,10 +83,16 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             }
         },
 
-        customerIsLoggedIn: function() { return this.group() === 'customer' },
+        customerIsLoggedIn: function() {
+            return this.group() === 'customer';
+        },
 
-        staffIsLoggedIn: function() { return this.group() === 'staff' },
+        staffIsLoggedIn: function() {
+            return this.group() === 'staff';
+        },
 
-        vendorIsLoggedIn: function() { return this.group() == 'vendor' }
-    }
+        vendorIsLoggedIn: function() {
+            return this.group() === 'vendor';
+        }
+    };
 });
