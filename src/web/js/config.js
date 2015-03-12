@@ -48,6 +48,10 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'CustomerOrderMessagesController',
             templateUrl: '/dist/templates/customer/order-messages.html'
         }).
+        when('/customer/orders/:id/leave-a-review', {
+            controller: 'CustomerOrderLeaveAReviewController',
+            templateUrl: '/dist/templates/customer/order-leave-a-review.html'
+        }).
         when('/reset-password/:userId/:token', {
             controller: 'AuthResetPasswordController',
             templateUrl: '/dist/templates/auth/reset-password.html'

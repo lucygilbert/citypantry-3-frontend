@@ -3,6 +3,10 @@ module.exports = {
         expect(element(by.css('[ng-controller="NotificationModalController"]')).isDisplayed()).toBe(true);
     },
 
+    expectIsClosed: function() {
+        expect(element(by.css('[ng-controller="NotificationModalController"]')).isDisplayed()).toBe(false);
+    },
+
     expectSuccessHeader: function() {
         expect(element(by.css('[ng-controller="NotificationModalController"] .modal-header')).getText()).toBe('Success');
     },
