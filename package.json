@@ -14,7 +14,8 @@
   "copyright": "2015",
   "version": "3.0.0",
   "dependencies": {
-    "sync-exec": "~0.5.0"
+    "sync-exec": "~0.5.0",
+    "jasmine-bail-fast": "0.0.1"
   },
   "devDependencies": {
     "chromedriver": "~2.9.1-1",

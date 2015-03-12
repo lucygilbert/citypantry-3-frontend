@@ -20,6 +20,12 @@ var helpers = require('./protractor-helpers.js');
         // of our site is too small and the login page is unusable.
         // 1200px makes the page go into mobile/tablet view, so use a width greater than that.
         browser.driver.manage().window().setSize(1250, 800);
+
+        // Use BAIL_FAST=1 in your environment to bail on the first failure.
+        if (process.env.BAIL_FAST === '1') {
+            require('jasmine-bail-fast');
+            jasmine.getEnv().bailFast();
+        }
     };
 
     config = {
