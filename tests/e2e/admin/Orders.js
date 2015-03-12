@@ -18,8 +18,8 @@ describe('Admin - orders page', function() {
         gridTestUtils.expectHeaderColumnCount('orders-table', 10);
     });
 
-    it('should have 3 rows', function() {
-        gridTestUtils.expectRowCount('orders-table', 3);
+    it('should have 4 rows', function() {
+        gridTestUtils.expectRowCount('orders-table', 4);
     });
 
     it('should have the column name "Order No"', function() {
@@ -68,16 +68,16 @@ describe('Admin - orders page', function() {
         gridTestUtils.expectCellValueMatch('orders-table', 0, 5, 'Carrots');
     });
 
-    it('should find 3 orders when filter is cancelled', function() {
+    it('should find 4 orders when filter is cancelled', function() {
         gridTestUtils.cancelFilterInColumn('orders-table', 5);
-        gridTestUtils.expectRowCount('orders-table', 3);
+        gridTestUtils.expectRowCount('orders-table', 4);
     });
 
-    it('should find 1 order when the "show orders delivered today" button is clicked', function() {
-        // If this fails saying 2 rows were found, are you running just this test and not the Order.js
+    it('should find 2 orders when the "show orders delivered today" button is clicked', function() {
+        // If this fails saying 3 rows were found, are you running just this test and not the Order.js
         // file which edits one order's delivery date? When all tests are run, there should only be
-        // 1 order found.
+        // 3 order found.
         element(by.css('main .show-orders-delivered-today')).click();
-        gridTestUtils.expectRowCount('orders-table', 1);
+        gridTestUtils.expectRowCount('orders-table', 2);
     });
 });

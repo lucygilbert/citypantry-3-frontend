@@ -13,7 +13,7 @@ describe('Vendor portal - individual order messages', function() {
     });
 
     it('should show the order number and message history', function() {
-        expect(element(by.css('h1')).getText()).toMatch(/Order \d message history/);
+        expect(element(by.css('h1')).getText()).toMatch(/Order \d+ message history/);
     });
 
     it('should start with no messages', function() {
