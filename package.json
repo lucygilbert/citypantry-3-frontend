@@ -4,6 +4,7 @@
   "scripts": {
     "postinstall": "npm run webdriverupdate && grunt copy:dist sass csso js",
     "test": "npm run postinstall && vagrant up && ./bin/wait-for-dev && ./bin/load-db-fixtures && ./node_modules/protractor/bin/protractor etc/protractor.js; vagrant halt;",
+    "test-amy": "bin/load-db-fixtures && LOCAL_SELENIUM=1 node_modules/protractor/bin/protractor etc/protractor.js",
     "test-no-halt": "npm run postinstall && vagrant up && ./bin/wait-for-dev && ./bin/load-db-fixtures && ./node_modules/protractor/bin/protractor etc/protractor.js;",
     "test-local": "/home/citypantry/project/api/app/console doctrine:mongodb:fixtures:load && LOCAL_SELENIUM=1 ./node_modules/protractor/bin/protractor etc/protractor.js;",
     "update-webdriver": "node_modules/protractor/bin/webdriver-manager update",

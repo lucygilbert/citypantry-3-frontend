@@ -22,6 +22,8 @@ angular.module('cp.factories').factory('OrdersFactory', function(API_BASE, ApiSe
 
         acceptOrder: (id) => ApiService.put(`${API_BASE}/order/${id}/accept`),
 
+        addOrderReview: (id, review) => ApiService.post(`${API_BASE}/reviews/order/${id}`, {review: review}),
+
         getHeadCountOptions(maxPeople = 1, minPeople = 1) {
             if (maxPeople === null) {
                 maxPeople = 1000;

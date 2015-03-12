@@ -36,6 +36,9 @@
 
                         <ul class="dropdown-menu" role="menu" aria-labelledby="actions-{{ order.id }}">
                             <li><a href="/customer/orders/{{ order.id }}/messages">Message vendor</a></li>
+                            <li ng-if="!order.hasBeenReviewed" class="leave-a-review">
+                                <a href="/customer/orders/{{ order.id }}/leave-a-review">Leave a review</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
