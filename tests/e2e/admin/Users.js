@@ -14,8 +14,8 @@ describe('Admin - users page', function() {
         expect(element(by.css('h1')).getText()).toBe('Users');
     });
 
-    it('should have 4 rows', function() {
-        gridTestUtils.expectRowCount('users-table', 4);
+    it('should have 5 rows', function() {
+        gridTestUtils.expectRowCount('users-table', 5);
     });
 
     it('should have 6 columns', function() {
@@ -34,9 +34,9 @@ describe('Admin - users page', function() {
         gridTestUtils.expectCellValueMatch('users-table', 0, 1, 'Vendor');
     });
 
-    it('should find 4 users when filter is cancelled', function() {
+    it('should find 5 users when filter is cancelled', function() {
         gridTestUtils.cancelFilterInColumn('users-table', 1);
-        gridTestUtils.expectRowCount('users-table', 4);
+        gridTestUtils.expectRowCount('users-table', 5);
     });
 
     it('should allow the admin to masquerade as another user', function() {
