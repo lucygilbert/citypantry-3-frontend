@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminCustomersController',
-        function($scope, CustomersFactory, uiGridConstants, getPayOnAccountStatusTextFilter, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, CustomersFactory, uiGridConstants, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Customers');
     SecurityService.requireStaff();
 
@@ -18,8 +18,8 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
                 field: 'user.email'
             },
             {
-                displayName: 'Paid on Account',
-                field: 'isPaidOnAccountTexts.statusText'
+                displayName: 'Payment on Account',
+                field: 'isPaidOnAccountStatusText'
             },
             {
                 cellFilter: 'date:\'dd/MM/yyyy\'',
@@ -41,8 +41,6 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
             {
                 cellTemplate: `<div class="ui-grid-cell-contents">
                     <a href="/admin/customer/{{row.entity[col.field]}}">View</a>
-                    <br />
-                    <a class="pay-on-account" ng-click="grid.appScope.togglePayOnAccount(row.entity.id, row.entity.isPaidOnAccount)">{{row.entity.isPaidOnAccountTexts.actionText}} pay on account</a>
                     </div>`,
                 displayName: 'Action',
                 field: 'id',
@@ -59,7 +57,7 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
     function loadCustomers() {
         CustomersFactory.getAllCustomers().success(response => {
             angular.forEach(response.customers, row => {
-                row.isPaidOnAccountTexts = getPayOnAccountStatusTextFilter(row.isPaidOnAccount);
+                row.isPaidOnAccountStatusText = row.isPaidOnAccount ? 'Yes' : 'No';
             });
             $scope.gridOptions.data = response.customers.sort((a, b) => a.humanId < b.humanId);
             LoadingService.hide();
@@ -67,19 +65,4 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
     }
 
     loadCustomers();
-
-    $scope.togglePayOnAccount = function(id, isPaidOnAccount) {
-        LoadingService.show();
-
-        const updatedCustomer = {
-            isPaidOnAccount: !isPaidOnAccount
-        };
-        CustomersFactory.updateCustomer(id, updatedCustomer)
-            .then(() => {
-                loadCustomers();
-                NotificationService.notifySuccess('The customer has been edited.');
-                LoadingService.hide();
-            })
-            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-    };
 });
