@@ -44,3 +44,21 @@ describe('Vendor portal - your packages', function() {
         expect(packages.get(0).getText()).toContain('Marshmallows');
     });
 });
+
+describe('Vendor portal - your packages - as Oriental Kitchen Express', function() {
+    var isFirst = true;
+
+    beforeEach(function() {
+        if (isFirst) {
+            loginAsUser('oke@bunnies.test');
+            browser.get('/vendor/packages');
+            isFirst = false;
+        }
+    });
+
+    it('should say that Golden Apples is only visible to Apple', function() {
+        var packages = element.all(by.repeater('package in packages'));
+        expect(packages.get(1).getText()).toContain('Golden Apples');
+        expect(packages.get(1).getText()).toContain('This package is only visible to Apple');
+    });
+});
