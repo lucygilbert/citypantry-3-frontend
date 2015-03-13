@@ -6,6 +6,7 @@ angular.module('cp.controllers.admin').controller('AdminEditPackageController',
     PackagesFactory.getPackage($routeParams.packageId)
         .success(vendorPackage => {
             $scope.vendorPackage = vendorPackage;
+            $scope.isVisibleToCustomers = vendorPackage.active && vendorPackage.approved && !vendorPackage.recycled;
             LoadingService.hide();
         });
 

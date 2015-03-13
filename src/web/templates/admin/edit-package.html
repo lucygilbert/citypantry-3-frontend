@@ -1,6 +1,12 @@
 <div class="wrapper">
     <h1>Package {{ vendorPackage.humanId }}</h1>
 
+    <div class="visiblity-description">
+        <p ng-if="isVisibleToCustomers && vendorPackage.onlyForCustomer">This package is only visible to {{ vendorPackage.onlyForCustomer.company }}.</p>
+        <p ng-if="isVisibleToCustomers && !vendorPackage.onlyForCustomer">This package is visible to all customers.</p>
+        <p ng-if="!isVisibleToCustomers">This package is not visible to customers.</p>
+    </div>
+
     <h2>History</h2>
 
     <cp-history-table history="vendorPackage.history"></cp-history-table>
