@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminCustomersController',
-        function($scope, CustomersFactory, uiGridConstants, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, CustomersFactory, uiGridConstants, getPayOnAccountStatusTextFilter, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
     DocumentTitleService('Customers');
     SecurityService.requireStaff();
 
@@ -57,7 +57,7 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
     function loadCustomers() {
         CustomersFactory.getAllCustomers().success(response => {
             angular.forEach(response.customers, row => {
-                row.isPaidOnAccountStatusText = row.isPaidOnAccount ? 'Yes' : 'No';
+                row.isPaidOnAccountStatusText = getPayOnAccountStatusTextFilter(row.isPaidOnAccount);
             });
             $scope.gridOptions.data = response.customers.sort((a, b) => a.humanId < b.humanId);
             LoadingService.hide();
