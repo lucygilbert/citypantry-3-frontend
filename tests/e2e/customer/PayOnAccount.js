@@ -35,6 +35,6 @@ describe('Pay on account page', function() {
         notificationModal.expectMessage('Your request to pay on account has been sent.');
         notificationModal.dismiss();
 
-        expect(element(by.css('main')).getText()).toContain('We’ve received your request to pay on account.')
+        expect(element(by.css('main')).getText()).toContain('We’ve received your request to pay on account.');
     });
 });
