@@ -25,8 +25,8 @@ describe('Admin - customers page', function() {
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 5, 'Action');
     });
 
-    it('should have 2 rows', function() {
-        gridTestUtils.expectRowCount('customers-table', 2);
+    it('should have 3 rows', function() {
+        gridTestUtils.expectRowCount('customers-table', 3);
     });
 
     it('should find 1 customer when filtered by "alice@bunnies.test"',
@@ -37,8 +37,8 @@ describe('Admin - customers page', function() {
                 'alice@bunnies.test');
     });
 
-    it('should find 2 customers when filter is cancelled', function() {
+    it('should find 3 customers when filter is cancelled', function() {
         gridTestUtils.cancelFilterInColumn('customers-table', 2);
-        gridTestUtils.expectRowCount('customers-table', 2);
+        gridTestUtils.expectRowCount('customers-table', 3);
     });
 });

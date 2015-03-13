@@ -1,5 +1,6 @@
-describe('Individual vendor page', function() {
+describe('Individual vendor page - as Aperture Science', function() {
     var first = true;
+    var packages;
 
     beforeEach(function() {
         if (first) {
@@ -9,6 +10,8 @@ describe('Individual vendor page', function() {
             element.all(by.css('li.vendor')).get(2).element(by.css('a')).click();
             expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9a-f]{24}-[a-z0-9-]+$/);
         }
+
+        packages = element.all(by.repeater('package in packages'));
     });
 
     it('should show the vendor details', function() {
@@ -17,13 +20,39 @@ describe('Individual vendor page', function() {
     });
 
     it('should show all the active and approved packages', function() {
-        expect(element.all(by.repeater('package in packages')).count()).toBe(1);
+        expect(packages.count()).toBe(1);
+        expect(packages.get(0).getText()).toContain('Beef and mixed veg curry');
+
+        // 'Golden Apples' should not be displayed because it is only for the customer Apple.
     });
 
     it('should link to the individual package pages', function() {
-        element.all(by.repeater('package in packages')).get(0).element(by.css('a')).click();
+        packages.get(0).element(by.css('a')).click();
 
         expect(browser.getCurrentUrl()).toMatch(/\.dev\/package\/\d+-beef-and-mixed-veg-curry$/);
         expect(element(by.css('main h1')).getText()).toBe('Beef and mixed veg curry');
+    });
+});
+
+describe('Individual vendor page - as Apple', function() {
+    var first = true;
+
+    beforeEach(function() {
+        if (first) {
+            first = false;
+            loginAsUser('customer@apple.test');
+            browser.get('/vendors');
+            element.all(by.css('li.vendor')).get(2).element(by.css('a')).click();
+            expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9a-f]{24}-[a-z0-9-]+$/);
+        }
+    });
+
+    it('should show all the active and approved packages', function() {
+        var packages = element.all(by.repeater('package in packages'));
+        expect(packages.count()).toBe(2);
+        expect(packages.get(0).getText()).toContain('Beef and mixed veg curry');
+
+        // 'Golden Apples' should be displayed because it is only for the customer Apple.
+        expect(packages.get(1).getText()).toContain('Golden Apples');
     });
 });
