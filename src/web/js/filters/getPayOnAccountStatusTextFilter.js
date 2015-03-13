@@ -1,15 +1,9 @@
 angular.module('cp.filters').filter('getPayOnAccountStatusText', function() {
     return function(isPayOnAccount) {
         if (isPayOnAccount === false) {
-            return {
-                actionText: 'Enable',
-                statusText: 'No'
-            };
+            return 'No';
         } else if (isPayOnAccount === true) {
-            return {
-                actionText: 'Disable',
-                statusText: 'Yes'
-            };
+            return 'Yes';
         } else {
             throw new Error('Unexpected: isPayOnAccount: ' + isPayOnAccount);
         }

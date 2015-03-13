@@ -20,7 +20,7 @@ describe('Admin - customers page', function() {
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 0, 'ID');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 1, 'Name');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 2, 'Email');
-        gridTestUtils.expectHeaderCellValueMatch('customers-table', 3, 'Paid on Account');
+        gridTestUtils.expectHeaderCellValueMatch('customers-table', 3, 'Payment on Account');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 4, 'Customer Since');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 5, 'Action');
     });
@@ -40,22 +40,5 @@ describe('Admin - customers page', function() {
     it('should find 2 customers when filter is cancelled', function() {
         gridTestUtils.cancelFilterInColumn('customers-table', 2);
         gridTestUtils.expectRowCount('customers-table', 2);
-    });
-
-    it('should toggle the paid on account status', function() {
-        gridTestUtils.expectCellValueMatch('customers-table', 0, 3, 'No');
-
-        var payOnAccountLink = element.all(by.css('#customers-table a.pay-on-account')).first();
-        payOnAccountLink.click();
-        gridTestUtils.expectCellValueMatch('customers-table', 0, 3, 'Yes');
-        notificationModal.expectIsOpen();
-        notificationModal.expectSuccessHeader();
-        notificationModal.dismiss();
-
-        payOnAccountLink.click();
-        gridTestUtils.expectCellValueMatch('customers-table', 0, 3, 'No');
-        notificationModal.expectIsOpen();
-        notificationModal.expectSuccessHeader();
-        notificationModal.dismiss();
     });
 });
