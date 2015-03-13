@@ -27,7 +27,7 @@ angular.module('cp.controllers.customer').controller('CustomerPayOnAccountContro
         CustomersFactory.updatePayOnAccountDetails(payOnAccountDetails)
             .success(response => {
                 $scope.user = response;
-                var notificationMessage = '';
+                let notificationMessage;
 
                 if ($scope.user.customer.hasRequestedToPayOnAccount) {
                     notificationMessage = 'Your request to pay on account has been sent.';

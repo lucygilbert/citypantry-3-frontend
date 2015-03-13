@@ -1,4 +1,4 @@
-ddescribe('Pay on account page', function() {
+describe('Pay on account page', function() {
     var notificationModal = require('../NotificationModal.js');
 
     var isFirst = true;
@@ -34,5 +34,7 @@ ddescribe('Pay on account page', function() {
         notificationModal.expectSuccessHeader();
         notificationModal.expectMessage('Your request to pay on account has been sent.');
         notificationModal.dismiss();
+
+        expect(element(by.css('main')).getText()).toContain('We’ve received your request to pay on account.')
     });
 });
