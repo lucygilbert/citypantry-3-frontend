@@ -1,0 +1,68 @@
+<div class="wrapper">
+    <h1>Customer {{ customer.humanId }}: {{ customer.user.name }}, {{ customer.company }}</h1>
+
+    <h2>History</h2>
+
+    <cp-history-table history="customer.history"></cp-history-table>
+
+    <h2>Details</h2>
+
+    <p>Is paid on account? {{ customer.isPaidOnAccount ? 'Yes' : 'No' }}</p>
+
+    <p>Customer since: {{ customer.dateAdded | date:'dd/MM/yyyy' }}</p>
+
+    <p>Email: {{ customer.email }}</p>
+
+    <p>Phone number: {{ customer.phoneNumber }}</p>
+
+    <p>User group: {{ customer.user.group.description }}</p>
+
+    <section ng-if="customer.hasRequestedToPayOnAccount || customer.isPaidOnAccount">
+
+        <h2>Pay on account details</h2>
+
+        <form class="admin-form" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label for="accounts_contact_name">Accounts contact name</label>
+                    <input class="form-control input-lg" id="accounts_contact_name" type="text" readonly ng-model="customer.accountsContactName" />
+                </div>
+
+                <div class="form-group">
+                    <label for="accounts_email">Accounts email</label>
+                    <input class="form-control input-lg" id="accounts_email" type="email" readonly ng-model="customer.accountsEmail" />
+                </div>
+
+                <div class="form-group">
+                    <label for="accounts_telephone_number">Accounts telephone number</label>
+                    <input class="form-control input-lg" id="accounts_telephone_number" type="tel" readonly ng-model="customer.accountsTelephoneNumber" />
+                </div>
+
+                <div class="form-group">
+                    <label for="invoice_payment_terms">Requested payment terms</label>
+                    <input class="form-control input-lg" id="invoice_payment_terms" type="text" readonly ng-model="customer.invoicePaymentTerms" />
+                </div>
+
+                <div class="form-group">
+                    <label for="max_spend_per_month">Account limit per month</label>
+                    <div class="input-group input-group-lg input-group-readonly">
+                        <div class="input-group-addon">£</div>
+                        <input class="form-control input-lg" id="max_spend_per_month" type="number" min="1" step="0.01" readonly ng-model="customer.maxSpendPerMonth" />
+                    </div>
+                </div>
+
+                <div ng-if="customer.hasRequestedToPayOnAccount">
+                    <button class="btn btn-primary" type="button" ng-click="approveRequestToPayOnAccount()">Approve</button>
+                    <button class="btn btn-primary" type="button" ng-click="rejectRequestToPayOnAccount()">Reject</button>
+                    <p class="help-block">Clicking “Approve” or “Reject” will trigger an email to the customer confirming your action.</p>
+                </div>
+
+                <div ng-if="customer.isPaidOnAccount">
+                    <button class="btn btn-primary" type="button" ng-click="revokePaymentOnAccount()">Revoke</button>
+                    <p class="help-block">Clicking “Revoke” will trigger an email to the customer confirming your action.</p>
+                </div>
+            </fieldset>
+        </form>
+
+    </section>
+</div>
