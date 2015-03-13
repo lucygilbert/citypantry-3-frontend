@@ -12,3 +12,4 @@
 /composer.phar
 /web/dist
 /node_modules
+/npm-debug.log

@@ -25,7 +25,14 @@
                             ng-src="{{ package.images[0].thumbnail }}"
                             alt="A photo of {{ package.name }}" />
                     </td>
-                    <td>{{ package.name }}</td>
+                    <td>
+                        {{ package.name }}
+
+                        <span ng-if="package.onlyForCustomer">
+                            <br />
+                            This package is only visible to {{ package.onlyForCustomer.company }}
+                        </span>
+                    </td>
                     <td>{{ package.costIncludingVat | currency:'£' }}</td>
                     <td>{{ package.activeAndApproved }}</td>
                     <td class="dropdown">
