@@ -1,5 +1,4 @@
-// @todo(amy) - fix
-xdescribe('Vendor portal - edit profile', function() {
+describe('Vendor portal - edit profile', function() {
     var isFirst = true;
 
     beforeEach(function() {
@@ -25,11 +24,20 @@ xdescribe('Vendor portal - edit profile', function() {
     it('should hide the VAT number if the vendor is not VAT registered', function() {
         element(by.css('[ng-model="vendor.isVatRegisteredString"][value="false"]')).click();
         expect(element(by.model('vendor.vatNumber')).isPresent()).toBe(false);
+
+        element(by.css('[ng-model="vendor.isVatRegisteredString"][value="true"]')).click();
+        expect(element(by.model('vendor.vatNumber')).isPresent()).toBe(true);
     });
 
     it('should be able to save changes', function() {
         element(by.model('vendor.description')).sendKeys('Test');
         element(by.css('[ng-model="vendor.isVatRegisteredString"][value="false"]')).click();
+        element(by.css('main form .btn.btn-primary')).click();
+    });
+
+    it('should revert the changes so that future tests don\'t fail', function() {
+        element(by.model('vendor.description')).clear().sendKeys('Hong Tin');
+        element(by.css('[ng-model="vendor.isVatRegisteredString"][value="true"]')).click();
         element(by.css('main form .btn.btn-primary')).click();
     });
 });

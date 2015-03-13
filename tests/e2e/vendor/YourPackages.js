@@ -19,11 +19,12 @@ describe('Vendor portal - your packages', function() {
         expect(createPackageButton.getText()).toBe('Create package');
     });
 
-    it('should have two packages', function() {
+    it('should have 3 packages', function() {
         var packages = element.all(by.repeater('package in packages'));
-        expect(packages.count()).toBe(2);
+        expect(packages.count()).toBe(3);
         expect(packages.get(0).getText()).toContain('Carrots');
         expect(packages.get(1).getText()).toContain('Marshmallows');
+        expect(packages.get(2).getText()).toContain('Fish cake');
     });
 
     // @todo - fix this test.

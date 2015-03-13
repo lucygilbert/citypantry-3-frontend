@@ -29,16 +29,11 @@
                     <td>{{ package.costIncludingVat | currency:'£' }}</td>
                     <td>{{ package.activeAndApproved }}</td>
                     <td class="dropdown">
-                        <a class="btn btn-primary" id="actions_{{ package.id }}" role="button">
-                            Actions
-                            <span class="caret"></span>
-                        </a>
+                        <a href="/vendor/packages/{{ package.id }}" class="btn btn-primary edit-package">
+                            Edit</a></li>
 
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="actions_{{ package.id }}">
-                            <li><a href="/vendor/packages/{{ package.id }}">Edit</a></li>
-
-                            <li><a ng-click="delete(package.id)">Delete</a></li>
-                        </ul>
+                        <a ng-click="delete(package.id)" class="btn btn-primary delete-package">
+                            Delete</a>
                     </td>
                 </tr>
             </tbody>

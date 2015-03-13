@@ -118,7 +118,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             };
 
             $scope.addPackageItem = function() {
-                $scope.package.items.push({});
+                $scope.package.items.push('');
             };
 
             $scope.createDeliveryZones = function() {
@@ -147,6 +147,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
 
             $scope.submit = function() {
                 if (!$scope.packageForm.$valid) {
+                    $scope.packageForm.$submitted = true;
                     return;
                 }
 
@@ -167,10 +168,10 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                     name: $scope.package.name,
                     shortDescription: $scope.package.shortDescription ? $scope.package.shortDescription : null,
                     description: $scope.package.description,
-                    items: ($scope.package.items.length > 0) ? $scope.package.items : null,
-                    dietaryRequirements: ($scope.package.dietaryTypes.length > 0) ? $scope.package.dietaryTypes : null,
-                    allergenTypes: ($scope.package.allergenTypes.length > 0) ? $scope.package.allergenTypes : null,
-                    eventTypes: ($scope.package.eventTypes.length > 0) ? $scope.package.eventTypes : null,
+                    items: ($scope.package.items.length > 0) ? $scope.package.items : [],
+                    dietaryRequirements: ($scope.package.dietaryTypes.length > 0) ? $scope.package.dietaryTypes : [],
+                    allergenTypes: ($scope.package.allergenTypes.length > 0) ? $scope.package.allergenTypes : [],
+                    eventTypes: ($scope.package.eventTypes.length > 0) ? $scope.package.eventTypes : [],
                     hotFood: $scope.package.hotFood,
                     costIncludingVat: $scope.package.cost,
                     deliveryRadiuses: deliveryRadiuses,
