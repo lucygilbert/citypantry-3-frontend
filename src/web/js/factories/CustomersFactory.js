@@ -24,6 +24,14 @@ angular.module('cp.factories').factory('CustomersFactory', function(ApiService, 
             };
 
             return ApiService.get(`${API_BASE}/addresses`).then(pluckMatchingAddress);
-        }
+        },
+
+        updatePayOnAccountDetails: (payOnAccountDetails) => ApiService.put(`${API_BASE}/customers/pay-on-account`, payOnAccountDetails),
+
+        approveRequestToPayOnAccount: (id) => ApiService.put(`${API_BASE}/customers/${id}/approve-request-to-pay-on-account`),
+
+        rejectRequestToPayOnAccount: (id) => ApiService.put(`${API_BASE}/customers/${id}/reject-request-to-pay-on-account`),
+
+        revokePaymentOnAccount: (id) => ApiService.put(`${API_BASE}/customers/${id}/revoke-payment-on-account`)
     };
 });

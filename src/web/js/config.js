@@ -48,6 +48,10 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'CustomerOrderMessagesController',
             templateUrl: '/dist/templates/customer/order-messages.html'
         }).
+        when('/customer/pay-on-account', {
+            controller: 'CustomerPayOnAccountController',
+            templateUrl: '/dist/templates/customer/pay-on-account.html'
+        }).
         when('/customer/orders/:id/leave-a-review', {
             controller: 'CustomerOrderLeaveAReviewController',
             templateUrl: '/dist/templates/customer/order-leave-a-review.html'
@@ -160,7 +164,7 @@ angular.module('cp').config(function($routeProvider) {
         }).
         when('/admin/customer/:customerId', {
             controller: 'AdminEditCustomerController',
-            templateUrl: '/dist/templates/admin/customer.html'
+            templateUrl: '/dist/templates/admin/edit-customer.html'
         }).
         when('/admin/orders', {
             controller: 'AdminOrdersController',
