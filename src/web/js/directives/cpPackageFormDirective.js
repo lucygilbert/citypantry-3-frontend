@@ -1,6 +1,6 @@
 angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies, $location, $q,
         $window, LoadingService, AddressFactory, PackagesFactory, VendorsFactory, uiGmapGoogleMapApi,
-        MAP_CENTER) {
+        MAP_CENTER, NotificationService, SecurityService) {
     return {
         restrict: 'E',
         scope: {
@@ -23,11 +23,13 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             $scope.noticeOptions = PackagesFactory.getNoticeOptions();
             $scope.quantityOptions = PackagesFactory.getQuantityOptions();
             $scope.radiusOptions = PackagesFactory.getRadiusOptions();
-            $scope.vendor = {
-                addresses: []
-            };
+            $scope.vendor = {};
 
             function init() {
+                SecurityService.getVendor().then(vendor => {
+                    $scope.vendor = vendor;
+                });
+
                 let promise1 = PackagesFactory.getAllergenTypes().success(response => {
                     $scope.allergenTypeOptions = response.allergenTypes;
                 });
@@ -47,17 +49,9 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                 let promise4 = PackagesFactory.getCuisineTypes().success(response => {
                     $scope.cuisineTypeOptions = response.cuisineTypes;
                 });
-                let promise5 = VendorsFactory.getAddresses().success(response => {
-                    $scope.vendor.addresses = response.addresses;
 
-                    // Set address defaults.
-                    $scope.vendor.addresses.forEach(address => {
-                        address.deliveryRadius = 2;
-                        address.isSelected = true;
-                    });
-                });
-
-                $q.all([promise1, promise2, promise3, promise4, promise5]).then(() => {
+                $q.all([promise1, promise2, promise3, promise4]).then(() => {
+                    $scope.setDefaultValuesForAddresses();
                     $scope.createDeliveryZones();
                     LoadingService.hide();
                 });
@@ -108,6 +102,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
 
                 VendorsFactory.getAddresses().success(response => {
                     $scope.vendor.addresses = response.addresses;
+                    $scope.setDefaultValuesForAddresses();
                     $scope.createDeliveryZones();
                     LoadingService.hide();
                 });
@@ -145,6 +140,49 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                 $scope.map.refresh = true;
             };
 
+            $scope.setDefaultValuesForAddresses = function() {
+                $scope.vendor.addresses.forEach(vendorAddress => {
+                    if (!$scope.package.deliveryRadiuses || $scope.package.deliveryRadiuses.length === 0) {
+                        vendorAddress.deliveryRadius = 2;
+                        vendorAddress.isSelected = true;
+                    }
+
+                    for (let addressId in $scope.package.deliveryRadiuses) {
+                        if (vendorAddress.id === addressId) {
+                            vendorAddress.deliveryRadius = $scope.package.deliveryRadiuses[addressId];
+                            vendorAddress.isSelected = true;
+                        }
+                    }
+                });
+            };
+
+            $scope.hasAtLeastOneAddressSelected = function(addresses) {
+                let result = false;
+
+                addresses.forEach(address => {
+                    if (address.isSelected) {
+                        result = true;
+                        return false;
+                    }
+                });
+
+                return result;
+            };
+
+            $scope.isDietaryTypeSelected = function(dietaryType) {
+                for (let i = 0; i < $scope.package.dietaryRequirements.length; i++) {
+                    let dietaryRequirement = $scope.package.dietaryRequirements[i];
+
+                    if (dietaryType.name === dietaryRequirement.name) {
+                        dietaryType.notes = dietaryRequirement.notes;
+                        $scope.package.dietaryRequirements.splice(i, 1, dietaryType);
+                        return true;
+                    }
+                }
+
+                return false;
+            };
+
             $scope.submit = function() {
                 if (!$scope.packageForm.$valid) {
                     $scope.packageForm.$submitted = true;
@@ -155,25 +193,25 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
 
                 $scope.packageFormError = null;
 
-                var deliveryRadiuses = new Map();
+                let deliveryRadiuses = {};
 
                 $scope.vendor.addresses.forEach(function(address) {
                     if (address.isSelected) {
-                        deliveryRadiuses.set(address.id, address.deliveryRadius);
+                        deliveryRadiuses[address.id] = address.deliveryRadius;
                     }
                 });
 
                 const packageDetails = {
-                    cuisineType: $scope.package.cuisineType,
+                    cuisineType: $scope.package.cuisineType.id,
                     name: $scope.package.name,
                     shortDescription: $scope.package.shortDescription ? $scope.package.shortDescription : null,
                     description: $scope.package.description,
                     items: ($scope.package.items.length > 0) ? $scope.package.items : [],
-                    dietaryRequirements: ($scope.package.dietaryTypes.length > 0) ? $scope.package.dietaryTypes : [],
+                    dietaryRequirements: ($scope.package.dietaryRequirements.length > 0) ? $scope.package.dietaryRequirements : [],
                     allergenTypes: ($scope.package.allergenTypes.length > 0) ? $scope.package.allergenTypes : [],
                     eventTypes: ($scope.package.eventTypes.length > 0) ? $scope.package.eventTypes : [],
                     hotFood: $scope.package.hotFood,
-                    costIncludingVat: $scope.package.cost,
+                    costIncludingVat: $scope.package.costIncludingVat,
                     deliveryRadiuses: deliveryRadiuses,
                     minPeople: $scope.package.minPeople,
                     maxPeople: $scope.package.maxPeople,
@@ -181,9 +219,9 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                     deliveryDays: $scope.package.deliveryDays,
                     deliveryTimeStart: $scope.package.deliveryTimeStart,
                     deliveryTimeEnd: $scope.package.deliveryTimeEnd,
-                    deliveryCostIncludingVat: $scope.package.deliveryCost,
+                    deliveryCostIncludingVat: $scope.package.deliveryCostIncludingVat,
                     freeDeliveryThreshold: $scope.package.freeDeliveryThreshold,
-                    vendor: $cookies.vendorId
+                    vendor: $scope.vendor.id
                 };
 
                 var packageArguments = [packageDetails];
@@ -194,6 +232,17 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
 
                 PackagesFactory[$scope.operation + 'Package'].apply(this, packageArguments)
                     .success(response => {
+                        LoadingService.hide();
+
+                        let notificationMessage;
+
+                        if ($scope.operation === 'create') {
+                            notificationMessage = 'Your package has been created.';
+                        } else if ($scope.operation === 'update') {
+                            notificationMessage = 'Your package has been updated.';
+                        }
+                        NotificationService.notifySuccess(notificationMessage);
+
                         $location.path($scope.destination);
                     })
                     .catch(response => {

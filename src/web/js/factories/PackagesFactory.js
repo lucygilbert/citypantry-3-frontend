@@ -61,7 +61,7 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
 
                 options.push({
                     label: hour + ':' + minute,
-                    value: hour + minute
+                    value: parseInt(hour + minute, 10)
                 });
 
                 minutes += 30;

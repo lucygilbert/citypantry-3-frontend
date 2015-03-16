@@ -14,11 +14,11 @@ angular.module('cp.controllers.vendor').controller('VendorPortalPackageControlle
         $scope.package = {
             allergenTypes: [],
             deliveryDays: [],
-            deliveryTimeEnd: '2000',
-            deliveryTimeStart: '0800',
-            dietaryTypes: [],
+            deliveryTimeEnd: 2000,
+            deliveryTimeStart: 800,
+            dietaryRequirements: [],
             eventTypes: [],
-            items: [{}, {}, {}, {}],
+            items: ['', '', '', ''],
             maxPeople: 50,
             minPeople: 10
         };
