@@ -121,6 +121,7 @@ module.exports = function (grunt) {
                     'web/dist/js/built-libs.js': [
                         'src/web/js/lib/angular.min.js',
                         'src/web/js/lib/angular-cookies.min.js',
+                        'src/web/js/lib/angular-currency-mask.js',
                         'src/web/js/lib/angular-google-maps.min.js',
                         'src/web/js/lib/angular-route.min.js',
                         'src/web/js/lib/checklist-model.js',

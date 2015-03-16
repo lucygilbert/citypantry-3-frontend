@@ -101,11 +101,10 @@
                 How much do you want to charge for this package per head?
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCost.$error.required">(Package cost is required.)</span>
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCost.$error.number">(Package cost must be a number.)</span>
-                <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCost.$error.min">(Package cost must be greater than or equal to 0.)</span>
             </label>
             <div class="input-group input-group-lg">
                 <div class="input-group-addon">£</div>
-                <input class="form-control input-lg" id="package_cost" name="packageCost" type="number" min="0" step="0.01" required aria-required="true" ng-model="package.costIncludingVat" />
+                <input class="form-control input-lg" id="package_cost" name="packageCost" type="text" required aria-required="true" ng-model="package.costIncludingVat" currency-mask />
             </div>
         </div>
 
@@ -176,8 +175,8 @@
             <fieldset>
                 <legend>
                     What times are you available to deliver this package?
-                    <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.deliveryTimeStart.$error.required">(Delivery start time is required.)</span>
-                    <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.deliveryTimeEnd.$error.required">(Delivery end time is required.)</span>
+                    <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageDeliveryTimeStart.$error.required">(Delivery start time is required.)</span>
+                    <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageDeliveryTimeEnd.$error.required">(Delivery end time is required.)</span>
                 </legend>
                 <label class="sr-only" for="package_delivery_time_start">Start time</label>
                 <select class="form-control input-lg" id="package_delivery_time_start" name="packageDeliveryTimeStart" required aria-required="true" ng-model="package.deliveryTimeStart" ng-options="deliveryTimeOption.value as deliveryTimeOption.label for deliveryTimeOption in deliveryTimeOptions"></select> – 
@@ -191,11 +190,10 @@
                 How much do you want to charge to deliver this package?
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageDeliveryCost.$error.required">(Package delivery cost is required.)</span>
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageDeliveryCost.$error.number">(Package delivery cost must be a number.)</span>
-                <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageDeliveryCost.$error.min">(Package delivery cost must be greater than or equal to 0.)</span>
             </label>
             <div class="input-group input-group-lg">
                 <div class="input-group-addon">£</div>
-                <input class="form-control input-lg" id="package_delivery_cost" name="packageDeliveryCost" type="number" min="0" step="0.01" required aria-required="true" ng-model="package.deliveryCostIncludingVat" />
+                <input class="form-control input-lg" id="package_delivery_cost" name="packageDeliveryCost" type="text" required aria-required="true" ng-model="package.deliveryCostIncludingVat" currency-mask />
             </div>
         </div>
 
@@ -204,11 +202,10 @@
                 What £ spend will you offer to deliver this package for free?
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageFreeDeliveryThreshold.$error.required">(Package delivery cost threshold is required.)</span>
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageFreeDeliveryThreshold.$error.number">(Package delivery cost threshold must be a number.)</span>
-                <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageFreeDeliveryThreshold.$error.min">(Package delivery cost threshold must be greater than or equal to 0.)</span>
             </label>
             <div class="input-group input-group-lg">
                 <div class="input-group-addon">£</div>
-                <input class="form-control input-lg" id="package_free_delivery_threshold" name="packageFreeDeliveryThreshold" type="number" min="0" step="0.01" required aria-required="true" ng-model="package.freeDeliveryThreshold" />
+                <input class="form-control input-lg" id="package_free_delivery_threshold" name="packageFreeDeliveryThreshold" type="text" required aria-required="true" ng-model="package.freeDeliveryThreshold" currency-mask />
             </div>
         </div>
         

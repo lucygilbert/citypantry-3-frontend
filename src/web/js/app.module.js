@@ -16,7 +16,8 @@ angular.module('cp', [
     'cp.services',
     'uiGmapgoogle-maps',
     'ui.bootstrap.carousel',
-    'checklist-model'
+    'checklist-model',
+    'currencyMask'
 ]);
 
 const baseHost = window.location.host.replace('order.', '');
