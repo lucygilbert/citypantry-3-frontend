@@ -23,7 +23,7 @@ describe('Vendor portal - edit package', function() {
         expect(element.all(by.css('#package_cuisine_type > option')).get(0).getText()).toBe('British');
 
         // Dietary types.
-        expect(element.all(by.repeater('dietaryTypeOption in dietaryTypeOptions')).count()).toBe(5);
+        expect(element.all(by.repeater('dietaryTypeOption in dietaryTypeOptions')).count()).toBe(6);
         expect(element.all(by.repeater('dietaryTypeOption in dietaryTypeOptions')).get(0).getText()).toContain('Vegetarian');
 
         // Allergen types.
@@ -44,15 +44,19 @@ describe('Vendor portal - edit package', function() {
         expect(packageItems.get(0).getAttribute('value')).toBe('Orange carrots');
         expect(packageItems.get(1).getAttribute('value')).toBe('White carrots');
 
-        // Dietary type: "Vegetarian".
+        // Dietary type: "Vegetarian", "Vegan".
         expect(element.all(by.css('input[name="packageDietaryTypes[]"]')).get(0).isSelected()).toBe(true);
+        expect(element.all(by.css('input[name="packageDietaryTypes[]"]')).get(1).isSelected()).toBe(true);
+        expect(element.all(by.css('input[name="packageDietaryTypes[]"]')).get(2).isSelected()).toBe(false);
 
         // Allergen type: "Sulphur dioxide, which is a preservative found in some dried fruit".
         expect(element.all(by.css('input[name="packageAllergenTypes[]"]')).get(11).isSelected()).toBe(true);
+        expect(element.all(by.css('input[name="packageAllergenTypes[]"]')).get(0).isSelected()).toBe(false);
 
         // Event types: "Breakfast" and "Christmas".
         expect(element.all(by.css('input[name="packageEventTypes[]"]')).get(0).isSelected()).toBe(true);
         expect(element.all(by.css('input[name="packageEventTypes[]"]')).get(6).isSelected()).toBe(true);
+        expect(element.all(by.css('input[name="packageEventTypes[]"]')).get(1).isSelected()).toBe(false);
 
         expect(element.all(by.css('input[name="packageHotFood"]')).get(1).isSelected()).toBe(true);
         expect(element(by.model('package.costIncludingVat')).getAttribute('value')).toBe('20');
@@ -61,6 +65,7 @@ describe('Vendor portal - edit package', function() {
         expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(0).isSelected()).toBe(true);
         expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(1).isSelected()).toBe(true);
         expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(2).isSelected()).toBe(true);
+        expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(3).isSelected()).toBe(false);
     });
 
     it('should show 2 package item textboxes', function() {
@@ -167,8 +172,8 @@ describe('Vendor portal - edit package', function() {
 
     it('should be able to save the details', function() {
         var deliveryCost = element(by.id('package_delivery_cost'));
-        var dietaryTypeDairyFreeCheckbox = element.all(by.css('input[name="packageDietaryTypes[]"]')).get(4);
-        var dietaryTypeGlutenFreeCheckbox = element.all(by.css('input[name="packageDietaryTypes[]"]')).get(2);
+        var dietaryTypeDairyFreeCheckbox = element.all(by.css('input[name="packageDietaryTypes[]"]')).get(5);
+        var dietaryTypeGlutenFreeCheckbox = element.all(by.css('input[name="packageDietaryTypes[]"]')).get(3);
         var eventTypeDinnerCheckbox = element.all(by.css('input[name="packageEventTypes[]"]')).get(2);
         var eventTypeLunchCheckbox = element.all(by.css('input[name="packageEventTypes[]"]')).get(1);
         var freeDeliveryThreshold = element(by.id('package_free_delivery_threshold'));
