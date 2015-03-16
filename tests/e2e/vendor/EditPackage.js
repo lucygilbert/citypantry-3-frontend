@@ -89,6 +89,8 @@ describe('Vendor portal - edit package', function() {
         expect(addresses.get(0).getText()).toContain('Shepherds Bush Road, London, W6, United Kingdom');
     });
 
+    // This test will fail if the suite is run in isolation because the address added by
+    // CreatePackage will not exist.
     it('should be able to add an address', function() {
         element(by.css('button[ng-click="addAnotherAddress()"]')).click();
 
