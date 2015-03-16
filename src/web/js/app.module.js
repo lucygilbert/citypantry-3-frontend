@@ -15,7 +15,8 @@ angular.module('cp', [
     'cp.factories',
     'cp.services',
     'uiGmapgoogle-maps',
-    'ui.bootstrap.carousel'
+    'ui.bootstrap.carousel',
+    'checklist-model'
 ]);
 
 const baseHost = window.location.host.replace('order.', '');
