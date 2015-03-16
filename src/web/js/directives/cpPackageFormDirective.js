@@ -11,7 +11,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             submitValue: '@cpSubmitValue'
         },
         controller: function($scope) {
-            $scope.address = {countryName: 'United Kingdom'};
+            $scope.newAddress = {countryName: 'United Kingdom'};
             $scope.allergenTypeOptions = [];
             $scope.cuisineTypeOptions = [];
             $scope.deliveryDayOptions = PackagesFactory.getDeliveryDayOptions();
@@ -27,13 +27,10 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             $scope.vendor = {};
 
             function init() {
-                SecurityService.getVendor().then(vendor => {
-                    $scope.vendor = vendor;
-                });
-
-                let promise1 = PackagesFactory.getAllergenTypes().success(response => {
-                    $scope.allergenTypeOptions = response.allergenTypes;
-                });
+                let promise0 = SecurityService.getVendor()
+                    .then(vendor => $scope.vendor = vendor);
+                let promise1 = PackagesFactory.getAllergenTypes()
+                    .success(response => $scope.allergenTypeOptions = response.allergenTypes);
                 let promise2 = PackagesFactory.getDietaryTypes().success(response => {
                     var dietaryTypes = response.dietaryRequirements;
 
@@ -44,14 +41,12 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                         });
                     });
                 });
-                let promise3 = PackagesFactory.getEventTypes().success(response => {
-                    $scope.eventTypeOptions = response.eventTypes;
-                });
-                let promise4 = PackagesFactory.getCuisineTypes().success(response => {
-                    $scope.cuisineTypeOptions = response.cuisineTypes;
-                });
+                let promise3 = PackagesFactory.getEventTypes()
+                    .success(response => $scope.eventTypeOptions = response.eventTypes);
+                let promise4 = PackagesFactory.getCuisineTypes()
+                    .success(response => $scope.cuisineTypeOptions = response.cuisineTypes);
 
-                $q.all([promise1, promise2, promise3, promise4]).then(() => {
+                $q.all([promise0, promise1, promise2, promise3, promise4]).then(() => {
                     $scope.setDefaultValuesForAddresses();
                     $scope.createDeliveryZones();
                     LoadingService.hide();
@@ -78,35 +73,40 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                 LoadingService.show();
 
                 const addressDetails = {
-                    addressLine1: $scope.address.addressLine1,
-                    addressLine2: $scope.address.addressLine2 ? $scope.address.addressLine2 : null,
-                    addressLine3: $scope.address.addressLine3 ? $scope.address.addressLine3 : null,
-                    city: $scope.address.city,
-                    county: $scope.address.county ? $scope.address.county : null,
-                    postcode: $scope.address.postcode,
-                    countryName: $scope.address.countryName,
-                    landlineNumber: $scope.address.landlineNumber,
-                    orderNotificationMobileNumber: $scope.address.orderNotificationMobileNumber,
-                    contactName: $scope.address.contactName
+                    addressLine1: $scope.newAddress.addressLine1,
+                    addressLine2: $scope.newAddress.addressLine2 ? $scope.newAddress.addressLine2 : null,
+                    addressLine3: $scope.newAddress.addressLine3 ? $scope.newAddress.addressLine3 : null,
+                    city: $scope.newAddress.city,
+                    county: $scope.newAddress.county ? $scope.newAddress.county : null,
+                    postcode: $scope.newAddress.postcode,
+                    countryName: $scope.newAddress.countryName,
+                    landlineNumber: $scope.newAddress.landlineNumber,
+                    orderNotificationMobileNumber: $scope.newAddress.orderNotificationMobileNumber,
+                    contactName: $scope.newAddress.contactName
                 };
 
                 AddressFactory.createAddress(addressDetails)
                     .success(response => {
                         $scope.isAddAddressFormOpen = false;
-                        $scope.address = {countryName: 'United Kingdom'}; // Reset address form fields.
-                        $location.hash('addresses');
-                        $anchorScroll();
-                    })
-                    .catch(response => {
-                        $scope.addAddressError = response.data.errorTranslation;
-                    });
 
-                VendorsFactory.getAddresses().success(response => {
-                    $scope.vendor.addresses = response.addresses;
-                    $scope.setDefaultValuesForAddresses();
-                    $scope.createDeliveryZones();
-                    LoadingService.hide();
-                });
+                        // Reset address form fields.
+                        $scope.newAddress = {countryName: 'United Kingdom'};
+
+                        response.newAddress.isSelected = true;
+                        response.newAddress.deliveryRadius = 2;
+
+                        $scope.vendor.addresses.push(response.newAddress);
+
+                        if (!$scope.package.deliveryRadiuses) {
+                            $scope.package.deliveryRadiuses = {};
+                        }
+                        $scope.package.deliveryRadiuses[response.newAddress.id] = 2;
+
+                        $scope.createDeliveryZones();
+
+                        LoadingService.hide();
+                    })
+                    .catch(response => $scope.addAddressError = response.data.errorTranslation);
             };
 
             $scope.addAnotherAddress = function() {
@@ -121,6 +121,10 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                 $scope.deliveryZones = [];
 
                 $scope.vendor.addresses.forEach(function(address, index) {
+                    if (!address.isSelected) {
+                        return;
+                    }
+
                     $scope.deliveryZones.push({
                         id: index,
                         center: {
@@ -143,11 +147,6 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
 
             $scope.setDefaultValuesForAddresses = function() {
                 $scope.vendor.addresses.forEach(vendorAddress => {
-                    if (!$scope.package.deliveryRadiuses || $scope.package.deliveryRadiuses.length === 0) {
-                        vendorAddress.deliveryRadius = 2;
-                        vendorAddress.isSelected = true;
-                    }
-
                     for (let addressId in $scope.package.deliveryRadiuses) {
                         if (vendorAddress.id === addressId) {
                             vendorAddress.deliveryRadius = $scope.package.deliveryRadiuses[addressId];
@@ -163,7 +162,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                 addresses.forEach(address => {
                     if (address.isSelected) {
                         result = true;
-                        return false;
+                        return;
                     }
                 });
 
@@ -198,7 +197,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
 
                 $scope.vendor.addresses.forEach(function(address) {
                     if (address.isSelected) {
-                        deliveryRadiuses[address.id] = address.deliveryRadius;
+                        deliveryRadiuses[address.id] = Number(address.deliveryRadius);
                     }
                 });
 

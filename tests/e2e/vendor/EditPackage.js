@@ -1,7 +1,14 @@
 describe('Vendor portal - edit package', function() {
     var notificationModal = require('../NotificationModal.js');
-
     var isFirst = true;
+    var deliveryCost;
+    var dietaryTypeDairyFreeCheckbox;
+    var dietaryTypeGlutenFreeCheckbox;
+    var eventTypeDinnerCheckbox;
+    var eventTypeLunchCheckbox;
+    var freeDeliveryThreshold;
+    var packageDescription;
+    var packageItems;
 
     beforeEach(function() {
         if (isFirst) {
@@ -10,6 +17,15 @@ describe('Vendor portal - edit package', function() {
             element.all(by.css('#table_packages a.edit-package')).get(0).click();
             isFirst = false;
         }
+
+        deliveryCost = element(by.id('package_delivery_cost'));
+        dietaryTypeDairyFreeCheckbox = element.all(by.css('input[name="packageDietaryTypes[]"]')).get(5);
+        dietaryTypeGlutenFreeCheckbox = element.all(by.css('input[name="packageDietaryTypes[]"]')).get(3);
+        eventTypeDinnerCheckbox = element.all(by.css('input[name="packageEventTypes[]"]')).get(2);
+        eventTypeLunchCheckbox = element.all(by.css('input[name="packageEventTypes[]"]')).get(1);
+        freeDeliveryThreshold = element(by.id('package_free_delivery_threshold'));
+        packageDescription = element(by.id('package_description'));
+        packageItems = element.all(by.css('input[name="packageItems[]"]'));
     });
 
     it('should show the "Edit package" page', function() {
@@ -40,7 +56,6 @@ describe('Vendor portal - edit package', function() {
         expect(element(by.model('package.name')).getAttribute('value')).toBe('Carrots');
         expect(element(by.model('package.description')).getAttribute('value')).toBe('Yum');
 
-        var packageItems = element.all(by.css('input[name="packageItems[]"]'));
         expect(packageItems.get(0).getAttribute('value')).toBe('Orange carrots');
         expect(packageItems.get(1).getAttribute('value')).toBe('White carrots');
 
@@ -87,6 +102,11 @@ describe('Vendor portal - edit package', function() {
         var addresses = element.all(by.repeater('vendorAddress in vendor.addresses'));
         expect(addresses.count()).toBe(2);
         expect(addresses.get(0).getText()).toContain('Shepherds Bush Road, London, W6, United Kingdom');
+        expect(addresses.get(1).getText()).toContain('11 Francis Street');
+
+        var isSelectedCheckboxes = element.all(by.css('input[name="vendorAddressIsSelected[]"]'));
+        expect(isSelectedCheckboxes.get(0).isSelected()).toBe(false);
+        expect(isSelectedCheckboxes.get(1).isSelected()).toBe(false);
     });
 
     // This test will fail if the suite is run in isolation because the address added by
@@ -94,33 +114,33 @@ describe('Vendor portal - edit package', function() {
     it('should be able to add an address', function() {
         element(by.css('button[ng-click="addAnotherAddress()"]')).click();
 
-        element(by.model('address.addressLine1')).sendKeys('Francis House');
-        element(by.model('address.addressLine2')).sendKeys('11 Francis Street');
-        element(by.model('address.addressLine3')).sendKeys('Westminster');
-        element(by.model('address.city')).sendKeys('London');
-        element(by.model('address.postcode')).sendKeys('SW1P 1DE');
-        element(by.model('address.landlineNumber')).sendKeys('020 3397 8376');
-        element(by.model('address.orderNotificationMobileNumber')).sendKeys('07861795252');
-        element(by.model('address.contactName')).sendKeys('Stu');
+        element(by.model('newAddress.addressLine1')).sendKeys('Jeremy House');
+        element(by.model('newAddress.addressLine2')).sendKeys('22 Jeremy Road');
+        element(by.model('newAddress.addressLine3')).sendKeys('Westminster');
+        element(by.model('newAddress.city')).sendKeys('London');
+        element(by.model('newAddress.postcode')).sendKeys('SW1P 1DE');
+        element(by.model('newAddress.landlineNumber')).sendKeys('020 3397 8376');
+        element(by.model('newAddress.orderNotificationMobileNumber')).sendKeys('07861795252');
+        element(by.model('newAddress.contactName')).sendKeys('Stu');
 
         element(by.css('button[ng-click="addAddress()"]')).click();
 
         var addresses = element.all(by.repeater('vendorAddress in vendor.addresses'));
         expect(addresses.count()).toBe(3);
-        expect(addresses.get(1).getText()).toContain('Francis House, 11 Francis Street, Westminster, London, SW1P 1DE, United Kingdom');
+        expect(addresses.get(2).getText()).toContain('Jeremy House, 22 Jeremy Road, Westminster, London, SW1P 1DE, United Kingdom');
     });
 
     it('should set default values for the new address', function() {
         // Address is selected.
-        expect(element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(1).isSelected()).toBe(true);
+        expect(element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(2).isSelected()).toBe(true);
 
         // Delivery radius is 2 miles.
-        expect(element(by.css('select[id="delivery_radius2"] > option:nth-child(2)')).isSelected()).toBe(true);
+        expect(element(by.css('select[id="delivery_radius3"] > option:nth-child(2)')).isSelected()).toBe(true);
     });
 
     it('should show an error if an invalid postcode is entered', function() {
         element(by.css('button[ng-click="addAnotherAddress()"]')).click();
-        element(by.model('address.postcode')).sendKeys('QWERTY');
+        element(by.model('newAddress.postcode')).sendKeys('QWERTY');
         element(by.css('button[ng-click="addAddress()"]')).click();
 
         var invalidPostcodeError = element.all(by.css('label[for="address_postcode"] > .form-element-invalid')).get(1);
@@ -132,7 +152,7 @@ describe('Vendor portal - edit package', function() {
 
     it('should show an error if an invalid mobile number is entered', function() {
         element(by.css('button[ng-click="addAnotherAddress()"]')).click();
-        element(by.model('address.orderNotificationMobileNumber')).sendKeys('020 3397 8376');
+        element(by.model('newAddress.orderNotificationMobileNumber')).sendKeys('020 3397 8376');
         element(by.css('button[ng-click="addAddress()"]')).click();
 
         var invalidMobileNumberError = element.all(by.css('label[for="address_order_notification_mobile_number"] > .form-element-invalid')).get(1);
@@ -143,10 +163,9 @@ describe('Vendor portal - edit package', function() {
     });
 
     it('should show an error if 0 delivery addresses are selected', function() {
-        var firstAddressCheckbox = element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(0);
-        firstAddressCheckbox.click();
-        var secondAddressCheckbox = element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(1);
-        secondAddressCheckbox.click();
+        var thirdAddressCheckbox = element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(2);
+        thirdAddressCheckbox.click();
+
         element(by.css('main input.btn.btn-primary')).click();
 
         var deliveryAddressError = element.all(by.css('legend[id="package_delivery_addresses"] > .form-element-invalid')).get(0);
@@ -154,8 +173,7 @@ describe('Vendor portal - edit package', function() {
         expect(deliveryAddressError.isDisplayed()).toBe(true);
 
         // Revert the changes so other tests will pass.
-        firstAddressCheckbox.click();
-        secondAddressCheckbox.click();
+        thirdAddressCheckbox.click();
     });
 
     it('should show an error if minimum people is greater than maximum people', function() {
@@ -175,17 +193,6 @@ describe('Vendor portal - edit package', function() {
     });
 
     it('should be able to save the details', function() {
-        var deliveryCost = element(by.id('package_delivery_cost'));
-        var dietaryTypeDairyFreeCheckbox = element.all(by.css('input[name="packageDietaryTypes[]"]')).get(5);
-        var dietaryTypeGlutenFreeCheckbox = element.all(by.css('input[name="packageDietaryTypes[]"]')).get(3);
-        var eventTypeDinnerCheckbox = element.all(by.css('input[name="packageEventTypes[]"]')).get(2);
-        var eventTypeLunchCheckbox = element.all(by.css('input[name="packageEventTypes[]"]')).get(1);
-        var freeDeliveryThreshold = element(by.id('package_free_delivery_threshold'));
-        var packageDescription = element(by.id('package_description'));
-        var packageItems = element.all(by.css('input[name="packageItems[]"]'));
-
-        // Edit some of the details before saving.
-
         packageDescription.sendKeys(' yum');
 
         element(by.css('a[ng-click="addPackageItem()"]')).click();
@@ -206,15 +213,20 @@ describe('Vendor portal - edit package', function() {
         freeDeliveryThreshold.sendKeys(100);
 
         element(by.css('main input.btn.btn-primary')).click();
+    });
 
+    it('should notify the user that the package has been updated', function() {
         notificationModal.expectIsOpen();
         notificationModal.expectSuccessHeader();
         notificationModal.expectMessage('Your package has been updated.');
         notificationModal.dismiss();
+    });
 
-        // Should remain on the package page.
+    it('should remain on the package page', function() {
         expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/vendor\/packages\/[\da-f]{24}/);
+    });
 
+    it('should have persisted the updated values', function() {
         browser.refresh();
 
         expect(packageDescription.getAttribute('value')).toBe('Yum yum');
@@ -225,8 +237,9 @@ describe('Vendor portal - edit package', function() {
         expect(eventTypeDinnerCheckbox.isSelected()).toBe(true);
         expect(deliveryCost.getAttribute('value')).toBe('15');
         expect(freeDeliveryThreshold.getAttribute('value')).toBe('100');
+    });
 
-        // Revert the changes so other tests will pass.
+    it('should revert the changes so other tests will pass', function() {
         packageDescription.clear().sendKeys('Yum');
         packageItems.get(2).clear();
         dietaryTypeGlutenFreeCheckbox.click();

@@ -11,6 +11,7 @@ angular.module('cp.controllers.vendor').controller('VendorPortalPackagesControll
         PackagesFactory.getPackagesByCurrentVendor()
             .success(response => {
                 angular.forEach(response.packages, row => row.activeAndApproved = getActiveAndApprovedStatusTextFilter(row.active, row.approved));
+                response.packages.sort((a, b) => a.humanId >= b.humanId);
                 $scope.packages = response.packages;
                 $scope.count = $scope.packages.length;
                 LoadingService.hide();
