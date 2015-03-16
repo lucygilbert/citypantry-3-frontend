@@ -1,60 +1,58 @@
 <div class="vendor-signup-header"></div>
 
-<main role="main">
-    <div class="wrapper">
-        <div class="row">
-            <div class="col-sm-8 add-card-form-wrapper">
-                <h1>Add a new card</h1>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-8 add-card-form-wrapper">
+            <h1>Add a new card</h1>
 
-                <p class="hidden-xs security">This page is secure.</p>
+            <p class="hidden-xs security">This page is secure.</p>
 
-                <ul class="payment-methods">
-                    <li class="visa">Visa</li>
-                    <li class="amex">American Express</li>
-                    <li class="mastercard">MasterCard</li>
-                    <li class="maestro">Maestro</li>
-                </ul>
+            <ul class="payment-methods">
+                <li class="visa">Visa</li>
+                <li class="amex">American Express</li>
+                <li class="mastercard">MasterCard</li>
+                <li class="maestro">Maestro</li>
+            </ul>
 
-                <form id="add-card-form" role="form" name="paymentCardForm" ng-submit="save()">
-                    <fieldset>
-                        <div class="form-group">
-                            <label for="card-number">Card number</label>
-                            <input class="form-control input-lg" id="card-number" type="number"
-                                size="20" autocomplete="off" required data-braintree-name="number"
-                                ng-minlength="13" ng-maxlength="16" ng-model="card.number" />
-                        </div>
+            <form id="add-card-form" role="form" name="paymentCardForm" ng-submit="save()">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="card-number">Card number</label>
+                        <input class="form-control input-lg" id="card-number" type="number"
+                            size="20" autocomplete="off" required data-braintree-name="number"
+                            ng-minlength="13" ng-maxlength="16" ng-model="card.number" />
+                    </div>
 
-                        <div class="form-group expiry-date">
-                            <label for="card-expiry-month">Expiry date</label>
+                    <div class="form-group expiry-date">
+                        <label for="card-expiry-month">Expiry date</label>
 
-                            <select class="form-control input-lg" id="card-expiry-month" required
-                                data-braintree-name="expiration_month" ng-model="card.expirationMonth"
-                                ng-options="month.value as month.label for month in monthOptions">
-                            </select>
+                        <select class="form-control input-lg" id="card-expiry-month" required
+                            data-braintree-name="expiration_month" ng-model="card.expirationMonth"
+                            ng-options="month.value as month.label for month in monthOptions">
+                        </select>
 
-                            <label class="sr-only" for="card-expiry-year">Expiry year</label>
+                        <label class="sr-only" for="card-expiry-year">Expiry year</label>
 
-                            <select class="form-control input-lg" id="card-expiry-year" required
-                                data-braintree-name="expiration_year" ng-model="card.expirationYear"
-                                ng-options="year.value as year.label for year in yearOptions">
-                            </select>
-                        </div>
+                        <select class="form-control input-lg" id="card-expiry-year" required
+                            data-braintree-name="expiration_year" ng-model="card.expirationYear"
+                            ng-options="year.value as year.label for year in yearOptions">
+                        </select>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="card-cvc">
-                                <abbr title="card verification code">CVC</abbr>
-                                <a href="#" data-toggle="tooltip" title="Last 3 digits on the back">?</a>
-                            </label>
+                    <div class="form-group">
+                        <label for="card-cvc">
+                            <abbr title="card verification code">CVC</abbr>
+                            <a href="#" data-toggle="tooltip" title="Last 3 digits on the back">?</a>
+                        </label>
 
-                            <input class="form-control input-lg" id="card-cvc" type="number" size="4"
-                                autocomplete="off" ng-pattern="/\d\d\d/" required data-braintree-name="cvc"
-                                ng-minlength="3" ng-maxlength="3" maxlength="3" ng-model="card.cvc" />
-                        </div>
+                        <input class="form-control input-lg" id="card-cvc" type="number" size="4"
+                            autocomplete="off" ng-pattern="/\d\d\d/" required data-braintree-name="cvc"
+                            ng-minlength="3" ng-maxlength="3" maxlength="3" ng-model="card.cvc" />
+                    </div>
 
-                        <input class="btn btn-primary btn-lg" type="submit" value="Add card" />
-                    </fieldset>
-                </form>
-            </div>
+                    <input class="btn btn-primary btn-lg" type="submit" value="Add card" />
+                </fieldset>
+            </form>
         </div>
     </div>
-</main>
+</div>
