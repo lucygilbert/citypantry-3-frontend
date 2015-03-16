@@ -7,6 +7,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             destination: '@cpDestination',
             operation: '@cpOperation',
             package: '=cpPackage',
+            showNotification: '@cpShowNotification',
             submitValue: '@cpSubmitValue'
         },
         controller: function($scope) {
@@ -234,14 +235,16 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                     .success(response => {
                         LoadingService.hide();
 
-                        let notificationMessage;
+                        if ($scope.showNotification) {
+                            let notificationMessage;
 
-                        if ($scope.operation === 'create') {
-                            notificationMessage = 'Your package has been created.';
-                        } else if ($scope.operation === 'update') {
-                            notificationMessage = 'Your package has been updated.';
+                            if ($scope.operation === 'create') {
+                                notificationMessage = 'Your package has been created.';
+                            } else if ($scope.operation === 'update') {
+                                notificationMessage = 'Your package has been updated.';
+                            }
+                            NotificationService.notifySuccess(notificationMessage);
                         }
-                        NotificationService.notifySuccess(notificationMessage);
 
                         $location.path($scope.destination);
                     })

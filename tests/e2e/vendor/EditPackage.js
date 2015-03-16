@@ -81,9 +81,11 @@ describe('Vendor portal - edit package', function() {
         expect(element.all(by.css('input[name="packageDietaryTypeNotes[]"]')).get(0).isDisplayed()).toBe(true);
     });
 
+    // This test will fail if the suite is run in isolation because the address added by
+    // CreatePackage will not exist.
     it('should load the vendor\'s addresses', function() {
         var addresses = element.all(by.repeater('vendorAddress in vendor.addresses'));
-        expect(addresses.count()).toBe(1);
+        expect(addresses.count()).toBe(2);
         expect(addresses.get(0).getText()).toContain('Shepherds Bush Road, London, W6, United Kingdom');
     });
 
@@ -102,7 +104,7 @@ describe('Vendor portal - edit package', function() {
         element(by.css('button[ng-click="addAddress()"]')).click();
 
         var addresses = element.all(by.repeater('vendorAddress in vendor.addresses'));
-        expect(addresses.count()).toBe(2);
+        expect(addresses.count()).toBe(3);
         expect(addresses.get(1).getText()).toContain('Francis House, 11 Francis Street, Westminster, London, SW1P 1DE, United Kingdom');
     });
 
