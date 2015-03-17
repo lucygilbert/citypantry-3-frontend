@@ -100,6 +100,10 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'VendorPortalProfileController',
             templateUrl: '/dist/templates/vendor/vendor-portal-profile.html'
         }).
+        when('/vendor/delivery-radiuses', {
+            controller: 'VendorPortalDeliveryRadiusesController',
+            templateUrl: '/dist/templates/vendor/vendor-portal-delivery-radiuses.html'
+        }).
         when('/vendor/signup', {
             controller: 'VendorSignupController',
             templateUrl: '/dist/templates/vendor/vendor-signup.html'
