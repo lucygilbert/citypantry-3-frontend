@@ -1,49 +1,47 @@
 <div class="vendor-signup-header"></div>
 
-<main role="main">
-    <div class="wrapper">
-        <h1>Your packages</h1>
+<div class="wrapper">
+    <h1>Your packages</h1>
 
-        <p><a class="create-package btn btn-primary" href="/vendor/create-package">Create package</a></p>
+    <p><a class="create-package btn btn-primary" href="/vendor/create-package">Create package</a></p>
 
-        <p ng-if="count === 0">You have no packages.</p>
+    <p ng-if="count === 0">You have no packages.</p>
 
-        <table class="table" id="table_packages" summary="Your packages" ng-if="count > 0">
-            <thead>
-                <tr>
-                    <th>&nbsp;</th>
-                    <th>Name</th>
-                    <th>Cost</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="package in packages">
-                    <td>
-                        <img ng-if="package.images.length"
-                            ng-src="{{ package.images[0].thumbnail }}"
-                            alt="A photo of {{ package.name }}" />
-                    </td>
-                    <td>
-                        {{ package.name }}
+    <table class="table" id="table_packages" summary="Your packages" ng-if="count > 0">
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="package in packages">
+                <td>
+                    <img ng-if="package.images.length"
+                        ng-src="{{ package.images[0].thumbnail }}"
+                        alt="A photo of {{ package.name }}" />
+                </td>
+                <td>
+                    {{ package.name }}
 
-                        <span ng-if="package.onlyForCustomer">
-                            <br />
-                            This package is only visible to {{ package.onlyForCustomer.company }}
-                        </span>
-                    </td>
-                    <td>{{ package.costIncludingVat | currency:'£' }}</td>
-                    <td>{{ package.activeAndApproved }}</td>
-                    <td class="dropdown">
-                        <a href="/vendor/packages/{{ package.id }}" class="btn btn-primary edit-package">
-                            Edit</a></li>
+                    <span ng-if="package.onlyForCustomer">
+                        <br />
+                        This package is only visible to {{ package.onlyForCustomer.company }}
+                    </span>
+                </td>
+                <td>{{ package.costIncludingVat | currency:'£' }}</td>
+                <td>{{ package.activeAndApproved }}</td>
+                <td class="dropdown">
+                    <a href="/vendor/packages/{{ package.id }}" class="btn btn-primary edit-package">
+                        Edit</a></li>
 
-                        <a ng-click="delete(package.id)" class="btn btn-primary delete-package">
-                            Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</main>
+                    <a ng-click="delete(package.id)" class="btn btn-primary delete-package">
+                        Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

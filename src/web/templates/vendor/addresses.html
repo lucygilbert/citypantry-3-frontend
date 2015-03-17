@@ -1,22 +1,20 @@
 <div class="vendor-signup-header"></div>
 
-<main role="main">
-    <div class="wrapper">
-        <h1>Your business addresses</h1>
+<div class="wrapper">
+    <h1>Your business addresses</h1>
 
-        <ul>
-            <li ng-repeat="address in addresses">
-                {{ address | addressSingleLineFormatter }}
-                <button class="btn btn-primary"><a ng-href="/vendor/addresses/{{ address.id }}">Edit</a></button>
-                <br />
-                Landline: {{ address.landlineNumber }}
-                <br />
-                Order notification mobile: {{ address.orderNotificationMobileNumber }}
-            </li>
+    <ul>
+        <li ng-repeat="address in addresses">
+            {{ address | addressSingleLineFormatter }}
+            <button class="btn btn-primary"><a ng-href="/vendor/addresses/{{ address.id }}">Edit</a></button>
+            <br />
+            Landline: {{ address.landlineNumber }}
+            <br />
+            Order notification mobile: {{ address.orderNotificationMobileNumber }}
+        </li>
 
-            <li>
-                <button class="btn btn-primary add-address"><a href="/vendor/new-address">Add another business address</a></button>
-            </li>
-        </ul>
-    </div>
-</main>
+        <li>
+            <button class="btn btn-primary add-address"><a href="/vendor/new-address">Add another business address</a></button>
+        </li>
+    </ul>
+</div>
