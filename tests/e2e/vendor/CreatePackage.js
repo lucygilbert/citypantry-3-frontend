@@ -58,19 +58,22 @@ describe('Vendor portal - create package', function() {
         var addresses = element.all(by.repeater('vendorAddress in vendor.addresses'));
         expect(addresses.count()).toBe(1);
         expect(addresses.get(0).getText()).toContain('Shepherds Bush Road, London, W6, United Kingdom');
+
+        var isSelectedCheckboxes = element.all(by.css('input[name="vendorAddressIsSelected[]"]'));
+        expect(isSelectedCheckboxes.get(0).isSelected()).toBe(false);
     });
 
     it('should be able to add an address', function() {
         element(by.css('button[ng-click="addAnotherAddress()"]')).click();
 
-        element(by.model('address.addressLine1')).sendKeys('Francis House');
-        element(by.model('address.addressLine2')).sendKeys('11 Francis Street');
-        element(by.model('address.addressLine3')).sendKeys('Westminster');
-        element(by.model('address.city')).sendKeys('London');
-        element(by.model('address.postcode')).sendKeys('SW1P 1DE');
-        element(by.model('address.landlineNumber')).sendKeys('020 3397 8376');
-        element(by.model('address.orderNotificationMobileNumber')).sendKeys('07861795252');
-        element(by.model('address.contactName')).sendKeys('Stu');
+        element(by.model('newAddress.addressLine1')).sendKeys('Francis House');
+        element(by.model('newAddress.addressLine2')).sendKeys('11 Francis Street');
+        element(by.model('newAddress.addressLine3')).sendKeys('Westminster');
+        element(by.model('newAddress.city')).sendKeys('London');
+        element(by.model('newAddress.postcode')).sendKeys('SW1P 1DE');
+        element(by.model('newAddress.landlineNumber')).sendKeys('020 3397 8376');
+        element(by.model('newAddress.orderNotificationMobileNumber')).sendKeys('07861795252');
+        element(by.model('newAddress.contactName')).sendKeys('Stu');
 
         element(by.css('button[ng-click="addAddress()"]')).click();
 
@@ -89,7 +92,7 @@ describe('Vendor portal - create package', function() {
 
     it('should show an error if an invalid postcode is entered', function() {
         element(by.css('button[ng-click="addAnotherAddress()"]')).click();
-        element(by.model('address.postcode')).sendKeys('QWERTY');
+        element(by.model('newAddress.postcode')).sendKeys('QWERTY');
         element(by.css('button[ng-click="addAddress()"]')).click();
 
         var invalidPostcodeError = element.all(by.css('label[for="address_postcode"] > .form-element-invalid')).get(1);
@@ -101,7 +104,7 @@ describe('Vendor portal - create package', function() {
 
     it('should show an error if an invalid mobile number is entered', function() {
         element(by.css('button[ng-click="addAnotherAddress()"]')).click();
-        element(by.model('address.orderNotificationMobileNumber')).sendKeys('020 3397 8376');
+        element(by.model('newAddress.orderNotificationMobileNumber')).sendKeys('020 3397 8376');
         element(by.css('button[ng-click="addAddress()"]')).click();
 
         var invalidMobileNumberError = element.all(by.css('label[for="address_order_notification_mobile_number"] > .form-element-invalid')).get(1);
@@ -112,8 +115,6 @@ describe('Vendor portal - create package', function() {
     });
 
     it('should show an error if 0 delivery addresses are selected', function() {
-        var firstAddressCheckbox = element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(0);
-        firstAddressCheckbox.click();
         var secondAddressCheckbox = element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(1);
         secondAddressCheckbox.click();
         element(by.css('main input.btn.btn-primary')).click();
@@ -123,7 +124,6 @@ describe('Vendor portal - create package', function() {
         expect(deliveryAddressError.isDisplayed()).toBe(true);
 
         // Revert the changes so other tests will pass.
-        firstAddressCheckbox.click();
         secondAddressCheckbox.click();
     });
 
@@ -162,13 +162,16 @@ describe('Vendor portal - create package', function() {
         element(by.model('package.freeDeliveryThreshold')).sendKeys(100);
 
         element(by.css('main input.btn.btn-primary')).click();
+    });
 
+    it('should notify the user that the package has been created', function() {
         notificationModal.expectIsOpen();
         notificationModal.expectSuccessHeader();
         notificationModal.expectMessage('Your package has been created.');
         notificationModal.dismiss();
+    });
 
-        // Should redirect to the packages page.
+    it('should redirect to the packages page', function() {
         expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/vendor\/packages/);
     });
 });
