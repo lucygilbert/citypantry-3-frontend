@@ -31,7 +31,18 @@ angular.module('cp')
     })
     .constant('GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY', window.googleMapsJavascriptApiV3Key)
     .constant('CP_TELEPHONE_NUMBER_UK', '020 3397 8376')
-    .constant('CP_TELEPHONE_NUMBER_INTERNATIONAL', '+442033978376');
+    .constant('CP_TELEPHONE_NUMBER_INTERNATIONAL', '+442033978376')
+    .constant('CP_SUPPORT_EMAIL_ADDRESS', 'support@citypantry.com')
+    .constant('CP_POSTAL_ADDRESS', [
+        'Francis House',
+        '11 Francis Street',
+        'Westminster',
+        'London',
+        'SW1P 1DE'
+    ])
+    .constant('CP_BANK_ACCOUNT_NUMBER', '29201632')
+    .constant('CP_BANK_NAME', 'National Westminster Bank PLC')
+    .constant('CP_BANK_SORT_CODE', '60-30-20');
 
 angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvider, GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY,
         $sceDelegateProvider) {
