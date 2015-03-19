@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <h1>Vendor {{vendor.humanId}}</h1>
+    <h1>Vendor {{vendor.humanId}}: {{ vendor.name }}</h1>
 
     <h2>History</h2>
 
@@ -22,6 +22,30 @@
         <div class="form-group">
             <label for="city_pantry_commission">City Pantry commission %</label>
             <input class="form-control input-lg" id="city_pantry_commission" type="text" ng-model="vendor.cityPantryCommission" />
+        </div>
+
+        <div class="form-group">
+            <label for="city_pantry_is_meal_plan">Is able to have meal plan packages?</label>
+            <input type="checkbox" id="city_pantry_is_meal_plan"
+                ng-model="vendor.isMealPlan" />
+        </div>
+
+        <div class="form-group">
+            <label for="city_pantry_can_deliver_cutlery_and_serviettes">Can deliver cutlery and serviettes?</label>
+            <input type="checkbox" id="city_pantry_can_deliver_cutlery_and_serviettes"
+                ng-model="vendor.canDeliverCutleryAndServiettes" />
+        </div>
+
+        <div class="form-group">
+            <label for="city_pantry_can_set_up_after_delivery">Can set up after delivery?</label>
+            <input type="checkbox" id="city_pantry_can_set_up_after_delivery"
+                ng-model="vendor.canSetUpAfterDelivery" />
+        </div>
+
+        <div class="form-group">
+            <label for="city_pantry_can_clean_up_after_delivery">Can clean up after delivery?</label>
+            <input type="checkbox" id="city_pantry_can_clean_up_after_delivery"
+                ng-model="vendor.canCleanUpAfterDelivery" />
         </div>
 
         <input class="btn btn-primary btn-lg" type="submit" value="Save">

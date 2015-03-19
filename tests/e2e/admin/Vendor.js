@@ -1,29 +1,46 @@
 var gridTestUtils = require('../lib/gridTestUtils.spec.js');
 
-describe('Admin - edit vendor page', function() {
-    var isFirst = true;
+function navigateToVendor(name) {
+    loginAsUser('alice@bunnies.test');
+    browser.get('/admin/vendors');
+    gridTestUtils.enterFilterInColumn('vendors-table', 1, name);
+    element.all(by.css('#vendors-table a[href^="/admin/vendor/"]')).first().click();
 
-    beforeEach(function() {
-        if (isFirst) {
-            loginAsUser('alice@bunnies.test');
-            browser.get('/admin/vendors');
-            gridTestUtils.enterFilterInColumn('vendors-table', 1, 'Hong Tin');
-            element.all(by.css('#vendors-table a[href^="/admin/vendor/"]')).first().click();
-            browser.driver.wait(function() {
-                return browser.driver.getCurrentUrl().then(function(url) {
-                    return (/\/admin\/vendor\/[\da-f]+$/.test(url));
-                });
-            });
-            isFirst = false;
-        }
-    });
+    expect(browser.getCurrentUrl()).toMatch(/\/admin\/vendor\/[\da-f]{24}$/);
 
-    it('should show the "vendor" page', function() {
-        expect(browser.getCurrentUrl()).toMatch(/\/admin\/vendor\/[\da-f]{24}$/);
-        expect(element(by.css('h1')).getText()).toMatch(/^Vendor \d+$/);
+    var titleText = element(by.css('h1')).getText();
+    expect(titleText).toMatch(/^Vendor \d+:/);
+    expect(titleText).toContain(name);
+}
+
+describe('Admin - edit vendor page - Hong Tin', function() {
+    it('should be able to navigate to the "edit vendor" page', function() {
+        navigateToVendor('Hong Tin');
     });
 
     it('should show the vendor\'s addresses', function() {
         expect(element.all(by.repeater('address in vendor.addresses')).count()).toBe(1);
+    });
+
+    it('should say that this vendor cannot have meal plan packages', function() {
+        expect(element(by.model('vendor.isMealPlan')).isSelected()).toBe(false);
+    });
+
+    it('should say that this vendor cannot set up after delivery', function() {
+        expect(element(by.model('vendor.canSetUpAfterDelivery')).isSelected()).toBe(false);
+    });
+});
+
+describe('Admin - edit vendor page - Sam\'s', function() {
+    it('should be able to navigate to the "edit vendor" page', function() {
+        navigateToVendor('Sam\'s');
+    });
+
+    it('should say that this vendor can have meal plan packages', function() {
+        expect(element(by.model('vendor.isMealPlan')).isSelected()).toBe(true);
+    });
+
+    it('should say that this vendor can set up after delivery', function() {
+        expect(element(by.model('vendor.canSetUpAfterDelivery')).isSelected()).toBe(true);
     });
 });
