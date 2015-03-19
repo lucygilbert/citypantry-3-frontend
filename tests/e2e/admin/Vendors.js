@@ -18,8 +18,8 @@ describe('Admin - vendors page', function() {
         gridTestUtils.expectHeaderColumnCount('vendors-table', 6);
     });
 
-    it('should have 4 rows', function() {
-        gridTestUtils.expectRowCount('vendors-table', 4);
+    it('should have 6 rows', function() {
+        gridTestUtils.expectRowCount('vendors-table', 6);
     });
 
     it('should have the column name "ID"', function() {
@@ -46,14 +46,14 @@ describe('Admin - vendors page', function() {
         gridTestUtils.expectHeaderCellValueMatch('vendors-table', 5, 'Action');
     });
 
-    it('should find 2 vendor when filtered by "Chef"', function() {
+    it('should find 3 vendors when filtered by "Chef"', function() {
         gridTestUtils.enterFilterInColumn('vendors-table', 3, 'Chef');
-        gridTestUtils.expectRowCount('vendors-table', 2);
+        gridTestUtils.expectRowCount('vendors-table', 3);
         gridTestUtils.expectCellValueMatch('vendors-table', 0, 3, 'Chef');
     });
 
-    it('should find 4 vendors when filter is cancelled', function() {
+    it('should find 6 vendors when filter is cancelled', function() {
         gridTestUtils.cancelFilterInColumn('vendors-table', 3);
-        gridTestUtils.expectRowCount('vendors-table', 4);
+        gridTestUtils.expectRowCount('vendors-table', 6);
     });
 });

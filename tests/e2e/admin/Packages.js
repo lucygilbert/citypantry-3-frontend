@@ -18,8 +18,8 @@ describe('Admin - packages page', function() {
         gridTestUtils.expectHeaderColumnCount('packages-table', 9);
     });
 
-    it('should have 7 rows', function() {
-        gridTestUtils.expectRowCount('packages-table', 7);
+    it('should have 10 rows', function() {
+        gridTestUtils.expectRowCount('packages-table', 10);
     });
 
     it('should have the column name "ID"', function() {
@@ -64,9 +64,9 @@ describe('Admin - packages page', function() {
         gridTestUtils.expectCellValueMatch('packages-table', 0, 3, 'Hong Tin');
     });
 
-    it('should find 7 packages when filter is cancelled', function() {
+    it('should find 10 packages when filter is cancelled', function() {
         gridTestUtils.cancelFilterInColumn('packages-table', 3);
-        gridTestUtils.expectRowCount('packages-table', 7);
+        gridTestUtils.expectRowCount('packages-table', 10);
     });
 
     it('should be able to approve unapproved packages', function() {

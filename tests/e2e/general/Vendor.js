@@ -7,8 +7,8 @@ describe('Individual vendor page - as Aperture Science', function() {
             first = false;
             loginAsUser('customer@bunnies.test');
             browser.get('/vendors');
-            element.all(by.css('li.vendor')).get(2).element(by.css('a')).click();
-            expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9a-f]{24}-[a-z0-9-]+$/);
+            element.all(by.css('li.vendor')).get(3).element(by.css('a')).click();
+            expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9a-f]{24}-oriental-kitchen-express$/);
         }
 
         packages = element.all(by.repeater('package in packages'));
@@ -42,8 +42,8 @@ describe('Individual vendor page - as Apple', function() {
             first = false;
             loginAsUser('customer@apple.test');
             browser.get('/vendors');
-            element.all(by.css('li.vendor')).get(2).element(by.css('a')).click();
-            expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9a-f]{24}-[a-z0-9-]+$/);
+            element.all(by.css('li.vendor')).get(3).element(by.css('a')).click();
+            expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/[0-9a-f]{24}-oriental-kitchen-express$/);
         }
     });
 
