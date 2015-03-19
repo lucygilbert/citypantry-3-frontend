@@ -23,6 +23,8 @@ describe('Admin - package page - Carrots', function() {
     it('should load the package details', function() {
         expect(element(by.model('vendorPackage.name')).getAttribute('value')).toBe('Carrots');
         expect(element(by.model('vendorPackage.description')).getAttribute('value')).toBe('Yum');
+        expect(element(by.model('vendorPackage.isMealPlan')).isSelected()).toBe(false);
+        expect(element(by.model('vendorPackage.packagingType')).getAttribute('value')).toBe('0');
     });
 
     it('should say the package is visible to all customers', function() {
@@ -52,6 +54,11 @@ describe('Admin - package page - Golden Apples', function() {
         }
     });
 
+    it('should load the package details', function() {
+        expect(element(by.model('vendorPackage.isMealPlan')).isSelected()).toBe(false);
+        expect(element(by.model('vendorPackage.packagingType')).getAttribute('value')).toBe('0');
+    });
+
     it('should say the package is visible to only Apple', function() {
         expect(element(by.css('.visiblity-description')).getText()).toBe('This package is only visible to Apple.');
     });
@@ -69,6 +76,11 @@ describe('Admin - package page - Unapproved Package', function() {
             expect(browser.getCurrentUrl()).toMatch(/\/admin\/package\/[\da-f]+$/);
             isFirst = false;
         }
+    });
+
+    it('should load the package details', function() {
+        expect(element(by.model('vendorPackage.isMealPlan')).isSelected()).toBe(false);
+        expect(element(by.model('vendorPackage.packagingType')).getAttribute('value')).toBe('');
     });
 
     it('should say the package is not visible to customers', function() {

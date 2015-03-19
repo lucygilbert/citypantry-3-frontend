@@ -10,6 +10,8 @@ angular.module('cp.controllers.admin').controller('AdminEditPackageController',
             LoadingService.hide();
         });
 
+    $scope.packagingTypes = PackagesFactory.getPackagingTypeOptions();
+
     $scope.save = function() {
         LoadingService.show();
 
@@ -17,6 +19,8 @@ angular.module('cp.controllers.admin').controller('AdminEditPackageController',
             name: $scope.vendorPackage.name,
             shortDescription: $scope.vendorPackage.shortDescription,
             description: $scope.vendorPackage.description,
+            isMealPlan: $scope.vendorPackage.isMealPlan,
+            packagingType: $scope.vendorPackage.packagingType
         };
 
         PackagesFactory.updatePackage($routeParams.packageId, updatedPackage)
