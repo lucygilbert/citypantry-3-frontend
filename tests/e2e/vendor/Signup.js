@@ -3,6 +3,7 @@ describe('Vendor signup', function() {
 
     beforeEach(function() {
         if (isFirst) {
+            logout();
             browser.get('/vendor/signup');
             isFirst = false;
         }

@@ -1,4 +1,4 @@
-describe('Meet the vendor', function() {
+describe('Meet the vendors', function() {
     var first = true;
 
     beforeEach(function() {
@@ -15,10 +15,12 @@ describe('Meet the vendor', function() {
 
     it('should show all the approved and active vendors, listed alphabetically', function() {
         var vendors = element.all(by.css('li.vendor'));
-        expect(vendors.count()).toBe(3);
+        expect(vendors.count()).toBe(5);
         expect(vendors.get(0).element(by.css('h2')).getText()).toBe('Flame Mangal');
         expect(vendors.get(1).element(by.css('h2')).getText()).toBe('Hong Tin');
-        expect(vendors.get(2).element(by.css('h2')).getText()).toBe('Oriental Kitchen Express');
+        expect(vendors.get(2).element(by.css('h2')).getText()).toBe('Kebab Centre');
+        expect(vendors.get(3).element(by.css('h2')).getText()).toBe('Oriental Kitchen Express');
+        expect(vendors.get(4).element(by.css('h2')).getText()).toBe('Sam\'s');
     });
 
     it('should link to the individual vendor pages', function() {

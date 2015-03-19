@@ -39,7 +39,7 @@ describe('Vendor portal - edit package', function() {
         expect(element.all(by.css('#package_cuisine_type > option')).get(0).getText()).toBe('British');
 
         // Dietary types.
-        expect(element.all(by.repeater('dietaryTypeOption in dietaryTypeOptions')).count()).toBe(6);
+        expect(element.all(by.repeater('dietaryTypeOption in dietaryTypeOptions')).count()).toBe(7);
         expect(element.all(by.repeater('dietaryTypeOption in dietaryTypeOptions')).get(0).getText()).toContain('Vegetarian');
 
         // Allergen types.
