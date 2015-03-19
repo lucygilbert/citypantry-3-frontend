@@ -16,28 +16,29 @@
     <form ng-submit="save()" role="form">
         <div class="form-group">
             <label for="package_name">Name your catering package </label>
-            <input class="form-control input-lg" ng-model="vendorPackage.name" required />
+            <input class="form-control input-lg" id="package_name" ng-model="vendorPackage.name" required />
             <span class="help-block">e.g. “Burrito Feast”, “Summer Picnic”, “Classic Brisket Selection”, “Rocket Fuel Breakfast”</span>
         </div>
 
         <div class="form-group">
-            <label>Short package description </label>
-            <input class="form-control input-lg" maxlength="220" ng-model="vendorPackage.shortDescription" />
+            <label for="package_short_description">Short package description </label>
+            <input class="form-control input-lg" id="package_short_description" maxlength="220" ng-model="vendorPackage.shortDescription" />
         </div>
 
         <div class="form-group">
-            <label>Package description </label>
-            <textarea class="form-control input-lg" ng-model="vendorPackage.description" required placeholder="Letting customers know how their food will be packaged, whether it’s individual, buffet or cook on site, is really helpful." rows="6"></textarea>
+            <label for="package_description">Package description </label>
+            <textarea class="form-control input-lg" id="package_description" ng-model="vendorPackage.description" required placeholder="Letting customers know how their food will be packaged, whether it’s individual, buffet or cook on site, is really helpful." rows="6"></textarea>
         </div>
 
         <div class="form-group">
-            <label>Is a meal plan packages?</label>
-            <input type="checkbox" ng-model="vendorPackage.isMealPlan" />
+            <label class="checkbox">
+                <input type="checkbox" ng-model="vendorPackage.isMealPlan" /> Is a meal plan package?
+            </label>
         </div>
 
         <div class="form-group">
-            <label>Packaging type:</label>
-            <select ng-options="type.value as type.label for type in packagingTypes" ng-model="vendorPackage.packagingType"></select>
+            <label for="package_packaging_type">Packaging type:</label>
+            <select class="form-control input-lg" id="package_packaging_type" ng-options="type.value as type.label for type in packagingTypes" ng-model="vendorPackage.packagingType"></select>
         </div>
 
         <input class="btn btn-primary btn-lg" type="submit" value="Save" />
