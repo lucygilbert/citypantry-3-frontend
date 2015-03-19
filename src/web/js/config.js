@@ -170,6 +170,14 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'AdminEditCustomerController',
             templateUrl: '/dist/templates/admin/edit-customer.html'
         }).
+        when('/admin/invoices', {
+            controller: 'AdminInvoicesController',
+            templateUrl: '/dist/templates/admin/invoices.html'
+        }).
+        when('/admin/invoice/:invoiceId', {
+            controller: 'AdminViewInvoiceController',
+            templateUrl: '/dist/templates/admin/view-invoice.html'
+        }).
         when('/admin/orders', {
             controller: 'AdminOrdersController',
             controllerAs: 'orders',
