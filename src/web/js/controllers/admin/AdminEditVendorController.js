@@ -1,6 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminEditVendorController',
         function($scope, $routeParams, VendorsFactory, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
-    DocumentTitleService('Edit Vendor');
     SecurityService.requireStaff();
 
     $scope.vendor = {};
@@ -9,6 +8,7 @@ angular.module('cp.controllers.admin').controller('AdminEditVendorController',
         success(vendor => {
             $scope.vendor = vendor;
             LoadingService.hide();
+            DocumentTitleService('Edit vendor: ' + $scope.vendor.name);
         });
 
     $scope.save = function() {
@@ -18,7 +18,11 @@ angular.module('cp.controllers.admin').controller('AdminEditVendorController',
         const updatedVendor = {
             description: $scope.vendor.description,
             cityPantryCommission: $scope.vendor.cityPantryCommission,
-            misspellings: misspellings
+            misspellings: misspellings,
+            isMealPlan: $scope.vendor.isMealPlan,
+            canDeliverCutleryAndServiettes: $scope.vendor.canDeliverCutleryAndServiettes,
+            canSetUpAfterDelivery: $scope.vendor.canSetUpAfterDelivery,
+            canCleanUpAfterDelivery: $scope.vendor.canCleanUpAfterDelivery
         };
         VendorsFactory.updateVendor($routeParams.vendorId, updatedVendor)
             .success(response => {
