@@ -128,6 +128,14 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
             }
 
             return options;
-        }
+        },
+
+        getPackagingTypeOptions: () => {
+            return [
+                { label: 'Individual Portions', value: 1 },
+                { label: 'Buffet', value: 2 },
+                { label: 'Either', value: 3 }
+            ];
+        },
     };
 });
