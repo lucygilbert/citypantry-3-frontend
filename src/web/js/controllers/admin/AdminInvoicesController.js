@@ -1,6 +1,7 @@
 angular.module('cp.controllers.admin').controller('AdminInvoicesController',
         function($scope, OrdersFactory, uiGridConstants, getInvoiceStatusTextFilter,
-        NotificationService, DocumentTitleService, SecurityService, LoadingService) {
+        NotificationService, DocumentTitleService, SecurityService, LoadingService,
+        getNewInvoiceStatusFilter, getPayOnAccountStatusTextFilter) {
     DocumentTitleService('Invoices');
     SecurityService.requireStaff();
 
@@ -54,6 +55,10 @@ angular.module('cp.controllers.admin').controller('AdminInvoicesController',
                 ]
             },
             {
+                displayName: 'Paid on Account',
+                field: 'isPaidOnAccountStatusText'
+            },
+            {
                 cellTemplate: `
                     <div class="ui-grid-cell-contents">
                         <a href="/admin/customer/{{row.entity.order.customer.id}}">{{row.entity.order.customerUser.name}}, {{row.entity.order.customer.company}}</a>
@@ -64,7 +69,7 @@ angular.module('cp.controllers.admin').controller('AdminInvoicesController',
             },
             {
                 displayName: 'Invoice Status',
-                field: 'statusTextTranslation'
+                field: 'invoiceStatusTexts.statusText'
             },
             {
                 cellFilter: 'currency:\'£\':2',
@@ -75,6 +80,8 @@ angular.module('cp.controllers.admin').controller('AdminInvoicesController',
                 cellTemplate: `
                     <div class="ui-grid-cell-contents">
                         <a href="/admin/invoice/{{row.entity[col.field]}}">View</a>
+                        <br />
+                        <a ng-if="row.entity.order.isPaidOnAccount" class="invoice-status" ng-click="grid.appScope.toggleInvoiceStatus(row.entity.id, row.entity.statusText)">Set as {{row.entity.invoiceStatusTexts.actionText}}</a>
                     </div>
                 `,
                 displayName: 'View',
@@ -86,13 +93,15 @@ angular.module('cp.controllers.admin').controller('AdminInvoicesController',
         enableFiltering: true,
         enableSorting: true,
         paginationPageSizes: [25, 50, 75],
-        paginationPageSize: 25
+        paginationPageSize: 25,
+        rowHeight: 80
     };
 
     function loadInvoices() {
         OrdersFactory.getAllCustomerInvoices().success(response => {
             angular.forEach(response.invoices, row => {
-                row.statusTextTranslation = getInvoiceStatusTextFilter(row.statusText);
+                row.invoiceStatusTexts = getInvoiceStatusTextFilter(row.statusText);
+                row.isPaidOnAccountStatusText = getPayOnAccountStatusTextFilter(row.order.isPaidOnAccount);
             });
 
             $scope.gridOptions.data = response.invoices;
@@ -102,4 +111,18 @@ angular.module('cp.controllers.admin').controller('AdminInvoicesController',
     }
 
     loadInvoices();
+
+    $scope.toggleInvoiceStatus = function(id, status) {
+        LoadingService.show();
+
+        const newStatus = getNewInvoiceStatusFilter(status);
+
+        OrdersFactory.updateCustomerInvoiceStatus(id, newStatus)
+            .then(() => {
+                loadInvoices();
+                NotificationService.notifySuccess('The invoice has been updated.');
+                LoadingService.hide();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
 });

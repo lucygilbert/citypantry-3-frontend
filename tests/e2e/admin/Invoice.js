@@ -7,7 +7,7 @@ describe('Admin - invoice page', function() {
         if (isFirst) {
             loginAsUser('alice@bunnies.test');
             browser.get('/admin/invoices');
-            gridTestUtils.enterFilterInColumn('invoices-table', 5, 'Awaiting');
+            gridTestUtils.enterFilterInColumn('invoices-table', 6, 'Awaiting');
             element.all(by.css('#invoices-table a[href^="/admin/invoice/"]')).first().click();
             isFirst = false;
         }

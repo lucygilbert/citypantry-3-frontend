@@ -42,7 +42,9 @@ angular.module('cp')
     ])
     .constant('CP_BANK_ACCOUNT_NUMBER', '29201632')
     .constant('CP_BANK_NAME', 'National Westminster Bank PLC')
-    .constant('CP_BANK_SORT_CODE', '60-30-20');
+    .constant('CP_BANK_SORT_CODE', '60-30-20')
+    .constant('INVOICE_STATUS_AWAITING_PAYMENT', 1)
+    .constant('INVOICE_STATUS_PAID', 2);
 
 angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvider, GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY,
         $sceDelegateProvider) {
