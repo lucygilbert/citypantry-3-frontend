@@ -221,7 +221,11 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                     deliveryTimeEnd: $scope.package.deliveryTimeEnd,
                     deliveryCostIncludingVat: $scope.package.deliveryCostIncludingVat,
                     freeDeliveryThreshold: $scope.package.freeDeliveryThreshold,
-                    vendor: $scope.vendor.id
+                    canDeliverCutleryAndServiettes: $scope.package.canDeliverCutleryAndServiettes,
+                    canSetUpAfterDelivery: $scope.package.canSetUpAfterDelivery,
+                    costToSetUpAfterDelivery: Number($scope.package.costToSetUpAfterDelivery),
+                    canCleanUpAfterDelivery: $scope.package.canCleanUpAfterDelivery,
+                    costToCleanUpAfterDelivery: Number($scope.package.costToCleanUpAfterDelivery)
                 };
 
                 var packageArguments = [packageDetails];
