@@ -25,10 +25,6 @@ describe('Admin - edit vendor page - Hong Tin', function() {
     it('should say that this vendor cannot have meal plan packages', function() {
         expect(element(by.model('vendor.isMealPlan')).isSelected()).toBe(false);
     });
-
-    it('should say that this vendor cannot set up after delivery', function() {
-        expect(element(by.model('vendor.canSetUpAfterDelivery')).isSelected()).toBe(false);
-    });
 });
 
 describe('Admin - edit vendor page - Sam\'s', function() {
@@ -38,9 +34,5 @@ describe('Admin - edit vendor page - Sam\'s', function() {
 
     it('should say that this vendor can have meal plan packages', function() {
         expect(element(by.model('vendor.isMealPlan')).isSelected()).toBe(true);
-    });
-
-    it('should say that this vendor can set up after delivery', function() {
-        expect(element(by.model('vendor.canSetUpAfterDelivery')).isSelected()).toBe(true);
     });
 });

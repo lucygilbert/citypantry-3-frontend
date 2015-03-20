@@ -19,10 +19,7 @@ angular.module('cp.controllers.admin').controller('AdminEditVendorController',
             description: $scope.vendor.description,
             cityPantryCommission: $scope.vendor.cityPantryCommission,
             misspellings: misspellings,
-            isMealPlan: $scope.vendor.isMealPlan,
-            canDeliverCutleryAndServiettes: $scope.vendor.canDeliverCutleryAndServiettes,
-            canSetUpAfterDelivery: $scope.vendor.canSetUpAfterDelivery,
-            canCleanUpAfterDelivery: $scope.vendor.canCleanUpAfterDelivery
+            isMealPlan: $scope.vendor.isMealPlan
         };
         VendorsFactory.updateVendor($routeParams.vendorId, updatedVendor)
             .success(response => {
