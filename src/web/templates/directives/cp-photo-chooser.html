@@ -1,0 +1,32 @@
+<div class="cp-photo-chooser">
+    <input cp-file-input ng-model="photoDataUris" multiple class="cp-photo-chooser-input" type="file" accept="image/*" />
+    <p ng-transclude class="cp-photo-chooser-help-message">
+    </p>
+
+    <div ng-if="presentingDuplicateWarning" class="cp-photo-chooser-warning" role="alert">
+        <button type="button" class="close" ng-click="dismissDuplicateWarning()" aria-label="Dismiss warning">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        One or more duplicate photos were ignored.
+    </div>
+    <div ng-if="presentingSizeError" class="cp-photo-chooser-error" role="alert">
+        <button type="button" class="close" ng-click="dismissSizeError()" aria-label="Dismiss error message">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        One or more photos were too small. Please provide photos that are at least {{ width }} by {{ height }} pixels large.
+    </div>
+
+    <div class="row" ng-if="album.length > 0">
+        <div class="col-xs-4" ng-repeat="photo in album track by $index">
+            <span class="cp-photo-chooser-thumbnail">
+                <div class="cp-photo-chooser-cover-indicator" aria-label="Cover photo" ng-if="photo.isCover">
+                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                </div>
+                <button ng-click="removePhoto($index)" type="button" class="close" aria-label="Remove photo">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <img ng-click="selectCoverPhoto($index)" class="cp-photo-chooser-thumbnail-photo" ng-src="{{ photo.thumbnailDataUri }}" />
+            </span>
+        </div>
+   </div>
+</div>
