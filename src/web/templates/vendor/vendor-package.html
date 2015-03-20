@@ -219,7 +219,83 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="package_can_deliver_cutlery_and_serviettes" class="checkbox-inline">
+                <input id="package_can_deliver_cutlery_and_serviettes"
+                    name="packageCanDeliverCutleryAndServiettes"
+                    type="checkbox"
+                    ng-model="package.canDeliverCutleryAndServiettes" />
+
+                Can you deliver cutlery and serviettes, for free?
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label for="package_can_set_up_after_delivery" class="checkbox-inline">
+                <input id="package_can_set_up_after_delivery"
+                    name="packageCanSetUpAfterDelivery"
+                    type="checkbox"
+                    ng-model="package.canSetUpAfterDelivery" />
+
+                Can you set up after delivery, for an additional cost?
+            </label>
+        </div>
+
+        <div class="form-group" ng-if="package.canSetUpAfterDelivery">
+            <label for="package_cost_to_set_up_after_delivery">
+                How much do you want to charge to set up after delivery?
+
+                <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCostToSetUpAfterDelivery.$error.required">(The cost is required.)</span>
+
+                <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCostToSetUpAfterDelivery.$error.number">(The cost must be a number.)</span>
+            </label>
+
+            <div class="input-group input-group-lg">
+                <div class="input-group-addon">£</div>
+                <input class="form-control input-lg"
+                    id="package_cost_to_set_up_after_delivery"
+                    name="packageCostToSetUpAfterDelivery"
+                    required
+                    aria-required="true"
+                    ng-model="package.costToSetUpAfterDelivery"
+                    currency-mask />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="package_can_clean_up_after_delivery" class="checkbox-inline">
+                <input id="package_can_clean_up_after_delivery"
+                    name="packageCanCleanUpAfterDelivery"
+                    type="checkbox"
+                    ng-model="package.canCleanUpAfterDelivery" />
+
+                Can you set up after delivery, for an additional cost?
+            </label>
+        </div>
+
+        <div class="form-group" ng-if="package.canCleanUpAfterDelivery">
+            <label for="package_cost_to_clean_up_after_delivery">
+                How much do you want to charge to clean up after delivery?
+
+                <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCostToCleanUpAfterDelivery.$error.required">(The cost is required.)</span>
+
+                <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCostToCleanUpAfterDelivery.$error.number">(The cost must be a number.)</span>
+            </label>
+
+            <div class="input-group input-group-lg">
+                <div class="input-group-addon">£</div>
+                <input class="form-control input-lg"
+                    id="package_cost_to_clean_up_after_delivery"
+                    name="packageCostToCleanUpAfterDelivery"
+                    required
+                    aria-required="true"
+                    ng-model="package.costToCleanUpAfterDelivery"
+                    currency-mask />
+            </div>
+        </div>
+
     </fieldset>
+
     <input class="btn btn-primary btn-lg" type="submit" value="{{submitValue}}" />
 </form>
 

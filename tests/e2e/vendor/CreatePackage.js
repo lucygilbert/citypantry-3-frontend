@@ -143,6 +143,38 @@ describe('Vendor portal - create package', function() {
         maxPeopleOptions.get(33).click(); // 50 people.
     });
 
+    it('should show the "cost to set up after delivery" only if the vendor can set up after delivery', function() {
+        var checkbox = element(by.model('package.canSetUpAfterDelivery'));
+        var cost = element(by.model('package.costToSetUpAfterDelivery'));
+
+        expect(checkbox.isSelected()).toBe(false);
+        expect(cost.isPresent()).toBe(false);
+
+        checkbox.click();
+
+        expect(cost.isPresent()).toBe(true);
+
+        checkbox.click();
+
+        expect(cost.isPresent()).toBe(false);
+    });
+
+    it('should show the "cost to clean up after delivery" only if the vendor can clean up after delivery', function() {
+        var checkbox = element(by.model('package.canCleanUpAfterDelivery'));
+        var cost = element(by.model('package.costToCleanUpAfterDelivery'));
+
+        expect(checkbox.isSelected()).toBe(false);
+        expect(cost.isPresent()).toBe(false);
+
+        checkbox.click();
+
+        expect(cost.isPresent()).toBe(true);
+
+        checkbox.click();
+
+        expect(cost.isPresent()).toBe(false);
+    });
+
     it('should be able to save the details', function() {
         var packageItems = element.all(by.css('input[name="packageItems[]"]'));
 
@@ -160,6 +192,9 @@ describe('Vendor portal - create package', function() {
         element.all(by.css('input[name="packageDeliveryDays[]"]')).get(0).click();
         element(by.model('package.deliveryCostIncludingVat')).sendKeys(15);
         element(by.model('package.freeDeliveryThreshold')).sendKeys(100);
+
+        element(by.model('package.canCleanUpAfterDelivery')).click();
+        element(by.model('package.costToCleanUpAfterDelivery')).sendKeys('12.50');
 
         element(by.css('main input.btn.btn-primary')).click();
     });
