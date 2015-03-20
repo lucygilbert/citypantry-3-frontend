@@ -20,6 +20,12 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
+                        src: ['src/web/lib/bootstrap-sass/assets/fonts/bootstrap/*'],
+                        dest: 'web/dist/fonts/bootstrap'
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
                         src: ['src/web/images/*'],
                         dest: 'web/dist/images',
                         filter: 'isFile'
