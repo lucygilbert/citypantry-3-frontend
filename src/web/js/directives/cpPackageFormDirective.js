@@ -24,6 +24,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             $scope.noticeOptions = PackagesFactory.getNoticeOptions();
             $scope.quantityOptions = PackagesFactory.getQuantityOptions();
             $scope.radiusOptions = PackagesFactory.getRadiusOptions();
+            $scope.packagingTypeOptions = PackagesFactory.getPackagingTypeOptions();
             $scope.vendor = {};
 
             function init() {
@@ -225,7 +226,8 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                     canSetUpAfterDelivery: $scope.package.canSetUpAfterDelivery,
                     costToSetUpAfterDelivery: Number($scope.package.costToSetUpAfterDelivery),
                     canCleanUpAfterDelivery: $scope.package.canCleanUpAfterDelivery,
-                    costToCleanUpAfterDelivery: Number($scope.package.costToCleanUpAfterDelivery)
+                    costToCleanUpAfterDelivery: Number($scope.package.costToCleanUpAfterDelivery),
+                    packagingType: $scope.package.packagingType
                 };
 
                 var packageArguments = [packageDetails];

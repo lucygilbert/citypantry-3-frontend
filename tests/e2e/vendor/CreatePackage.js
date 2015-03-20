@@ -54,6 +54,17 @@ describe('Vendor portal - create package', function() {
         dietaryTypeCheckbox.click();
     });
 
+    it('should have packaging type options', function() {
+        var packagingType = element(by.model('package.packagingType'));
+
+        expect(packagingType.all(by.css('option')).count()).toBe(4);
+
+        packagingType.element(by.cssContainingText('option', 'Either')).click();
+
+        // The empty option should have been removed.
+        expect(packagingType.all(by.css('option')).count()).toBe(3);
+    });
+
     it('should load the vendor\'s addresses', function() {
         var addresses = element.all(by.repeater('vendorAddress in vendor.addresses'));
         expect(addresses.count()).toBe(1);
