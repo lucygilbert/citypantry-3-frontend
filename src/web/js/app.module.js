@@ -9,7 +9,7 @@ angular.module('cp', [
     'cp.factories',
     'cp.filters',
     'cp.services',
-    'currencyMask'
+    'currencyMask',
     'ngCookies',
     'ngRoute',
     'ui.bootstrap',
@@ -17,7 +17,7 @@ angular.module('cp', [
     'ui.grid',
     'ui.grid.pagination',
     'uiGmapgoogle-maps',
-    'uiSlider',
+    'uiSlider'
 ]);
 
 const baseHost = window.location.host.replace('order.', '');
