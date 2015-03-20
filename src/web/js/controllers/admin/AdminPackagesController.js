@@ -63,7 +63,8 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
         enableFiltering: true,
         enableSorting: true,
         paginationPageSizes: [25, 50, 75],
-        paginationPageSize: 25
+        paginationPageSize: 25,
+        rowHeight: 80
     };
 
     function loadPackages() {
