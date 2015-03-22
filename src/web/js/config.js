@@ -145,6 +145,11 @@ angular.module('cp').config(function($routeProvider) {
             controllerAs: 'vendors',
             templateUrl: '/dist/templates/admin/vendors.html'
         }).
+        when('/admin/vendors/edit', {
+            controller: 'AdminEditVendorsController',
+            controllerAs: 'vendors',
+            templateUrl: '/dist/templates/admin/edit-vendors.html'
+        }).
         when('/admin/vendor/:vendorId', {
             controller: 'AdminEditVendorController',
             templateUrl: '/dist/templates/admin/edit-vendor.html'
@@ -153,6 +158,11 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'AdminPackagesController',
             controllerAs: 'packages',
             templateUrl: '/dist/templates/admin/packages.html'
+        }).
+        when('/admin/packages/edit', {
+            controller: 'AdminEditPackagesController',
+            controllerAs: 'packages',
+            templateUrl: '/dist/templates/admin/edit-packages.html'
         }).
         when('/admin/package/:packageId', {
             controller: 'AdminEditPackageController',

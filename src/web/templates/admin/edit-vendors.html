@@ -1,0 +1,31 @@
+<div class="wide-wrapper">
+    <h1>Edit vendors</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Can deliver meal plans?</th>
+                <th>Misspellings</th>
+                <th>Save</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="vendor in vendors">
+                <td>
+                    <input ng-model="vendor.name" ng-change="vendor.hasChanged = true" />
+                </td>
+                <td>
+                    <input type="checkbox" ng-model="vendor.isMealPlan" ng-change="vendor.hasChanged = true" />
+                </td>
+                <td>
+                    <input ng-model="vendor.misspellings" ng-change="vendor.hasChanged = true" />
+                </td>
+                <td>
+                    <button ng-click="save(vendor)" ng-show="vendor.hasChanged">Save</button>
+                    <p ng-show="!vendor.hasChanged">No changes</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
