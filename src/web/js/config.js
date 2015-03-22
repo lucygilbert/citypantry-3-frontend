@@ -159,6 +159,11 @@ angular.module('cp').config(function($routeProvider) {
             controllerAs: 'packages',
             templateUrl: '/dist/templates/admin/packages.html'
         }).
+        when('/admin/packages/edit', {
+            controller: 'AdminEditPackagesController',
+            controllerAs: 'packages',
+            templateUrl: '/dist/templates/admin/edit-packages.html'
+        }).
         when('/admin/package/:packageId', {
             controller: 'AdminEditPackageController',
             templateUrl: '/dist/templates/admin/edit-package.html'
