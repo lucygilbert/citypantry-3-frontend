@@ -22,7 +22,7 @@ module.exports = function (grunt) {
                         flatten: true,
                         src: ['src/web/lib/bootstrap-sass/assets/fonts/bootstrap/*'],
                         dest: 'web/dist/fonts/bootstrap'
-                    }
+                    },
                     {
                         expand: true,
                         flatten: true,
