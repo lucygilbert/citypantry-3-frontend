@@ -23,7 +23,8 @@ angular.module('cp.controllers.admin').controller('AdminEditPackagesController',
         const updatedPackage = {
             name: pkg.name,
             isMealPlan: pkg.isMealPlan,
-            packagingType: pkg.packagingType
+            packagingType: pkg.packagingType,
+            canDeliverCutleryAndServiettes: pkg.canDeliverCutleryAndServiettes
         };
         PackagesFactory.updatePackage(pkg.id, updatedPackage)
             .success(response => {
