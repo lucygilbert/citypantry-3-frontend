@@ -9,83 +9,14 @@
 @import '../lib/angular-ui-carousel.scss';
 
 @import 'directives/cp-header';
-
-html {
-    -webkit-font-smoothing: antialiased;
-    font-weight: 300;
-    font-size: $font-size-base;
-}
+@import 'partials/cp-search';
+@import 'partials/cp-header';
 
 //nav ul {
 //    list-style: none;
 //    margin: 0;
 //    padding: 0;
 //}
-
-/**
- * Headings
- *
- */
-
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4 {
-    color: #222;
-    color: rgba(0, 0, 0, .87);
-    font-weight: 700;
-    line-height: 1.125;
-    margin: 0 0 .75rem;
-    text-rendering: optimizeLegibility;
-}
-
-h1, .h1 {
-    font-size: 1.777rem;
-    //margin-bottom: 1.5rem;
-}
-
-@media only screen and (min-width: $screen-sm-min) {
-    h1, .h1 {
-        font-size: 2.369rem;
-    }
-}
-
-h2, .h2 {
-    font-size: 1.333rem;
-}
-
-@media only screen and (min-width: $screen-sm-min) {
-    h2, .h2 {
-        font-size: 1.777rem;
-    }
-}
-
-h3, .h3,
-h4, .h4 {
-    font-size: 1rem;
-}
-
-@media only screen and (min-width: $screen-sm-min) {
-    h3, .h3,
-    h4, .h4 {
-        font-size: 1.333rem;
-    }
-}
-
-/**
- * Common typographical elements
- */
-
-p,
-ol,
-ul {
-    margin-bottom: 1.5rem;
-}
-
-p + ol,
-p + ul {
-    margin-top: -.75rem;
-}
 
 /**
  * Links
