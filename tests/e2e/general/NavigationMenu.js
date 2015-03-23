@@ -71,9 +71,11 @@ describe('Navigation Menu', function() {
         myAccountButton.click();
         expect(myAccountMenu.isDisplayed()).toBe(true);
 
+        expect(myAccountMenu.getText()).toContain('Edit packages');
+        expect(myAccountMenu.getText()).toContain('Edit vendors');
         expect(myAccountMenu.getText()).toContain('My details');
         expect(myAccountMenu.getText()).toContain('Log out');
-        expect(myAccountMenuLinks.count()).toBe(2);
+        expect(myAccountMenuLinks.count()).toBe(4);
     });
 
     it('should present the default navigation options to people who aren\'t logged in', function() {
