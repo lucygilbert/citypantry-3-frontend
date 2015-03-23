@@ -32,6 +32,13 @@ angular.module('cp.services').service('ApiService', function($http, $cookies) {
             config = addAuthHeaders(config);
 
             return $http.delete(url, config);
+        },
+
+        getAuthHeaders: function() {
+            return {
+                'X-CityPantry-UserId': $cookies.userId,
+                'X-CityPantry-AuthToken': $cookies.salt,
+            };
         }
     };
 });
