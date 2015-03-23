@@ -29,7 +29,7 @@ describe('Vendor portal - create package', function() {
         expect(element.all(by.repeater('allergenTypeOption in allergenTypeOptions')).get(0).getText()).toContain('Cereals containing gluten');
 
         // Event types.
-        expect(element.all(by.repeater('eventTypeOption in eventTypeOptions')).count()).toBe(7);
+        expect(element.all(by.repeater('eventTypeOption in eventTypeOptions')).count()).toBe(6);
         expect(element.all(by.repeater('eventTypeOption in eventTypeOptions')).get(0).getText()).toContain('Breakfast');
     });
 
