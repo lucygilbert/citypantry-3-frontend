@@ -17,7 +17,8 @@ angular.module('cp', [
     'ui.grid',
     'ui.grid.pagination',
     'uiGmapgoogle-maps',
-    'uiSlider'
+    'uiSlider',
+    'angularFileUpload'
 ]);
 
 const baseHost = window.location.host.replace('order.', '');
