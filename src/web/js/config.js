@@ -3,9 +3,6 @@ angular.module('cp').config(function($routeProvider) {
         when('/', {
             redirectTo: '/search'
         }).
-        when('/upload', {
-            templateUrl: '/dist/templates/upload.html',
-        }).
         when('/login', {
             controller: 'LoginRegisterController',
             templateUrl: '/dist/templates/auth/login-register.html'
