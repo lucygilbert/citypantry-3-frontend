@@ -47,7 +47,7 @@ describe('Vendor portal - edit package', function() {
         expect(element.all(by.repeater('allergenTypeOption in allergenTypeOptions')).get(0).getText()).toContain('Cereals containing gluten');
 
         // Event types.
-        expect(element.all(by.repeater('eventTypeOption in eventTypeOptions')).count()).toBe(7);
+        expect(element.all(by.repeater('eventTypeOption in eventTypeOptions')).count()).toBe(6);
         expect(element.all(by.repeater('eventTypeOption in eventTypeOptions')).get(0).getText()).toContain('Breakfast');
     });
 
@@ -68,9 +68,8 @@ describe('Vendor portal - edit package', function() {
         expect(element.all(by.css('input[name="packageAllergenTypes[]"]')).get(11).isSelected()).toBe(true);
         expect(element.all(by.css('input[name="packageAllergenTypes[]"]')).get(0).isSelected()).toBe(false);
 
-        // Event types: "Breakfast" and "Christmas".
+        // Event types: "Breakfast".
         expect(element.all(by.css('input[name="packageEventTypes[]"]')).get(0).isSelected()).toBe(true);
-        expect(element.all(by.css('input[name="packageEventTypes[]"]')).get(6).isSelected()).toBe(true);
         expect(element.all(by.css('input[name="packageEventTypes[]"]')).get(1).isSelected()).toBe(false);
 
         expect(element.all(by.css('input[name="packageHotFood"]')).get(1).isSelected()).toBe(true);
