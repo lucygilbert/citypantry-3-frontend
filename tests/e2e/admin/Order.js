@@ -75,14 +75,8 @@ describe('Admin - order page', function() {
             element(by.css('form[name="refundOrderForm"] .btn.btn-primary')).click();
             notificationModal.expectIsOpen();
             notificationModal.expectSuccessHeader();
-            notificationModal.expectMessage('Order has been refunded.');
+            notificationModal.expectMessage('Order has been refunded £50.');
             notificationModal.dismiss();
-        });
-
-        it('should have persisted the refund reason', function() {
-            browser.refresh();
-
-            expect(element(by.id('refund_reason')).getAttribute('value')).toBe('Delivery was 30 mins late.');
         });
     });
 

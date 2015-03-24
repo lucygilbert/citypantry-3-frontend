@@ -128,7 +128,7 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
 
         const refundDetails = {
             refundAmount: $scope.refundAmount,
-            refundReason: $scope.order.refundReason,
+            refundReason: $scope.refundReason,
         };
 
         OrdersFactory.refundOrder($routeParams.orderId, refundDetails)
