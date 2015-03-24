@@ -5,6 +5,8 @@ angular.module('cp.controllers.admin').controller('AdminEditPackagesController',
 
     $scope.packagingTypes = PackagesFactory.getPackagingTypeOptions();
 
+    $scope.noticeOptions = PackagesFactory.getNoticeOptions();
+
     PackagesFactory.getAllPackages()
         .success(response => {
             $scope.packages = response.packages.sort((a, b) => a.name.localeCompare(b.name));
@@ -24,7 +26,8 @@ angular.module('cp.controllers.admin').controller('AdminEditPackagesController',
             name: pkg.name,
             isMealPlan: pkg.isMealPlan,
             packagingType: pkg.packagingType,
-            canDeliverCutleryAndServiettes: pkg.canDeliverCutleryAndServiettes
+            canDeliverCutleryAndServiettes: pkg.canDeliverCutleryAndServiettes,
+            notice: pkg.notice,
         };
         PackagesFactory.updatePackage(pkg.id, updatedPackage)
             .success(response => {
