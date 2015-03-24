@@ -9,6 +9,9 @@
                 <th>Is meal plan?</th>
                 <th>Packaging type</th>
                 <th>Can deliver cutlery and serviettes?</th>
+                <th>Notice required</th>
+                <th>Cuisine type</th>
+                <th>Event types</th>
                 <th>Save</th>
             </tr>
         </thead>
@@ -30,6 +33,23 @@
                 </td>
                 <td>
                     <input type="checkbox" ng-model="package.canDeliverCutleryAndServiettes" ng-change="package.hasChanged = true" />
+                </td>
+                <td>
+                    <select ng-options="option.value as option.label for option in noticeOptions"
+                        ng-model="package.notice"
+                        ng-change="package.hasChanged = true"></select>
+                </td>
+                <td>
+                    <select ng-options="cuisine.id as cuisine.name for cuisine in cuisineTypes"
+                        ng-model="package.cuisineTypeId"
+                        ng-change="package.hasChanged = true"></select>
+                </td>
+                <td>
+                    <select ng-options="event.id as event.name for event in eventTypes"
+                        ng-model="package.eventTypeIds"
+                        ng-change="package.hasChanged = true"
+                        multiple
+                        size="6"></select>
                 </td>
                 <td>
                     <button ng-click="save(package)" ng-show="package.hasChanged">Save</button>
