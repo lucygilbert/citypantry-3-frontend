@@ -29,6 +29,13 @@ describe('Admin - mass edit packages page', function() {
         expect(cuisineTypes.element(by.cssContainingText('option', 'Mexican')).isPresent()).toBe(true);
     });
 
+    it('should load event type options', function() {
+        var eventTypes = element.all(by.model('package.eventTypeIds')).get(0);
+
+        expect(eventTypes.element(by.cssContainingText('option', 'Dinner')).isPresent()).toBe(true);
+        expect(eventTypes.element(by.cssContainingText('option', 'Sweets')).isPresent()).toBe(true);
+    });
+
     it('should not show the save button when the package has not been edited', function() {
         expect(saveButton.isDisplayed()).toBe(false);
     });

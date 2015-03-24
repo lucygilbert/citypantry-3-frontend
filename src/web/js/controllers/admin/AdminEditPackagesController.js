@@ -16,10 +16,15 @@ angular.module('cp.controllers.admin').controller('AdminEditPackagesController',
         .success(response => {
             $scope.packages = response.packages.sort((a, b) => a.name.localeCompare(b.name));
             $scope.packages.forEach(pkg => pkg.cuisineTypeId = (pkg.cuisineType ? pkg.cuisineType.id : null));
+            $scope.packages.forEach(pkg => pkg.eventTypeIds = pkg.eventTypes.map(eventType => eventType.id));
         })
         .error(response => NotificationService.notifyError(response.data.errorTranslation));
 
-    $q.all([loadingPromise1, loadingPromise2]).then(() => LoadingService.hide());
+    const loadingPromise3 = PackagesFactory.getEventTypes()
+        .success(response => $scope.eventTypes = response.eventTypes)
+        .error(response => NotificationService.notifyError(response.data.errorTranslation));
+
+    $q.all([loadingPromise1, loadingPromise2, loadingPromise3]).then(() => LoadingService.hide());
 
     $scope.save = function(pkg) {
         if (!pkg.hasChanged) {
@@ -34,7 +39,8 @@ angular.module('cp.controllers.admin').controller('AdminEditPackagesController',
             packagingType: pkg.packagingType,
             canDeliverCutleryAndServiettes: pkg.canDeliverCutleryAndServiettes,
             notice: pkg.notice,
-            cuisineType: pkg.cuisineTypeId
+            cuisineType: pkg.cuisineTypeId,
+            eventTypes: pkg.eventTypeIds
         };
         PackagesFactory.updatePackage(pkg.id, updatedPackage)
             .success(response => {
