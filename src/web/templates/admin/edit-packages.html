@@ -10,6 +10,7 @@
                 <th>Packaging type</th>
                 <th>Can deliver cutlery and serviettes?</th>
                 <th>Notice required</th>
+                <th>Cuisine type</th>
                 <th>Save</th>
             </tr>
         </thead>
@@ -35,6 +36,11 @@
                 <td>
                     <select ng-options="option.value as option.label for option in noticeOptions"
                         ng-model="package.notice"
+                        ng-change="package.hasChanged = true"></select>
+                </td>
+                <td>
+                    <select ng-options="cuisine.id as cuisine.name for cuisine in cuisineTypes"
+                        ng-model="package.cuisineTypeId"
                         ng-change="package.hasChanged = true"></select>
                 </td>
                 <td>
