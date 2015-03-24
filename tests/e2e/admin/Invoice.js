@@ -27,6 +27,6 @@ describe('Admin - invoice page', function() {
         expect(invoice).toMatch(/Food\/Drink £(\d*\.\d{2}|\d+) 15/); // Head count = 15.
         expect(invoice).toContain('Subtotal £0.00');
         expect(invoice).toContain('VAT £0.00');
-        expect(invoice).toContain('Grand Total £150.00');
+        expect(invoice).toContain('Grand Total £127.50');
     });
 });
