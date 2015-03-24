@@ -1,0 +1,54 @@
+<div class="account-main thin-wrapper">
+    <h2>ACCOUNT DETAILS</h2>
+    <div ng-show="!showEditDetailsForm">
+        <h3>{{authUser.customer.company}}</h3>
+        <p>{{authUser.user.name}}<br />
+        {{authUser.user.email}}<br /></p>
+
+        <a ng-click="showEditDetailsForm = true" class="link-account">EDIT</a>
+    </div>
+    <div class="account-edit-form" ng-show="showEditDetailsForm">
+        <form ng-submit="save()">
+            <div class="account-edit-form-inputs">
+                <label for="company_name">Company Name</label><br />
+                <input class="form-control input-lg" size="30" type="text" required ng-model="inputs.customer.company" /><br />
+                <label for="user_name">Full Name</label><br />
+                <input class="form-control input-lg" size="30" type="text" required ng-model="inputs.user.name" /><br />
+                <label for="user_email">Email Address</label><br />
+                <input class="form-control input-lg" size="30" type="email" required ng-model="inputs.user.email" />
+            </div>
+
+            <input type="submit" value="Save changes" class="btn btn-primary" />
+            <a class="btn btn-link" ng-click="cancel()">Cancel</a>
+        </form>
+
+    </div>
+
+    <hr />
+
+    <h2>DELIVERY DETAILS</h2>
+
+    <div ng-repeat="address in addresses">
+        <p>{{address.label}}</p>
+        <p ng-bind-html="address | addressSingleLineFormatter:'<br />'"></p>
+        <p>{{address.officeManagerName}}<br />
+        {{address.landlineNumber}}</p>
+
+        <a href="/customer/addresses/{{address.id}}" class="link-account">VIEW/EDIT</a>
+    </div>
+
+    <a href="/customer/addresses/new" class="link-account clear">ADD AN ADDRESS</a>
+
+    <hr />
+
+    <h2>PAYMENT DETAILS</h2>
+
+    <div ng-repeat="card in paymentCards">
+        <p>{{card.type}}<br />
+        XXXX XXXX XXXX {{card.last4}}<br />
+        {{card.expiryDate}}</p>
+    </div>
+
+    <a href="/user/payment-cards/new" class="link-account clear">ADD A CARD</a>
+
+</div>

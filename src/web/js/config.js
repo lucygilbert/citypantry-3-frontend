@@ -20,6 +20,10 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'QuoteController',
             templateUrl: '/dist/templates/general/quote.html'
         }).
+        when('/customer/account-details', {
+            controller: 'CustomerAccountDetailsController',
+            templateUrl: '/dist/templates/customer/account-details.html'
+        }).
         when('/customer/account', {
             controller: 'CustomerPersonalDetailsController',
             templateUrl: '/dist/templates/customer/personal-details.html'

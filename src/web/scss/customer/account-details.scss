@@ -1,0 +1,37 @@
+.account-main {
+    hr {
+        height: 3px;
+        color: #eee;
+        background-color: #eee;
+        clear: both;
+    }
+
+    .account-edit-form {
+        width: 100%;
+    }
+
+    .account-edit-form-inputs {
+        background-color: #ddd;
+        width: 100%;
+        float: none;
+        padding: 10px;
+    }
+
+    .clear {
+        clear: left;
+        display: block;
+    }
+
+    div {
+        float: left;
+        width: 33%;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        img {
+            margin-top: -7px;
+        }
+    }
+}
