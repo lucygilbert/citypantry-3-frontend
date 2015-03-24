@@ -68,6 +68,22 @@ describe('Admin - order page', function() {
             notificationModal.dismiss();
             expect(events.count()).toBe(1);
         });
+
+        it('should be able to refund an order', function() {
+            element(by.id('refund_amount')).clear().sendKeys(50);
+            element(by.id('refund_reason')).sendKeys('Delivery was 30 mins late.');
+            element(by.css('form[name="refundOrderForm"] .btn.btn-primary')).click();
+            notificationModal.expectIsOpen();
+            notificationModal.expectSuccessHeader();
+            notificationModal.expectMessage('Order has been refunded.');
+            notificationModal.dismiss();
+        });
+
+        it('should have persisted the refund reason', function() {
+            browser.refresh();
+
+            expect(element(by.id('refund_reason')).getAttribute('value')).toBe('Delivery was 30 mins late.');
+        });
     });
 
     describe('editing a courier order', function() {

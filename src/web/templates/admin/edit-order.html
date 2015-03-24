@@ -160,6 +160,35 @@
         </fieldset>
     </form>
 
+    <h3>Refund customer</h3>
+
+    <form name="refundOrderForm" novalidate role="form" ng-submit="refund()">
+        <fieldset>
+            <div class="form-group">
+                <label for="refund_amount">
+                    Refund amount
+                    <span class="form-element-invalid" ng-show="refundOrderForm.$submitted && refundOrderForm.refundAmount.$error.required">(Refund amount is required.)</span>
+                    <span class="form-element-invalid" ng-show="refundOrderForm.$submitted && refundOrderForm.refundAmount.$error.number">(Refund amount must be a number.)</span>
+                    <span class="form-element-invalid" ng-show="refundOrderForm.$submitted && refundOrderForm.refundAmount.$error.min">(Refund amount must be greater than 0.)</span>
+                    <span class="form-element-invalid" ng-show="refundOrderForm.$submitted && refundOrderForm.refundAmount.$error.max">(Refund amount cannot be greater than order total.)</span>
+                </label>
+                <div class="input-group input-group-lg">
+                    <div class="input-group-addon">£</div>
+                    <input class="form-control input-lg" id="refund_amount" name="refundAmount" type="number" min="0.01" max="{{ order.totalAmountAfterVoucher }}" step="0.01" required aria-required="true" ng-model="refundAmount" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="refund_reason">Reason for refund</label>
+                <textarea class="form-control input-lg" id="refund_reason" name="refundReason" rows="3" ng-model="order.refundReason"></textarea>
+            </div>
+
+            <input class="btn btn-primary" type="submit" value="Refund" />
+
+            <p class="help-block">Clicking “Refund” will trigger an email to the customer.</p>
+        </fieldset>
+    </form>
+
     <br />
 
     <h2>Message history</h2>

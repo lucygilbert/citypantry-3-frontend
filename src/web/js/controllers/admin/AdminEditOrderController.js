@@ -7,6 +7,7 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
     $scope.headCount = undefined;
     $scope.messages = [];
     $scope.order = {};
+    $scope.refundAmount = 0;
     $scope.vegetarianHeadCountOptions = [];
     $scope.vegetarianHeadCount = undefined;
 
@@ -114,6 +115,28 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
 
         OrdersFactory.deleteOrder($routeParams.orderId, reason)
             .then(() => $location.path('/admin/orders'))
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
+    $scope.refund = () => {
+        if (!$scope.refundOrderForm.$valid) {
+            $scope.refundOrderForm.$submitted = true;
+            return;
+        }
+
+        LoadingService.show();
+
+        const refundDetails = {
+            refundAmount: $scope.refundAmount,
+            refundReason: $scope.order.refundReason,
+        };
+
+        OrdersFactory.refundOrder($routeParams.orderId, refundDetails)
+            .success(response => {
+                $scope.order = response.order;
+                NotificationService.notifySuccess('Order has been refunded £' + $scope.refundAmount + '.');
+                LoadingService.hide();
+            })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 });
