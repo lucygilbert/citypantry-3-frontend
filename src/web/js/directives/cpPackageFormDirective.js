@@ -1,6 +1,6 @@
 angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies, $location, $q,
         $window, LoadingService, AddressFactory, PackagesFactory, VendorsFactory, uiGmapGoogleMapApi,
-        MAP_CENTER, NotificationService, SecurityService) {
+        MAP_CENTER, NotificationService, SecurityService, ApiService, API_BASE, $upload) {
     return {
         restrict: 'E',
         scope: {
@@ -207,6 +207,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                     name: $scope.package.name,
                     shortDescription: $scope.package.shortDescription ? $scope.package.shortDescription : null,
                     description: $scope.package.description,
+                    images: $scope.package.images,
                     items: ($scope.package.items.length > 0) ? $scope.package.items : [],
                     dietaryRequirements: ($scope.package.dietaryRequirements.length > 0) ? $scope.package.dietaryRequirements : [],
                     allergenTypes: ($scope.package.allergenTypes.length > 0) ? $scope.package.allergenTypes : [],
@@ -257,6 +258,40 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                         $scope.packageFormError = response.data.errorTranslation;
                         LoadingService.hide();
                     });
+            };
+
+            $scope.upload = function (files, event) {
+                // If we don't call 'preventDefault()', the button acts as a submit for the form.
+                event.preventDefault();
+
+                if (!files || !files.length) {
+                    return;
+                }
+
+                LoadingService.show();
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+
+                    $upload.upload({
+                        url: API_BASE + '/packages/upload-image' + ($scope.package.id ? '?id=' + $scope.package.id : ''),
+                        file: file,
+                        headers: ApiService.getAuthHeaders()
+                    }).success(response => {
+                        if ($scope.package.images === undefined) {
+                            $scope.package.images = [];
+                        }
+
+                        $scope.package.images.push({
+                            original: response.paths.originalUrl,
+                            large: response.paths.largeUrl,
+                            medium: response.paths.mediumUrl,
+                            thumbnail: response.paths.thumbnailUrl
+                        });
+
+                        LoadingService.hide();
+                    });
+                }
             };
         },
         templateUrl: '/dist/templates/vendor/vendor-package.html'

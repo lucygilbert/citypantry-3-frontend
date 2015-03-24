@@ -10,6 +10,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignupPackageControlle
         dietaryRequirements: [],
         eventTypes: [],
         items: ['', '', '', ''],
+        images: [],
         maxPeople: 50,
         minPeople: 10
     };

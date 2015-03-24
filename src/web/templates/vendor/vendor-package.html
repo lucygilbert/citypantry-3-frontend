@@ -310,6 +310,18 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <h2>Photos</h2>
+
+            <p><button ng-file-select ng-file-change="upload($files, $event)">Click here to upload some photos</button></p>
+
+            <p ng-if="package.images.length > 0">Your photos:</p>
+
+            <p ng-repeat="image in package.images">
+                <img ng-src="{{ image.thumbnail }}" />
+            </p>
+        </div>
+
     </fieldset>
 
     <input class="btn btn-primary btn-lg" type="submit" value="{{submitValue}}" />

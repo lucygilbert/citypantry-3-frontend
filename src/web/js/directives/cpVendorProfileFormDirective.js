@@ -1,5 +1,5 @@
 angular.module('cp').directive('cpVendorProfileForm', function($cookies, $location, LoadingService,
-        PackagesFactory, VendorsFactory, NotificationService) {
+        PackagesFactory, VendorsFactory, NotificationService, $upload, API_BASE, ApiService) {
     return {
         restrict: 'E',
         scope: {
@@ -32,7 +32,8 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $locati
                     twitterUrl: $scope.vendor.twitterUrl ? $scope.vendor.twitterUrl : null,
                     googlePlusUrl: $scope.vendor.googlePlusUrl ? $scope.vendor.googlePlusUrl : null,
                     youtubeUrl: $scope.vendor.youtubeUrl ? $scope.vendor.youtubeUrl : null,
-                    url: $scope.vendor.url ? $scope.vendor.url : null
+                    url: $scope.vendor.url ? $scope.vendor.url : null,
+                    images: $scope.vendor.images ? $scope.vendor.images : []
                 };
 
                 VendorsFactory.updateSelf(vendorDetails)
@@ -47,6 +48,40 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $locati
                         $scope.vendorProfileFormError = response.data.errorTranslation;
                         LoadingService.hide();
                     });
+            };
+
+            $scope.upload = function (files, event) {
+                // If we don't call 'preventDefault()', the button acts as a submit for the form.
+                event.preventDefault();
+
+                if (!files || !files.length) {
+                    return;
+                }
+
+                LoadingService.show();
+
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+
+                    $upload.upload({
+                        url: API_BASE + '/vendors/upload-image' + ($scope.vendor.id ? '?id=' + $scope.vendor.id : ''),
+                        file: file,
+                        headers: ApiService.getAuthHeaders()
+                    }).success(response => {
+                        if ($scope.vendor.images === undefined) {
+                            $scope.vendor.images = [];
+                        }
+
+                        $scope.vendor.images.push({
+                            original: response.paths.originalUrl,
+                            large: response.paths.largeUrl,
+                            medium: response.paths.mediumUrl,
+                            thumbnail: response.paths.thumbnailUrl
+                        });
+
+                        LoadingService.hide();
+                    });
+                }
             };
         },
         templateUrl: '/dist/templates/vendor/vendor-profile.html'

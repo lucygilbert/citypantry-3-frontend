@@ -26,6 +26,13 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
+                        src: ['src/web/lib/ng-file-upload/*'],
+                        dest: 'web/dist/ng-file-upload',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
                         src: ['src/web/images/*'],
                         dest: 'web/dist/images',
                         filter: 'isFile'
@@ -140,6 +147,8 @@ module.exports = function (grunt) {
                         'src/web/lib/angular-ui-datepicker.js',
                         'src/web/lib/angular-ui-transition.js',
                         'src/web/lib/angular-ui-carousel.js',
+                        'src/web/lib/ng-file-upload/angular-file-upload-shim.min.js',
+                        'src/web/lib/ng-file-upload/angular-file-upload.min.js',
                     ],
                     'web/dist/js/built-citypantry-es6.js': [
                         'src/web/js/app.module.js',
