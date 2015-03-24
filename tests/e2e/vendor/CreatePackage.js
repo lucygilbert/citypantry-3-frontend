@@ -17,8 +17,8 @@ describe('Vendor portal - create package', function() {
 
     it('should load select options and checkboxes', function() {
         // Cuisine types.
-        expect(element.all(by.css('#package_cuisine_type > option')).count()).toBe(13); // 12 options + default option = 13.
-        expect(element.all(by.css('#package_cuisine_type > option')).get(1).getText()).toBe('British');
+        expect(element.all(by.css('#package_cuisine_type > option')).count()).toBe(32); // 12 options + default option = 13.
+        expect(element.all(by.css('#package_cuisine_type > option')).get(1).getText()).toBe('American');
 
         // Dietary types.
         expect(element.all(by.repeater('dietaryTypeOption in dietaryTypeOptions')).count()).toBe(7);

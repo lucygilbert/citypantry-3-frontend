@@ -35,8 +35,8 @@ describe('Vendor portal - edit package', function() {
 
     it('should load select options and checkboxes', function() {
         // Cuisine types.
-        expect(element.all(by.css('#package_cuisine_type > option')).count()).toBe(12);
-        expect(element.all(by.css('#package_cuisine_type > option')).get(0).getText()).toBe('British');
+        expect(element.all(by.css('#package_cuisine_type > option')).count()).toBe(31);
+        expect(element.all(by.css('#package_cuisine_type > option')).get(0).getText()).toBe('American');
 
         // Dietary types.
         expect(element.all(by.repeater('dietaryTypeOption in dietaryTypeOptions')).count()).toBe(7);
@@ -52,7 +52,7 @@ describe('Vendor portal - edit package', function() {
     });
 
     it('should load the package details', function() {
-        expect(element(by.id('package_cuisine_type')).$('option:checked').getText()).toBe('European');
+        expect(element(by.id('package_cuisine_type')).$('option:checked').getText()).toBe('Swiss');
         expect(element(by.model('package.name')).getAttribute('value')).toBe('Carrots');
         expect(element(by.model('package.description')).getAttribute('value')).toBe('Yum');
 
