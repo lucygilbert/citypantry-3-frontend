@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg6727" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="95.531" width="95.5" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<defs id="defs6729">
+<clipPath id="clipPath290" clipPathUnits="userSpaceOnUse">
+<path id="path292" d="M0,768,1024,768,1024,0,0,0,0,768z"/>
+</clipPath>
+</defs>
+<metadata id="metadata6732">
+<rdf:RDF>
+<cc:Work rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+<dc:title/>
+</cc:Work>
+</rdf:RDF>
+</metadata>
+<g id="layer1" transform="translate(-90.53125,-713.34375)">
+<g id="g286" transform="matrix(1.25,0,0,-1.25,22.583911,890.56473)">
+<g id="g288" clip-path="url(#clipPath290)">
+<g id="g294" transform="translate(73.8972,117.1541)">
+<path id="path296" fill-rule="nonzero" fill="#2c4c70" d="m0,0,7.691,0,2.086-11.495c0.164-0.901,0.287-1.923,0.451-3.068,0.205-1.718,0.245-2.578,0.368-4.746,0.082,0.9,0.164,1.595,0.205,2.045,0.081,0.942,0.245,2.128,0.49,3.641,0.164,1.145,0.368,2.046,0.491,2.7l2.332,10.923h7.528v-27.286h-5.36v15.505c0,1.472,0.082,2.454,0.204,6.012l0.082,2.25-0.327-2.25-0.45-3.149-0.409-2.577-3.314-15.791h-3.517l-3.192,16.036c-0.245,1.228-0.491,3.109-0.818,5.687l-0.245,2.044,0.041-2.168,0.082-2.863,0.041-2.577v-16.159h-4.46v27.286z"/>
+</g>
+<g id="g298" transform="translate(106.4977,104.7175)">
+<path id="path300" fill-rule="nonzero" fill="#2c4c70" d="M0,0c2.168,0,2.904,1.063,2.904,4.173,0,2.741-0.899,3.969-2.904,3.969h-1.35v-8.142h1.35zm-6.832,12.437,6.832,0c2.741,0,3.272-0.083,4.5-0.573,2.618-0.982,4.214-4.051,4.214-8.059,0-2.495-0.654-4.745-1.8-6.218-0.573-0.695-1.351-1.31-2.291-1.719-1.145-0.49-2.087-0.654-4.337-0.654h-1.636v-10.064h-5.482v27.287z"/>
+</g>
+</g>
+</g>
+<path id="path1818" stroke-linejoin="miter" d="m184.16,761.11c0,25.341-20.544,45.885-45.885,45.885s-45.885-20.544-45.885-45.885,20.544-45.885,45.885-45.885,45.885,20.544,45.885,45.885z" stroke="#2c4c70" stroke-linecap="butt" stroke-miterlimit="10" stroke-dasharray="none" stroke-width="3.75" fill="none"/>
+</g>
+</svg>
