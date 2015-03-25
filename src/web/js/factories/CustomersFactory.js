@@ -12,7 +12,7 @@ angular.module('cp.factories').factory('CustomersFactory', function(ApiService, 
 
         getAddressById: id => {
             const pluckMatchingAddress = response => {
-                const allAddresses = response.data,
+                const allAddresses = response.data.addresses,
                     allIds = allAddresses.map(address => address.id),
                     address = allAddresses[allIds.indexOf(id)];
 
