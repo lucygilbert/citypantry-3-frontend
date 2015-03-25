@@ -50,10 +50,10 @@ var helpers = require('./protractor-helpers.js');
 
         jasmineNodeOpts: {
             showColors: true,
-            defaultTimeoutInterval: 10000
+            defaultTimeoutInterval: 30000
         },
 
-        allScriptsTimeout: 10000,
+        allScriptsTimeout: 30000,
         baseUrl: 'http://order.citypantry.dev/',
     };
 
