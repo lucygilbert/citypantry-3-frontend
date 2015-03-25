@@ -15,7 +15,7 @@ describe('Register', function() {
         expect(browser.getCurrentUrl()).toMatch(/\/login$/);
 
         // Should show an error.
-        var error = element(by.css('.island-alt.signup p.error'));
+        var error = element(by.css('.island-alt.signup p.form-error'));
         expect(error.getText()).toBe('A user already exists with that email address');
         expect(error.isDisplayed()).toBe(true);
     });
