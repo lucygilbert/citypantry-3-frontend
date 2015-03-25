@@ -8,23 +8,20 @@ angular.module('cp.factories').factory('VendorsFactory', function(ApiService, AP
 
         getAddresses: () => ApiService.get(`${API_BASE}/addresses`),
 
-        getAddressById: (id) => {
-            const deferred = $q.defer();
+        getAddressById: id => {
+            const pluckMatchingAddress = response => {
+                const allAddresses = response.data.addresses,
+                    allIds = allAddresses.map(address => address.id),
+                    address = allAddresses[allIds.indexOf(id)];
 
-            ApiService.get(`${API_BASE}/addresses`).success(function(response) {
-                const addresses = response.addresses;
-                let address;
-                for (let i = 0; i < addresses.length; i++) {
-                    if (addresses[i].id === id) {
-                        address = addresses[i];
-                    }
+                if (address) {
+                    return address;
+                } else {
+                    throw 'Couldn’t find address';
                 }
-                deferred.resolve(address);
-            }).catch(function() {
-                deferred.reject();
-            });
+            };
 
-            return deferred.promise;
+            return ApiService.get(`${API_BASE}/addresses`).then(pluckMatchingAddress);
         },
 
         getBusinessTypes: () => ApiService.get(`${API_BASE}/business-types`),
