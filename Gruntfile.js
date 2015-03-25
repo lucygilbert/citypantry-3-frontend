@@ -47,6 +47,13 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
+                        src: ['src/web/images/icons/*'],
+                        dest: 'web/dist/images/icons',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
                         src: ['src/web/templates/admin/*'],
                         dest: 'web/dist/templates/admin',
                         filter: 'isFile'
@@ -102,7 +109,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '.',
-                    src: 'web/dist/images/**/*.{png,jpg,gif}',
+                    src: 'web/dist/images/**/*.{png,jpg,gif,svg}',
                     dest: '.'
                 }]
             }
