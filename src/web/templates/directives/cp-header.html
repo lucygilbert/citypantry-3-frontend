@@ -1,16 +1,14 @@
 <nav class="cp-header">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="cp-button-nav-menu" ng-click="togglePresentNavMenu()" data-target="#bs-example-navbar-collapse-1">
-                Menu
-            </button>
-            <a class="navbar-brand" href="#">
-                <img class="cp-logo" src="/dist/images/cp_logo.png" alt="City Pantry">
-            </a>
-        </div>
+    <div class="navbar-header">
+        <button type="button" class="cp-button-nav-menu" ng-click="togglePresentNavMenu()" data-target="#bs-example-navbar-collapse-1">
+            Menu
+        </button>
+        <a class="navbar-brand" href="# @todo">
+            <img class="cp-logo" src="/dist/images/cp_logo.png" alt="City Pantry" />
+        </a>
+    </div>
 
-        <div collapse="navMenuPresented" class="navbar-collapse">
-            <ul ng-include="navMenuItemsTemplateUrl()" class="cp-nav-menu"></ul>
-        </div>
+    <div collapse="navMenuPresented" class="navbar-collapse">
+        <ul ng-include="navMenuItemsTemplateUrl()" class="cp-nav-menu"></ul>
     </div>
 </nav>

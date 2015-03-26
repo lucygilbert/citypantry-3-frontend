@@ -2,15 +2,21 @@
 <li><a href="/vendor/addresses">Addresses</a></li>
 <li><a href="/vendor/profile">Profile</a></li>
 <li><a href="/vendor/packages">Packages</a></li>
-<li><a href="/vendor/create-package">Create package</a></li>
+<li><a href="/vendor/create-package">Create Package</a></li>
 <li class="dropdown" dropdown>
     <a href="#" class="cp-button-my-account" dropdown-toggle role="button" aria-expanded="false">
-        My account <span class="caret"></span>
+        My Account <span class="caret"></span>
     </a>
     <ul class="cp-nav-menu-my-account" role="menu">
-        <li><a href="/vendor/delivery-radiuses">Delivery radiuses</a></li>
-        <li><a href="{{ hubspotBase }}/agreement">Supplier agreement</a></li>
-        <li><a href="/customer/account">My details</a></li>
-        <li><a href="/logout">Log out</a></li>
+        <li><a href="/vendor/delivery-radiuses">Delivery Radiuses</a></li>
+        <li><a href="{{ hubspotBase }}/agreement">Supplier Agreement</a></li>
+        <li><a href="/customer/account">My Details</a></li>
+        <li><a href="/logout">Log Out</a></li>
     </ul>
+</li>
+<li>
+    <a class="cp-call-us" href="tel:{{ phoneNumberInternational }}">
+        <img src="/dist/images/icons/telephone.svg" width="33" height="27" />
+        <div class="cp-call-us-number">{{ phoneNumberUk }}</div>
+    </a>
 </li>

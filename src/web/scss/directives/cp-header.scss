@@ -1,14 +1,24 @@
 @import '../modules/cp-variables';
 
-$cp-font-size-call-us-number: 19px;
+$cp-font-size-header: 15px;
 $cp-vertical-margin-header-large-element: ($navbar-height - $input-height-large) / 2;
+$cp-header-main-item-height: 35px;
+$cp-header-main-item-vertical-padding: 7px;
+$cp-header-secondary-item-vertical-padding: 6px;
+$cp-header-nav-item-horizontal-padding: 10px;
+
+cp-header {
+    display: block;
+    max-width: $screen-lg;
+    padding: 0 $grid-gutter-width;
+    margin: 0 auto;
+}
 
 .cp-header {
-    @extend .navbar;
-    @extend .navbar-default;
-    @extend .navbar-static-top;
-    text-transform: uppercase;
-    background: $body-bg;
+    .navbar-header > a.navbar-brand {
+        padding: 23px 0;
+        height: 66px;
+    }
 
     .cp-button-nav-menu {
         @extend .navbar-toggle;
@@ -19,9 +29,69 @@ $cp-vertical-margin-header-large-element: ($navbar-height - $input-height-large)
     }
 
     .cp-nav-menu {
-        @extend .nav;
-        @extend .navbar-nav;
-        @extend .navbar-right;
+        float: right;
+        list-style: none;
+        margin: 17px 0 0 0;
+        padding: 0;
+
+        > li {
+            float: left;
+            padding-top: $cp-header-main-item-vertical-padding;
+            padding-bottom: $cp-header-main-item-vertical-padding;
+            font-size: $cp-font-size-header;
+            height: $cp-header-main-item-height;
+            padding-left: $cp-header-nav-item-horizontal-padding;
+            padding-right: $cp-header-nav-item-horizontal-padding;
+            margin-right: 20px;
+        }
+
+        @media (max-width: 1205px) {
+            > li {
+                margin-right: 0;
+            }
+        }
+
+        > li,
+        > li > a {
+            color: $cp-primary-color;
+            font-weight: bold;
+            font-size: $cp-font-size-header;
+            line-height: $cp-header-main-item-height - $cp-header-main-item-vertical-padding - $cp-header-main-item-vertical-padding;
+            text-decoration: none;
+        }
+
+        li.dropdown {
+            ul {
+                margin: -1px -1px 0 0;
+                padding: 0;
+                background-color: $cp-primary-color;
+            }
+            li {
+                border-top: 1px dotted white;
+            }
+            li a {
+                padding-top: $cp-header-secondary-item-vertical-padding;
+                padding-bottom: $cp-header-secondary-item-vertical-padding;
+                padding-left: $cp-header-nav-item-horizontal-padding;
+                padding-right: $cp-header-nav-item-horizontal-padding;
+                text-decoration: none;
+                font-weight: normal;
+            }
+            li a:hover {
+                background-color: transparent;
+            }
+        }
+
+        > li.dropdown.open {
+            background-color: $cp-primary-color;
+
+            a {
+                color: white;
+            }
+            a .caret {
+                transform: rotateX(180deg);
+            }
+        }
     }
 
     .cp-button-my-account {
@@ -32,63 +102,29 @@ $cp-vertical-margin-header-large-element: ($navbar-height - $input-height-large)
         @extend .dropdown-menu;
         @extend .dropdown-menu-right;
         text-transform: none;
+        min-width: 145px;
     }
 
     .cp-logo {
-        margin-top: 1px;
         height: 20px;
         margin-right: $navbar-padding-horizontal;
     }
 
-    .cp-form-search {
-        @extend .navbar-form;
-        margin-top: $cp-vertical-margin-header-large-element;
-        margin-bottom: $cp-vertical-margin-header-large-element;
-    }
-
-    .cp-input-search {
-        @extend .form-control;
-        @extend .input-lg;
-        border-right: none;
-        border-top: $cp-outline-width solid $cp-outline-color;
-        border-left: $cp-outline-width solid $cp-outline-color;
-        border-bottom: $cp-outline-width solid $cp-outline-color;
-        box-shadow: none;
-        font-size: $font-size-base;
-    }
-
-    .cp-btn-search {
-        @extend .btn;
-        @extend .btn-default;
-        @extend .btn-lg;
-        border-top: $cp-outline-width solid $cp-outline-color;
-        border-right: $cp-outline-width solid $cp-outline-color;
-        border-bottom: $cp-outline-width solid $cp-outline-color;
-        height: $input-height-large;
-        background-image: url("/dist/images/icon-search.png");
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: $font-size-base $font-size-base;
-    }
-
     .cp-call-us {
         @extend .hidden-xs;
-        padding-top: $cp-vertical-margin-header-large-element !important;
-        padding-bottom: $cp-vertical-margin-header-large-element !important;
-        height: $input-height-large;
-    }
 
-    .cp-call-us-message {
-        text-transform: none;
-        @extend .small;
+        > img {
+            float: left;
+            margin-right: $navbar-padding-horizontal;
+            margin-top: -7px;
+        }
     }
 
     .cp-call-us-number {
-        font-size: $cp-font-size-call-us-number;
-        line-height: $cp-font-size-call-us-number;
-        color: $cp-secondary-color;
+        float: left;
+        font-size: $cp-font-size-header;
+        color: $cp-primary-color;
         font-weight: bold;
         letter-spacing: 1px;
-        margin: 0;
     }
 }
