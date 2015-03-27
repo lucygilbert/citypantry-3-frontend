@@ -1,4 +1,5 @@
 angular.module('cp', [
+    'angularFileUpload',
     'checklist-model',
     'cp.controllers.admin',
     'cp.controllers.authentication',
@@ -11,14 +12,14 @@ angular.module('cp', [
     'cp.services',
     'currencyMask',
     'ngCookies',
+    'js.clamp',
     'ngRoute',
     'ui.bootstrap',
     'ui.bootstrap.carousel',
     'ui.grid',
     'ui.grid.pagination',
     'uiGmapgoogle-maps',
-    'uiSlider',
-    'angularFileUpload'
+    'uiSlider'
 ]);
 
 const baseHost = window.location.host.replace('order.', '');

@@ -1,12 +1,13 @@
-<a href="/package/{{ package.humanId }}-{{ package.name | slugify }}">
-    <div class="package-image-wrap">
-        <div class="package-image" style="background-image: url('{{ package.images[0].medium }}');"></div>
-        <span class="btn btn-order">Order Now</span>
+<div class="cp-search-package" ng-if="package">
+    <div class="cp-search-package-photo">
+        <img ng-src="{{ package.images[0].medium }}">
     </div>
-    <h2 class="package-name">{{ package.name }}</h2>
-    <span class="package-price">{{ package.costIncludingVat | currency:'£' }} <small>per head</small></span>
-</a>
-
-<a class="hidden-xs package-vendor" href="/vendor/{{ package.vendor.id }}-{{ package.vendor.slug }}">
-    {{ package.vendor.name }}
-</a>
+    <div class="cp-search-package-info">
+        <div class="cp-search-package-name" ng-bind="package.name" js-clamp="'2'"></div>
+        <div class="cp-search-package-vendor">{{ package.vendor.name }}</div>
+    </div>
+    <div class="cp-search-package-price-tag">
+        <span class="cp-search-package-price">{{ package.costIncludingVat | currency:'£' }}</span>
+        <!--span class="cp-search-package-price-info">per head</span-->
+    </div>
+</div>
