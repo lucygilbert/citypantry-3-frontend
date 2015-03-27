@@ -11,7 +11,7 @@ describe('Customer delivery addresses', function() {
     });
 
     it('should show the addresses page', function() {
-        expect(element(by.css('h1')).getText()).toBe('Delivery addresses');
+        expect(element(by.css('h1')).getText()).toBe('DELIVERY ADDRESSES');
     });
 
     it('should have one address', function() {
@@ -22,7 +22,7 @@ describe('Customer delivery addresses', function() {
 
     it('should be able to add an address', function() {
         var addAddressButton = element.all(by.css('main p a')).get(0);
-        expect(addAddressButton.getText()).toBe('Add a new address');
+        expect(addAddressButton.getText()).toBe('ADD A NEW ADDRESS');
         addAddressButton.click();
 
         expect(browser.getCurrentUrl()).toMatch(/customer\/addresses\/new$/);
@@ -54,7 +54,7 @@ describe('Customer delivery addresses', function() {
 
     it('should be able to edit an address', function() {
         var editAddressButton = element.all(by.css('.cp-edit-address')).get(0);
-        expect(editAddressButton.getText()).toBe('Edit');
+        expect(editAddressButton.getText()).toBe('EDIT');
         editAddressButton.click();
 
         expect(browser.getCurrentUrl()).toMatch(/customer\/addresses\/[0-9a-f]{24}$/);

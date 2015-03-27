@@ -11,7 +11,7 @@ describe('Vendor portal - your addresses', function() {
     });
 
     it('should show the addresses page', function() {
-        expect(element(by.css('h1')).getText()).toBe('Your business addresses');
+        expect(element(by.css('h1')).getText()).toBe('YOUR BUSINESS ADDRESSES');
     });
 
     it('should have three addresses', function() {
@@ -24,7 +24,7 @@ describe('Vendor portal - your addresses', function() {
 
     it('should be able to add an address', function() {
         var addAddressButton = element(by.css('main a.add-address'));
-        expect(addAddressButton.getText()).toBe('Add another business address');
+        expect(addAddressButton.getText()).toBe('ADD ANOTHER BUSINESS ADDRESS');
         addAddressButton.click();
 
         expect(browser.getCurrentUrl()).toMatch(/vendor\/new-address$/);
@@ -52,7 +52,7 @@ describe('Vendor portal - your addresses', function() {
 
     it('should be able to edit an address', function() {
         var editAddressButton = element.all(by.css('.cp-edit-address')).get(0);
-        expect(editAddressButton.getText()).toBe('Edit');
+        expect(editAddressButton.getText()).toBe('EDIT');
         editAddressButton.click();
 
         expect(browser.getCurrentUrl()).toMatch(/vendor\/addresses\/[0-9a-f]{24}$/);
