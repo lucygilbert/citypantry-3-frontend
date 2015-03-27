@@ -16,7 +16,7 @@ describe('Vendor portal - your packages', function() {
     it('should have a button to create a new package', function() {
         var createPackageButton = element(by.css('main a.create-package'));
         expect(createPackageButton.isDisplayed()).toBe(true);
-        expect(createPackageButton.getText()).toBe('Create package');
+        expect(createPackageButton.getText()).toBe('CREATE PACKAGE');
     });
 
     it('should have 3 packages', function() {

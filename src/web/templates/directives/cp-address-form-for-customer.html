@@ -1,0 +1,120 @@
+<form name="form" ng-submit="save()">
+    <p class="form-error" ng-show="error" ng-bind="error"></p>
+
+    <div class="form-group">
+        <label for="address_label">
+            {{ isNew ? 'Save address as...' : 'Saved location' }}
+        </label>
+
+        <input class="form-control input-lg" id="address_label" name="addressLabel"
+            ng-model="address.label" size="30" />
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+        <label for="company_name">
+            Company name
+            <span class="form-element-invalid" ng-show="form.$submitted && form.companyName.$error.required">(Company's name is required.)</span>
+        </label>
+
+        <input class="form-control input-lg" id="company_name" name="companyName"
+            required aria-required="true"
+            ng-model="address.companyName" size="30" />
+    </div>
+
+    <div class="form-group">
+        <label for="address_line1">
+            Address line 1
+            <span class="form-element-invalid" ng-show="form.$submitted && form.addressLine1.$error.required">(Address line 1 is required.)</span>
+        </label>
+
+        <input class="form-control input-lg" id="address_line1" name="addressLine1"
+            required aria-required="true"
+            ng-model="address.addressLine1" size="50" />
+    </div>
+
+    <div class="form-group">
+        <label for="address_line2">Address line 2</label>
+
+        <input class="form-control input-lg" id="address_line2" name="addressLine2"
+            ng-model="address.addressLine2" size="50" />
+    </div>
+
+    <div class="form-group">
+        <label for="address_line3">Address line 3</label>
+
+        <input class="form-control input-lg" id="address_line3" name="addressLine3"
+            ng-model="address.addressLine3" size="50" />
+    </div>
+
+    <div class="form-group" id="form-group-city">
+        <label for="city">
+            Town/City
+            <span class="form-element-invalid" ng-show="form.$submitted && form.city.$error.required">(City is required.)</span>
+        </label>
+
+        <input class="form-control input-lg" id="city" name="city" required aria-required="true"
+            ng-model="address.city" size="20" />
+    </div>
+
+    <div class="form-group">
+        <label for="postcode">
+            Postcode
+            <span class="form-element-invalid" ng-show="form.$submitted && form.postcode.$error.required">(Postcode is required.)</span>
+            <span class="form-element-invalid" ng-show="form.$submitted && form.postcode.$error.pattern">(Postcode is invalid.)</span>
+        </label>
+
+        <input class="form-control input-lg" id="postcode" name="postcode" size="10"
+            required aria-required="true"
+            ng-model="address.postcode"
+            ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+        <label for="office_manager_name">
+            Contact name on arrival
+            <span class="form-element-invalid" ng-show="form.$submitted && form.officeManagerName.$error.required">(Office manager's name is required.)</span>
+        </label>
+
+        <input class="form-control input-lg" id="office_manager_name" name="officeManagerName"
+            required aria-required="true" size="30"
+            ng-model="address.officeManagerName" />
+    </div>
+
+    <div class="form-group">
+        <label for="landline_number">
+            Landline number
+            <span class="form-element-invalid" ng-show="form.$submitted && form.LandlineNumber.$error.required">(Landline number is required.)</span>
+        </label>
+
+        <input class="form-control input-lg" id="landline_number" name="landlineNumber" type="tel"
+            required aria-required="true" size="30"
+            ng-model="address.landlineNumber" />
+    </div>
+
+    <hr />
+
+    <h2 class="cp-heading">Instructions for arrival</h2>
+
+    <div class="form-group">
+        <p>Do you have any instructions for the delivery driver's arrival?</p>
+
+        <textarea class="form-control input-lg" name="deliveryInstruction" ng-model="address.deliveryInstruction"></textarea>
+    </div>
+
+    <h2 class="cp-heading">Parking</h2>
+
+    <div class="form-group">
+        <p>Can you recommend anywhere to park nearby?</p>
+
+        <textarea class="form-control input-lg" name="parkingSuggestion" ng-model="address.parkingSuggestion"></textarea>
+    </div>
+
+    <hr />
+
+    <input type="submit" value="{{ isNew ? 'Save' : 'Save changes' }}" class="btn btn-primary" />
+    <a class="btn btn-link" ng-click="cancel()">Cancel</a>
+</form>

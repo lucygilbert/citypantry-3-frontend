@@ -15,6 +15,10 @@ form {
         font-size: 1rem;
         margin-bottom: .317rem;
     }
+
+    .form-control[size] {
+        width: auto;
+    }
 }
 
 .angular-google-map-container {
