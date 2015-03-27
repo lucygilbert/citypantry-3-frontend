@@ -1,11 +1,11 @@
-<!--div class="container">
+<div class="container">
     <h1 class="cp-heading">This is a title</h1>
 
     <div class="cp-search-form">
         <div class="row">
             <div class="form-group col-md-3">
                 <label class="cp-search-label" for="cp-search-delivery-date">Delivery date</label>
-                <input type="date" class="cp-search-field" id="cp-search-delivery-date">
+                <input ng-model="pickedDate" datepicker-popup="dd MMMM yyyy" datepicker-mode="day" year-range="2" datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}" is-open="isDatePickerOpen" ng-click="openDatePicker($event)" type="text" placeholder="DD/MM/YYYY" class="cp-search-field" id="cp-search-delivery-date">
             </div>
             <div class="form-group col-md-2">
                 <label class="cp-search-label" for="cp-search-delivery-time">Time</label>
@@ -13,7 +13,7 @@
             </div>
             <div class="form-group col-md-2">
                 <label class="cp-search-label" for="cp-search-people-count">How many people?</label>
-                <input type="number" class="cp-search-field" id="cp-search-people-count" placeholder="-">
+                <input ng-model="search.headCount" type="number" class="cp-search-field" id="cp-search-people-count" placeholder="-">
             </div>
             <div class="form-group col-md-2">
                 <label class="cp-search-label" for="cp-search-delivery-location">Delivery location</label>
@@ -27,80 +27,35 @@
                 <input ng-model="search.maxBudget" type="range" class="cp-search-budget-per-person-input" name="cp-search-budget-per-person" min="1" max="50" step="1">
             </div>
         </div>
-        <div class="row form-inline">
-            <div class="form-group col-xs-10">
-                <span class="cp-search-event-type-label">Event Type:</span>
-                <div class="checkbox">
-                    <label class="cp-search-event-type"><input type="checkbox"> Breakfast</label>
-                </div>
-                <div class="checkbox">
-                    <label class="cp-search-event-type"><input type="checkbox"> Lunch</label>
-                </div>
-                <div class="checkbox">
-                    <label class="cp-search-event-type"><input type="checkbox"> Dinner</label>
-                </div>
-                <div class="checkbox">
-                    <label class="cp-search-event-type"><input type="checkbox"> Sweets</label>
-                </div>
-                <div class="checkbox">
-                    <label class="cp-search-event-type"><input type="checkbox"> Canapé</label>
-                </div>
-                <div class="checkbox">
-                    <label class="cp-search-event-type"><input type="checkbox"> Snacks</label>
-                </div>
+        <div>
+            <span class="cp-search-event-type-label">Event Type:</span>
+            <div class="cp-search-event-type">
+                <label><input type="checkbox"> Breakfast</label>
+            </div>
+            <div class="cp-search-event-type">
+                <label><input type="checkbox"> Lunch</label>
+            </div>
+            <div class="cp-search-event-type">
+                <label><input type="checkbox"> Dinner</label>
+            </div>
+            <div class="cp-search-event-type">
+                <label><input type="checkbox"> Sweets</label>
+            </div>
+            <div class="cp-search-event-type">
+                <label><input type="checkbox"> Canapé</label>
+            </div>
+            <div class="cp-search-event-type">
+                <label><input type="checkbox"> Snacks</label>
             </div>
         </div>
     </div>
 
-    <div class="row" ng-repeat="package in packages track by $index" ng-if="$index % 4 == 0">
-        <div class="col-xs-3 cp-search-package" ng-if="packages[$index + 0]">
-            <div class="cp-search-package-photo">
-                <img ng-src="{{ packages[$index + 0].images[0].medium }}">
-            </div>
-            <div class="whatevr">
-                <h2 class="cp-search-package-name">{{ packages[$index + 0].name }}</h2>
-                <p class="cp-search-package-vendor">{{ packages[$index + 0].vendor.name }}</p>
-            </div>
-            <div class="cp-search-package-price">
-            </div>
-        </div>
-        <div class="col-xs-3 cp-search-package" ng-if="packages[$index + 1]">
-            <div class="cp-search-package-photo">
-                <img ng-src="{{ packages[$index + 1].images[0].medium }}">
-            </div>
-            <div class="whatevr">
-                <h2 class="cp-search-package-name">{{ packages[$index + 1].name }}</h2>
-                <p class="cp-search-package-vendor">{{ packages[$index + 1].vendor.name }}</p>
-            </div>
-            <div class="cp-search-package-price">
-            </div>
-        </div>
-        <div class="col-xs-3 cp-search-package" ng-if="packages[$index + 2]">
-            <div class="cp-search-package-photo">
-                <img ng-src="{{ packages[$index + 2].images[0].medium }}">
-            </div>
-            <div class="whatevr">
-                <h2 class="cp-search-package-name">{{ packages[$index + 2].name }}</h2>
-                <p class="cp-search-package-vendor">{{ packages[$index + 2].vendor.name }}</p>
-            </div>
-            <div class="cp-search-package-price">
-            </div>
-        </div>
-        <div class="col-xs-3 cp-search-package" ng-if="packages[$index + 3]">
-            <div class="cp-search-package-photo">
-                <img ng-src="{{ packages[$index + 3].images[0].medium }}">
-            </div>
-            <div class="whatevr">
-                <h2 class="cp-search-package-name">{{ packages[$index + 3].name }}</h2>
-                <p class="cp-search-package-vendor">{{ packages[$index + 3].vendor.name }}</p>
-            </div>
-            <div class="cp-search-package-price">
-            </div>
-        </div>
+    <div class="row">
+        <div ng-repeat="package in packages" class="col-sm-3 col-xs-6" cp-package-card package="package"></div>
     </div>
-</div-->
+</div>
 
-<div class="wrapper" id="search-page">
+<!--div class="wrapper" id="search-page">
     <div class="col-xs-3 sidebar">
         <h3 class="sr-only">Filter</h3>
 
@@ -108,10 +63,7 @@
             <div class="form-group">
                 <label for="date" ng-click="openDatePicker($event)">Date</label>
 
-                <input type="text" class="form-control input-lg" datepicker-popup="dd MMMM yyyy"
-                    ng-model="pickedDate" datepicker-mode="day" year-range="2"
-                    datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}"
-                    is-open="isDatePickerOpen" ng-click="openDatePicker($event)" />
+                <input type="text" class="form-control input-lg" />
             </div>
 
             <div class="form-group">
@@ -193,4 +145,4 @@
     </div>
 
     <div class="clearfix"></div>
-</div>
+</div-->
