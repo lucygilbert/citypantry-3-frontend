@@ -9,14 +9,16 @@ $cp-header-nav-item-horizontal-padding: 10px;
 
 cp-header {
     display: block;
-    padding: 0 $grid-gutter-width;
-    margin: 0 auto;
     background-color: $body-bg;
     position: relative;
     z-index: $zindex-navbar;
 }
 
 .cp-header {
+    margin: 0 auto;
+    max-width: $screen-lg;
+    padding: 0 $grid-gutter-width;
+
     .navbar-header > a.navbar-brand {
         padding: 23px 0;
         height: 66px;
