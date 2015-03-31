@@ -1,0 +1,54 @@
+@import '../modules/cp-bootstrap-variables';
+@import '../mixins/cp-font-title';
+@import 'cp-buttons';
+@import 'cp-forms';
+@import 'cp-modals';
+
+$cp-login-sign-up-height: 69px;
+
+.cp-login {
+    margin: 120px auto 0;
+    width: 390px;
+}
+
+.cp-login-heading {
+    @include cp-font-title($font-size-h2);
+    margin: 0 0 $cp-padding-xl-vertical;
+}
+
+.cp-login-form {
+    input[type="submit"] {
+        margin-top: 26px;
+    }
+}
+
+.cp-checkbox {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.cp-login-forgot-password {
+    color: $cp-primary-color;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: $cp-primary-color;
+        text-decoration: none;
+    }
+}
+
+.cp-login-sign-up {
+    background-color: $cp-primary-color;
+    height: $cp-login-sign-up-height;
+    line-height: $cp-login-sign-up-height - ($padding-base-vertical * 2);
+
+    > span {
+        font-weight: 400;
+
+        &::after {
+            content: ' \003e';
+        }
+    }
+}

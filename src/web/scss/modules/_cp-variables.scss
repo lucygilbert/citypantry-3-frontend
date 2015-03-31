@@ -1,10 +1,21 @@
 // Colors
 $cp-outline-color: #ccc;
 $cp-primary-color: #2c4c70;
-$cp-secondary-color: #428bca;
+$cp-secondary-color: #f15a24;
 
-// Metics
+// Metrics
 $cp-outline-width: 1px;
 
+$cp-margin-base-vertical: 24px;
+$cp-margin-large-vertical: 48px;
+$cp-margin-small-vertical: 12px;
+$cp-margin-xs-vertical: 6px;
+
+$cp-padding-xl-vertical: 18px;
+
 // Typography
-$cp-font-weight-base: 300;
+$cp-font-weight-base: 400;
+
+// Modals
+$cp-modal-padding-vertical: 30px;
+$cp-modal-padding-horizontal: 30px;

@@ -1,0 +1,21 @@
+// Arrows - use with ::before and ::after
+
+@mixin cp-arrow-right($height, $width, $color) {
+    border-top: $height solid transparent;
+    border-bottom: $height solid transparent;
+    border-left: $width solid $color;
+    content: '';
+    display: inline-block;
+    margin-left: 5px;
+}
+
+@mixin cp-arrow-down($height, $width, $color) {
+    border-top: $width solid $color;
+    border-right: $height solid transparent;
+    border-left: $height solid transparent;
+    content: '';
+    display: inline-block;
+    margin-left: 5px;
+    position: relative;
+    top: -2px;
+}
