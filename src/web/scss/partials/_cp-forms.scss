@@ -1,0 +1,47 @@
+.cp-form {
+    > fieldset {
+        background-color: $gray-lighter;
+        margin-bottom: 18px;
+        padding: $cp-padding-xl-vertical ($grid-gutter-width / 2);
+
+        > .cp-form-group:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.cp-form-group {
+    margin-bottom: $cp-margin-base-vertical;
+    position: relative;
+}
+
+.cp-form-label {
+    font-size: $font-size-h4;
+    font-weight: 600;
+    line-height: 1.167; // ~21px
+}
+
+.cp-form-control {
+    @extend .form-control;
+    border-width: 3px;
+    color: $cp-primary-color;
+    font-size: $font-size-h4;
+    font-weight: 600;
+    padding-right: $padding-small-horizontal;
+    padding-left: $padding-small-horizontal;
+}
+
+.cp-input-lg {
+    @extend .input-lg;
+    font-size: $font-size-h3;
+    height: $input-height-large;
+}
+
+.cp-checkbox {
+    @extend .checkbox;
+}
+
+.cp-form-error {
+    color: $state-danger-text;
+    font-size: $font-size-h4;
+}

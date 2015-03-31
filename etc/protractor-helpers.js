@@ -20,7 +20,7 @@ module.exports = {
         element(by.id('login_email')).sendKeys(email);
         element(by.id('login_password')).sendKeys('password');
 
-        element(by.css('form.login .btn.btn-primary')).click();
+        element(by.css('.cp-login-form input[type="submit"]')).click();
 
         browser.wait(function() {
             return browser.getCurrentUrl().then(function(url) {

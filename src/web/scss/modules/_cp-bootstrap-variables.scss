@@ -3,7 +3,8 @@ $icon-font-path: "/dist/fonts/bootstrap/";
 
 // Bootstrap metrics
 $navbar-height: 77px;
-$input-height-large: 52px;
+$input-height-base: 38px;
+$input-height-large: 56px;
 
 $input-border: #2c4c70;
 
@@ -11,25 +12,38 @@ $border-radius-large: 0;
 $border-radius-base: 0;
 $border-radius-small: 0;
 
-$font-size-h2: 20px;
-
 // Bootstrap typography
 $font-family-base: proxima-nova, 'helvetica neue', helvetica, sans-serif;
 $btn-font-weight: 400;
 
+$font-size-large: 20px;
+
+$font-size-h1: 50px;
+$font-size-h2: 30px;
+$font-size-h3: 26px;
+$font-size-h4: 18px;
+$font-size-h5: 14px;
+$font-size-h6: 12px;
+
 // Bootstrap colors
 $brand-primary: #2c4c70;
-$btn-primary-border: rgba(0,0,0,0);
+$btn-primary-border: rgba(0, 0, 0, 0);
 
 $text-color: $brand-primary;
 
-$link-color: #428bca;
+$link-color: #f15a24;
 $input-border-focus: #1985FF;
 $input-border: #2c4c70;
 
-$body-bg: #fff;
-
 $btn-primary-bg: #f15a24;
+
+$gray-dark: #999;
+$gray: #bfbfbf;
+$gray-light: #efefef;
+$gray-lighter: #f5f5f5;
 
 
 // Bootstrap breakpoints
+
+// Bootstrap modals
+$modal-md: 510px;

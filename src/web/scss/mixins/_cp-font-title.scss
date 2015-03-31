@@ -1,0 +1,8 @@
+@mixin cp-font-title($font-size) {
+    font-family: franklin-gothic-urw-cond, 'arial narrow', 'helvetica neue', helvetica, sans-serif;
+    font-size: $font-size;
+    font-weight: 700;
+    letter-spacing: .05em;
+    line-height: 1;
+    text-transform: uppercase;
+}

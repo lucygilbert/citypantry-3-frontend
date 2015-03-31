@@ -1,0 +1,7 @@
+@mixin cp-blur($radius) {
+       -moz-filter: blur($radius);
+        -ms-filter: blur($radius);
+         -o-filter: blur($radius);
+    -webkit-filter: blur($radius);
+            filter: blur($radius);
+}

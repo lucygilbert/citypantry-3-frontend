@@ -1,0 +1,77 @@
+@import '../mixins/cp-arrows';
+
+.cp-modal {
+    @extend .modal;
+}
+
+.cp-modal-dialog {
+    @extend .modal-dialog;
+}
+
+.cp-modal-content {
+    @extend .modal-content;
+    @include box-shadow(0 0 15px rgba(0, 0, 0, .5));
+}
+
+.cp-modal-header {
+    @extend .modal-header;
+    border-bottom: 0;
+    padding: $cp-modal-padding-vertical $cp-modal-padding-horizontal 0;
+}
+
+.cp-modal-title {
+    @extend .modal-title;
+    @include cp-font-title($font-size-h2);
+    margin-bottom: $cp-margin-small-vertical;
+}
+
+.cp-modal-body {
+    @extend .modal-body;
+    padding: 0 $cp-modal-padding-horizontal;
+
+    p {
+        font-size: $font-size-h4;
+        margin-bottom: $cp-margin-base-vertical;
+    }
+
+    .cp-modal-title {
+        margin-top: $cp-margin-base-vertical;
+        margin-bottom: $cp-margin-base-vertical;
+        text-align: center;
+    }
+
+    .icon {
+        display: block;
+        margin-bottom: $cp-margin-base-vertical;
+        text-align: center;
+    }
+}
+
+.cp-modal-footer {
+    @extend .modal-footer;
+    border-top: 0;
+    padding: 0 $cp-modal-padding-horizontal $cp-modal-padding-vertical;
+    text-align: left;
+}
+
+.cp-modal-backdrop {
+    @extend .modal-backdrop;
+    bottom: 0;
+    opacity: .5;
+    z-index: $zindex-modal;
+}
+
+.cp-modal-one-of-many-selection {
+    @extend .row;
+    font-size: 16px !important;
+    font-weight: 600;
+    line-height: 1.125; // 18px
+
+    > a {
+        @extend .col-xs-6;
+
+        &::after {
+            @include cp-arrow-right(4px, 4px, $cp-secondary-color);
+        }
+    }
+}

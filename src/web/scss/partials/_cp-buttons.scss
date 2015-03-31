@@ -1,0 +1,36 @@
+.cp-btn {
+    @extend .btn;
+    height: $input-height-large;
+}
+
+.cp-btn-primary {
+    @extend .btn-primary;
+    @include cp-font-title($font-size-large);
+    background-color: $cp-secondary-color;
+}
+
+.cp-btn-link {
+    @extend .btn-link;
+    font-size: $font-size-h4;
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        color: $cp-primary-color;
+    }
+}
+
+.cp-btn-lg {
+    @extend .btn-lg;
+    font-size: 24px;
+    height: 66px;
+}
+
+.cp-btn-sm {
+    height: $input-height-base;
+}
+
+.cp-btn-block {
+    @extend .btn-block;
+}
