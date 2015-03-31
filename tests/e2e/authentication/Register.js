@@ -1,4 +1,4 @@
-describe('Register', function() {
+xdescribe('Register', function() {
     beforeEach(function() {
         browser.get('/logout');
         browser.get('/login');
