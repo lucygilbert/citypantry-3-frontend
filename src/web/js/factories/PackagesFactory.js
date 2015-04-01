@@ -50,6 +50,7 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
                 { label: 'Sunday',    value: 'Sunday' }
             ];
         },
+
         getDeliveryTimeOptions: () => {
             var minutes = 0;
 
@@ -69,6 +70,7 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
 
             return options;
         },
+
         getNoticeOptions: () => {
             return [
                 { label: '1 hour',   value: 1 },
@@ -90,6 +92,7 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
                 { label: '14 days',  value: 336 }
             ];
         },
+
         getQuantityOptions: () => {
             var i = 1;
             var step = 1;
@@ -114,6 +117,7 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
 
             return options;
         },
+
         getRadiusOptions: () => {
             const options = [];
 
@@ -137,5 +141,30 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
                 { label: 'Either', value: 3 }
             ];
         },
+
+        getPackageDeliveryTimeOptions: (start, end, interval = 15) => {
+            let startMinutes = (Math.floor(start / 100) * 60) + (start % 100);
+            let endMinutes = (Math.floor(end / 100) * 60) + (end % 100);
+
+            const options = [];
+
+            while (startMinutes <= endMinutes) {
+                let hour = ('0' + Math.floor(startMinutes / 60)).slice(-2);
+                let minute = ('0' + startMinutes % 60).slice(-2);
+
+                options.push({
+                    label: hour + ':' + minute,
+                    value: parseInt(hour + minute, 10)
+                });
+
+                startMinutes += interval;
+            }
+
+            return options;
+        },
+
+        checkIfPackageCanBeDeliveredToPostcode: (id, postcode) => ApiService.get(`${API_BASE}/packages/${id}/availability?postcode=${postcode}`),
+
+        checkIfPackageCanBeDelivered: (id, dateTime, postcode) => ApiService.get(`${API_BASE}/packages/${id}/availability?dateTime=${dateTime}&postcode=${postcode}`)
     };
 });
