@@ -11,20 +11,21 @@ describe('Customer delivery addresses', function() {
 
     it('should show the page and the correct details', function() {
         expect(element.all(by.css('h2')).first().getText()).toBe('ACCOUNT DETAILS');
-        expect(element(by.css('h3')).getText()).toBe('Aperture Science');
-        expect(element.all(by.css('p')).first().getText()).toContain('Customer');
-        expect(element.all(by.css('p')).first().getText()).toContain('customer@bunnies.test');
+        var firstParagraphText = element.all(by.css('p')).first().getText();
+        expect(firstParagraphText).toContain('Aperture Science');
+        expect(firstParagraphText).toContain('Customer');
+        expect(firstParagraphText).toContain('customer@bunnies.test');
 
         expect(element.all(by.css('h2')).get(1).getText()).toBe('DELIVERY DETAILS');
-        expect(element.all(by.css('p')).get(1).getText()).toBe('Lena Gardens');
-        expect(element.all(by.css('p')).get(2).getText()).toContain('25 Lena Gardens');
-        expect(element.all(by.css('p')).get(3).getText()).toContain('Bunny Rabbit');
-        expect(element.all(by.css('p')).get(3).getText()).toContain('02012345678');
+        expect(element.all(by.css('p.address-label')).get(0).getText()).toBe('Lena Gardens');
+        expect(element.all(by.css('p.address-lines')).get(0).getText()).toContain('25 Lena Gardens');
+        expect(element.all(by.css('p.address-office-manager-and-telephone')).get(0).getText()).toContain("Bunny Rabbit\n02012345678");
 
         expect(element.all(by.css('h2')).get(2).getText()).toBe('PAYMENT DETAILS');
-        expect(element.all(by.css('p')).get(4).getText()).toContain('MasterCard');
-        expect(element.all(by.css('p')).get(4).getText()).toContain('6789');
-        expect(element.all(by.css('p')).get(4).getText()).toContain('11/2016');
+        var paymentCardText = element.all(by.css('p.payment-card')).get(0).getText();
+        expect(paymentCardText).toContain('MasterCard');
+        expect(paymentCardText).toContain('XXXX XXXX XXXX 6789');
+        expect(paymentCardText).toContain('11/2016');
     });
 
     it('should edit the account details', function() {
@@ -37,9 +38,10 @@ describe('Customer delivery addresses', function() {
         element.all(by.css('input')).get(2).sendKeys('jbzorg@z.org');
         element.all(by.css('input')).last().click();
 
-        expect(element(by.css('h3')).getText()).toBe('Zorg Industries');
-        expect(element.all(by.css('p')).first().getText()).toContain('Jean-Baptiste Zorg');
-        expect(element.all(by.css('p')).first().getText()).toContain('jbzorg@z.org');
+        var firstParagraphText = element.all(by.css('p')).first().getText();
+        expect(firstParagraphText).toContain('Zorg Industries');
+        expect(firstParagraphText).toContain('Jean-Baptiste Zorg');
+        expect(firstParagraphText).toContain('jbzorg@z.org');
     });
 
     it('should redirect to the Edit Address page', function() {
@@ -76,8 +78,9 @@ describe('Customer delivery addresses', function() {
         element.all(by.css('input')).get(2).sendKeys('customer@bunnies.test');
         element.all(by.css('input')).last().click();
 
-        expect(element(by.css('h3')).getText()).toBe('Aperture Science');
-        expect(element.all(by.css('p')).first().getText()).toContain('Customer');
-        expect(element.all(by.css('p')).first().getText()).toContain('customer@bunnies.test');
+        var firstParagraphText = element.all(by.css('p')).first().getText();
+        expect(firstParagraphText).toContain('Aperture Science');
+        expect(firstParagraphText).toContain('Customer');
+        expect(firstParagraphText).toContain('customer@bunnies.test');
     });
 });

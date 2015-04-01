@@ -22,16 +22,20 @@ angular.module('cp.controllers.customer').controller('CustomerAccountDetailsCont
     $q.all([loadingPromise1, loadingPromise2, loadingPromise3]).then(() => LoadingService.hide());
 
     $scope.save = () => {
+        LoadingService.show();
+
         var updateDetails = {
-            'name': $scope.inputs.user.name,
-            'email': $scope.inputs.user.email,
-            'company': $scope.inputs.customer.company
+            name: $scope.inputs.user.name,
+            email: $scope.inputs.user.email,
+            company: $scope.inputs.customer.company
         };
+
         CustomersFactory.updateSelf(updateDetails).success(() => {
             UsersFactory.getLoggedInUser().success(response => {
                 $scope.authUser = response;
-                // See above comment.
+                // See comment above about why we are using angular.copy() here.
                 $scope.inputs = angular.copy(response);
+                LoadingService.hide();
             });
             $scope.showEditDetailsForm = false;
         });
@@ -39,7 +43,7 @@ angular.module('cp.controllers.customer').controller('CustomerAccountDetailsCont
 
     $scope.cancel = () => {
         $scope.showEditDetailsForm = false;
-        // See above comment.
+        // See comment above about why we are using angular.copy() here.
         $scope.inputs = angular.copy($scope.authUser);
     };
 });

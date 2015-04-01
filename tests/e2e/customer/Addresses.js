@@ -11,7 +11,7 @@ describe('Customer delivery addresses', function() {
     });
 
     it('should show the addresses page', function() {
-        expect(element(by.css('h1')).getText()).toBe('DELIVERY ADDRESSES');
+        expect(element(by.css('main  h2')).getText()).toBe('DELIVERY ADDRESSES');
     });
 
     it('should have one address', function() {

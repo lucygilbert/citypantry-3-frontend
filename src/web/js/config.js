@@ -24,10 +24,6 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'CustomerAccountDetailsController',
             templateUrl: '/dist/templates/customer/account-details.html'
         }).
-        when('/customer/account', {
-            controller: 'CustomerPersonalDetailsController',
-            templateUrl: '/dist/templates/customer/personal-details.html'
-        }).
         when('/customer/change-password', {
             controller: 'CustomerChangePasswordController',
             templateUrl: '/dist/templates/customer/change-password.html'

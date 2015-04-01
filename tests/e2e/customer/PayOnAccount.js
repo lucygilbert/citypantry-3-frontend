@@ -12,13 +12,7 @@ describe('Pay on account page', function() {
     });
 
     it('should show the "pay on account" page', function() {
-        expect(element(by.css('h1')).getText()).toBe('Pay on account');
-    });
-
-    it('should highlight the "pay on account" link in the sidebar', function() {
-        var activeLinks = element.all(by.css('.sidebar-menu li.active'));
-        expect(activeLinks.count()).toBe(1);
-        expect(activeLinks.first().getText()).toBe('Pay on account');
+        expect(element(by.css('main      h2')).getText()).toBe('PAY ON ACCOUNT');
     });
 
     it('should be able to save the pay on account details', function() {

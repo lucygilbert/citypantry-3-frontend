@@ -1,11 +1,4 @@
 .account-main {
-    hr {
-        height: 3px;
-        color: #eee;
-        background-color: #eee;
-        clear: both;
-    }
-
     .account-edit-form {
         width: 100%;
     }
@@ -15,6 +8,7 @@
         width: 100%;
         float: none;
         padding: 10px;
+        margin-bottom: 20px;
     }
 
     .clear {
@@ -22,10 +16,9 @@
         display: block;
     }
 
-    div {
+    > div {
         float: left;
         width: 33%;
-        margin-top: 10px;
         margin-bottom: 20px;
     }
 
@@ -33,5 +26,17 @@
         img {
             margin-top: -7px;
         }
+    }
+
+    a.link-account {
+        text-transform: uppercase;
+    }
+
+    .address-label {
+        font-weight: bold;
+    }
+
+    .payment-details-heading {
+        font-weight: bold;
     }
 }

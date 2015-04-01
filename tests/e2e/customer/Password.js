@@ -20,12 +20,6 @@ describe('Password page', function() {
         expect(element.all(by.css('main input[type="password"]')).count()).toBe(3);
     });
 
-    it('should highlight the "password" link in the sidebar', function() {
-        var activeLinks = element.all(by.css('.sidebar-menu li.active'));
-        expect(activeLinks.count()).toBe(1);
-        expect(activeLinks.first().getText()).toBe('Password');
-    });
-
     it('should update the password and reset the fields', function () {
         currentPassword.sendKeys('password');
         newPassword.sendKeys('bunny');

@@ -1,54 +1,71 @@
 <div class="account-main thin-wrapper">
-    <h2>ACCOUNT DETAILS</h2>
-    <div ng-show="!showEditDetailsForm">
-        <h3>{{authUser.customer.company}}</h3>
-        <p>{{authUser.user.name}}<br />
-        {{authUser.user.email}}<br /></p>
+    <h2 class="cp-heading">Account details</h2>
 
-        <a ng-click="showEditDetailsForm = true" class="link-account">EDIT</a>
+    <div ng-show="!showEditDetailsForm">
+        <p>
+            {{ authUser.customer.company }}<br />
+            {{ authUser.user.name }}<br />
+            {{ authUser.user.email }}
+        </p>
+
+        <a ng-click="showEditDetailsForm = true" class="link-account">Edit</a>
     </div>
+
     <div class="account-edit-form" ng-show="showEditDetailsForm">
         <form ng-submit="save()">
             <div class="account-edit-form-inputs">
-                <label for="company_name">Company Name</label><br />
-                <input class="form-control input-lg" size="30" type="text" required ng-model="inputs.customer.company" /><br />
-                <label for="user_name">Full Name</label><br />
-                <input class="form-control input-lg" size="30" type="text" required ng-model="inputs.user.name" /><br />
-                <label for="user_email">Email Address</label><br />
-                <input class="form-control input-lg" size="30" type="email" required ng-model="inputs.user.email" />
+                <label for="company_name">Company name</label>
+                <br />
+                <input class="form-control" size="40" type="text" required
+                    ng-model="inputs.customer.company" id="company_name" />
+                <br />
+
+                <label for="user_name">Full name</label>
+                <br />
+                <input class="form-control" size="40" type="text" required
+                    ng-model="inputs.user.name" id="user_name" />
+                <br />
+
+                <label for="user_email">Email address</label>
+                <br />
+                <input class="form-control" size="40" type="email" required
+                    ng-model="inputs.user.email" id="user_email" />
             </div>
 
             <input type="submit" value="Save changes" class="btn btn-primary" />
             <a class="btn btn-link" ng-click="cancel()">Cancel</a>
         </form>
-
     </div>
 
     <hr />
 
-    <h2>DELIVERY DETAILS</h2>
+    <h2 class="cp-heading">Delivery details</h2>
 
     <div ng-repeat="address in addresses">
-        <p>{{address.label}}</p>
-        <p ng-bind-html="address | addressSingleLineFormatter:'<br />'"></p>
-        <p>{{address.officeManagerName}}<br />
-        {{address.landlineNumber}}</p>
+        <p class="address-label">{{address.label}}</p>
+        <p class="address-lines" ng-bind-html="address | addressSingleLineFormatter:'<br />'"></p>
+        <p class="address-office-manager-and-telephone">
+            {{address.officeManagerName}}<br />
+            {{address.landlineNumber}}
+        </p>
 
-        <a href="/customer/addresses/{{address.id}}" class="link-account">VIEW/EDIT</a>
+        <a href="/customer/addresses/{{address.id}}" class="link-account">View/edit</a>
     </div>
 
-    <a href="/customer/addresses/new" class="link-account clear">ADD AN ADDRESS</a>
+    <a href="/customer/addresses/new" class="link-account clear">Add an address</a>
 
     <hr />
 
-    <h2>PAYMENT DETAILS</h2>
+    <h2 class="cp-heading">Payment details</h2>
+
+    <p ng-if="paymentCards.length > 0" class="payment-details-heading">Saved credit card(s)</p>
 
     <div ng-repeat="card in paymentCards">
-        <p>{{card.type}}<br />
-        XXXX XXXX XXXX {{card.last4}}<br />
-        {{card.expiryDate}}</p>
+        <p class="payment-card">{{ card.type }}<br />
+        XXXX XXXX XXXX {{ card.last4 }}<br />
+        {{ card.expiryDate }}</p>
     </div>
 
-    <a href="/user/payment-cards/new" class="link-account clear">ADD A CARD</a>
+    <a href="/user/payment-cards/new" class="link-account clear">Add a card</a>
 
 </div>

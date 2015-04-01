@@ -1,68 +1,60 @@
-<div class="vendor-signup-header"></div>
+<div class="thin-wrapper">
+    <h2 class="cp-heading">Pay on account</h2>
 
-<div class="wrapper">
-    <div class="row">
-        <div class="col-sm-8">
-            <h1>Pay on account</h1>
+    <p ng-if="!user.customer.isPaidOnAccount">@todo - Chris to supply introduction to paying on account.</p>
 
-            <p ng-if="!user.customer.isPaidOnAccount">@todo - Chris to supply introduction to paying on account.</p>
+    <p id="request_received_message" ng-if="user.customer.hasRequestedToPayOnAccount"><strong>We’ve received your request to pay on account.</strong></p>
 
-            <p id="request_received_message" ng-if="user.customer.hasRequestedToPayOnAccount"><strong>We’ve received your request to pay on account.</strong></p>
+    <form name="payOnAccountForm" novalidate role="form" ng-if="!user.customer.hasRequestedToPayOnAccount" ng-submit="save(payOnAccountForm)">
+        <fieldset>
+            <div class="form-group">
+                <label for="accounts_contact_name">
+                    Accounts contact name
+                    <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsContactName.$error.required">(Accounts contact name is required.)</span>
+                </label>
+                <input class="form-control" id="accounts_contact_name" name="accountsContactName" type="text" required aria-required="true" ng-model="user.customer.accountsContactName" />
+            </div>
 
-            <form name="payOnAccountForm" novalidate role="form" ng-if="!user.customer.hasRequestedToPayOnAccount" ng-submit="save(payOnAccountForm)">
-                <fieldset>
-                    <div class="form-group">
-                        <label for="accounts_contact_name">
-                            Accounts contact name
-                            <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsContactName.$error.required">(Accounts contact name is required.)</span>
-                        </label>
-                        <input class="form-control input-lg" id="accounts_contact_name" name="accountsContactName" type="text" required aria-required="true" ng-model="user.customer.accountsContactName" />
-                    </div>
+            <div class="form-group">
+                <label for="accounts_email">
+                    Accounts email
+                    <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsEmail.$error.required">(Accounts email is required.)</span>
+                    <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsEmail.$error.email">(Accounts email is invalid.)</span>
+                </label>
+                <input class="form-control" id="accounts_email" name="accountsEmail" type="email" required aria-required="true" ng-model="user.customer.accountsEmail" />
+            </div>
 
-                    <div class="form-group">
-                        <label for="accounts_email">
-                            Accounts email
-                            <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsEmail.$error.required">(Accounts email is required.)</span>
-                            <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsEmail.$error.email">(Accounts email is invalid.)</span>
-                        </label>
-                        <input class="form-control input-lg" id="accounts_email" name="accountsEmail" type="email" required aria-required="true" ng-model="user.customer.accountsEmail" />
-                    </div>
+            <div class="form-group">
+                <label for="accounts_telephone_number">
+                    Accounts telephone number
+                    <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsTelephoneNumber.$error.required">(Accounts telephone number is required.)</span>
+                </label>
+                <input class="form-control" id="accounts_telephone_number" name="accountsTelephoneNumber" type="tel" required aria-required="true" ng-model="user.customer.accountsTelephoneNumber" />
+            </div>
 
-                    <div class="form-group">
-                        <label for="accounts_telephone_number">
-                            Accounts telephone number
-                            <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsTelephoneNumber.$error.required">(Accounts telephone number is required.)</span>
-                        </label>
-                        <input class="form-control input-lg" id="accounts_telephone_number" name="accountsTelephoneNumber" type="tel" required aria-required="true" ng-model="user.customer.accountsTelephoneNumber" />
-                    </div>
+            <div class="form-group" ng-if="!user.customer.isPaidOnAccount">
+                <label for="invoice_payment_terms">
+                    Requested payment terms
+                    <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.invoicePaymentTerms.$error.required">(Requested payment terms is required.)</span>
+                </label>
+                <input class="form-control" id="invoice_payment_terms" name="invoicePaymentTerms" type="text" required aria-describedby="invoice_payment_terms_help" aria-required="true" ng-model="user.customer.invoicePaymentTerms" />
+                <span class="help-block" id="invoice_payment_terms_help">(e.g. Net 10, Net 30, <abbr title="end of month">EOM</abbr>, etc.)</span>
+            </div>
 
-                    <div class="form-group" ng-if="!user.customer.isPaidOnAccount">
-                        <label for="invoice_payment_terms">
-                            Requested payment terms
-                            <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.invoicePaymentTerms.$error.required">(Requested payment terms is required.)</span>
-                        </label>
-                        <input class="form-control input-lg" id="invoice_payment_terms" name="invoicePaymentTerms" type="text" required aria-describedby="invoice_payment_terms_help" aria-required="true" ng-model="user.customer.invoicePaymentTerms" />
-                        <span class="help-block" id="invoice_payment_terms_help">(e.g. Net 10, Net 30, <abbr title="end of month">EOM</abbr>, etc.)</span>
-                    </div>
+            <div class="form-group" ng-if="!user.customer.isPaidOnAccount">
+                <label for="max_spend_per_month">
+                    Requested account limit per month
+                    <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.maxSpendPerMonth.$error.required">(Requested account limit per month is required.)</span>
+                    <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.maxSpendPerMonth.$error.number">(Requested account limit per month must be a number.)</span>
+                    <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.maxSpendPerMonth.$error.min">(Requested account limit per month must be greater than 0.)</span>
+                </label>
+                <div class="input-group">
+                    <div class="input-group-addon">£</div>
+                    <input class="form-control" id="max_spend_per_month" name="maxSpendPerMonth" type="number" min="1" step="0.01" required aria-required="true" ng-model="user.customer.maxSpendPerMonth" />
+                </div>
+            </div>
 
-                    <div class="form-group" ng-if="!user.customer.isPaidOnAccount">
-                        <label for="max_spend_per_month">
-                            Requested account limit per month
-                            <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.maxSpendPerMonth.$error.required">(Requested account limit per month is required.)</span>
-                            <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.maxSpendPerMonth.$error.number">(Requested account limit per month must be a number.)</span>
-                            <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.maxSpendPerMonth.$error.min">(Requested account limit per month must be greater than 0.)</span>
-                        </label>
-                        <div class="input-group input-group-lg">
-                            <div class="input-group-addon">£</div>
-                            <input class="form-control input-lg" id="max_spend_per_month" name="maxSpendPerMonth" type="number" min="1" step="0.01" required aria-required="true" ng-model="user.customer.maxSpendPerMonth" />
-                        </div>
-                    </div>
-
-                    <input class="btn btn-primary btn-lg" type="submit" value="Save">
-                </fieldset>
-            </form>
-        </div>
-
-        <ng-include src="'/dist/templates/customer/sidebar.html'" ng-init="page = 'payOnAccount'"></ng-include>
-    </div>
+            <input class="btn btn-primary" type="submit" value="Save" />
+        </fieldset>
+    </form>
 </div>
