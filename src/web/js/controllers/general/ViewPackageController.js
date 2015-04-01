@@ -4,6 +4,7 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         $location, getPackageAvailabilityErrorTextFilter) {
     SecurityService.requireLoggedIn();
 
+    // 'changeDeliveryLocationModalState' can be set to 'checking', 'available', 'notAvailabe'.
     $scope.changeDeliveryLocationModalState = undefined;
     $scope.isChangeDeliveryLocationModalOpen = false;
     $scope.isDatePickerOpen = false;
@@ -46,8 +47,6 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
 
             $scope.packageDeliveryTimeOptions = PackagesFactory.getPackageDeliveryTimeOptions($scope.package.deliveryTimeStart, $scope.package.deliveryTimeEnd);
             $scope.packageHeadCountOptions = OrdersFactory.getHeadCountOptions($scope.package.maxPeople, $scope.package.minPeople);
-
-            $scope.package.packagingTypeTextTranslation = getPackagingTypeTextFilter($scope.package.packagingTypeText);
 
             recalculateCostAmounts();
         })
@@ -138,10 +137,10 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         $scope.isChangeDeliveryLocationModalOpen = false;
     };
 
-    function toLocalIsoString(d) {
-        let off = d.getTimezoneOffset();
+    function toLocalIsoString(date) {
+        const off = date.getTimezoneOffset();
 
-        return new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes() - off, d.getSeconds(), d.getMilliseconds()).toISOString();
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes() - off, date.getSeconds(), date.getMilliseconds()).toISOString();
     }
 
     $scope.order = function() {
@@ -154,9 +153,9 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
 
         $scope.packageFormError = null;
 
-        let timeHour = Math.floor($scope.order.time / 100);
-        let timeMinute = Math.floor($scope.order.time % 100);
-        let dateTime = new Date($scope.order.date.getFullYear(), $scope.order.date.getMonth(), $scope.order.date.getDate(), timeHour, timeMinute);
+        const timeHour = Math.floor($scope.order.time / 100);
+        const timeMinute = Math.floor($scope.order.time % 100);
+        const dateTime = new Date($scope.order.date.getFullYear(), $scope.order.date.getMonth(), $scope.order.date.getDate(), timeHour, timeMinute);
 
         PackagesFactory.checkIfPackageCanBeDelivered($scope.package.id, toLocalIsoString(dateTime), $scope.order.postcode)
             .success(response => {

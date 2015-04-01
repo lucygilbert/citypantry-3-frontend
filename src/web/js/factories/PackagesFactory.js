@@ -149,8 +149,8 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
             const options = [];
 
             while (startMinutes <= endMinutes) {
-                let hour = ('0' + Math.floor(startMinutes / 60)).slice(-2);
-                let minute = ('0' + startMinutes % 60).slice(-2);
+                const hour = ('0' + Math.floor(startMinutes / 60)).slice(-2);
+                const minute = ('0' + startMinutes % 60).slice(-2);
 
                 options.push({
                     label: hour + ':' + minute,

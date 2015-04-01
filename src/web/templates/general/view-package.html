@@ -80,7 +80,7 @@
                     </li>
                     <li ng-if="package.packagingTypeText === 'individual' || package.packagingTypeText === 'buffet'">
                         <img ng-src="/dist/images/icons/{{ package.packagingTypeText }}.svg" height="55" width="55" />
-                        <span class="cp-package-specification-label">{{ package.packagingTypeTextTranslation }}</span>
+                        <span class="cp-package-specification-label">{{ package.packagingTypeText | getPackagingTypeText }}</span>
                     </li>
                 </ul>
             </section>
@@ -121,6 +121,7 @@
                 <div class="cp-package-rating">
                     <h3 class="cp-package-rating-heading">Summary</h3>
                     <ul class="cp-package-rating-attributes">
+                        <!-- @todo - rating stars. -->
                         <li>
                             <span class="cp-package-rating-attribute">Quality</span>
                             <div class="cp-package-rating-rating">
@@ -155,6 +156,7 @@
                             </div>
                         </li>
                         <li>
+                            <!-- @todo - on time %. -->
                             <span class="cp-package-rating-attribute">On time</span>
                             <div class="cp-package-rating-rating">
                                 80%

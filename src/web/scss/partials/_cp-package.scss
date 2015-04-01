@@ -6,11 +6,6 @@
 @import 'cp-modals';
 @import 'cp-ratings';
 
-// @todo – refactor this out.
-body {
-    quotes: '\201c' '\201d';
-}
-
 .cp-package-background-image {
     @include cp-blur(2px);
     background-color: $cp-primary-color;
@@ -339,7 +334,10 @@ body {
     left: 25px;
 
     &::before {
-        content: '\003c ';
+        // Cannot use '\003c ' as the content because the trailing space does not show in Chrome.
+        // Use padding-right instead.
+        content: '\003c';
+        padding-right: 7px;
     }
 
     &,

@@ -17,6 +17,10 @@
  * Misc
  */
 
+body {
+    quotes: '\201c' '\201d';
+}
+
 .form-inline-xs .form-group {
     display: inline-block;
     margin-bottom: 0;
