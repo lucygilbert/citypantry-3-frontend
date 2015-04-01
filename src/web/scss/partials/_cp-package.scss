@@ -1,0 +1,462 @@
+@import '../mixins/cp-arrows';
+@import '../mixins/cp-filters';
+@import '../mixins/cp-font-title';
+@import 'cp-buttons';
+@import 'cp-forms';
+@import 'cp-modals';
+@import 'cp-ratings';
+
+.cp-package-background-image {
+    @include cp-blur(2px);
+    background-color: $cp-primary-color;
+    background-position: center;
+    background-size: cover;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -2;
+
+    &::before {
+        background-color: rgba(0, 0, 0, .3);
+        content: '';
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+}
+
+.cp-package {
+    background-color: #fff;
+    float: left;
+    margin: 116px (-$grid-gutter-width / 2) 0;
+    padding: 30px 25px;
+    position: relative;
+
+    &::before,
+    &::after {
+        border-radius: 100px / 10px;
+        @include box-shadow(0 0 15px rgba(0, 0, 0, .5));
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 10px;
+        bottom: 75%;
+        left: 10px;
+        z-index: -1;
+    }
+}
+
+.cp-package-main {
+    @extend .col-xs-7;
+    @extend .col-xs-offset-1;
+    position: static;
+}
+
+.cp-package-carousel {
+    background-color: #000;
+    margin-bottom: $cp-margin-base-vertical;
+    margin-left: -90px;
+
+    img {
+        margin-right: auto;
+        margin-left: auto;
+        max-height: 370px;
+    }
+
+    .carousel-control {
+        top: 50%;
+    }
+}
+
+.cp-package-name {
+    @include cp-font-title($font-size-h1);
+    margin: 0 0 $cp-padding-xl-vertical;
+}
+
+.cp-package-cost {
+    background-color: $cp-primary-color;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 40px;
+    height: 130px;
+    line-height: .9; // 36px
+    opacity: .9;
+    padding-top: 44px;
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    text-align: center;
+    width: 130px;
+
+    > span {
+        color: rgba(255, 255, 255, .7);
+        display: block;
+        font-size: $font-size-large;
+    }
+}
+
+.cp-package-description {
+    font-size: $font-size-h3;
+    line-height: 1.462; // ~38px
+    margin-bottom: $cp-margin-large-vertical;
+}
+
+.cp-package-section-heading {
+    @include cp-font-title($font-size-h2);
+    margin: 0 0 $cp-margin-base-vertical;
+}
+
+.cp-package-specification {
+    position: absolute;
+    top: 430px;
+    left: 25px;
+}
+
+.cp-package-specification-detail {
+    @extend .list-unstyled;
+    margin-bottom: 0;
+
+    > li {
+        margin-top: $cp-margin-small-vertical;
+        text-align: center;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+}
+
+.cp-package-specification-label {
+    display: block;
+    font-size: $font-size-small;
+    letter-spacing: .05em;
+    margin-bottom: -$cp-margin-xs-vertical;
+    text-transform: uppercase;
+}
+
+.cp-package-specification-notice {
+    @include cp-font-title(22px);
+    border: 2px solid $cp-primary-color;
+    border-radius: 50%;
+    display: inline-block;
+    height: 55px;
+    letter-spacing: normal;
+    line-height: .9;
+    padding-top: 11px;
+    width: 55px;
+
+    > span {
+        display: block;
+        font-size: $font-size-small;
+    }
+}
+
+.cp-package-items {
+    @extend .list-unstyled;
+    font-size: $font-size-large;
+    margin-bottom: $cp-margin-large-vertical;
+
+    > li {
+        border-bottom: 4px solid $gray-light;
+        margin-bottom: $cp-padding-xl-vertical;
+        padding-bottom: $cp-padding-xl-vertical;
+    }
+}
+
+.cp-package-allergen-types {
+    font-size: $font-size-large;
+    list-style-position: inside;
+    margin-bottom: $cp-margin-large-vertical;
+    padding-left: 0;
+
+    > li {
+        margin-bottom: $cp-margin-xs-vertical;
+    }
+}
+
+.cp-package-dietary-requirements-heading {
+    font-size: $font-size-large;
+    margin-bottom: $cp-margin-base-vertical;
+}
+
+.cp-package-dietary-requirements {
+    @extend .list-unstyled;
+    margin-bottom: $cp-margin-large-vertical;
+
+    > li {
+        display: inline-block;
+        margin-right: $padding-large-horizontal;
+        text-align: center;
+
+        > img {
+            margin-bottom: $cp-margin-xs-vertical;
+        }
+    }
+}
+
+.cp-package-dietary-requirements-name {
+    display: block;
+    font-size: $font-size-small;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+}
+
+.cp-package-rating {
+    @extend .row;
+    margin-bottom: $cp-margin-large-vertical;
+}
+
+.cp-package-rating-heading {
+    @extend .col-xs-3;
+    color: $gray;
+    font-size: $font-size-large;
+    margin: 0;
+}
+
+.cp-package-rating-attributes {
+    @extend .col-xs-9;
+    @extend .list-unstyled;
+    font-size: $font-size-large;
+    margin-bottom: 0;
+
+    > li {
+        @extend .row;
+        margin-bottom: $padding-small-vertical;
+    }
+}
+
+.cp-package-rating-attribute {
+    @extend .col-xs-5;
+    font-weight: 600;
+}
+
+.cp-package-rating-rating {
+    @extend .col-xs-7;
+}
+
+.cp-package-rating-inline {
+    @extend .row;
+    @extend .list-unstyled;
+    @include cp-font-title($font-size-small);
+    margin-bottom: $cp-margin-base-vertical;
+
+    > li {
+        @extend .col-xs-3;
+        border-left: 2px solid $gray-light;
+
+        &:first-child {
+            border-left: 0;
+        }
+    }
+}
+
+.cp-package-rating-inline-rating {
+    font-size: 16px;
+}
+
+.cp-package-reviews {
+    p {
+        font-size: $font-size-large;
+        margin-bottom: $cp-margin-base-vertical;
+    }
+}
+
+.cp-package-review {
+    font-size: $font-size-large;
+    margin-bottom: $cp-margin-base-vertical;
+}
+
+.cp-package-review-image {
+    background-color: $gray;
+    background-size: cover;
+    border-radius: 3px;
+    display: block;
+    float: left;
+    height: 60px;
+    margin-top: 7px;
+    margin-left: -95px;
+    width: 60px;
+}
+
+.cp-package-review-review {
+    > footer {
+        border-bottom: 4px solid $gray-light;
+        margin-top: $cp-padding-xl-vertical;
+    }
+
+    > p {
+        display: inline;
+        font-style: italic;
+        margin-bottom: 0;
+
+        &::before {
+            content: open-quote;
+        }
+
+        &::after {
+            content: close-quote;
+        }
+    }
+}
+
+.cp-package-review-name {
+    font-weight: 700;
+
+    &::before {
+        content: '\2013 ';
+    }
+}
+
+.cp-package-review-date {
+    color: $gray;
+    font-size: $font-size-base !important;
+    margin-bottom: $cp-margin-base-vertical;
+}
+
+.cp-package-reviews-more {
+    @include cp-font-title(16px);
+
+    &::after {
+        @include cp-arrow-down(6px, 6px, $cp-secondary-color);
+    }
+}
+
+.cp-package-back {
+    border: 0;
+    font-weight: 600;
+    padding: 0;
+    position: absolute;
+    top: -40px;
+    left: 25px;
+
+    &::before {
+        // Cannot use '\003c ' as the content because the trailing space does not show in Chrome.
+        // Use padding-right instead.
+        content: '\003c';
+        padding-right: 7px;
+    }
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        color: #fff;
+    }
+}
+
+.cp-package-sidebar {
+    @extend .col-xs-4;
+    padding-right: 0;
+}
+
+.cp-package-form {
+    margin-bottom: 110px;
+}
+
+.cp-package-change-delivery-location {
+    font-weight: 600;
+    position: absolute;
+    top: 2px;
+    right: 0;
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        color: $cp-secondary-color;
+    }
+}
+
+.cp-loading {
+    display: block;
+    margin: 0 auto $cp-margin-base-vertical;
+}
+
+.cp-package-delivery-cost {
+    color: $gray-dark;
+    font-weight: 600;
+    margin-top: $cp-margin-small-vertical;
+    min-height: ($font-size-base * $line-height-base) * 2; // ~40px
+    text-align: center;
+}
+
+.cp-package-vendor {
+    background-color: $gray-lighter;
+    padding: 5px;
+    position: relative;
+
+    > div:first-child {
+        border: 1px solid #fff;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        bottom: 5px;
+        left: 5px;
+    }
+
+    > .inner {
+        padding: $cp-padding-xl-vertical ($grid-gutter-width / 2);
+        position: relative;
+    }
+
+    p {
+        line-height: 1.714; // ~24px
+        margin-bottom: $cp-margin-base-vertical;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.cp-package-vendor-name {
+    @include cp-font-title($font-size-h3);
+    margin: 0 0 $cp-margin-xs-vertical;
+    text-align: center;
+
+    > a {
+        color: $cp-primary-color;
+    }
+}
+
+.cp-package-vendor-business-type {
+    font-size: $font-size-h5;
+    margin: 0 0 $cp-padding-xl-vertical;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.cp-package-vendor-image {
+    background-size: cover;
+    border-radius: 50%;
+    display: block;
+    height: 125px;
+    margin: 0 auto $cp-padding-xl-vertical;
+    width: 125px;
+}
+
+.cp-package-vendor-address {
+    font-weight: 700;
+    line-height: $line-height-base !important;
+    text-align: center;
+}
+
+.cp-package-vendor-see-all-meals {
+    &::after {
+        @include cp-arrow-right(4px, 4px, $cp-secondary-color);
+    }
+}
+
+.cp-similar-packages {
+    background-color: $gray-lighter;
+    padding-top: $cp-margin-large-vertical;
+    padding-bottom: $cp-margin-large-vertical;
+
+    .cp-package-section-heading {
+        margin-bottom: $cp-margin-base-vertical;
+    }
+}

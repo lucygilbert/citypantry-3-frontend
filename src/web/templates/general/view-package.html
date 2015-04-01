@@ -1,125 +1,344 @@
-<section class="wrapper" id="view-package">
-    <div class="pkg-header">
-        <h1 class="package-heading">{{ package.name }}</h1>
+<div class="cp-package-background-image" style="background-image: url('{{ package.images[0].large }}');"></div>
 
-        <p class="package-short-description" ng-if="package.shortDescription">
-            {{ package.shortDescription }}
-        </p>
+<div class="container">
+    <div class="cp-package">
+        <article class="cp-package-main">
+            <carousel class="cp-package-carousel">
+                <slide ng-repeat="image in package.images" active="slide.active">
+                    <img ng-src="{{ image.medium }}" />
+                </slide>
+            </carousel>
 
-        <ul class="package-labels">
-            <li ng-repeat="requirement in package.dietaryRequirements">
-                {{ requirement.name | lowercase }}
-            </li>
-        </ul>
-    </div>
+            <h1 class="cp-package-name">{{ package.name }}</h1>
 
-    <div class="text-right">
-        <a class="btn btn-default btn-lg"
-                href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">
-            See all packages by this vendor
-        </a>
+            <span class="cp-package-cost">
+                {{ package.costIncludingVat | currency:'£':2 }}
+                <span>per head</span>
+            </span>
 
-        <ul class="share-links">
-            <li><iframe style="border:none; overflow:hidden; width:90px; height:21px;"
-                allowTransparency="true" frameborder="0" scrolling="no"
-                ng-src="{{ facebookUrl }}"
-                ></iframe></li>
-            <li><iframe style="width:76px; height:21px;"
-                allowtransparency="true" frameborder="0" scrolling="no"
-                ng-src="{{ twitterUrl }}"
-                ></iframe></li>
-        </ul>
-    </div>
-
-    <div class="clearfix"></div>
-
-    <div class="package-detail">
-        <carousel interval="myInterval">
-            <slide ng-repeat="image in package.images" active="slide.active">
-                <img ng-src="{{ image.medium }}" height="434" />
-            </slide>
-        </carousel>
-
-        <p class="lead">{{ package.description }}</p>
-
-        <h2>{{ package.name }} includes</h2>
-
-        <ul>
-            <li ng-repeat="item in package.items">{{ item }}</li>
-        </ul>
-
-        <div ng-if="vegetarianOption">
-            <h2>Vegetarian alternative</h2>
-
-            <p ng-if="vegetarianOption">
-                {{ vegetarianOption.notes ? vegetarianOption.notes : 'A vegetarian alternative is available.' }}
-            </p>
-        </div>
-
-        <div ng-if="package.allergenTypes.length > 0">
-            <h2>{{ package.name }} contains the following allergens</h2>
-
-            <ul>
-                <li ng-repeat="allergen in package.allergenTypes">{{ allergen.name }}</li>
+            <ul class="cp-package-rating-inline">
+                <li>
+                    <span class="cp-package-rating-inline-attribute">Quality</span>
+                    <div class="cp-package-rating-inline-rating">
+                        <i class="icon icon-star"></i>
+                        <i class="icon icon-star"></i>
+                        <i class="icon icon-star"></i>
+                        <i class="icon icon-star"></i>
+                        <i class="icon icon-star-half-o"></i>
+                        <span class="sr-only"><span>4.5</span>/5</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="cp-package-rating-inline-attribute">Value</span>
+                    <div class="cp-package-rating-inline-rating">
+                        <i class="icon icon-star"></i>
+                        <i class="icon icon-star"></i>
+                        <i class="icon icon-star"></i>
+                        <i class="icon icon-star-o"></i>
+                        <i class="icon icon-star-o"></i>
+                        <span class="sr-only"><span>3</span>/5</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="cp-package-rating-inline-attribute">Presentation</span>
+                    <div class="cp-package-rating-inline-rating">
+                        <i class="icon icon-star"></i>
+                        <i class="icon icon-star"></i>
+                        <i class="icon icon-star"></i>
+                        <i class="icon icon-star"></i>
+                        <i class="icon icon-star-o"></i>
+                        <span class="sr-only"><span>4</span>/5</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="cp-package-rating-inline-attribute">On time</span>
+                    <div class="cp-package-rating-inline-rating">
+                        80%
+                    </div>
+                </li>
             </ul>
-        </div>
-    </div>
 
-    <section class="hidden-xs vendor">
-        <h3 class="h2 vendor-name">
-            <a href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">{{ package.vendor.name }}</a>
-        </h3>
+            <p class="cp-package-description">{{ package.description }}</p>
 
-        <p class="vendor-type">{{ package.vendor.businessType.name }}</p>
+            <section class="cp-package-specification">
+                <h2 class="sr-only">Specification</h2>
+                <ul class="cp-package-specification-detail">
+                    <li ng-if="package.notice">
+                        <span class="cp-package-specification-notice">{{ package.notice }}H <span>notice</span></span>
+                    </li>
+                    <li ng-repeat="event in package.eventTypes">
+                        <img ng-src="/dist/images/icons/{{ event.name | slugify }}.svg" height="55" width="55" />
+                        <span class="cp-package-specification-label">{{ event.name }}</span>
+                    </li>
+                    <li ng-if="package.hotFood">
+                        <img src="/dist/images/icons/hot.svg" height="55" width="55" />
+                        <span class="cp-package-specification-label">Hot</span>
+                    </li>
+                    <li ng-if="!package.hotFood">
+                        <img src="/dist/images/icons/cold.svg" height="55" width="55" />
+                        <span class="cp-package-specification-label">Cold</span>
+                    </li>
+                    <li ng-if="package.packagingTypeText === 'individual' || package.packagingTypeText === 'buffet'">
+                        <img ng-src="/dist/images/icons/{{ package.packagingTypeText }}.svg" height="55" width="55" />
+                        <span class="cp-package-specification-label">{{ package.packagingTypeText | getPackagingTypeText }}</span>
+                    </li>
+                </ul>
+            </section>
 
-        <a class="vendor-image" style="background-image: url('{{ package.vendor.images[0].medium }}');"
-            href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}"></a>
+            <section>
+                <h2 class="cp-package-section-heading">What’s included?</h2>
+                <ul class="cp-package-items">
+                    <li ng-repeat="item in package.items">{{ item }}</li>
+                </ul>
+            </section>
 
-        <div class="vendor-contact-details">
-            <p>{{ package.vendor.addresses[0] | addressSingleLineFormatter }}</p>
-        </div>
+            <section>
+                <h2 class="cp-package-section-heading">Allergy information</h2>
+                <ul class="cp-package-allergen-types">
+                    <li ng-repeat="allergen in package.allergenTypes">{{ allergen.name }}</li>
+                </ul>
+            </section>
 
-        <p>{{ package.vendor.description }}</p>
+            <section>
+                <h2 class="cp-package-dietary-requirements-heading">This meal package is suitable for people looking for:</h2>
+                <ul class="cp-package-dietary-requirements">
+                    <li ng-repeat="requirement in package.dietaryRequirements">
+                        <img ng-if="getDietaryRequirementIcon(requirement)"
+                            ng-src="{{ getDietaryRequirementIcon(requirement) }}"
+                            height="60" width="60" />
+                        <span class="cp-package-dietary-requirements-name">{{ requirement.name }}</span>
+                    </li>
+                </ul>
+            </section>
 
-        <a class="btn btn-default btn-lg btn-block" href="/quote/vendor/{{ package.vendor.id }}">Hire for an event</a>
-    </section>
+            <section class="cp-package-reviews">
+                <h2 class="cp-package-section-heading">
+                    <ng-pluralize count="reviews.length"
+                        when="{'0': 'No reviews',
+                            'one': '1 review',
+                            'other': '{} reviews'}">
+                    </ng-pluralize>
+                </h2>
 
-    <div class="clearfix"></div>
-</section>
+                <div class="cp-package-rating">
+                    <h3 class="cp-package-rating-heading">Summary</h3>
+                    <ul class="cp-package-rating-attributes">
+                        <!-- @todo - rating stars. -->
+                        <li>
+                            <span class="cp-package-rating-attribute">Quality</span>
+                            <div class="cp-package-rating-rating">
+                                <i class="icon icon-star"></i>
+                                <i class="icon icon-star"></i>
+                                <i class="icon icon-star"></i>
+                                <i class="icon icon-star"></i>
+                                <i class="icon icon-star-half-o"></i>
+                                <span class="sr-only"><span>4.5</span>/5</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="cp-package-rating-attribute">Value</span>
+                            <div class="cp-package-rating-rating">
+                                <i class="icon icon-star"></i>
+                                <i class="icon icon-star"></i>
+                                <i class="icon icon-star"></i>
+                                <i class="icon icon-star-o"></i>
+                                <i class="icon icon-star-o"></i>
+                                <span class="sr-only"><span>3</span>/5</span>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="cp-package-rating-attribute">Presentation</span>
+                            <div class="cp-package-rating-rating">
+                                <i class="icon icon-star"></i>
+                                <i class="icon icon-star"></i>
+                                <i class="icon icon-star"></i>
+                                <i class="icon icon-star"></i>
+                                <i class="icon icon-star-o"></i>
+                                <span class="sr-only"><span>4</span>/5</span>
+                            </div>
+                        </li>
+                        <li>
+                            <!-- @todo - on time %. -->
+                            <span class="cp-package-rating-attribute">On time</span>
+                            <div class="cp-package-rating-rating">
+                                80%
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-<div class="package-reviews">
-    <div class="wrapper">
-        <h2>Reviews</h2>
+                <p ng-if="reviews === undefined">Loading…</p>
 
-        <p ng-if="reviews === undefined">Loading...</p>
+                <p ng-if="reviews.length === 0">There have been no reviews for this package yet.</p>
 
-        <p ng-if="reviews.length === 0">There have been no reviews for this package yet.</p>
+                <article class="cp-package-review" ng-repeat="review in reviews | limitTo:reviewsLimit">
+                    <div class="cp-package-review-review">
+                        <p>{{ review.review }}</p>
+                        <span class="cp-package-review-name">{{ review.reviewerName | firstName }}</span>
+                        <footer>
+                            <p class="cp-package-review-date"><time datetime="{{ review.date | date:'yyyy-mm-dd' }}">{{ review.date | date:'d MMMM yyyy' }}</time></p>
+                        </footer>
+                    </div>
+                </article>
 
-        <article class="package-review" ng-repeat="review in reviews">
-            <h3 class="package-review-name">
-                {{ review.reviewerName | firstName }}
-                <small><time datetime="{{ review.date | date:'yyyy-mm-dd' }}">{{ review.date | date:'d MMMM yyyy' }}</time></small>
-            </h3>
+                <p ng-if="reviews.length > reviewsLimit">
+                    <a class="cp-package-reviews-more" ng-click="$parent.reviewsLimit = $parent.reviewsLimit + 3">More Reviews</a>
+                </p>
+            </section>
 
-            <p>{{ review.review }}</p>
+            <button class="cp-btn-link cp-package-back" type="button" cp-back>Go Back</button>
         </article>
+
+        <div class="cp-package-sidebar">
+            <p class="cp-form-error" ng-show="packageFormError" ng-bind="packageFormError"></p>
+
+            <form class="cp-form cp-package-form" name="packageForm" novalidate role="form" ng-submit="order()">
+                <fieldset>
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="order_postcode">
+                            Delivery location
+                            <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.orderPostcode.$error.required">Delivery location is required</span>
+                        </label>
+                        <input class="cp-form-control" id="order_postcode" name="orderPostcode" type="text" readonly required aria-required="true" ng-model="order.postcode" />
+                        <a class="cp-package-change-delivery-location" ng-click="isChangeDeliveryLocationModalOpen = true">Change<span class="sr-only"> delivery location</span></a>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <div class="cp-form-group">
+                                <label class="cp-form-label" for="order_date">
+                                    Delivery date
+                                    <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.orderDate.$error.required">Delivery date is required</span>
+                                </label>
+                                <input class="cp-form-control"
+                                    id="order_date"
+                                    name="orderDate"
+                                    type="text"
+                                    required
+                                    aria-required="true"
+                                    datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}"
+                                    datepicker-popup="dd/MM/yyyy"
+                                    is-open="isDatePickerOpen"
+                                    min-date="minDate"
+                                    year-range="2"
+                                    ng-click="openDatePicker($event)"
+                                    ng-model="order.date" />
+                            </div>
+                        </div>
+
+                        <div class="col-xs-5">
+                            <div class="cp-form-group">
+                                <label class="cp-form-label" for="order_time">
+                                    Time
+                                    <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.orderTime.$error.required">Delivery time is required</span>
+                                </label>
+                                <select class="cp-form-control" id="order_time" name="orderTime" required aria-required="true" ng-model="order.time" ng-options="packageDeliveryTimeOption.value as packageDeliveryTimeOption.label for packageDeliveryTimeOption in packageDeliveryTimeOptions"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="order_head_count">
+                            How many people?
+                            <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.orderHeadCount.$error.required">Please specify the number of people</span>
+                        </label>
+                        <select class="cp-form-control" id="order_head_count" name="orderHeadCount" required aria-required="true" ng-model="order.headCount" ng-options="option for option in packageHeadCountOptions"></select>
+                    </div>
+                </fieldset>
+
+                <input class="cp-btn cp-btn-primary cp-btn-lg cp-btn-block" type="submit" value="Order now ({{ order.totalAmount | currency:'£':2 }})" />
+
+                <p ng-if="order.deliveryCost === 0" class="cp-package-delivery-cost">You’ve qualified for <span class="text-uppercase">free</span> delivery!</p>
+
+                <p ng-if="order.deliveryCost > 0" class="cp-package-delivery-cost">Total price includes {{ order.deliveryCost | currency:'£':0 }} delivery. <span class="text-uppercase">Free</span> delivery when you spend {{ package.freeDeliveryThreshold | currency:'£':0 }} or more.</p>
+            </form>
+
+            <aside class="cp-package-vendor">
+                <div></div>
+                <div class="inner">
+                    <hgroup>
+                        <h3 class="cp-package-vendor-name">
+                            <a href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">{{ package.vendor.name }}</a>
+                        </h3>
+                        <h4 class="cp-package-vendor-business-type">{{ package.vendor.businessType.name }}</h4>
+                    </hgroup>
+
+                    <a class="cp-package-vendor-image" style="background-image: url('{{ package.vendor.images[0].medium }}');" href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}"></a>
+
+                    <p class="cp-package-vendor-address">{{ package.vendor.addresses[0] | addressSingleLineFormatter }}</p>
+
+                    <p>{{ package.vendor.description }}</p>
+
+                    <p><a class="cp-package-vendor-see-all-meals" href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">See all meals by this vendor</a></p>
+                </div>
+            </aside>
+        </div>
     </div>
 </div>
 
-<section class="related-packages">
-    <div class="wrapper">
-        <h2 ng-if="similarPackagesByDifferentVendors.length">Similar packages</h2>
-
-        <ul class="packages" ng-if="similarPackagesByDifferentVendors.length">
-            <li class="package" ng-repeat="package in similarPackagesByDifferentVendors"
-                cp-package-card package="package"></li>
-        </ul>
-
-        <h2 ng-if="otherPackagesBySameVendor.length">Other packages by {{ package.vendor.name }}</h2>
-
-        <ul class="packages" ng-if="otherPackagesBySameVendor.length">
-            <li class="package" ng-repeat="package in otherPackagesBySameVendor"
-                cp-package-card package="package"></li>
-        </ul>
+<section class="cp-similar-packages">
+    <div class="container">
+        <h2 class="cp-package-section-heading">Similar meals you might like</h2>
+        <div class="row" ng-if="similarPackagesByDifferentVendors.length">
+            <div class="col-sm-3 col-xs-6" ng-repeat="package in similarPackagesByDifferentVendors" cp-package-card package="package"></div>
+        </div>
     </div>
 </section>
+
+<div class="cp-modal-backdrop" ng-if="isChangeDeliveryLocationModalOpen"></div>
+
+<div class="cp-modal" ng-class="{open: isChangeDeliveryLocationModalOpen}">
+    <div class="cp-modal-dialog">
+        <div class="cp-modal-content">
+            <div class="cp-modal-header">
+                <button class="close" type="button" ng-click="closeChangeDeliveryLocationModal()">
+                    <i class="icon icon-times"></i>
+                </button>
+                <h4 class="cp-modal-title" ng-if="!changeDeliveryLocationModalState">Change delivery location</h4>
+            </div>
+
+            <div class="cp-modal-body" ng-switch="changeDeliveryLocationModalState">
+                <div ng-switch-when="checking">
+                    <h4 class="cp-modal-title">Checking availability…</h4>
+                    <img class="cp-loading" src="/dist/images/loading.gif" height="30" width="30" />
+                    <p class="text-center">Please wait while we are checking if this meal can be delivered to your new location.</p>
+                </div>
+
+                <div ng-switch-when="available">
+                    <h4 class="cp-modal-title">Available</h4>
+                    <i class="icon icon-check-circle icon-5x"></i>
+                    <p class="text-center">The meal can be delivered to your new location. We have updated your postcode.</p>
+                </div>
+
+                <div ng-switch-when="notAvailable">
+                    <h4 class="cp-modal-title">Not available</h4>
+                    <i class="icon icon-times-circle icon-5x"></i>
+                    <p class="cp-modal-one-of-many-selection">
+                        <a ng-click="$parent.changeDeliveryLocationAndGoToSearch()">Change postcode anyway and go back to search</a>
+                        <a ng-click="closeChangeDeliveryLocationModal()">Cancel postcode change and keep old location</a>
+                    </p>
+                </div>
+
+                <div ng-switch-default>
+                    <p>Please enter your new postcode and let’s check if this meal is available in your new location.</p>
+
+                    <p class="cp-form-error" ng-show="changeDeliveryLocationForm.$submitted && changeDeliveryLocationForm.newPostcode.$error.required">Postcode is required</p>
+                    <p class="cp-form-error" ng-show="changeDeliveryLocationForm.$submitted && changeDeliveryLocationForm.newPostcode.$error.pattern">Postcode is invalid</p>
+
+                    <form class="cp-form" id="change_delivery_location_form" name="changeDeliveryLocationForm" novalidate role="form" ng-submit="changeDeliveryLocation(changeDeliveryLocationForm)">
+                        <fieldset>
+                            <div class="cp-form-group">
+                                <label class="sr-only" for="new_postcode">Postcode</label>
+                                <input class="cp-form-control cp-input-lg" id="new_postcode" name="newPostcode" type="text" required aria-required="true" ng-model="$parent.newPostcode" ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div class="cp-modal-footer">
+                <button class="cp-btn cp-btn-primary" form="change_delivery_location_form" type="submit" ng-if="!changeDeliveryLocationModalState">Check availability</button>
+                <button class="cp-btn cp-btn-link" type="button" ng-click="closeChangeDeliveryLocationModal()" ng-if="!changeDeliveryLocationModalState">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

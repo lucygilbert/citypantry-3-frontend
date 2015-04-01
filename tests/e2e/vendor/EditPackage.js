@@ -75,11 +75,14 @@ describe('Vendor portal - edit package', function() {
         expect(element.all(by.css('input[name="packageHotFood"]')).get(1).isSelected()).toBe(true);
         expect(element(by.model('package.costIncludingVat')).getAttribute('value')).toBe('20');
 
-        // Delivery days: "Monday", "Tuesday" and "Wednesday".
+        // Delivery days: "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" and "Saturday".
         expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(0).isSelected()).toBe(true);
         expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(1).isSelected()).toBe(true);
         expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(2).isSelected()).toBe(true);
-        expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(3).isSelected()).toBe(false);
+        expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(3).isSelected()).toBe(true);
+        expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(4).isSelected()).toBe(true);
+        expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(5).isSelected()).toBe(true);
+        expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(6).isSelected()).toBe(false);
 
         var packagingType = element(by.model('package.packagingType'));
         expect(packagingType.all(by.css('option')).count()).toBe(3);
@@ -133,6 +136,8 @@ describe('Vendor portal - edit package', function() {
         expect(addresses.get(2).getText()).toContain('Jeremy House, 22 Jeremy Road, Westminster, London, SW1P 1DE, United Kingdom');
     });
 
+    // This test will fail if the suite is run in isolation because the address added by
+    // CreatePackage will not exist.
     it('should set default values for the new address', function() {
         // Address is selected.
         expect(element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(2).isSelected()).toBe(true);
@@ -165,6 +170,8 @@ describe('Vendor portal - edit package', function() {
         element(by.css('.modal .close')).click();
     });
 
+    // This test will fail if the suite is run in isolation because the address added by
+    // CreatePackage will not exist.
     it('should show an error if 0 delivery addresses are selected', function() {
         var thirdAddressCheckbox = element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(2);
         thirdAddressCheckbox.click();
@@ -181,9 +188,9 @@ describe('Vendor portal - edit package', function() {
 
     it('should show an error if minimum people is greater than maximum people', function() {
         var minPeopleOptions = element.all(by.css('#package_min_people > option'));
-        minPeopleOptions.get(2).click(); // 2 people.
+        minPeopleOptions.get(1).click(); // 2 people.
         var maxPeopleOptions = element.all(by.css('#package_max_people > option'));
-        maxPeopleOptions.get(1).click(); // 1 person.
+        maxPeopleOptions.get(0).click(); // 1 person.
         element(by.css('main input.btn.btn-primary')).click();
 
         var greaterThanError = element(by.css('legend[id="package_min_max_people"] > .form-element-invalid'));
@@ -191,8 +198,8 @@ describe('Vendor portal - edit package', function() {
         expect(greaterThanError.isDisplayed()).toBe(true);
 
         // Revert the changes so other tests will pass.
-        minPeopleOptions.get(9).click(); // 10 people.
-        maxPeopleOptions.get(33).click(); // 50 people.
+        minPeopleOptions.get(0).click(); // 1 person.
+        maxPeopleOptions.get(50).click(); // 250 people.
     });
 
     it('should be able to save the details', function() {
@@ -209,11 +216,11 @@ describe('Vendor portal - edit package', function() {
         eventTypeLunchCheckbox.click();
         eventTypeDinnerCheckbox.click();
 
-        element.all(by.css('#package_notice > option')).get(3).click(); // 3 hours notice.
-        element.all(by.css('#package_delivery_time_start > option')).get(13).click(); // 06:00 start time.
-        element.all(by.css('#package_delivery_time_end > option')).get(37).click(); // 18:00 end time.
-        deliveryCost.sendKeys(15);
-        freeDeliveryThreshold.sendKeys(100);
+        element.all(by.css('#package_notice > option')).get(2).click(); // 3 hours notice.
+        element.all(by.css('#package_delivery_time_start > option')).get(10).click(); // 05:00 start time.
+        element.all(by.css('#package_delivery_time_end > option')).get(34).click(); // 17:00 end time.
+        deliveryCost.clear().sendKeys(10);
+        freeDeliveryThreshold.clear().sendKeys(150);
 
         element(by.css('main input.btn.btn-primary')).click();
     });
@@ -238,8 +245,11 @@ describe('Vendor portal - edit package', function() {
         expect(dietaryTypeDairyFreeCheckbox.isSelected()).toBe(true);
         expect(eventTypeLunchCheckbox.isSelected()).toBe(true);
         expect(eventTypeDinnerCheckbox.isSelected()).toBe(true);
-        expect(deliveryCost.getAttribute('value')).toBe('15');
-        expect(freeDeliveryThreshold.getAttribute('value')).toBe('100');
+        expect(element(by.id('package_notice')).$('option:checked').getText()).toBe('3 hours');
+        expect(element(by.id('package_delivery_time_start')).$('option:checked').getText()).toBe('05:00');
+        expect(element(by.id('package_delivery_time_end')).$('option:checked').getText()).toBe('17:00');
+        expect(deliveryCost.getAttribute('value')).toBe('10');
+        expect(freeDeliveryThreshold.getAttribute('value')).toBe('150');
     });
 
     it('should revert the changes so other tests will pass', function() {
@@ -249,6 +259,11 @@ describe('Vendor portal - edit package', function() {
         dietaryTypeDairyFreeCheckbox.click();
         eventTypeLunchCheckbox.click();
         eventTypeDinnerCheckbox.click();
+        element.all(by.css('#package_notice > option')).get(10).click(); // 48 hours notice.
+        element.all(by.css('#package_delivery_time_start > option')).get(12).click(); // 06:00 start time.
+        element.all(by.css('#package_delivery_time_end > option')).get(36).click(); // 18:00 end time.
+        deliveryCost.clear().sendKeys(15);
+        freeDeliveryThreshold.clear().sendKeys(100);
         element(by.css('main input.btn.btn-primary')).click();
     });
 });

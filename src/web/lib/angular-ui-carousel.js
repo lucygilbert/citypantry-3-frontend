@@ -84,18 +84,22 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
     var newIndex = (currentIndex + 1) % slides.length;
 
     //Prevent this user-triggered transition from occurring if there is already one in progress
-    if (!$scope.$currentTransition) {
+    // @todo - We've edited this external vendor file because debugging why the 'next' button doesn't
+    // work is taking too long. Fix this when we have more time.
+    // if (!$scope.$currentTransition) {
       return self.select(slides[newIndex], 'next');
-    }
+    // }
   };
 
   $scope.prev = function() {
     var newIndex = currentIndex - 1 < 0 ? slides.length - 1 : currentIndex - 1;
 
     //Prevent this user-triggered transition from occurring if there is already one in progress
-    if (!$scope.$currentTransition) {
+    // @todo - We've edited this external vendor file because debugging why the 'prev' button doesn't
+    // work is taking too long. Fix this when we have more time.
+    // if (!$scope.$currentTransition) {
       return self.select(slides[newIndex], 'prev');
-    }
+    // }
   };
 
   $scope.isActive = function(slide) {

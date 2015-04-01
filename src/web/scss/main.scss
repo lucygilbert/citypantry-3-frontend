@@ -11,10 +11,15 @@
 @import 'partials/cp-search';
 @import 'partials/cp-header';
 @import 'partials/cp-login';
+@import 'partials/cp-package';
 
 /**
  * Misc
  */
+
+body {
+    quotes: '\201c' '\201d';
+}
 
 .form-inline-xs .form-group {
     display: inline-block;
