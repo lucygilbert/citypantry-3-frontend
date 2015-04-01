@@ -48,6 +48,9 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             $scope.packageDeliveryTimeOptions = PackagesFactory.getPackageDeliveryTimeOptions($scope.package.deliveryTimeStart, $scope.package.deliveryTimeEnd);
             $scope.packageHeadCountOptions = OrdersFactory.getHeadCountOptions($scope.package.maxPeople, $scope.package.minPeople);
 
+            // Only show active event types.
+            $scope.package.eventTypes = $scope.package.eventTypes.filter(eventType => eventType.isActive);
+
             recalculateCostAmounts();
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
