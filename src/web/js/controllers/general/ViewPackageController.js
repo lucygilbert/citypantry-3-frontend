@@ -55,6 +55,30 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
+    let allDietaryRequirements;
+
+    PackagesFactory.getDietaryTypes()
+        .success(response => allDietaryRequirements = response.dietaryRequirements)
+        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+
+    /**
+     * Get the path to an icon for the given dietary requirement.
+     *
+     * If the dietary requirements haven't loaded yet, or the given dietary requirment has an unknown
+     * icon, returns false.
+     */
+    $scope.getDietaryRequirementIcon = (toGetIconFor) => {
+        if (!allDietaryRequirements) {
+            return false;
+        }
+        for (let i = 0; i < allDietaryRequirements.length; i++) {
+            if (allDietaryRequirements[i].name === toGetIconFor.name) {
+                return allDietaryRequirements[i].icon;
+            }
+        }
+        return false;
+    };
+
     const loadReviews = (id) => {
         PackagesFactory.getPackageReviews(id)
             .success(response => $scope.reviews = response.reviews)

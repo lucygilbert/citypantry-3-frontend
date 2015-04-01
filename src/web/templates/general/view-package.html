@@ -103,7 +103,9 @@
                 <h2 class="cp-package-dietary-requirements-heading">This meal package is suitable for people looking for:</h2>
                 <ul class="cp-package-dietary-requirements">
                     <li ng-repeat="requirement in package.dietaryRequirements">
-                        <img ng-src="{{ requirement.icon }}" height="60" width="60" />
+                        <img ng-if="getDietaryRequirementIcon(requirement)"
+                            ng-src="{{ getDietaryRequirementIcon(requirement) }}"
+                            height="60" width="60" />
                         <span class="cp-package-dietary-requirements-name">{{ requirement.name }}</span>
                     </li>
                 </ul>
