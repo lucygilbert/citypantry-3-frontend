@@ -1,5 +1,3 @@
-angular.module('cp.controllers.customer', []);
-
 angular.module('cp.controllers.customer').controller('CustomerAddressController',
         function ($scope, $routeParams, CustomersFactory, LoadingService, DocumentTitleService) {
     DocumentTitleService('Delivery address');

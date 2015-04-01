@@ -10,7 +10,7 @@ describe('Customer orders', function() {
     });
 
     it('should show the orders page', function() {
-        expect(element(by.css('h1')).getText()).toBe('Your orders');
+        expect(element(by.css('h2.cp-heading')).getText()).toBe('YOUR ORDERS');
     });
 
     it('should have 4 orders', function() {

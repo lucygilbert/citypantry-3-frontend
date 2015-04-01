@@ -1,0 +1,42 @@
+.account-main {
+    .account-edit-form {
+        width: 100%;
+    }
+
+    .account-edit-form-inputs {
+        background-color: #ddd;
+        width: 100%;
+        float: none;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .clear {
+        clear: left;
+        display: block;
+    }
+
+    > div {
+        float: left;
+        width: 33%;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        img {
+            margin-top: -7px;
+        }
+    }
+
+    a.link-account {
+        text-transform: uppercase;
+    }
+
+    .address-label {
+        font-weight: bold;
+    }
+
+    .payment-details-heading {
+        font-weight: bold;
+    }
+}

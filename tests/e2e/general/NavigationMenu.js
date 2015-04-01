@@ -13,7 +13,7 @@ describe('Navigation Menu', function() {
         loginAsUser('customer@bunnies.test');
 
         expect(navMenu.getText()).toContain('Dashboard');
-        expect(navMenu.getText()).toContain('My Account');
+        expect(navMenu.getText()).toContain('My account');
         expect(navMenu.getText()).toContain('020');
         expect(navMenuLinks.count()).toBe(3);
 
@@ -21,24 +21,25 @@ describe('Navigation Menu', function() {
         myAccountButton.click();
         expect(myAccountMenu.isDisplayed()).toBe(true);
 
-        expect(myAccountMenu.getText()).toContain('Account Details');
+        expect(myAccountMenu.getText()).toContain('Account details');
         expect(myAccountMenu.getText()).toContain('Orders');
         expect(myAccountMenu.getText()).toContain('Addresses');
         expect(myAccountMenu.getText()).toContain('Cards');
-        expect(myAccountMenu.getText()).toContain('My Details');
-        expect(myAccountMenu.getText()).toContain('Log Out');
-        expect(myAccountMenuLinks.count()).toBe(6);
+        expect(myAccountMenu.getText()).toContain('Password');
+        expect(myAccountMenu.getText()).toContain('Pay on account');
+        expect(myAccountMenu.getText()).toContain('Log out');
+        expect(myAccountMenuLinks.count()).toBe(7);
     });
 
     it('should present vendors with the appropriate navigation options', function() {
         loginAsUser('vendor@bunnies.test');
 
-        expect(navMenu.getText()).toContain('My Account');
+        expect(navMenu.getText()).toContain('My account');
         expect(navMenu.getText()).toContain('Orders');
         expect(navMenu.getText()).toContain('Addresses');
         expect(navMenu.getText()).toContain('Profile');
         expect(navMenu.getText()).toContain('Packages');
-        expect(navMenu.getText()).toContain('Create Package');
+        expect(navMenu.getText()).toContain('Create package');
         expect(navMenu.getText()).toContain('020');
         expect(navMenuLinks.count()).toBe(7);
 
@@ -46,17 +47,17 @@ describe('Navigation Menu', function() {
         myAccountButton.click();
         expect(myAccountMenu.isDisplayed()).toBe(true);
 
-        expect(myAccountMenu.getText()).toContain('Delivery Radiuses');
-        expect(myAccountMenu.getText()).toContain('Supplier Agreement');
-        expect(myAccountMenu.getText()).toContain('My Details');
-        expect(myAccountMenu.getText()).toContain('Log Out');
+        expect(myAccountMenu.getText()).toContain('Delivery radiuses');
+        expect(myAccountMenu.getText()).toContain('Supplier agreement');
+        expect(myAccountMenu.getText()).toContain('Password');
+        expect(myAccountMenu.getText()).toContain('Log out');
         expect(myAccountMenuLinks.count()).toBe(4);
     });
 
     it('should present staff with the appropriate navigation options', function() {
         loginAsUser('alice@bunnies.test');
 
-        expect(navMenu.getText()).toContain('My Account');
+        expect(navMenu.getText()).toContain('My account');
         expect(navMenu.getText()).toContain('Orders');
         expect(navMenu.getText()).toContain('Courier');
         expect(navMenu.getText()).toContain('Invoices');
@@ -70,19 +71,18 @@ describe('Navigation Menu', function() {
         myAccountButton.click();
         expect(myAccountMenu.isDisplayed()).toBe(true);
 
-        expect(myAccountMenu.getText()).toContain('Edit Packages');
-        expect(myAccountMenu.getText()).toContain('Edit Vendors');
-        expect(myAccountMenu.getText()).toContain('My Details');
-        expect(myAccountMenu.getText()).toContain('Log Out');
-        expect(myAccountMenuLinks.count()).toBe(4);
+        expect(myAccountMenu.getText()).toContain('Edit packages');
+        expect(myAccountMenu.getText()).toContain('Edit vendors');
+        expect(myAccountMenu.getText()).toContain('Log out');
+        expect(myAccountMenuLinks.count()).toBe(3);
     });
 
     it('should present the default navigation options to people who aren\'t logged in', function() {
         logout();
 
-        expect(navMenu.getText()).toContain('Log In / Sign Up');
+        expect(navMenu.getText()).toContain('Log in / sign up');
         expect(navMenu.getText()).toContain('FAQ');
-        expect(navMenu.getText()).toContain('Event Quote');
+        expect(navMenu.getText()).toContain('Event quote');
         expect(navMenu.getText()).toContain('020');
         expect(navMenuLinks.count()).toBe(4);
 

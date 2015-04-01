@@ -17,7 +17,7 @@ describe('Vendor portal - delivery radiuses', function() {
     });
 
     it('should load the "Delivery radiuses" page', function() {
-        expect(element(by.css('h1')).getText()).toBe('Your package’s delivery radiuses');
+        expect(element(by.css('h2.cp-heading')).getText()).toBe('YOUR PACKAGE’S DELIVERY RADIUSES');
     });
 
     it('should list all the packages, sorted alphabetically', function() {

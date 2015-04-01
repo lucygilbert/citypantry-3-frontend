@@ -4,6 +4,34 @@
 .cp-heading {
     text-transform: uppercase;
     font-weight: 600;
+}
+
+h1.cp-heading {
     font-size: $font-size-h1;
-    margin: $font-size-h2 0 $font-size-h2 0;
+    margin: $font-size-h1 0 ($font-size-h1 * 0.4) 0;
+}
+
+h2.cp-heading {
+    font-size: $font-size-h2;
+    margin: $font-size-h2 0 ($font-size-h2 * 0.4) 0;
+}
+
+h3.cp-heading {
+    font-size: $font-size-h3;
+    margin: $font-size-h3 0 ($font-size-h3 * 0.4) 0;
+}
+
+h4.cp-heading {
+    font-size: $font-size-h4;
+    margin: $font-size-h4 0 ($font-size-h4 * 0.4) 0;
+}
+
+h5.cp-heading {
+    font-size: $font-size-h5;
+    margin: $font-size-h5 0 ($font-size-h5 * 0.4) 0;
+}
+
+h6.cp-heading {
+    font-size: $font-size-h6;
+    margin: $font-size-h6 0 ($font-size-h6 * 0.4) 0;
 }

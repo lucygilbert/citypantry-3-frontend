@@ -1,26 +1,20 @@
-<div class="vendor-signup-header"></div>
+<div class="thin-wrapper">
+    <h2 class="cp-heading">Leave a review for: {{ order.package.name }}</h2>
 
-<div class="wrapper">
-    <div class="row">
-        <div class="col-sm-8">
-            <h1>Leave a review for: {{ order.package.name }}</h1>
+    <form name="reviewForm" role="form" ng-submit="save()" novalidate>
+        <fieldset>
+            <div class="form-group">
+                <label for="review-text">Your review</label>
 
-            <form name="reviewForm" role="form" ng-submit="save()" novalidate>
-                <fieldset>
-                    <div class="form-group">
-                        <label for="review-text">Your review</label>
+                <span class="form-element-invalid" ng-show="reviewForm.$submitted && reviewForm.review.$error.required">
+                    (This field is required.)
+                </span>
 
-                        <span class="form-element-invalid" ng-show="reviewForm.$submitted && reviewForm.review.$error.required">
-                            (This field is required.)
-                        </span>
+                <textarea ng-model="review" cols="80" rows="6" required id="review-text" name="review"
+                    class="form-control"></textarea>
+            </div>
 
-                        <textarea ng-model="review" cols="80" rows="6" required id="review-text" name="review"
-                            class="form-control input-lg"></textarea>
-                    </div>
-
-                    <input class="btn btn-primary btn-lg" type="submit" value="Save">
-                </fieldset>
-            </form>
-        </div>
-    </div>
+            <input class="btn btn-primary" type="submit" value="Save" />
+        </fieldset>
+    </form>
 </div>

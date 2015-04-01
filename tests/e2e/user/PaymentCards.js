@@ -10,7 +10,7 @@ describe('Payment cards', function() {
     });
 
     it('should show the payment cards page', function() {
-        expect(element(by.css('h1')).getText()).toBe('Payment cards');
+        expect(element(by.css('h2')).getText()).toBe('PAYMENT CARDS');
     });
 
     it('should have one payment card already', function() {
