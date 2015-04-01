@@ -170,7 +170,6 @@
                 <p ng-if="reviews.length === 0">There have been no reviews for this package yet.</p>
 
                 <article class="cp-package-review" ng-repeat="review in reviews | limitTo:reviewsLimit">
-                    <div class="cp-package-review-image"></div>
                     <div class="cp-package-review-review">
                         <p>{{ review.review }}</p>
                         <span class="cp-package-review-name">{{ review.reviewerName | firstName }}</span>
