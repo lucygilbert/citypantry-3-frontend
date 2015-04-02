@@ -1,5 +1,15 @@
-#table_orders {
+#orders-table {
     width: 100%;
+
+    a.package-name,
+    a.send-message,
+    a.leave-a-review {
+        text-decoration: none;
+        color: $brand-primary;
+        border-bottom: 2px solid #cad2db;
+        display: inline-block;
+        font-size: inherit;
+    }
 
     .dropdown:hover .dropdown-menu {
         display: block;
@@ -9,8 +19,30 @@
         margin-top: 0;
         top: 90%;
     }
+
+    > tbody > tr:nth-of-type(even) a {
+        border-bottom-color: #aec0d4;
+    }
 }
 
 #order-details-modal.fade.in {
     display: block;
+}
+
+.order-details-table {
+    margin-bottom: 0;
+
+    > tbody > tr > th,
+    > tbody > tr > td {
+        border-top: 0;
+    }
+
+    > tbody > tr > th {
+        color: #777;
+        font-weight: 400;
+    }
+
+    > tbody > tr > td {
+        color: #444;
+    }
 }

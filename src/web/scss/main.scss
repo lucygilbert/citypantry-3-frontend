@@ -12,6 +12,7 @@
 @import 'partials/cp-header';
 @import 'partials/cp-login';
 @import 'partials/cp-package';
+@import 'partials/cp-tables';
 
 /**
  * Misc
@@ -916,24 +917,6 @@ body {
     .order-details-modal .btn-block + .btn-block {
         margin-top: 0;
     }
-}
-
-.order-details-table {
-    margin-bottom: 0;
-}
-
-.order-details-table > tbody > tr > th,
-.order-details-table > tbody > tr > td {
-    border-top: 0;
-}
-
-.order-details-table > tbody > tr > th {
-    color: #777;
-    font-weight: 400;
-}
-
-.order-details-table > tbody > tr > td {
-    color: #444;
 }
 
 /**

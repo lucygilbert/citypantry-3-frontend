@@ -10,14 +10,11 @@ describe('Leaving a review for an order', function() {
         }
     });
 
-    it('should have a link to leave a review in the dropdown menu', function() {
+    it('should have a link to leave a review', function() {
         var order = element.all(by.repeater('order in orders')).get(0);
-        order.element(by.css('.dropdown > a')).click();
-
-        var link = order.element(by.css('.dropdown .leave-a-review a'));
-        expect(link.isDisplayed()).toBe(true);
-        expect(link.getText()).toBe('Leave a review');
-        link.click();
+        var leaveAReviewLink = order.element(by.css('a.leave-a-review'));
+        expect(leaveAReviewLink.getText()).toBe('Write review');
+        leaveAReviewLink.click();
 
         expect(browser.getCurrentUrl()).toMatch(/\.dev\/customer\/orders\/[0-9a-f]{24}\/leave-a-review$/);
     });
