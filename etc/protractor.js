@@ -35,6 +35,13 @@ var helpers = require('./protractor-helpers.js');
         capabilities: {
             'browserName': 'chrome',
             'phantomjs.binary.path': '/home/citypantry/project/frontend/node_modules/phantomjs/bin/phantomjs',
+            'chromeOptions': {
+                // Because search API calls are cached, and fixtures are reloaded between folders,
+                // the cached result can have different (e.g.) event type IDs from the current IDs.
+                // Disable the cache to prevent this causing some tests to fail. Using a value of '0'
+                // does not appear to disable the cache, but '1' does. (The value is in bytes.)
+                'args': ['disk-cache-size=1']
+            },
         },
 
         suites: {

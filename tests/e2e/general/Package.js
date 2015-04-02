@@ -11,7 +11,12 @@ describe('Package page', function() {
         it('has the package', function() {
             loginAsUser('customer@bunnies.test');
             browser.get('/search');
-            element.all(by.repeater('eventType in eventTypes')).get(0).all(by.css('a')).get(0).click();
+
+            var breakfastEventType = element(by.cssContainingText('a', 'Breakfast'));
+            expect(breakfastEventType.getText()).toBe('Breakfast');
+            breakfastEventType.click();
+            expect(element(by.css('h1')).getText()).toBe('1 package found');
+
             element.all(by.repeater('package in packages')).get(0).all(by.css('a')).get(0).click();
         });
 
@@ -33,9 +38,10 @@ describe('Package page', function() {
             expect(dietaryRequirements.get(0).getText()).toBe('VEGETARIAN');
             expect(dietaryRequirements.get(1).getText()).toBe('VEGAN');
 
+            // Chrismas should not show because it is not an active event type.
             var eventTypes = element.all(by.repeater('event in package.eventTypes'));
+            expect(eventTypes.count()).toBe(1);
             expect(eventTypes.get(0).getText()).toBe('BREAKFAST');
-            expect(eventTypes.get(1).getText()).toBe('CHRISTMAS');
 
             // 48 hours notice.
             expect(element(by.css('.cp-package-specification-notice')).getText()).toMatch('48H');
