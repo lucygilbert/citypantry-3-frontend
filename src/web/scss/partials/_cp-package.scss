@@ -4,7 +4,7 @@
 @import 'cp-buttons';
 @import 'cp-forms';
 @import 'cp-modals';
-@import 'cp-ratings';
+@import '../directives/cp-package-rating';
 
 .cp-package-background-image {
     @include cp-blur(2px);

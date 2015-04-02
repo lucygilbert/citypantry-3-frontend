@@ -1,0 +1,67 @@
+ddescribe('Dashboard page', function() {
+    var isFirst = true;
+
+    beforeEach(function() {
+        if (isFirst) {
+            loginAsUser('customer@bunnies.test');
+            browser.get('/dashboard');
+            isFirst = false;
+        }
+    });
+
+    it('should show the "Dashboard" page', function() {
+        expect(element(by.css('h1')).getText()).toMatch(/^HELLO \w+/);
+    });
+
+    it('should load event types and select lunch by default', function() {
+        expect(element.all(by.css('#search_event_type > option')).count()).toBe(6);
+        expect(element.all(by.css('#search_event_type > option')).get(0).getText()).toBe('Breakfast');
+
+        expect(element(by.css('#search_event_type')).$('option:checked').getText()).toBe('Lunch');
+    });
+
+    it('should show a date picker when delivery date is focused', function() {
+        var datePicker = element(by.model('date'));
+
+        expect(datePicker.isDisplayed()).toBe(false);
+        element(by.model('search.date')).click();
+        expect(datePicker.isDisplayed()).toBe(true);
+    });
+
+    it('should load customer\'s addresses and select first by default', function() {
+        expect(element.all(by.css('#search_postcode > option')).count()).toBe(1);
+        expect(element.all(by.css('#search_postcode > option')).get(0).getText()).toBe('Lena Gardens');
+
+        expect(element(by.css('#search_postcode')).$('option:checked').getText()).toBe('Lena Gardens');
+    });
+
+    it('should show an error if an invalid postcode is entered', function() {
+        element(by.model('search.newPostcode')).sendKeys('QWERTY');
+        element(by.css('.cp-dashboard-form input[type="submit"]')).click();
+
+        var error = element.all(by.css('label[for="search_new_postcode"] > .form-element-invalid')).get(0);
+        expect(error.getText()).toBe('Postcode is invalid');
+        expect(error.isDisplayed()).toBe(true);
+
+        // Revert the changes so other tests will pass.
+        element(by.model('search.newPostcode')).clear();
+    });
+
+    it('should show customer\'s next order', function() {
+        expect(element(by.css('.cp-dashboard-order')).isPresent()).toBe(true);
+        expect(element(by.css('.cp-dashboard-order-date')).getText()).toMatch(/\d{2}\/\d{2}\/\d{2}/);
+        expect(element(by.css('.cp-dashboard-order-description')).getText()).toBe('Yummy');
+    });
+
+    it('should be able to search for food', function() {
+        var now = new Date();
+        var oneWeekFromNow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7);
+
+        element(by.model('search.date')).sendKeys(oneWeekFromNow.toLocaleDateString());
+        element(by.model('search.headCount')).sendKeys(10);
+
+        element(by.css('.cp-dashboard-form input[type="submit"]')).click();
+
+        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/search\?postcode=W6%207PY&headCount=10&time=1330&date=\d{4}-\d{1,2}-\d{1,2}&eventTypeId=[0-9a-f]{24}/);
+    });
+});

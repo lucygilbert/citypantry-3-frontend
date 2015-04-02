@@ -146,6 +146,7 @@ module.exports = function (grunt) {
                         'src/web/js/lib/angular-route.min.js',
                         'src/web/js/lib/checklist-model.js',
                         'src/web/js/lib/lodash.min.js',
+                        'src/web/js/lib/truncate.js',
                         'src/web/js/lib/ui-bootstrap-tpls-0.12.0.min.js',
                         'src/web/lib/ng-grid/ui-grid.js',
                         'src/web/lib/angular-slider/angular-slider.js',
