@@ -1,13 +1,7 @@
-<div class="vendor-signup-header"></div>
-
 <ng-include src="'/dist/templates/directives/cp-vendor-signup-steps.html'" ng-init="activeStep = 0"></ng-include>
 
-<div class="wrapper">
-    <div class="row">
-        <div class="col-sm-8">
-            <h1>Great! The next step is to list your first package.</h1>
+<div class="thin-wrapper">
+    <h2 class="cp-heading">Great! The next step is to list your first package.</h2>
 
-            <cp-package-form cp-destination="/vendor/signup/profile" cp-operation="create" cp-package="package" cp-show-notification="false" cp-submit-value="Set up your profile →"></cp-package-form>
-        </div>
-    </div>
+    <cp-package-form cp-destination="/vendor/signup/profile" cp-operation="create" cp-package="package" cp-show-notification="false" cp-submit-value="Set up your profile →"></cp-package-form>
 </div>

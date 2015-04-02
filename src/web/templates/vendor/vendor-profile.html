@@ -8,7 +8,7 @@
             Bio
             <span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorDescription.$error.required"> (Bio is required.)</span>
         </label>
-        <textarea class="form-control input-lg" id="vendor_description" name="vendorDescription" required placeholder="Write a few sentences about you, your business and why you do what you do." rows="6" aria-required="true" ng-model="vendor.description"></textarea>
+        <textarea class="form-control" id="vendor_description" name="vendorDescription" required placeholder="Write a few sentences about you, your business and why you do what you do." rows="6" aria-required="true" ng-model="vendor.description"></textarea>
     </div>
 
     <div class="form-group">
@@ -16,7 +16,7 @@
             The max number of people you can serve a day (across all packages)
             <span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorMaxPeople.$error.required"> (Please specify the max number of people you can serve a day.)</span>
         </label>
-        <select class="form-control input-lg" id="vendorMaxPeople" name="vendor_max_people" required aria-required="true" ng-model="vendor.maxPeople" ng-options="option as option for option in vendorMaxPeopleOptions"></select>
+        <select class="form-control" id="vendorMaxPeople" name="vendor_max_people" required aria-required="true" ng-model="vendor.maxPeople" ng-options="option as option for option in vendorMaxPeopleOptions"></select>
     </div>
 
     <div class="form-group">
@@ -39,7 +39,7 @@
             <abbr title="value added tax">VAT</abbr> number
             <span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorVatNumber.$error.required"> (<abbr title="value added tax">VAT</abbr> number is required.)</span>
         </label>
-        <input class="form-control input-lg" id="vendor_vat_number" name="vendorVatNumber" type="text" required aria-required="true" ng-model="vendor.vatNumber" />
+        <input class="form-control" id="vendor_vat_number" name="vendorVatNumber" type="text" required aria-required="true" ng-model="vendor.vatNumber" />
     </div>
 
     <div class="form-group">
@@ -47,9 +47,9 @@
             Facebook page
             <span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorFacebookUrl.$error.url"> (Facebook page must be a URL.)</span>
         </label>
-        <div class="input-group input-group-lg">
+        <div class="input-group">
             <div class="input-group-addon">http://</div>
-            <input class="form-control input-lg" id="vendor_facebook_url" name="vendorFacebookUrl" type="text" ng-model="vendor.facebookUrl" cp-http-prefix />
+            <input class="form-control" id="vendor_facebook_url" name="vendorFacebookUrl" type="text" ng-model="vendor.facebookUrl" cp-http-prefix />
         </div>
     </div>
 
@@ -58,9 +58,9 @@
             Twitter page
             <span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorTwitterUrl.$error.url"> (Twitter page must be a URL.)</span>
         </label>
-        <div class="input-group input-group-lg">
+        <div class="input-group">
             <div class="input-group-addon">http://</div>
-            <input class="form-control input-lg" id="vendor_twitter_url" name="vendorTwitterUrl" type="text" ng-model="vendor.twitterUrl" cp-http-prefix />
+            <input class="form-control" id="vendor_twitter_url" name="vendorTwitterUrl" type="text" ng-model="vendor.twitterUrl" cp-http-prefix />
         </div>
     </div>
 
@@ -69,9 +69,9 @@
             Google+ page
             <span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorGooglePlusUrl.$error.url"> (Google+ page must be a URL.)</span>
         </label>
-        <div class="input-group input-group-lg">
+        <div class="input-group">
             <div class="input-group-addon">http://</div>
-            <input class="form-control input-lg" id="vendor_google_plus_url" name="vendorGooglePlusUrl" type="text" ng-model="vendor.googlePlusUrl" cp-http-prefix />
+            <input class="form-control" id="vendor_google_plus_url" name="vendorGooglePlusUrl" type="text" ng-model="vendor.googlePlusUrl" cp-http-prefix />
         </div>
     </div>
 
@@ -80,9 +80,9 @@
             YouTube page
             <span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorYoutubeUrl.$error.url"> (YouTube page must be a URL.)</span>
         </label>
-        <div class="input-group input-group-lg">
+        <div class="input-group">
             <div class="input-group-addon">http://</div>
-            <input class="form-control input-lg" id="vendor_youtube_url" name="vendorYoutubeUrl" type="text" ng-model="vendor.youtubeUrl" cp-http-prefix />
+            <input class="form-control" id="vendor_youtube_url" name="vendorYoutubeUrl" type="text" ng-model="vendor.youtubeUrl" cp-http-prefix />
         </div>
     </div>
 
@@ -91,11 +91,13 @@
             Website
             <span class="form-element-invalid" ng-show="vendorProfileForm.$submitted && vendorProfileForm.vendorUrl.$error.url"> (Website must be a URL.)</span>
         </label>
-        <div class="input-group input-group-lg">
+        <div class="input-group">
             <div class="input-group-addon">http://</div>
-            <input class="form-control input-lg" id="vendor_url" name="vendorUrl" type="text" ng-model="vendor.url" cp-http-prefix />
+            <input class="form-control" id="vendor_url" name="vendorUrl" type="text" ng-model="vendor.url" cp-http-prefix />
         </div>
     </div>
+
+    <hr />
 
     <div class="form-group">
         <h2>Photos</h2>
@@ -109,5 +111,7 @@
         </p>
     </div>
 
-    <input class="btn btn-primary btn-lg" type="submit" value="{{submitValue}}" />
+    <hr />
+
+    <input class="btn btn-primary" type="submit" value="{{submitValue}}" />
 </form>

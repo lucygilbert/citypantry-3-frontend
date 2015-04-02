@@ -10,7 +10,7 @@ describe('Vendor portal - your packages', function() {
     });
 
     it('should show the "Your packages" page', function() {
-        expect(element(by.css('h1')).getText()).toBe('Your packages');
+        expect(element(by.css('h2.cp-heading')).getText()).toBe('YOUR PACKAGES');
     });
 
     it('should have a button to create a new package', function() {
