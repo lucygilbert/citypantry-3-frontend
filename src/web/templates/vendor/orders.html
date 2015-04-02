@@ -3,41 +3,43 @@
 
     <p ng-if="count === 0">No orders have been made.</p>
 
-    <table ng-if="count > 0" class="table" id="table_orders" summary="Your orders">
+    <table ng-if="count > 0" class="cp-table" id="orders-table" summary="Your orders">
         <thead>
             <tr>
                 <th>Order no.</th>
-                <th>Order date</th>
-                <th>Delivery date</th>
-                <th>Package</th>
+                <th></th>
+                <th>Delivery</th>
+                <th>Item</th>
+                <th>Purchased</th>
+                <th>Amount</th>
                 <th>People</th>
-                <th>Cost</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th>Accept</th>
+                <th>Contact</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="order in orders">
                 <td ng-click="showReceipt(order)" class="order-number">{{ order.humanId }}</td>
+                <td ng-click="showReceipt(order)">{{ order.requestedDeliveryDate | date:'HH:mm' }}</td>
+                <td ng-click="showReceipt(order)">{{ order.requestedDeliveryDate | date:'d MMM yyyy' }}</td>
+                <td>
+                    <a ng-href="/package/{{ order.package.humanId }}-{{ order.package.name | slugify }}" class="package-name">{{ order.package.name }}</a>
+                </td>
                 <td ng-click="showReceipt(order)">{{ order.date | date:'d MMM yyyy' }}</td>
-                <td ng-click="showReceipt(order)">{{ order.requestedDeliveryDate | date:'d MMM yyyy HH:mm' }}</td>
-                <td ng-click="showReceipt(order)">{{ order.package.name }}</td>
+                <td ng-click="showReceipt(order)">{{ order.totalAmountAfterVoucher | currency:'£' }}</td>
                 <td ng-click="showReceipt(order)">{{ order.headCount }}</td>
-                <td ng-click="showReceipt(order)">&#163;{{ order.totalAmountAfterVoucher }}</td>
                 <td ng-click="showReceipt(order)">{{ order.statusText | getOrderStatusText }}</td>
-                <td class="dropdown">
-                    <a class="btn btn-primary" id="actions-{{ order.id }}" role="button">
-                        Actions
-                        <span class="caret"></span>
+                <td>
+                    <a ng-click="acceptOrder(order)" ng-if="order.statusText === 'pending_vendor_approval'" class="accept-order">
+                        Accept order
                     </a>
-
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="actions-{{ order.id }}">
-                        <li ng-if="order.statusText === 'pending_vendor_approval'"><a ng-click="acceptOrder(order)">Accept order</a></li>
-
-                        <li><a href="/vendor/orders/{{ order.id }}/messages">Customer contact</a></li>
-
-                        <li>@todo - invoice/receipt</li>
-                    </ul>
+                </td>
+                <td>
+                    <img src="/dist/images/icons/send-message.svg" width="15" height="13" />
+                    <a href="/vendor/orders/{{ order.id }}/messages" class="send-message">
+                        Customer
+                    </a>
                 </td>
             </tr>
         </tbody>

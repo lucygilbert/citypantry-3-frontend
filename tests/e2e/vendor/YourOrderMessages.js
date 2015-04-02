@@ -7,8 +7,9 @@ describe('Vendor portal - individual order messages', function() {
             loginAsUser('vendor@bunnies.test');
             browser.get('/vendor/orders');
             var order = element.all(by.repeater('order in orders')).get(0);
-            order.element(by.css('.dropdown a.btn')).click();
-            order.element(by.css('.dropdown-menu a[href*="messages"]')).click();
+            var messagesLink = order.element(by.css('a.send-message'));
+            expect(messagesLink.getText()).toBe('Customer');
+            messagesLink.click();
         }
     });
 

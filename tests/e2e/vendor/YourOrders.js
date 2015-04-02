@@ -24,8 +24,9 @@ describe('Vendor portal - your orders', function() {
         var pendingOrder = element.all(by.repeater('order in orders')).get(1);
         expect(pendingOrder.getText()).toContain('Pending vendor approval');
 
-        pendingOrder.element(by.css('.dropdown a.btn')).click();
-        pendingOrder.element(by.css('.dropdown-menu a[ng-click]')).click();
+        var acceptLink = pendingOrder.element(by.css('a.accept-order'));
+        expect(acceptLink.getText()).toBe('Accept order');
+        acceptLink.click();
 
         expect(pendingOrder.getText()).toContain('Active');
     });
