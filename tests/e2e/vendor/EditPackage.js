@@ -30,7 +30,7 @@ describe('Vendor portal - edit package', function() {
 
     it('should show the "Edit package" page', function() {
         expect(browser.getCurrentUrl()).toMatch(/\/vendor\/packages\/[\da-f]{24}$/);
-        expect(element(by.css('h1')).getText()).toBe('Edit package');
+        expect(element(by.css('h2.cp-heading')).getText()).toBe('EDIT PACKAGE');
     });
 
     it('should load select options and checkboxes', function() {

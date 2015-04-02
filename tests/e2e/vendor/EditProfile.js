@@ -10,7 +10,7 @@ describe('Vendor portal - edit profile', function() {
     });
 
     it('should show the "Edit profile" page', function() {
-        expect(element(by.css('h1')).getText()).toBe('Edit profile');
+        expect(element(by.css('h2.cp-heading')).getText()).toBe('EDIT PROFILE');
     });
 
     it('should load the vendor details', function() {

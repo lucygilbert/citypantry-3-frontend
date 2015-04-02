@@ -10,7 +10,7 @@ describe('Vendor signup', function() {
     });
 
     it('should show the "Vendor signup" page', function() {
-        expect(element(by.css('h1')).getText()).toBe('Apply to sell catering with us');
+        expect(element(by.css('h2.cp-heading')).getText()).toBe('APPLY TO SELL CATERING WITH US');
     });
 
     it('should load the vendor type options', function() {

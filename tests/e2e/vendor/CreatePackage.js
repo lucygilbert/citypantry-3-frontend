@@ -12,7 +12,7 @@ describe('Vendor portal - create package', function() {
     });
 
     it('should load the "Create package" page', function() {
-        expect(element(by.css('h1')).getText()).toBe('Create package');
+        expect(element(by.css('h2.cp-heading')).getText()).toBe('CREATE PACKAGE');
     });
 
     it('should load select options and checkboxes', function() {
