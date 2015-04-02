@@ -40,7 +40,7 @@ describe('Vendor portal - delivery radiuses', function() {
     });
 
     it('should show an empty input when no delivery radius is set for an address', function() {
-        expect(packages.get(0).all(by.css('input')).get(0).getAttribute('value')).toBe('');
+        expect(packages.get(0).all(by.css('input')).get(3).getAttribute('value')).toBe('');
     });
 
     it('should allow a delivery radius to be set', function() {

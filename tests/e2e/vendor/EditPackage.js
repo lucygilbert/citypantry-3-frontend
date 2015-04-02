@@ -111,7 +111,7 @@ describe('Vendor portal - edit package', function() {
         expect(addresses.get(1).getText()).toContain('11 Francis Street');
 
         var isSelectedCheckboxes = element.all(by.css('input[name="vendorAddressIsSelected[]"]'));
-        expect(isSelectedCheckboxes.get(0).isSelected()).toBe(false);
+        expect(isSelectedCheckboxes.get(0).isSelected()).toBe(true);
         expect(isSelectedCheckboxes.get(1).isSelected()).toBe(false);
     });
 
@@ -173,6 +173,9 @@ describe('Vendor portal - edit package', function() {
     // This test will fail if the suite is run in isolation because the address added by
     // CreatePackage will not exist.
     it('should show an error if 0 delivery addresses are selected', function() {
+        var firstAddressCheckbox = element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(0);
+        firstAddressCheckbox.click();
+
         var thirdAddressCheckbox = element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(2);
         thirdAddressCheckbox.click();
 
@@ -183,6 +186,7 @@ describe('Vendor portal - edit package', function() {
         expect(deliveryAddressError.isDisplayed()).toBe(true);
 
         // Revert the changes so other tests will pass.
+        firstAddressCheckbox.click();
         thirdAddressCheckbox.click();
     });
 
