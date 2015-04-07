@@ -1,7 +1,18 @@
 angular.module('cp').config(function($routeProvider) {
     $routeProvider.
         when('/', {
-            redirectTo: '/search'
+            controller: (SecurityService, $location) => {
+                if (SecurityService.customerIsLoggedIn()) {
+                    $location.path('/customer/dashboard');
+                } else if (SecurityService.vendorIsLoggedIn()) {
+                    $location.path('/vendor/orders');
+                } else if (SecurityService.staffIsLoggedIn()) {
+                    $location.path('/admin/orders');
+                } else {
+                    $location.path('/login');
+                }
+            },
+            template: '<div class="wrapper">Loading...</div>'
         }).
         when('/login', {
             controller: 'LoginRegisterController',

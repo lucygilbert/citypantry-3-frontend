@@ -28,6 +28,6 @@ xdescribe('Register', function() {
         element(by.css('form.register .btn.btn-primary')).click();
 
         // Should redirect to the index page.
-        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/search$/);
+        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/customer\/dashboard$/);
     });
 });

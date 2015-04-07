@@ -24,7 +24,7 @@ module.exports = {
 
         browser.wait(function() {
             return browser.getCurrentUrl().then(function(url) {
-                return (/\.dev\/search$/.test(url));
+                return (/\.dev\/(customer\/dashboard|admin\/orders|vendor\/orders)$/.test(url));
             });
         });
     },
