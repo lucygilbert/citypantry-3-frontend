@@ -4,13 +4,13 @@ describe('Dashboard page', function() {
     beforeEach(function() {
         if (isFirst) {
             loginAsUser('customer@bunnies.test');
-            browser.get('/dashboard');
+            browser.get('/customer/dashboard');
             isFirst = false;
         }
     });
 
-    it('should show the "Dashboard" page', function() {
-        expect(element(by.css('h1')).getText()).toMatch(/^HELLO \w+/);
+    it('should show the "Dashboard" page and greet the customer with their first name', function() {
+        expect(element(by.css('h1')).getText()).toContain('HELLO CUSTOMER,');
     });
 
     it('should load event types', function() {
@@ -28,8 +28,9 @@ describe('Dashboard page', function() {
     });
 
     it('should load customer\'s addresses and select first by default', function() {
-        expect(element.all(by.css('#search_postcode > option')).count()).toBe(1);
+        expect(element.all(by.css('#search_postcode > option')).count()).toBe(2);
         expect(element.all(by.css('#search_postcode > option')).get(0).getText()).toBe('Lena Gardens');
+        expect(element.all(by.css('#search_postcode > option')).get(1).getText()).toBe('11 Francis Street');
 
         expect(element(by.css('#search_postcode')).$('option:checked').getText()).toBe('Lena Gardens');
     });
@@ -48,7 +49,7 @@ describe('Dashboard page', function() {
 
     it('should show customer\'s next order', function() {
         expect(element(by.css('.cp-dashboard-order')).isPresent()).toBe(true);
-        expect(element(by.css('.cp-dashboard-order-date')).getText()).toMatch(/\d{2}\/\d{2}\/\d{2}/);
+        expect(element(by.css('.cp-dashboard-order-date')).getText()).toMatch(/\d{2} \w+ \d{2}/);
         expect(element(by.css('.cp-dashboard-order-description')).getText()).toBe('Yummy');
     });
 

@@ -1,6 +1,6 @@
 angular.module('cp.controllers.customer').controller('CustomerDashboardController',
         function($scope, DocumentTitleService, SecurityService, LoadingService, $q, PackagesFactory,
-        OrdersFactory, $location, CustomersFactory) {
+        OrdersFactory, $location, CustomersFactory, NotificationService) {
     SecurityService.requireCustomer();
     DocumentTitleService('Dashboard');
 
@@ -27,18 +27,21 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
         const promise1 = PackagesFactory.getEventTypes()
             .success(response => {
                 $scope.eventTypeOptions = response.eventTypes;
-            });
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         const promise2 = CustomersFactory.getAddresses()
             .success(response => {
                 $scope.addresses = response.addresses;
-            });
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         const promise3 = OrdersFactory.getOrdersByCurrentCustomer()
             .success(response => {
                 $scope.customer = response.customer;
                 $scope.orders = response.orders;
-            });
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         $q.all([promise1, promise2, promise3]).then(() => {
             if ($scope.addresses.length > 0) {
@@ -54,7 +57,7 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
                 $scope.nextOrder = upcomingOrders[0];
             }
 
-            LoadingService.hide()
+            LoadingService.hide();
         });
     }
 
@@ -81,8 +84,9 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
             return;
         }
 
+        let date;
         if ($scope.search.date) {
-            var date = $scope.search.date.getFullYear() + '-' + ($scope.search.date.getMonth() + 1) + '-' + $scope.search.date.getDate();
+            date = $scope.search.date.getFullYear() + '-' + ($scope.search.date.getMonth() + 1) + '-' + $scope.search.date.getDate();
         }
 
         const urlParams = {

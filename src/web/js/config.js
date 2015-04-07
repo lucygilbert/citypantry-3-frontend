@@ -7,7 +7,7 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'LoginRegisterController',
             templateUrl: '/dist/templates/auth/login-register.html'
         }).
-        when('/dashboard', {
+        when('/customer/dashboard', {
             controller: 'CustomerDashboardController',
             templateUrl: '/dist/templates/customer/dashboard.html'
         }).
