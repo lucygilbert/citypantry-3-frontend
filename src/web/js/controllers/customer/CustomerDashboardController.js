@@ -41,15 +41,12 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
             });
 
         $q.all([promise1, promise2, promise3]).then(() => {
-            $scope.search.eventType = $scope.eventTypeOptions[1].id; // Lunch.
-            $scope.search.time = 1330;
-
             if ($scope.addresses.length > 0) {
                 $scope.search.postcode = $scope.addresses[0].postcode;
             }
 
             const upcomingOrders = $scope.orders.filter(order => {
-                    return order.statusText !== 'not_placed' && order.requestedDeliveryDate >= toLocalIsoString(new Date());
+                    return order.statusText !== 'not_placed' && order.requestedDeliveryDate >= toIso8601String(new Date());
                 })
                 .sort((a, b) => a.requestedDeliveryDate > b.requestedDeliveryDate);
 
@@ -63,7 +60,7 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
 
     init();
 
-    function toLocalIsoString(date) {
+    function toIso8601String(date) {
         const off = date.getTimezoneOffset();
 
         return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes() - off, date.getSeconds(), date.getMilliseconds()).toISOString();
@@ -92,7 +89,7 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
             postcode: $scope.search.newPostcode ? $scope.search.newPostcode : $scope.search.postcode,
             headCount: $scope.search.headCount,
             time: $scope.search.time,
-            date: $scope.search.date ? date : $scope.search.date,
+            date: date ? date : undefined,
             eventTypeId: $scope.search.eventType
         };
 

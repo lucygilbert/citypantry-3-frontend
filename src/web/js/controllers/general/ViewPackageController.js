@@ -164,7 +164,7 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         $scope.isChangeDeliveryLocationModalOpen = false;
     };
 
-    function toLocalIsoString(date) {
+    function toIso8601String(date) {
         const off = date.getTimezoneOffset();
 
         return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes() - off, date.getSeconds(), date.getMilliseconds()).toISOString();
@@ -184,7 +184,7 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         const timeMinute = Math.floor($scope.order.time % 100);
         const dateTime = new Date($scope.order.date.getFullYear(), $scope.order.date.getMonth(), $scope.order.date.getDate(), timeHour, timeMinute);
 
-        PackagesFactory.checkIfPackageCanBeDelivered($scope.package.id, toLocalIsoString(dateTime), $scope.order.postcode)
+        PackagesFactory.checkIfPackageCanBeDelivered($scope.package.id, toIso8601String(dateTime), $scope.order.postcode)
             .success(response => {
                 if (response.isAvailable) {
                     // @todo – proceed to checkout.

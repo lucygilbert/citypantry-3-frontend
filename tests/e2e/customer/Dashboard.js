@@ -1,4 +1,4 @@
-ddescribe('Dashboard page', function() {
+describe('Dashboard page', function() {
     var isFirst = true;
 
     beforeEach(function() {
@@ -13,11 +13,10 @@ ddescribe('Dashboard page', function() {
         expect(element(by.css('h1')).getText()).toMatch(/^HELLO \w+/);
     });
 
-    it('should load event types and select lunch by default', function() {
-        expect(element.all(by.css('#search_event_type > option')).count()).toBe(6);
-        expect(element.all(by.css('#search_event_type > option')).get(0).getText()).toBe('Breakfast');
-
-        expect(element(by.css('#search_event_type')).$('option:checked').getText()).toBe('Lunch');
+    it('should load event types', function() {
+        expect(element.all(by.css('#search_event_type > option')).count()).toBe(7);
+        expect(element.all(by.css('#search_event_type > option')).get(1).getText()).toBe('Breakfast');
+        expect(element.all(by.css('#search_event_type > option')).get(2).getText()).toBe('Lunch');
     });
 
     it('should show a date picker when delivery date is focused', function() {
@@ -62,6 +61,6 @@ ddescribe('Dashboard page', function() {
 
         element(by.css('.cp-dashboard-form input[type="submit"]')).click();
 
-        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/search\?postcode=W6%207PY&headCount=10&time=1330&date=\d{4}-\d{1,2}-\d{1,2}&eventTypeId=[0-9a-f]{24}/);
+        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/search\?postcode=W6%207PY&headCount=10&date=\d{4}-\d{1,2}-\d{1,2}/);
     });
 });
