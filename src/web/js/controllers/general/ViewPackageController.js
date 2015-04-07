@@ -164,6 +164,7 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         $scope.isChangeDeliveryLocationModalOpen = false;
     };
 
+    // @todo - This function seems pointless.
     function toIso8601String(date) {
         const off = date.getTimezoneOffset();
 

@@ -63,6 +63,7 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
 
     init();
 
+    // @todo - This function seems pointless.
     function toIso8601String(date) {
         const off = date.getTimezoneOffset();
 
