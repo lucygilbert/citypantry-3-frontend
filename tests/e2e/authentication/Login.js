@@ -39,7 +39,7 @@ describe('Login', function() {
         element(by.css('.cp-login-form input[type="submit"]')).click();
 
         // Should redirect to the index page.
-        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/search$/);
+        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/orders$/);
     });
 
     it('should send a reset email and clear and close the dialog', function() {

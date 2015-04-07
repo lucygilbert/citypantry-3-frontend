@@ -1,0 +1,119 @@
+@import '../mixins/cp-font-title';
+@import 'cp-buttons';
+@import 'cp-forms';
+
+.cp-dashboard {
+    @extend .row;
+    margin-top: 60px;
+}
+
+.cp-dashboard-main {
+    @extend .col-xs-8;
+}
+
+.cp-dashboard-heading {
+    @include cp-font-title($font-size-h1);
+    margin: 0 0 $cp-margin-base-vertical;
+    text-align: center;
+
+    > span {
+        display: block;
+        font-size: $font-size-h2;
+        margin-top: $cp-margin-xs-vertical;
+    }
+}
+
+.cp-dashboard-sidebar {
+    @extend .col-xs-4;
+}
+
+.cp-dashboard-order {
+    border: 5px solid $gray-light;
+    padding: $cp-padding-xl-vertical ($grid-gutter-width / 2);
+
+    > header {
+        @extend .clearfix;
+        margin-bottom: $cp-margin-small-vertical;
+    }
+}
+
+.cp-dashboard-order-heading {
+    @include cp-font-title($font-size-h3);
+    float: left;
+    margin: 0;
+    width: 60%;
+}
+
+.cp-dashboard-order-date {
+    @include cp-font-title($font-size-large);
+    float: right;
+    font-weight: 400;
+    line-height: 1.3; // 26px
+    text-align: right;
+    width: 40%;
+}
+
+.cp-dashboard-order-description {
+    font-size: 16px;
+    margin-bottom: $cp-margin-base-vertical;
+}
+
+.cp-dashboard-order-detail {
+    position: relative;
+
+    > dl {
+        @extend .clearfix;
+        font-size: 16px;
+
+        > dt,
+        > dd {
+            border-bottom: 1px solid $gray-light;
+            padding-top: $padding-small-vertical;
+            padding-bottom: $padding-small-vertical;
+        }
+
+        > dt {
+            clear: left;
+            float: left;
+            font-weight: 400;
+            width: $dl-horizontal-offset;
+        }
+
+        > dd {
+            margin-left: $dl-horizontal-offset;
+            text-align: right;
+        }
+    }
+}
+
+.cp-dashboard-order-detail-total {
+    @include cp-font-title($font-size-h4);
+    border-top: 2px solid $cp-primary-color !important;
+    border-bottom: 2px solid $cp-primary-color !important;
+    font-weight: 700 !important;
+    padding-top: $cp-margin-small-vertical !important;
+    padding-bottom: $cp-margin-small-vertical !important;
+    position: relative;
+    top: -1px;
+}
+
+.cp-dashboard-order-detail-heading {
+    @include cp-font-title($font-size-h4);
+    border-bottom: 2px solid $cp-primary-color;
+    margin: 0;
+    padding-bottom: $padding-base-vertical;
+}
+
+.cp-dashboard-order-edit {
+    font-weight: 600;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        color: $cp-secondary-color;
+    }
+}
