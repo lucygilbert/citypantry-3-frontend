@@ -1,5 +1,5 @@
 angular.module('cp.controllers.customer').controller('CustomerOrdersController',
-        function($scope, OrdersFactory, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, $window, OrdersFactory, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
     SecurityService.requireCustomer();
     DocumentTitleService('Your orders');
 
@@ -22,5 +22,27 @@ angular.module('cp.controllers.customer').controller('CustomerOrdersController',
     $scope.showReceipt = function(order) {
         $scope.modal = true;
         $scope.modalOrder = order;
+    };
+
+    $scope.downloadInvoice = function(order) {
+        LoadingService.show();
+
+        OrdersFactory.getOrderInvoices(order.id)
+            .success(response => {
+                if (response.invoices.length === 0) {
+                    NotificationService.notifyError('The invoice for this order is not available to download.');
+                    return;
+                }
+
+                const firstInvoice = response.invoices[response.invoices.length - 1];
+
+                if (!firstInvoice.fileSystemUrl) {
+                    NotificationService.notifyError('The invoice for this order is not available to download.');
+                    return;
+                }
+
+                $window.location = firstInvoice.fileSystemUrl;
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 });

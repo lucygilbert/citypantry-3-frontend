@@ -49,6 +49,8 @@ angular.module('cp.factories').factory('OrdersFactory', function(API_BASE, ApiSe
 
         updateCustomerInvoiceStatus: (id, status) => ApiService.put(`${API_BASE}/orders/customer-invoice/${id}/status`, {status: status}),
 
-        refundOrder: (id, refundDetails) => ApiService.put(`${API_BASE}/order/${id}/refund`, refundDetails)
+        refundOrder: (id, refundDetails) => ApiService.put(`${API_BASE}/order/${id}/refund`, refundDetails),
+
+        getOrderInvoices: (orderId) => ApiService.get(`${API_BASE}/orders/customer-invoices-by-order/${orderId}`)
     };
 });

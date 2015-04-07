@@ -1,0 +1,28 @@
+$table-bg-accent: #d9e7f5;
+
+.cp-table {
+    > thead > tr > th {
+        font-size: 1.1em;
+        font-weight: bold;
+        border-bottom: 4px solid #efefef;
+    }
+
+    > thead:first-child > tr:first-child > th {
+        // Need this overly-specific rule to override a Bootstrap style.
+        border-top: 4px solid #efefef;
+    }
+
+    > tbody > tr > td {
+        border-top: none;
+        border-bottom: none;
+    }
+
+    > thead > tr > th,
+    > tbody > tr > td {
+        padding: 12px;
+    }
+
+    > tbody > tr:nth-of-type(even) {
+        background-color: $table-bg-accent;
+    }
+}
