@@ -4,6 +4,13 @@
         margin-bottom: 18px;
         padding: $cp-padding-xl-vertical ($grid-gutter-width / 2);
 
+        fieldset legend {
+            @extend .cp-form-label;
+            border-bottom: 0;
+            display: inline-block;
+            width: auto;
+        }
+
         > .cp-form-group:last-of-type {
             margin-bottom: 0;
         }
@@ -16,9 +23,11 @@
 }
 
 .cp-form-label {
+    color: $cp-primary-color;
     font-size: $font-size-h4;
     font-weight: 600;
     line-height: 1.167; // ~21px
+    margin-bottom: $cp-margin-xs-vertical;
 }
 
 .cp-form-control {
@@ -38,7 +47,34 @@
 }
 
 .cp-checkbox {
-    @extend .checkbox;
+    > label {
+        font-size: 16px;
+        font-weight: 400;
+
+        > input[type='checkbox'] {
+            margin: 1px 2px 0 $padding-small-horizontal;
+        }
+    }
+}
+
+.cp-checkbox-inline {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0 $padding-small-horizontal;
+
+    > input[type='checkbox'] {
+        margin: 1px 2px 0 0;
+    }
+}
+
+.cp-radio-inline {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0 $padding-small-horizontal;
+
+    > input[type='radio'] {
+        margin: 1px 2px 0 0;
+    }
 }
 
 .cp-form-error {

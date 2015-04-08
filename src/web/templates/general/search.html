@@ -1,148 +1,105 @@
 <div class="container">
-    <h1 class="cp-heading">This is a title</h1>
+    <h1 class="cp-heading text-center">This is a title</h1>
 
-    <div class="cp-search-form">
-        <div class="row">
-            <div class="form-group col-md-3">
-                <label class="cp-search-label" for="cp-search-delivery-date">Delivery date</label>
-                <input ng-model="pickedDate" datepicker-popup="dd MMMM yyyy" datepicker-mode="day" year-range="2" datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}" is-open="isDatePickerOpen" ng-click="openDatePicker($event)" type="text" placeholder="DD/MM/YYYY" class="cp-search-field" id="cp-search-delivery-date">
+    <form class="cp-form cp-search-form" novalidate role="form">
+        <fieldset>
+            <div class="row">
+                <div class="cp-form-group col-md-3">
+                    <label class="cp-form-label" for="delivery_date">Delivery date</label>
+                    <input class="cp-form-control" id="delivery_date" type="text" placeholder="DD/MM/YYYY" ng-click="openDatePicker($event)" ng-model="pickedDate" datepicker-popup="dd/MM/yyyy" datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}" is-open="isDatePickerOpen" min-date="minDate" year-range="2" />
+                </div>
+
+                <div class="cp-form-group col-md-2">
+                    <label class="cp-form-label" for="delivery_time">Time</label>
+                    <select class="cp-form-control" id="delivery_time" ng-model="search.time" ng-options="time.value as time.label for time in timeOptions">
+                        <option value="">-</option>
+                    </select>
+                </div>
+
+                <div class="cp-form-group col-md-2">
+                    <label class="cp-form-label" for="head_count">How many people?</label>
+                    <select class="cp-form-control" id="head_count" ng-model="search.headCount" ng-options="headCount for headCount in headCountOptions">
+                        <option value="">-</option>
+                    </select>
+                </div>
+
+                <div class="cp-form-group col-md-2">
+                    <label class="cp-form-label" for="delivery_location">Delivery location</label>
+                    <input class="cp-form-control" id="delivery_location" type="text" placeholder="POSTCODE" ng-model="search.postcode" ng-model-options="{debounce: 1000}" />
+                </div>
+
+                <div class="cp-form-group col-md-3">
+                    <label class="cp-form-label" for="budget_per_person">Budget per person</label>
+                    <input class="cp-search-budget-per-person-input" id="budget_per_person" type="range" min="1" max="50" step="1" ng-model="search.maxBudget" />
+                    <output class="cp-search-budget-per-person-output" for="budget_per_person">
+                        {{ search.maxBudget | currency:'£':0 }}
+                    </output>
+                </div>
             </div>
-            <div class="form-group col-md-2">
-                <label class="cp-search-label" for="cp-search-delivery-time">Time</label>
-                <input type="time" class="cp-search-field" id="cp-search-delivery-date" placeholder="-">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset>
+                        <legend class="cp-search-event-type-label" ng-show="eventTypes.length > 0">Event type:</legend>
+                        <label class="cp-checkbox-inline" ng-repeat="eventType in eventTypes">
+                            <input type="checkbox" checklist-model="search.eventTypes" checklist-value="eventType.id"> {{ eventType.name }}
+                        </label>
+                    </fieldset>
+                </div>
             </div>
-            <div class="form-group col-md-2">
-                <label class="cp-search-label" for="cp-search-people-count">How many people?</label>
-                <input ng-model="search.headCount" type="number" class="cp-search-field" id="cp-search-people-count" placeholder="-">
+        </fieldset>
+
+        <button class="cp-btn cp-btn-link cp-search-advanced-search" type="button" ng-click="isAdvancedSearchVisible = !isAdvancedSearchVisible">Advanced search</button>
+    </form>
+
+    <form class="cp-form cp-search-form cp-search-form-advanced" novalidate role="form" ng-show="isAdvancedSearchVisible">
+        <fieldset>
+            <div class="row">
+                <div class="col-md-6">
+                    <fieldset>
+                        <legend class="cp-search-advanced-search-label" ng-show="cuisineTypes.length > 0">Cuisine</legend>
+                        <div class="row">
+                            <div class="cp-checkbox col-md-6 col-lg-4" ng-repeat="cuisineType in cuisineTypes">
+                                <label>
+                                    <input type="checkbox" checklist-model="search.cuisineTypes" checklist-value="cuisineType.id" /> {{ cuisineType.name }}
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-md-6">
+                    <fieldset>
+                        <legend class="cp-search-advanced-search-label" ng-show="dietaryRequirements.length > 0">Diet specific</legend>
+                        <div class="row">
+                            <div class="cp-checkbox col-md-6 col-lg-4" ng-repeat="dietaryRequirement in dietaryRequirements">
+                                <label>
+                                    <input type="checkbox" checklist-model="search.dietaryRequirements" checklist-value="dietaryRequirement.id" /> {{ dietaryRequirement.name }}
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend class="cp-search-advanced-search-label cp-search-packaging-options-label" ng-show="packagingTypeOptions.length > 0">Packaging options</legend>
+                        <label class="cp-radio-inline" ng-repeat="packagingType in packagingTypeOptions">
+                            <input type="radio" ng-model="search.packagingType" ng-value="{{ packagingType.value }}" /> {{ packagingType.label }}
+                        </label>
+                    </fieldset>
+                </div>
             </div>
-            <div class="form-group col-md-2">
-                <label class="cp-search-label" for="cp-search-delivery-location">Delivery location</label>
-                <input type="text" class="cp-search-field" id="cp-search-delivery-location" placeholder="SW3 5JR">
-            </div>
-            <div class="form-group col-md-3">
-                <label class="cp-search-budget-per-person-label" for="cp-search-budget-per-person">Budget per person</label>
-                <output class="cp-search-budget-per-person-output" for="budgetPerPerson">
-                    £{{ search.maxBudget }}
-                </output>
-                <input ng-model="search.maxBudget" type="range" class="cp-search-budget-per-person-input" name="cp-search-budget-per-person" min="1" max="50" step="1">
-            </div>
-        </div>
-        <div>
-            <span class="cp-search-event-type-label">Event Type:</span>
-            <div class="cp-search-event-type">
-                <label><input type="checkbox"> Breakfast</label>
-            </div>
-            <div class="cp-search-event-type">
-                <label><input type="checkbox"> Lunch</label>
-            </div>
-            <div class="cp-search-event-type">
-                <label><input type="checkbox"> Dinner</label>
-            </div>
-            <div class="cp-search-event-type">
-                <label><input type="checkbox"> Sweets</label>
-            </div>
-            <div class="cp-search-event-type">
-                <label><input type="checkbox"> Canapé</label>
-            </div>
-            <div class="cp-search-event-type">
-                <label><input type="checkbox"> Snacks</label>
-            </div>
-        </div>
-    </div>
+        </fieldset>
+
+        <button class="cp-btn cp-btn-link cp-search-advanced-search-close" type="button" ng-click="isAdvancedSearchVisible = false">Close</button>
+    </form>
 
     <div class="row">
-        <div ng-repeat="package in packages" class="col-sm-3 col-xs-6" cp-package-card package="package"></div>
+        <p ng-show="isSearching">Seaching...</p>
+
+        <div class="col-sm-3 col-xs-6" ng-repeat="package in packages | limitTo:packagesLimit" ng-show="!isSearching" package="package" cp-package-card></div>
+    </div>
+
+    <div class="text-center">
+        <button class="cp-btn cp-btn-primary cp-btn-lg cp-search-show-more" type="button" ng-click="showMore()" ng-if="packages.length > packagesLimit">Show more food</button>
     </div>
 </div>
-
-<!--div class="wrapper" id="search-page">
-    <div class="col-xs-3 sidebar">
-        <h3 class="sr-only">Filter</h3>
-
-        <form class="filter-form" role="form">
-            <div class="form-group">
-                <label for="date" ng-click="openDatePicker($event)">Date</label>
-
-                <input type="text" class="form-control input-lg" />
-            </div>
-
-            <div class="form-group">
-                <label for="time">Time</label>
-                <select class="form-control input-lg" name="time" ng-model="search.time"
-                        ng-options="time.value as time.label for time in timeOptions">
-                    <option value="">-</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="people">Number of people</label>
-                <select class="form-control input-lg" name="people" ng-model="search.headCount"
-                        ng-options="option as option for option in headCountOptions">
-                    <option value="">-</option>
-                </select>
-            </div>
-        </form>
-
-        <section class="filter-package" id="filter-package">
-            <div class="form-group filter-package-budget">
-                <label for="budget">Budget per person</label>
-
-                <slider floor="{{ minPackageCost }}" ceiling="{{ maxPackageCost }}" step="1" precision="0.1" ng-model="search.maxBudget"></slider>
-
-                <p class="budget-range" ng-show="search.maxBudget > 0">
-                    Max: <strong>{{ search.maxBudget | currency:'£' }}</strong>
-                </p>
-            </div>
-
-            <h4 ng-show="eventTypes.length > 0 || search.eventType">Package type</h4>
-
-            <ul class="nav" ng-show="eventTypes.length > 0 && !search.eventType">
-                <li ng-repeat="eventType in eventTypes">
-                    <a ng-click="search.eventType = eventType">
-                        {{ eventType.name }}
-                        <span>{{ eventType.searchResultsCount }}</span>
-                    </a>
-                </li>
-            </ul>
-
-            <div class="filter-selected event-type-filter-selected" ng-show="search.eventType">
-                <span>{{ search.eventType.name }}</span>
-                <button class="close" type="button" ng-click="search.eventType = null">×</button>
-            </div>
-
-            <h4 ng-show="cuisineTypes.length > 0 || search.cuisineType">Cuisine</h4>
-
-            <ul class="nav" ng-show="cuisineTypes.length > 0 && !search.cuisineType">
-                <li ng-repeat="cuisineType in cuisineTypes">
-                    <a ng-click="search.cuisineType = cuisineType">
-                        {{ cuisineType.name }}
-                        <span>{{ cuisineType.searchResultsCount }}</span>
-                    </a>
-                </li>
-            </ul>
-
-            <div class="filter-selected cuisine-type-filter-selected" ng-show="search.cuisineType">
-                <span>{{ search.cuisineType.name }}</span>
-                <button class="close" type="button" ng-click="search.cuisineType = null">×</button>
-            </div>
-        </section>
-    </div>
-
-    <select ng-model="sort" class="input-lg sort-btn">
-        <option value="">Sort by...</option>
-        <option value="priceLowToHigh">Price: low to high</option>
-        <option value="priceHighToLow">Price: high to low</option>
-    </select>
-
-    <p ng-show="isSearching">Seaching...</p>
-
-    <div class="col-xs-9" ng-show="!isSearching">
-        <h1>{{ packages.length }} package{{ packages.length == 1 ? '' : 's' }} found</h1>
-
-        <ul class="packages">
-            <li ng-repeat="package in packages" cp-package-card package="package" class="package"></li>
-        </ul>
-    </div>
-
-    <div class="clearfix"></div>
-</div-->

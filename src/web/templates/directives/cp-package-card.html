@@ -1,13 +1,11 @@
-<div class="cp-search-package" ng-if="package">
-    <div class="cp-search-package-photo">
-        <img ng-src="{{ package.images[0].medium }}">
+<a class="cp-package-card" href="/package/{{ package.humanId }}-{{ package.name | slugify }}" ng-if="package">
+    <div class="cp-package-card-image-wrap">
+        <img ng-src="{{ package.images[0].medium }}" />
     </div>
-    <div class="cp-search-package-info">
-        <div class="cp-search-package-name" ng-bind="package.name" js-clamp="'2'"></div>
-        <div class="cp-search-package-vendor">{{ package.vendor.name }}</div>
+    <div class="cp-package-card-info">
+        <div class="cp-package-card-name" ng-bind="package.name" js-clamp="'2'"></div>
+        <div class="cp-package-card-vendor">{{ package.vendor.name }}</div>
+        <span class="cp-package-card-price">{{ package.costIncludingVat | currency:'£':2 }} <span>per head</span></span>
+        <span class="cp-package-card-notice" ng-if="package.notice">{{ package.notice }}H <span>notice</span></span>
     </div>
-    <div class="cp-search-package-price-tag">
-        <span class="cp-search-package-price">{{ package.costIncludingVat | currency:'£' }}</span>
-        <!--span class="cp-search-package-price-info">per head</span-->
-    </div>
-</div>
+</a>
