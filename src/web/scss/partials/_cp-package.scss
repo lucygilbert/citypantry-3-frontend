@@ -238,26 +238,6 @@
     @extend .col-xs-7;
 }
 
-.cp-package-rating-inline {
-    @extend .row;
-    @extend .list-unstyled;
-    @include cp-font-title($font-size-small);
-    margin-bottom: $cp-margin-base-vertical;
-
-    > li {
-        @extend .col-xs-3;
-        border-left: 2px solid $gray-light;
-
-        &:first-child {
-            border-left: 0;
-        }
-    }
-}
-
-.cp-package-rating-inline-rating {
-    font-size: 16px;
-}
-
 .cp-package-reviews {
     p {
         font-size: $font-size-large;

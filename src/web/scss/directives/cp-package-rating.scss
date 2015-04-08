@@ -1,3 +1,7 @@
+cp-package-rating {
+    display: block;
+}
+
 .cp-package-rating-inline {
     @extend .row;
     @extend .list-unstyled;
@@ -5,7 +9,8 @@
     margin-bottom: $cp-margin-base-vertical;
 
     > li {
-        @extend .col-xs-3;
+        @extend .col-xs-2;
+        width: 19.5%;
         border-left: 2px solid $gray-light;
 
         &:first-child {
