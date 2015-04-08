@@ -5,7 +5,6 @@ angular.module('cp.controllers.general').controller('SearchController',
     SecurityService.requireLoggedIn();
 
     $scope.search = {
-        name: $routeParams.name,
         postcode: $routeParams.postcode,
         maxBudget: undefined,
         headCount: undefined,
@@ -59,12 +58,6 @@ angular.module('cp.controllers.general').controller('SearchController',
     }
 
     init();
-
-    $rootScope.$watch('bannerSearchName', function(name) {
-        if (isOnSearchPage) {
-            $location.search('name', name).replace();
-        }
-    });
 
     $scope.$watch('search.maxBudget', (newValue, oldValue) => {
         if (newValue === oldValue) {
@@ -157,16 +150,12 @@ angular.module('cp.controllers.general').controller('SearchController',
         $scope.isDatePickerOpen = true;
     };
 
-    if ($routeParams.name && !$rootScope.bannerSearchName) {
-        $rootScope.bannerSearchName = $routeParams.name;
-    }
-
     $scope.showMore = function() {
         $scope.packagesLimit += 20;
     };
 
     function search() {
-        PackagesFactory.searchPackages($scope.search.name, $scope.search.postcode,
+        PackagesFactory.searchPackages(undefined, $scope.search.postcode,
                 $scope.search.maxBudget, $scope.search.headCount, $scope.search.time,
                 $scope.search.date, ($scope.search.eventTypes.length !== $scope.eventTypes.length ? $scope.search.eventTypes : []),
                 ($scope.search.cuisineTypes.length !== $scope.cuisineTypes.length ? $scope.search.cuisineTypes : []),
