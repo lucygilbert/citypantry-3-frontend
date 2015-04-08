@@ -98,6 +98,16 @@
                                 <td class="order-details-cell" id="dietary_requirements">{{ modalOrder.customDietaryRequirements }}</td>
                             </tr>
                             <tr>
+                                <th scope="row">Packaging type</th>
+                                <td class="order-details-cell">
+                                    {{
+                                    modalOrder.packagingTypeChoice
+                                        ? (modalOrder.packagingTypeChoice | getPackagingTypeChoiceText)
+                                       : ''
+                                    }}
+                                </td>
+                            </tr>
+                            <tr>
                                 <th scope="row">Subtotal</th>
                                 <td class="order-details-cell" id="subtotal">{{ modalOrder.subTotalIncludingVat | currency:'£' }}</td>
                             </tr>

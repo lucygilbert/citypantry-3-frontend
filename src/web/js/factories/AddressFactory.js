@@ -1,4 +1,6 @@
-angular.module('cp.factories', []);
+angular.module('cp.factories', [
+    'cp.filters'
+]);
 
 angular.module('cp.factories').factory('AddressFactory', function(ApiService, API_BASE) {
     return {
