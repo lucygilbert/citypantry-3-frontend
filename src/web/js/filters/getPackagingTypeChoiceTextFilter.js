@@ -1,4 +1,4 @@
-angular.module('cp.filters').filter('getPackagingTypeText', function() {
+angular.module('cp.filters').filter('getPackagingTypeChoiceText', function() {
     return function(type) {
         switch (type) {
             case 'individual':
@@ -7,9 +7,9 @@ angular.module('cp.filters').filter('getPackagingTypeText', function() {
             case 'buffet':
             case 2:
                 return 'Buffet';
-            case 'either':
+            case 'dont_mind':
             case 3:
-                return 'Either';
+                return 'Don’t mind';
             default:
                 throw 'Unexpected type: ' + type;
         }

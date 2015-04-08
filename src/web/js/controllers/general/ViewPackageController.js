@@ -1,6 +1,6 @@
 angular.module('cp.controllers.general').controller('ViewPackageController',
         function($scope, $routeParams, PackagesFactory, NotificationService, DocumentTitleService,
-        LoadingService, SecurityService, $sce, FRONTEND_BASE, OrdersFactory, getPackagingTypeTextFilter,
+        LoadingService, SecurityService, $sce, FRONTEND_BASE, OrdersFactory,
         $location, getPackageAvailabilityErrorTextFilter) {
     SecurityService.requireLoggedIn();
 

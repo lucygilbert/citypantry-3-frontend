@@ -86,7 +86,7 @@ describe('Vendor portal - edit package', function() {
 
         var packagingType = element(by.model('package.packagingType'));
         expect(packagingType.all(by.css('option')).count()).toBe(3);
-        expect(packagingType.element(by.cssContainingText('option', 'Individual Portions')).isSelected()).toBe(true);
+        expect(packagingType.element(by.cssContainingText('option', 'Individual')).isSelected()).toBe(true);
     });
 
     it('should show 2 package item textboxes', function() {

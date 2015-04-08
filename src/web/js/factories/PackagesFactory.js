@@ -1,4 +1,5 @@
-angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, ApiService) {
+angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, ApiService,
+        getPackagingTypeTextFilter) {
     return {
         getAllPackages: () => ApiService.get(`${API_BASE}/packages`),
 
@@ -135,11 +136,7 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
         },
 
         getPackagingTypeOptions: () => {
-            return [
-                { label: 'Individual Portions', value: 1 },
-                { label: 'Buffet', value: 2 },
-                { label: 'Either', value: 3 }
-            ];
+            return [1, 2, 3].map(value => ({ value, label: getPackagingTypeTextFilter(value) }));
         },
 
         getPackageDeliveryTimeOptions: (start, end, interval = 15) => {
