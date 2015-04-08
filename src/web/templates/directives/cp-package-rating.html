@@ -1,41 +1,28 @@
-<ul class="cp-package-rating-inline">
-    <li>
-        <span class="cp-package-rating-inline-attribute">Quality</span>
-        <div class="cp-package-rating-inline-rating">
-            <i class="icon icon-star"></i>
-            <i class="icon icon-star"></i>
-            <i class="icon icon-star"></i>
-            <i class="icon icon-star"></i>
-            <i class="icon icon-star-half-o"></i>
-            <span class="sr-only"><span>4.5</span>/5</span>
+<ul class="{{ listClass }}">
+    <li ng-if="summary.qualityRating !== null">
+        <span class="{{ attributeNameClass }}">Quality</span>
+        <div class="{{ attributeValueClass }}" cp-rating-stars="summary.qualityRating">
         </div>
     </li>
-    <li>
-        <span class="cp-package-rating-inline-attribute">Value</span>
-        <div class="cp-package-rating-inline-rating">
-            <i class="icon icon-star"></i>
-            <i class="icon icon-star"></i>
-            <i class="icon icon-star"></i>
-            <i class="icon icon-star-o"></i>
-            <i class="icon icon-star-o"></i>
-            <span class="sr-only"><span>3</span>/5</span>
+    <li ng-if="summary.valueRating !== null">
+        <span class="{{ attributeNameClass }}">Value</span>
+        <div class="{{ attributeValueClass }}" cp-rating-stars="summary.valueRating">
         </div>
     </li>
-    <li>
-        <span class="cp-package-rating-inline-attribute">Presentation</span>
-        <div class="cp-package-rating-inline-rating">
-            <i class="icon icon-star"></i>
-            <i class="icon icon-star"></i>
-            <i class="icon icon-star"></i>
-            <i class="icon icon-star"></i>
-            <i class="icon icon-star-o"></i>
-            <span class="sr-only"><span>4</span>/5</span>
+    <li ng-if="summary.presentationRating !== null">
+        <span class="{{ attributeNameClass }}">Presentation</span>
+        <div class="{{ attributeValueClass }}" cp-rating-stars="summary.presentationRating">
         </div>
     </li>
-    <li>
-        <span class="cp-package-rating-inline-attribute">On time</span>
-        <div class="cp-package-rating-inline-rating">
-            80%
+    <li ng-if="summary.communicationRating !== null">
+        <span class="{{ attributeNameClass }}">Communication</span>
+        <div class="{{ attributeValueClass }}" cp-rating-stars="summary.communicationRating">
+        </div>
+    </li>
+    <li ng-if="summary.onTimePercentage !== null">
+        <span class="{{ attributeNameClass }}">On time</span>
+        <div class="{{ attributeValueClass }}">
+            {{ summary.onTimePercentage }}%
         </div>
     </li>
 </ul>

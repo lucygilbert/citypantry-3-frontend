@@ -95,7 +95,9 @@
                     <a class="cp-dashboard-order-edit" href="@todo">Edit<span class="sr-only"> order</span></a>
                 </section>
 
-                <a class="cp-btn cp-btn-default cp-btn-lg cp-btn-block" href="@todo">View details</a>
+                <a class="cp-btn cp-btn-default cp-btn-lg cp-btn-block"
+                    ng-href="/package/{{ nextOrder.package.humanId }}-{{ nextOrder.package.name | slugify }}"
+                    >View details</a>
             </aside>
         </div>
     </div>

@@ -16,7 +16,7 @@
                 <span>per head</span>
             </span>
 
-            <cp-package-rating></cp-package-rating>
+            <cp-package-rating cp-summary="reviewsSummary" cp-style="horizontal"></cp-package-rating>
 
             <p class="cp-package-description">{{ package.description }}</p>
 
@@ -82,49 +82,8 @@
 
                 <div class="cp-package-rating">
                     <h3 class="cp-package-rating-heading">Summary</h3>
-                    <ul class="cp-package-rating-attributes">
-                        <!-- @todo - rating stars. -->
-                        <li>
-                            <span class="cp-package-rating-attribute">Quality</span>
-                            <div class="cp-package-rating-rating">
-                                <i class="icon icon-star"></i>
-                                <i class="icon icon-star"></i>
-                                <i class="icon icon-star"></i>
-                                <i class="icon icon-star"></i>
-                                <i class="icon icon-star-half-o"></i>
-                                <span class="sr-only"><span>4.5</span>/5</span>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="cp-package-rating-attribute">Value</span>
-                            <div class="cp-package-rating-rating">
-                                <i class="icon icon-star"></i>
-                                <i class="icon icon-star"></i>
-                                <i class="icon icon-star"></i>
-                                <i class="icon icon-star-o"></i>
-                                <i class="icon icon-star-o"></i>
-                                <span class="sr-only"><span>3</span>/5</span>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="cp-package-rating-attribute">Presentation</span>
-                            <div class="cp-package-rating-rating">
-                                <i class="icon icon-star"></i>
-                                <i class="icon icon-star"></i>
-                                <i class="icon icon-star"></i>
-                                <i class="icon icon-star"></i>
-                                <i class="icon icon-star-o"></i>
-                                <span class="sr-only"><span>4</span>/5</span>
-                            </div>
-                        </li>
-                        <li>
-                            <!-- @todo - on time %. -->
-                            <span class="cp-package-rating-attribute">On time</span>
-                            <div class="cp-package-rating-rating">
-                                80%
-                            </div>
-                        </li>
-                    </ul>
+
+                    <cp-package-rating cp-summary="reviewsSummary" cp-style="vertical"></cp-package-rating>
                 </div>
 
                 <p ng-if="reviews === undefined">Loading…</p>

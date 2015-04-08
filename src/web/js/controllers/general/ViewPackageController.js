@@ -81,7 +81,10 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
 
     const loadReviews = (id) => {
         PackagesFactory.getPackageReviews(id)
-            .success(response => $scope.reviews = response.reviews)
+            .success(response => {
+                $scope.reviews = response.reviews;
+                $scope.reviewsSummary = response.summary;
+            })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 
