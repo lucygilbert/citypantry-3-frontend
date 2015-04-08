@@ -156,6 +156,7 @@ module.exports = function (grunt) {
                         'src/web/lib/angular-ui-carousel.js',
                         'src/web/lib/ng-file-upload/angular-file-upload-shim.min.js',
                         'src/web/lib/ng-file-upload/angular-file-upload.min.js',
+                        'node_modules/grunt-6to5/node_modules/6to5/browser-polyfill.js',
                     ],
                     'web/dist/js/built-citypantry-es6.js': [
                         'src/web/js/app.module.js',
