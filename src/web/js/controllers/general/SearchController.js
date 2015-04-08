@@ -1,8 +1,10 @@
 angular.module('cp.controllers.general').controller('SearchController',
-        function($scope, $rootScope, PackagesFactory, OrdersFactory, NotificationService,
-        $routeParams, $location, DocumentTitleService, SecurityService, LoadingService, $q) {
+        function($scope, PackagesFactory, OrdersFactory, NotificationService,
+        $routeParams, DocumentTitleService, SecurityService, LoadingService, $q) {
     DocumentTitleService('Search catering packages');
     SecurityService.requireLoggedIn();
+
+    const PAGINATION_LENGTH = 20;
 
     $scope.search = {
         postcode: $routeParams.postcode,
@@ -24,7 +26,9 @@ angular.module('cp.controllers.general').controller('SearchController',
     $scope.cuisineTypes = [];
     $scope.dietaryRequirements = [];
     $scope.packagingTypeOptions = PackagesFactory.getPackagingTypeOptions();
-    $scope.packagesLimit = 20;
+    // This limit is not fixed - it increases when the user clicks 'show more' (triggering
+    // `$scope.showMore`).
+    $scope.packagesLimit = PAGINATION_LENGTH;
 
     let isOnSearchPage = true;
 
@@ -151,21 +155,21 @@ angular.module('cp.controllers.general').controller('SearchController',
     };
 
     $scope.showMore = function() {
-        $scope.packagesLimit += 20;
+        $scope.packagesLimit += PAGINATION_LENGTH;
     };
 
     function search() {
         PackagesFactory.searchPackages(undefined, $scope.search.postcode,
                 $scope.search.maxBudget, $scope.search.headCount, $scope.search.time,
-                $scope.search.date, ($scope.search.eventTypes.length !== $scope.eventTypes.length ? $scope.search.eventTypes : []),
+                $scope.search.date,
+                // If all event types are selected, don't send any (same effect, but shorter URL).
+                ($scope.search.eventTypes.length !== $scope.eventTypes.length ? $scope.search.eventTypes : []),
+                // If all cuisine types are selected, don't send any (same effect, but shorter URL).
                 ($scope.search.cuisineTypes.length !== $scope.cuisineTypes.length ? $scope.search.cuisineTypes : []),
+                // If all dietary requirements are selected, don't send any (same effect, but shorter URL).
                 ($scope.search.dietaryRequirements.length !== $scope.dietaryRequirements.length ? $scope.search.dietaryRequirements : []),
                 $scope.search.packagingType)
             .success(response => {
-                if (response.exactVendorNameMatch) {
-                    $location.path(`/vendor/${response.vendor.id}-${response.vendor.slug}`);
-                }
-
                 $scope.packages = response.packages;
                 $scope.isSearching = false;
 
