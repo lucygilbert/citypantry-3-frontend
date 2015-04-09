@@ -1,3 +1,5 @@
+angular.module('cp.services', []);
+
 angular.module('cp.services').service('DocumentTitleService', function($document) {
     return newTitle => {
         newTitle = newTitle + ' | City Pantry';

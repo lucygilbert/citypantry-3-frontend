@@ -1,4 +1,4 @@
-angular.module('cp.controllers.general').directive('cpUnique', function($q, ApiService, API_BASE) {
+angular.module('cp.controllers.general').directive('cpUnique', function($q, ApiService) {
     return {
         restrict: 'A',
         require: 'ngModel',
@@ -15,7 +15,7 @@ angular.module('cp.controllers.general').directive('cpUnique', function($q, ApiS
 
                 viewValue = encodeURIComponent(viewValue);
 
-                ApiService.get(`${API_BASE}/${collection}/is-${field}-in-use?${field}=${viewValue}`)
+                ApiService.get(`/${collection}/is-${field}-in-use?${field}=${viewValue}`)
                     .then(response => {
                         if (response.data.isInUse) {
                             deferred.reject();
