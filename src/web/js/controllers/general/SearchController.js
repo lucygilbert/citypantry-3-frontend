@@ -1,16 +1,18 @@
 angular.module('cp.controllers.general').controller('SearchController',
-        function($scope, $rootScope, PackagesFactory, OrdersFactory, NotificationService,
-        $routeParams, $location, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, PackagesFactory, OrdersFactory, NotificationService,
+        $routeParams, DocumentTitleService, SecurityService, LoadingService, $q, $filter) {
     DocumentTitleService('Search catering packages');
     SecurityService.requireLoggedIn();
 
+    const PAGINATION_LENGTH = 20;
+
     $scope.search = {
-        name: $routeParams.name,
         postcode: $routeParams.postcode,
         maxBudget: undefined,
-        headCount: undefined,
-        time: undefined,
-        date: undefined
+        headCount: $routeParams.headCount,
+        time: $routeParams.time,
+        date: undefined,
+        eventTypes: undefined
     };
 
     $scope.isSearching = true;
@@ -19,14 +21,61 @@ angular.module('cp.controllers.general').controller('SearchController',
     $scope.maxPackageCost = 20;
     $scope.headCountOptions = OrdersFactory.getHeadCountOptions(500, 1);
     $scope.timeOptions = PackagesFactory.getDeliveryTimeOptions();
+    $scope.minDate = new Date();
+    $scope.eventTypes = [];
+    $scope.isAdvancedSearchVisible = false;
+    $scope.cuisineTypes = [];
+    $scope.dietaryRequirements = [];
+    $scope.packagingTypeOptions = PackagesFactory.getPackagingTypeOptions();
+    // This limit is not fixed - it increases when the user clicks 'show more' (triggering
+    // `$scope.showMore`).
+    $scope.packagesLimit = PAGINATION_LENGTH;
 
     let isOnSearchPage = true;
 
-    $rootScope.$watch('bannerSearchName', function(name) {
-        if (isOnSearchPage) {
-            $location.search('name', name).replace();
-        }
-    });
+    function init() {
+        const promise1 = PackagesFactory.getEventTypes()
+            .success(response => {
+                $scope.eventTypes = response.eventTypes;
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+
+        const promise2 = PackagesFactory.getCuisineTypes()
+            .success(response => {
+                $scope.cuisineTypes = response.cuisineTypes;
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+
+        const promise3 = PackagesFactory.getDietaryTypes()
+            .success(response => {
+                $scope.dietaryRequirements = response.dietaryRequirements;
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+
+        $q.all([promise1, promise2, promise3]).then(() => {
+            if ($routeParams.date) {
+                const bits = $routeParams.date.split(/\D/);
+                $scope.pickedDate = $filter('date')(new Date(bits[0], bits[1] - 1, bits[2]), 'dd/MM/yyyy');
+            }
+
+            $scope.search.eventTypes = [];
+            if ($routeParams.eventTypeId) {
+                if ($routeParams.eventTypeId instanceof Array) {
+                    $scope.search.eventTypes = $routeParams.eventTypeId;
+                } else {
+                    $scope.search.eventTypes.push($routeParams.eventTypeId);
+                }
+            }
+
+            $scope.search.cuisineTypes = [];
+            $scope.search.dietaryRequirements = [];
+            $scope.search.packagingType = $scope.packagingTypeOptions[2].value; // "I don't mind".
+
+            search();
+        });
+    }
+
+    init();
 
     $scope.$watch('search.maxBudget', (newValue, oldValue) => {
         if (newValue === oldValue) {
@@ -52,14 +101,14 @@ angular.module('cp.controllers.general').controller('SearchController',
         search();
     });
 
-    $scope.$watch('search.eventType', (newValue, oldValue) => {
+    $scope.$watchCollection('search.eventTypes', (newValue, oldValue) => {
         if (newValue === oldValue) {
             return;
         }
         search();
     });
 
-    $scope.$watch('search.cuisineType', (newValue, oldValue) => {
+    $scope.$watchCollection('search.cuisineTypes', (newValue, oldValue) => {
         if (newValue === oldValue) {
             return;
         }
@@ -79,15 +128,40 @@ angular.module('cp.controllers.general').controller('SearchController',
             // (empty string) in PackagesFactory.search() gets used in the search URL query string.
             $scope.search.date = undefined;
         } else {
-            $scope.search.date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            // The date will be a string if the URL param "date" is present.
+            if (typeof date === 'string') {
+                const bits = date.split(/\D/);
+                $scope.search.date = bits[2] + '-' + bits[1] + '-' + bits[0];
+            } else {
+                $scope.search.date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            }
         }
 
         search();
     });
 
-    $scope.$on('$destroy', () => isOnSearchPage = false);
+    $scope.$watch('search.postcode', (newValue, oldValue) => {
+        if (newValue === oldValue) {
+            return;
+        }
+        search();
+    });
 
-    $scope.$watch('sort', () => $scope.packages = sortPackages());
+    $scope.$watchCollection('search.dietaryRequirements', (newValue, oldValue) => {
+        if (newValue === oldValue) {
+            return;
+        }
+        search();
+    });
+
+    $scope.$watch('search.packagingType', (newValue, oldValue) => {
+        if (newValue === oldValue) {
+            return;
+        }
+        search();
+    });
+
+    $scope.$on('$destroy', () => isOnSearchPage = false);
 
     $scope.openDatePicker = function($event) {
         // Need to call these, otherwise the popup won't open (a click outside
@@ -98,42 +172,26 @@ angular.module('cp.controllers.general').controller('SearchController',
         $scope.isDatePickerOpen = true;
     };
 
-    if ($routeParams.name && !$rootScope.bannerSearchName) {
-        $rootScope.bannerSearchName = $routeParams.name;
-    }
+    $scope.showMore = function() {
+        $scope.packagesLimit += PAGINATION_LENGTH;
+    };
 
     function search() {
-        PackagesFactory.searchPackages($scope.search.name, $scope.search.postcode,
+        PackagesFactory.searchPackages(undefined, $scope.search.postcode,
                 $scope.search.maxBudget, $scope.search.headCount, $scope.search.time,
-                $scope.search.date, ($scope.search.eventType ? $scope.search.eventType.id : undefined),
-                ($scope.search.cuisineType ? $scope.search.cuisineType.id : undefined))
+                $scope.search.date,
+                // If all event types are selected, don't send any (same effect, but shorter URL).
+                ($scope.search.eventTypes.length !== $scope.eventTypes.length ? $scope.search.eventTypes : []),
+                // If all cuisine types are selected, don't send any (same effect, but shorter URL).
+                ($scope.search.cuisineTypes.length !== $scope.cuisineTypes.length ? $scope.search.cuisineTypes : []),
+                // If all dietary requirements are selected, don't send any (same effect, but shorter URL).
+                ($scope.search.dietaryRequirements.length !== $scope.dietaryRequirements.length ? $scope.search.dietaryRequirements : []),
+                $scope.search.packagingType)
             .success(response => {
-                if (response.exactVendorNameMatch) {
-                    $location.path(`/vendor/${response.vendor.id}-${response.vendor.slug}`);
-                }
-
                 $scope.packages = response.packages;
-                $scope.eventTypes = response.eventTypes;
-                $scope.cuisineTypes = response.cuisineTypes;
                 $scope.isSearching = false;
-
-                if ($scope.sort) {
-                    $scope.packages = sortPackages();
-                }
-
                 LoadingService.hide();
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     }
-
-    function sortPackages() {
-        if ($scope.sort === 'priceLowToHigh') {
-            return $scope.packages.sort((a, b) => a.costIncludingVat >= b.costIncludingVat);
-        }
-        if ($scope.sort === 'priceHighToLow') {
-            return $scope.packages.sort((a, b) => a.costIncludingVat <= b.costIncludingVat);
-        }
-    }
-
-    search();
 });

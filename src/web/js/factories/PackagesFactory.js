@@ -14,10 +14,21 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
         deletePackage: id => ApiService.delete(`${API_BASE}/packages/${id}`),
 
         searchPackages(name = '', postcode = '', maxBudget = '', headCount = '', time = '', date = '',
-                eventTypeId = '', cuisineTypeId = '') {
-            const url = `${API_BASE}/packages/search?name=${name}&postcode=${postcode}` +
-                `&maxBudget=${maxBudget}&headCount=${headCount}&time=${time}&date=${date}` +
-                `&eventTypeId=${eventTypeId}&cuisineTypeId=${cuisineTypeId}`;
+                eventTypeIds = [], cuisineTypeIds = [], dietaryRequirementIds = [], packagingType = '') {
+            let url = `${API_BASE}/packages/search?name=${name}&postcode=${postcode}` +
+                `&maxBudget=${maxBudget}&headCount=${headCount}&time=${time}&date=${date}&packagingType=${packagingType}`;
+
+            eventTypeIds.forEach(eventTypeId => {
+                url += `&eventTypeIds[]=${eventTypeId}`;
+            });
+
+            cuisineTypeIds.forEach(cuisineTypeId => {
+                url += `&cuisineTypeIds[]=${cuisineTypeId}`;
+            });
+
+            dietaryRequirementIds.forEach(dietaryRequirementId => {
+                url += `&dietaryRequirementIds[]=${dietaryRequirementId}`;
+            });
 
             return ApiService.get(url);
         },

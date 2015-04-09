@@ -24,7 +24,6 @@ angular.module('cp').config(function($routeProvider) {
         }).
         when('/search', {
             controller: 'SearchController',
-            controllerAs: 'search',
             templateUrl: '/dist/templates/general/search.html'
         }).
         when('/quote', {

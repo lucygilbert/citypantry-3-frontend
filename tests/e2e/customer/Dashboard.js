@@ -27,6 +27,8 @@ describe('Dashboard page', function() {
         expect(datePicker.isDisplayed()).toBe(true);
     });
 
+    // This test will fail if the suite is run in isolation because the address added by
+    // CreatePackage will not exist.
     it('should load customer\'s addresses and select first by default', function() {
         expect(element.all(by.css('#search_postcode > option')).count()).toBe(2);
         expect(element.all(by.css('#search_postcode > option')).get(0).getText()).toBe('Lena Gardens');

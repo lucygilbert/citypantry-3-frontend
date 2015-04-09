@@ -1,7 +1,131 @@
-cp-package-card {
-    display: block;
+$cp-package-card-name-font-size: $font-size-h4;
+$cp-package-card-vendor-font-size: 15px;
 
-    .package-vendor {
-        color: #444;
+.cp-package-card {
+    color: $cp-primary-color;
+    display: block;
+    position: relative;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: $cp-primary-color;
+
+        .cp-package-card-image-wrap::before,
+        .cp-package-card-image-wrap::after,
+        .cp-package-card-notice {
+            display: block;
+        }
+    }
+}
+
+.cp-package-card-image-wrap {
+    overflow: hidden;
+    padding-bottom: 100%;
+    position: relative;
+
+    &::before {
+        background-color: rgba(255, 255, 255, .8);
+        content: '';
+        display: none;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    &::after {
+        @extend .cp-heading;
+        background-color: $cp-secondary-color;
+        color: #fff;
+        content: 'ORDER';
+        display: none;
+        font-size: 24px;
+        height: 47px;
+        line-height: 47px;
+        margin-left: -70px;
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        text-align: center;
+        width: 140px;
+        z-index: 2;
+    }
+
+    img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate3d(-50%, -50%, 0);
+    }
+}
+
+.cp-package-card-info {
+    @extend .col-xs-8;
+    height: ($cp-package-card-name-font-size * 2) + ($cp-package-card-vendor-font-size * 2) + ($cp-margin-xs-vertical * 2);
+    margin-bottom: $padding-large-vertical;
+    overflow: hidden;
+    padding-right: 0;
+    padding-left: 0;
+    position: static;
+}
+
+.cp-package-card-name {
+    @extend .cp-heading;
+    font-size: $cp-package-card-name-font-size;
+    margin-top: $cp-margin-xs-vertical;
+}
+
+.cp-package-card-vendor {
+    font-size: $cp-package-card-vendor-font-size;
+    line-height: 1;
+    margin-top: $cp-margin-xs-vertical;
+}
+
+.cp-package-card-price {
+    background-color: $cp-primary-color;
+    border-radius: 50%;
+    color: #fff;
+    font-size: $font-size-h4;
+    height: 60px;
+    line-height: 1;
+    opacity: .9;
+    padding-top: 20px;
+    position: absolute;
+    right: 0;
+    bottom: -55px;
+    text-align: center;
+    width: 60px;
+    z-index: 2;
+
+    > span {
+        color: rgba(255, 255, 255, .7);
+        display: block;
+        font-size: 9px;
+    }
+}
+
+.cp-package-card-notice {
+    @extend .cp-heading;
+    border: 2px solid $cp-primary-color;
+    border-radius: 50%;
+    display: none;
+    font-size: 22px;
+    height: 55px;
+    letter-spacing: normal;
+    line-height: .9;
+    padding-top: 11px;
+    position: absolute;
+    top: 12px;
+    left: 9px;
+    text-align: center;
+    width: 55px;
+    z-index: 2;
+
+    > span {
+        display: block;
+        font-size: $font-size-small;
     }
 }
