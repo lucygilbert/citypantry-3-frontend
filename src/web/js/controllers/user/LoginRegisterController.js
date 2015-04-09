@@ -2,7 +2,7 @@ angular.module('cp.controllers.user', []);
 
 angular.module('cp.controllers.user').controller('LoginRegisterController',
         function($scope, $http, $cookies, $window, AuthenticationFactory, DocumentTitleService, SecurityService,
-        API_BASE, LoadingService, NotificationService) {
+        LoadingService, NotificationService) {
     DocumentTitleService('Log in / Sign up to City Pantry');
     SecurityService.requireLoggedOut();
     LoadingService.hide();

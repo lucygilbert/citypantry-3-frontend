@@ -1,4 +1,6 @@
 angular.module('cp', [
+    'cpLib',
+    'cpLibIntegration',
     'checklist-model',
     'cp.controllers.admin',
     'cp.controllers.authentication',
@@ -6,8 +8,6 @@ angular.module('cp', [
     'cp.controllers.general',
     'cp.controllers.user',
     'cp.controllers.vendor',
-    'cp.factories',
-    'cp.filters',
     'cp.services',
     'currencyMask',
     'ngCookies',
