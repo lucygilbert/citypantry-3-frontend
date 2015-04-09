@@ -1,6 +1,6 @@
 angular.module('cp.controllers.general').controller('SearchController',
         function($scope, PackagesFactory, OrdersFactory, NotificationService,
-        $routeParams, DocumentTitleService, SecurityService, LoadingService, $q) {
+        $routeParams, DocumentTitleService, SecurityService, LoadingService, $q, $filter) {
     DocumentTitleService('Search catering packages');
     SecurityService.requireLoggedIn();
 
@@ -9,9 +9,10 @@ angular.module('cp.controllers.general').controller('SearchController',
     $scope.search = {
         postcode: $routeParams.postcode,
         maxBudget: undefined,
-        headCount: undefined,
-        time: undefined,
-        date: undefined
+        headCount: $routeParams.headCount,
+        time: $routeParams.time,
+        date: undefined,
+        eventTypes: undefined
     };
 
     $scope.isSearching = true;
@@ -52,7 +53,20 @@ angular.module('cp.controllers.general').controller('SearchController',
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         $q.all([promise1, promise2, promise3]).then(() => {
+            if ($routeParams.date) {
+                const bits = $routeParams.date.split(/\D/);
+                $scope.pickedDate = $filter('date')(new Date(bits[0], bits[1] - 1, bits[2]), 'dd/MM/yyyy');
+            }
+
             $scope.search.eventTypes = [];
+            if ($routeParams.eventTypeId) {
+                if ($routeParams.eventTypeId instanceof Array) {
+                    $scope.search.eventTypes = $routeParams.eventTypeId;
+                } else {
+                    $scope.search.eventTypes.push($routeParams.eventTypeId);
+                }
+            }
+
             $scope.search.cuisineTypes = [];
             $scope.search.dietaryRequirements = [];
             $scope.search.packagingType = $scope.packagingTypeOptions[2].value; // "I don't mind".
@@ -114,7 +128,13 @@ angular.module('cp.controllers.general').controller('SearchController',
             // (empty string) in PackagesFactory.search() gets used in the search URL query string.
             $scope.search.date = undefined;
         } else {
-            $scope.search.date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            // The date will be a string if the URL param "date" is present.
+            if (typeof date === 'string') {
+                const bits = date.split(/\D/);
+                $scope.search.date = bits[2] + '-' + bits[1] + '-' + bits[0];
+            } else {
+                $scope.search.date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            }
         }
 
         search();

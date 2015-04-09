@@ -1,4 +1,6 @@
 .cp-form {
+    margin-bottom: $cp-margin-base-vertical;
+
     > fieldset {
         background-color: $gray-lighter;
         margin-bottom: 18px;

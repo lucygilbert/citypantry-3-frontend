@@ -1,6 +1,7 @@
 @import '../mixins/cp-arrows';
 
 .cp-search-form {
+    margin-top: $cp-margin-base-vertical;
     position: relative;
 
     .row {
@@ -170,4 +171,8 @@
 .cp-search-packaging-options-label {
     margin-bottom: $cp-margin-small-vertical !important;
     padding-top: $cp-margin-base-vertical;
+}
+
+.cp-search-notice {
+    font-size: $font-size-h4;
 }

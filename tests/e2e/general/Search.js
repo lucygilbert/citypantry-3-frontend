@@ -72,12 +72,11 @@ describe('Search', function() {
         expectSearchResultCount(7);
     });
 
-    // @todo - fix.
-    xit('should be able to filter by postcode', function() {
+    it('should be able to filter by postcode', function() {
         var postcodeFilter = element(by.model('search.postcode'));
 
         postcodeFilter.sendKeys('W12');
-        expectSearchResultCount(3);
+        expectSearchResultCount(1);
         postcodeFilter.sendKeys(' 8LB');
         expectSearchResultCount(1);
         postcodeFilter.clear();

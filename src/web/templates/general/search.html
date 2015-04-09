@@ -1,36 +1,61 @@
 <div class="container">
-    <h1 class="cp-heading text-center">This is a title</h1>
-
     <form class="cp-form cp-search-form" novalidate role="form">
         <fieldset>
             <div class="row">
                 <div class="cp-form-group col-md-3">
                     <label class="cp-form-label" for="delivery_date">Delivery date</label>
-                    <input class="cp-form-control" id="delivery_date" type="text" placeholder="DD/MM/YYYY" ng-click="openDatePicker($event)" ng-model="pickedDate" datepicker-popup="dd/MM/yyyy" datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}" is-open="isDatePickerOpen" min-date="minDate" year-range="2" />
+                    <input class="cp-form-control"
+                        id="delivery_date"
+                        type="text"
+                        placeholder="DD/MM/YYYY"
+                        ng-click="openDatePicker($event)"
+                        ng-model="pickedDate"
+                        datepicker-popup="dd/MM/yyyy"
+                        datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}"
+                        is-open="isDatePickerOpen"
+                        min-date="minDate"
+                        year-range="2" />
                 </div>
 
                 <div class="cp-form-group col-md-2">
                     <label class="cp-form-label" for="delivery_time">Time</label>
-                    <select class="cp-form-control" id="delivery_time" ng-model="search.time" ng-options="time.value as time.label for time in timeOptions">
-                        <option value="">-</option>
+                    <select class="cp-form-control"
+                        id="delivery_time"
+                        ng-model="search.time"
+                        ng-options="time.value as time.label for time in timeOptions">
+                            <option value="">-</option>
                     </select>
                 </div>
 
                 <div class="cp-form-group col-md-2">
                     <label class="cp-form-label" for="head_count">How many people?</label>
-                    <select class="cp-form-control" id="head_count" ng-model="search.headCount" ng-options="headCount for headCount in headCountOptions">
-                        <option value="">-</option>
+                    <select class="cp-form-control"
+                        id="head_count"
+                        ng-model="search.headCount"
+                        ng-options="headCount for headCount in headCountOptions">
+                            <option value="">-</option>
                     </select>
                 </div>
 
                 <div class="cp-form-group col-md-2">
                     <label class="cp-form-label" for="delivery_location">Delivery location</label>
-                    <input class="cp-form-control" id="delivery_location" type="text" placeholder="POSTCODE" ng-model="search.postcode" ng-model-options="{debounce: 1000}" />
+                    <input class="cp-form-control"
+                        id="delivery_location"
+                        type="text"
+                        placeholder="POSTCODE"
+                        ng-model="search.postcode"
+                        ng-model-options="{debounce: 1000}" />
                 </div>
 
                 <div class="cp-form-group col-md-3">
                     <label class="cp-form-label" for="budget_per_person">Budget per person</label>
-                    <input class="cp-search-budget-per-person-input" id="budget_per_person" type="range" min="1" max="50" step="1" ng-model="search.maxBudget" />
+                    <input class="cp-search-budget-per-person-input"
+                        id="budget_per_person"
+                        type="range"
+                        min="1"
+                        max="50"
+                        step="1"
+                        ng-model="search.maxBudget" />
                     <output class="cp-search-budget-per-person-output" for="budget_per_person">
                         {{ search.maxBudget | currency:'£':0 }}
                     </output>
@@ -42,7 +67,10 @@
                     <fieldset>
                         <legend class="cp-search-event-type-label" ng-show="eventTypes.length > 0">Event type:</legend>
                         <label class="cp-checkbox-inline" ng-repeat="eventType in eventTypes">
-                            <input type="checkbox" checklist-model="search.eventTypes" checklist-value="eventType.id"> {{ eventType.name }}
+                            <input type="checkbox"
+                                checklist-model="search.eventTypes"
+                                checklist-value="eventType.id">
+                            {{ eventType.name }}
                         </label>
                     </fieldset>
                 </div>
@@ -61,7 +89,10 @@
                         <div class="row">
                             <div class="cp-checkbox col-md-6 col-lg-4" ng-repeat="cuisineType in cuisineTypes">
                                 <label>
-                                    <input type="checkbox" checklist-model="search.cuisineTypes" checklist-value="cuisineType.id" /> {{ cuisineType.name }}
+                                    <input type="checkbox"
+                                        checklist-model="search.cuisineTypes"
+                                        checklist-value="cuisineType.id" />
+                                    {{ cuisineType.name }}
                                 </label>
                             </div>
                         </div>
@@ -74,7 +105,10 @@
                         <div class="row">
                             <div class="cp-checkbox col-md-6 col-lg-4" ng-repeat="dietaryRequirement in dietaryRequirements">
                                 <label>
-                                    <input type="checkbox" checklist-model="search.dietaryRequirements" checklist-value="dietaryRequirement.id" /> {{ dietaryRequirement.name }}
+                                    <input type="checkbox"
+                                        checklist-model="search.dietaryRequirements"
+                                        checklist-value="dietaryRequirement.id" />
+                                    {{ dietaryRequirement.name }}
                                 </label>
                             </div>
                         </div>
@@ -83,7 +117,10 @@
                     <fieldset>
                         <legend class="cp-search-advanced-search-label cp-search-packaging-options-label" ng-show="packagingTypeOptions.length > 0">Packaging options</legend>
                         <label class="cp-radio-inline" ng-repeat="packagingType in packagingTypeOptions">
-                            <input type="radio" ng-model="search.packagingType" ng-value="{{ packagingType.value }}" /> {{ packagingType.label }}
+                            <input type="radio"
+                                ng-model="search.packagingType"
+                                ng-value="{{ packagingType.value }}" />
+                            {{ packagingType.label }}
                         </label>
                     </fieldset>
                 </div>
@@ -94,7 +131,16 @@
     </form>
 
     <div class="row">
-        <p ng-show="isSearching">Seaching...</p>
+        <p class="cp-search-notice col-md-12" ng-show="isSearching">Seaching...</p>
+
+        <div class="cp-search-notice col-md-12" ng-if="packages.length === 0">
+            <p>We couldn’t find any results matching your criteria, but tweaking your search may help. Here are some ideas:</p>
+            <ul>
+                <li>Remove some filters.</li>
+                <li>Push the delivery date forward.</li>
+                <li>Try an alternative delivery location.</li>
+            </ul>
+        </div>
 
         <div class="col-sm-3 col-xs-6" ng-repeat="package in packages | limitTo:packagesLimit" ng-show="!isSearching" package="package" cp-package-card></div>
     </div>

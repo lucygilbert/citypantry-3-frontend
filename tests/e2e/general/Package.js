@@ -12,10 +12,10 @@ describe('Package page', function() {
             loginAsUser('customer@bunnies.test');
             browser.get('/search');
 
-            var breakfastEventType = element(by.cssContainingText('a', 'Breakfast'));
+            var breakfastEventType = element.all(by.repeater('eventType in eventTypes')).get(0);
             expect(breakfastEventType.getText()).toBe('Breakfast');
             breakfastEventType.click();
-            expect(element(by.css('h1')).getText()).toBe('1 package found');
+            expect(element.all(by.repeater('package in packages')).count()).toBe(1);
 
             element.all(by.repeater('package in packages')).get(0).all(by.css('a')).get(0).click();
         });

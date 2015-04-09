@@ -149,7 +149,7 @@ angular.module('cp.factories').factory('PackagesFactory', function(API_BASE, Api
             return [
                 { label: 'Individual Portions', value: 1 },
                 { label: 'Buffet', value: 2 },
-                { label: 'I don’t mind', value: 3 }
+                { label: 'Either', value: 3 }
             ];
         },
 
