@@ -13,6 +13,10 @@ function navigateToVendor(name) {
     expect(titleText).toContain(name);
 }
 
+function getCityPantryCommissionFormGroup() {
+    return element(by.id('edit-vendor-city-pantry-commission'));
+}
+
 describe('Admin - edit vendor page - Hong Tin', function() {
     it('should be able to navigate to the "edit vendor" page', function() {
         navigateToVendor('Hong Tin');
@@ -25,6 +29,11 @@ describe('Admin - edit vendor page - Hong Tin', function() {
     it('should say that this vendor cannot have meal plan packages', function() {
         expect(element(by.model('vendor.isMealPlan')).isSelected()).toBe(false);
     });
+
+    it('should allow the commission to be edited because this vendor has a flat commission', function() {
+        var formGroup = getCityPantryCommissionFormGroup();
+        expect(formGroup.isPresent()).toBe(true);
+    });
 });
 
 describe('Admin - edit vendor page - Sam\'s', function() {
@@ -34,5 +43,10 @@ describe('Admin - edit vendor page - Sam\'s', function() {
 
     it('should say that this vendor can have meal plan packages', function() {
         expect(element(by.model('vendor.isMealPlan')).isSelected()).toBe(true);
+    });
+
+    it('should not allow the commission to be edited because this vendor does not have a flat commission', function() {
+        var formGroup = getCityPantryCommissionFormGroup();
+        expect(formGroup.isPresent()).toBe(false);
     });
 });
