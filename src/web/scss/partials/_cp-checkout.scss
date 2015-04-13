@@ -1,7 +1,7 @@
 @import '../directives/cp-back';
 @import '../directives/cp-checkout-review';
 
-.cp-checkout-steps {
+.cp-checkout-steps-wrap {
     background-color: $cp-primary-color;
     height: 400px;
     position: absolute;
@@ -125,4 +125,58 @@
 
 .cp-checkout-sidebar {
     @extend .col-md-4;
+}
+
+.cp-checkout-steps {
+    color: rgba(255, 255, 255, .4);
+    display: table; // Centre floated children.
+    font-size: 15px;
+    font-weight: 700;
+    list-style-position: inside;
+    margin: 0 auto;
+    padding: 120px 0 0;
+
+    &::before {
+        background-color: rgba(255, 255, 255, .4);
+        content: '';
+        display: block;
+        height: 4px;
+        margin: 0 auto;
+        position: relative;
+        top: -6px;
+        width: 630px;
+    }
+
+    > li {
+        float: left;
+        margin: 0 75px;
+        position: relative;
+        text-align: center;
+        width: 150px;
+
+        &::before {
+            background-color: $cp-primary-color;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, .4);
+            content: '';
+            height: 14px;
+            margin-left: -7px;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            width: 14px;
+        }
+
+        &.active {
+            color: $cp-secondary-color;
+
+            &::before {
+                border: 4px solid $cp-secondary-color;
+                height: 18px;
+                margin-left: -9px;
+                top: -17px;
+                width: 18px;
+            }
+        }
+    }
 }
