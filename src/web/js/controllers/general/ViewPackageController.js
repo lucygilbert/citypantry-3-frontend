@@ -1,7 +1,7 @@
 angular.module('cp.controllers.general').controller('ViewPackageController',
         function($scope, $routeParams, PackagesFactory, NotificationService, DocumentTitleService,
         LoadingService, SecurityService, $sce, FRONTEND_BASE, OrdersFactory,
-        $location, getPackageAvailabilityErrorTextFilter) {
+        $location, getPackageAvailabilityErrorTextFilter, CheckoutService) {
     SecurityService.requireLoggedIn();
 
     // 'changeDeliveryLocationModalState' can be set to 'checking', 'available', 'notAvailabe'.
@@ -191,7 +191,16 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         PackagesFactory.checkIfPackageCanBeDelivered($scope.package.id, toIso8601String(dateTime), $scope.order.postcode)
             .success(response => {
                 if (response.isAvailable) {
-                    // @todo – proceed to checkout.
+                    CheckoutService.setPackageId($scope.package.id);
+                    CheckoutService.setPostcode($scope.order.postcode);
+                    CheckoutService.setDeliveryDate(dateTime);
+                    CheckoutService.setHeadCount($scope.order.headCount);
+                    CheckoutService.setSubTotalAmount($scope.order.subTotalAmount);
+                    CheckoutService.setDeliveryCost($scope.order.deliveryCost);
+                    CheckoutService.setTotalAmount($scope.order.totalAmount);
+                    CheckoutService.setStartTime(new Date());
+
+                    $location.path('/checkout/catering-details');
                 } else {
                     $scope.packageFormError = getPackageAvailabilityErrorTextFilter(response.details);
                 }

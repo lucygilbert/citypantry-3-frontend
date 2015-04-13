@@ -12,12 +12,8 @@ angular.module('cp.controllers.user').controller('UserNewPaymentCardController',
     }
 
     $scope.monthOptions = [];
-    let month;
-    for (month = 1; month <= 9; month++) {
-        $scope.monthOptions.push({label: '0' + month, value: '0' + month});
-    }
-    for (month = 10; month <= 12; month++) {
-        $scope.monthOptions.push({label: month, value: month});
+    for (let month = 1; month <= 12; month++) {
+        $scope.monthOptions.push({label: ('0' + month).slice(-2), value: ('0' + month).slice(-2)});
     }
 
     $scope.card = {};

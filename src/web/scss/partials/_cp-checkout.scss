@@ -1,0 +1,128 @@
+@import '../directives/cp-back';
+@import '../directives/cp-checkout-review';
+
+.cp-checkout-steps {
+    background-color: $cp-primary-color;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -2;
+}
+
+// @todo - duplicate of `.cp-dashboard`.
+.cp-checkout {
+    background-color: #fff;
+    float: left;
+    margin: 116px (-$grid-gutter-width / 2) 0;
+    padding: 30px 10px;
+    position: relative;
+    width: 100%;
+
+    &::before,
+    &::after {
+        border-radius: 100px / 10px;
+        @include box-shadow(0 0 15px rgba(0, 0, 0, .5));
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 10px;
+        bottom: 65%;
+        left: 10px;
+        z-index: -1;
+    }
+
+    p {
+        font-size: $font-size-large;
+    }
+}
+
+.cp-checkout-main {
+    @extend .col-md-8;
+    position: static;
+}
+
+.cp-checkout-heading {
+    font-size: $font-size-h2 !important;
+    margin: 0 0 $cp-margin-xs-vertical !important;
+}
+
+.cp-checkout-form {
+    > fieldset {
+        background-color: transparent;
+        margin-bottom: $cp-margin-large-vertical;
+        padding: 0;
+    }
+
+    .cp-form-label {
+        font-weight: 400;
+        margin-bottom: $cp-margin-small-vertical;
+    }
+
+    .cp-heading {
+        font-size: $font-size-h2;
+    }
+}
+
+.cp-checkout-cutlery-and-serviettes {
+    margin-top: -$cp-margin-small-vertical;
+
+    > label {
+        font-size: $font-size-h4;
+    }
+}
+
+.cp-checkout-extra-service {
+    > legend {
+        margin-bottom: $cp-margin-small-vertical !important;
+    }
+
+    > .cp-form-group {
+        border-bottom: 4px solid $gray-light;
+        margin-bottom: 0;
+        padding-top: $cp-margin-small-vertical;
+        padding-bottom: $cp-margin-small-vertical;
+
+        &:first-of-type {
+            border-top: 4px solid $gray-light;
+        }
+
+        label {
+            margin: 7px 0 0;
+        }
+    }
+}
+
+.cp-checkout-address {
+    font-size: $font-size-h4;
+    margin-top: $cp-margin-base-vertical;
+}
+
+.cp-checkout-card-expiry-date {
+    > .cp-form-control {
+        display: inline-block;
+        width: auto;
+    }
+}
+
+.cp-checkout-payment-form {
+    @extend .cp-checkout-form;
+
+    > fieldset {
+        margin-bottom: 18px;
+    }
+
+    .cp-form-label {
+        font-weight: 600;
+        margin-bottom: $cp-margin-xs-vertical;
+    }
+
+    .payment-methods {
+        margin-top: 27px;
+    }
+}
+
+.cp-checkout-sidebar {
+    @extend .col-md-4;
+}

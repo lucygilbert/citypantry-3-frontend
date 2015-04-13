@@ -1,0 +1,49 @@
+<aside class="cp-checkout-review">
+    <!-- @todo - cp-package-card -->
+
+    <section class="cp-checkout-review-detail">
+        <h3 class="cp-heading cp-checkout-review-heading">Your order</h3>
+        <dl>
+            <dt>Delivery location</dt>
+            <dd>{{ postcode }}</dd>
+
+            <dt>Date &#38; time</dt>
+            <dd>{{ deliveryDate | date:'dd/MM/yy HH:mm' }}</dd>
+
+            <dt>People</dt>
+            <dd>{{ headCount }}</dd>
+        </dl>
+        <a class="cp-checkout-review-detail-edit" href="@todo">Edit<span class="sr-only"> order</span></a>
+    </section>
+
+    <section class="cp-checkout-review-detail">
+        <h3 class="cp-heading cp-checkout-review-heading">Costs</h3>
+        <dl>
+            <dt>
+                <ng-pluralize count="headCount"
+                    when="{'one': '1 person',
+                        'other': '{} people'}">
+                </ng-pluralize>
+            </dt>
+            <dd>{{ subTotalAmount | currency:'£':2 }}</dd>
+
+            <dt ng-if="isCutleryAndServiettesRequired">Cutlery &#38; serviettes</dt>
+            <dd ng-if="isCutleryAndServiettesRequired">-</dd>
+
+            <dt ng-if="isVendorRequiredToSetUp">Vendor setup</dt>
+            <dd ng-if="isVendorRequiredToSetUp">{{ vendorSetupCost | currency:'£':2 }}</dd>
+
+            <dt ng-if="isVendorRequiredToCleanUp">Vendor clear away</dt>
+            <dd ng-if="isVendorRequiredToCleanUp">{{ vendorCleanupCost | currency:'£':2 }}</dd>
+
+            <dt ng-if="deliveryCost === 0"><span class="text-uppercase">Free</span> delivery</dt>
+            <dd ng-if="deliveryCost === 0">-</dd>
+
+            <dt ng-if="deliveryCost > 0">Delivery</dt>
+            <dd ng-if="deliveryCost > 0">{{ deliveryCost | currency:'£':2 }}</dd>
+
+            <dt class="cp-checkout-review-detail-total">Total</dt>
+            <dd class="cp-checkout-review-detail-total">{{ totalAmount | currency:'£':2 }}</dd>
+        </dl>
+    </section>
+</aside>

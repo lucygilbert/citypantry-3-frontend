@@ -5,6 +5,7 @@
 @import 'cp-forms';
 @import 'cp-modals';
 @import '../directives/cp-package-rating';
+@import '../directives/cp-back';
 
 .cp-package-background-image {
     @include cp-blur(2px);
@@ -35,6 +36,7 @@
     margin: 116px (-$grid-gutter-width / 2) 0;
     padding: 30px 25px;
     position: relative;
+    width: 100%;
 
     &::before,
     &::after {
@@ -302,29 +304,6 @@
 
     &::after {
         @include cp-arrow-down(6px, 6px, $cp-secondary-color);
-    }
-}
-
-.cp-package-back {
-    border: 0;
-    font-weight: 600;
-    padding: 0;
-    position: absolute;
-    top: -40px;
-    left: 25px;
-
-    &::before {
-        // Cannot use '\003c ' as the content because the trailing space does not show in Chrome.
-        // Use padding-right instead.
-        content: '\003c';
-        padding-right: 7px;
-    }
-
-    &,
-    &:hover,
-    &:focus,
-    &:active {
-        color: #fff;
     }
 }
 
