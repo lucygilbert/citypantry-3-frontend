@@ -188,7 +188,7 @@
 
                     <p>{{ package.vendor.description }}</p>
 
-                    <p><a class="cp-package-vendor-see-all-meals" href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">See all meals by this vendor</a></p>
+                    <p><a class="cp-package-vendor-see-all-packages" href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">See all packages by this vendor</a></p>
                 </div>
             </aside>
         </div>
@@ -197,7 +197,7 @@
 
 <section class="cp-similar-packages">
     <div class="container">
-        <h2 class="cp-package-section-heading">Similar meals you might like</h2>
+        <h2 class="cp-package-section-heading">Similar packages you might like</h2>
         <div class="row" ng-if="similarPackagesByDifferentVendors.length">
             <div class="col-sm-3 col-xs-6" ng-repeat="package in similarPackagesByDifferentVendors" cp-package-card package="package"></div>
         </div>

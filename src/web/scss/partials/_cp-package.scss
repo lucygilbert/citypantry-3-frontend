@@ -425,7 +425,7 @@
     text-align: center;
 }
 
-.cp-package-vendor-see-all-meals {
+.cp-package-vendor-see-all-packages {
     &::after {
         @include cp-arrow-right(4px, 4px, $cp-secondary-color);
     }
