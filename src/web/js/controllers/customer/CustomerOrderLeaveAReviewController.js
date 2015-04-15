@@ -1,6 +1,6 @@
 angular.module('cp.controllers.customer').controller('CustomerOrderLeaveAReviewController',
         function($scope, $routeParams, OrdersFactory, NotificationService, DocumentTitleService,
-        SecurityService, LoadingService) {
+        SecurityService, LoadingService, $location) {
     SecurityService.requireCustomer();
 
     OrdersFactory.getOrder($routeParams.id)
@@ -21,8 +21,8 @@ angular.module('cp.controllers.customer').controller('CustomerOrderLeaveAReviewC
 
         OrdersFactory.addOrderReview($routeParams.id, $scope.review)
             .success(() => {
-                NotificationService.notifySuccess('Thank you for your review.');
-                LoadingService.hide();
+                NotificationService.notifySuccess('Thanks for your review.');
+                $location.path('/customer/orders');
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };

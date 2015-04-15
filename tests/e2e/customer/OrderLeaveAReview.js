@@ -48,7 +48,9 @@ describe('Leaving a review for an order', function() {
 
         notificationModal.expectIsOpen();
         notificationModal.expectSuccessHeader();
-        notificationModal.expectMessage('Thank you for your review.');
+        notificationModal.expectMessage('Thanks for your review.');
         notificationModal.dismiss();
+
+        expect(browser.getCurrentUrl()).toMatch(/\.dev\/customer\/orders$/);
     });
 });
