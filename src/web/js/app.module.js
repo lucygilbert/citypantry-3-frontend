@@ -99,4 +99,9 @@ angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvid
             }
         });
     }
+})
+.run(function($rootScope, CP_TELEPHONE_NUMBER_UK, CP_TELEPHONE_NUMBER_INTERNATIONAL, CP_SUPPORT_EMAIL_ADDRESS) {
+    $rootScope.CP_TELEPHONE_NUMBER_UK = CP_TELEPHONE_NUMBER_UK;
+    $rootScope.CP_TELEPHONE_NUMBER_INTERNATIONAL = CP_TELEPHONE_NUMBER_INTERNATIONAL;
+    $rootScope.CP_SUPPORT_EMAIL_ADDRESS = CP_SUPPORT_EMAIL_ADDRESS;
 });

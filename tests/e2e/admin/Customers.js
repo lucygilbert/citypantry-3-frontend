@@ -20,7 +20,7 @@ describe('Admin - customers page', function() {
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 0, 'ID');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 1, 'Name');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 2, 'Email');
-        gridTestUtils.expectHeaderCellValueMatch('customers-table', 3, 'Payment on Account');
+        gridTestUtils.expectHeaderCellValueMatch('customers-table', 3, 'Pay on Account?');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 4, 'Customer Since');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 5, 'Action');
     });

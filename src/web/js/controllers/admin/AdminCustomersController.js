@@ -1,5 +1,6 @@
 angular.module('cp.controllers.admin').controller('AdminCustomersController',
-        function($scope, CustomersFactory, uiGridConstants, getPayOnAccountStatusTextFilter, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, CustomersFactory, uiGridConstants, NotificationService, DocumentTitleService,
+        SecurityService, LoadingService, getPaidOnAccountStatusTextFilter) {
     DocumentTitleService('Customers');
     SecurityService.requireStaff();
 
@@ -18,8 +19,8 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
                 field: 'user.email'
             },
             {
-                displayName: 'Payment on Account',
-                field: 'isPaidOnAccountStatusText'
+                displayName: 'Pay on Account?',
+                field: 'paidOnAccountStatusText',
             },
             {
                 cellFilter: 'date:\'dd/MM/yyyy\'',
@@ -57,7 +58,7 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
     function loadCustomers() {
         CustomersFactory.getAllCustomers().success(response => {
             angular.forEach(response.customers, row => {
-                row.isPaidOnAccountStatusText = getPayOnAccountStatusTextFilter(row.isPaidOnAccount);
+                row.paidOnAccountStatusText = getPaidOnAccountStatusTextFilter(row.paidOnAccountStatus);
             });
             $scope.gridOptions.data = response.customers.sort((a, b) => a.humanId < b.humanId);
             LoadingService.hide();
