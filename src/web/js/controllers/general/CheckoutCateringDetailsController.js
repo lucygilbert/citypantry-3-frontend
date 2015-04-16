@@ -2,7 +2,7 @@ angular.module('cp.controllers.general', []);
 
 angular.module('cp.controllers.general').controller('CheckoutCateringDetailsController',
         function($scope, DocumentTitleService, SecurityService, LoadingService, PackagesFactory,
-        CheckoutService, $location) {
+        CheckoutService, $location, NotificationService) {
     DocumentTitleService('Checkout: Catering Details');
     SecurityService.requireLoggedIn();
 
@@ -25,19 +25,21 @@ angular.module('cp.controllers.general').controller('CheckoutCateringDetailsCont
         $scope.vegetarianHeadCountOptions.push(i);
     }
 
-    PackagesFactory.getPackage($scope.order.packageId).success(response => {
-        $scope.package = response;
+    PackagesFactory.getPackage($scope.order.packageId)
+        .success(response => {
+            $scope.package = response;
 
-        if ($scope.package.canCleanUpAfterDelivery) {
-            CheckoutService.setVendorCleanupCost($scope.package.costToCleanUpAfterDelivery);
-        }
+            if ($scope.package.canCleanUpAfterDelivery) {
+                CheckoutService.setVendorCleanupCost($scope.package.costToCleanUpAfterDelivery);
+            }
 
-        if ($scope.package.canSetUpAfterDelivery) {
-            CheckoutService.setVendorSetupCost($scope.package.costToSetUpAfterDelivery);
-        }
+            if ($scope.package.canSetUpAfterDelivery) {
+                CheckoutService.setVendorSetupCost($scope.package.costToSetUpAfterDelivery);
+            }
 
-        LoadingService.hide();
-    });
+            LoadingService.hide();
+        })
+        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
     $scope.nextStep = function() {
         if ($scope.checkoutForm.$invalid) {

@@ -77,6 +77,6 @@ angular.module('cp.controllers.general').controller('CheckoutDeliveryDetailsCont
             $scope.address = $scope.isNewDeliveryAddress ? response.data.newAddress : response.data.updatedAddress;
             CheckoutService.setDeliveryAddressId($scope.address.id);
             $location.path('/checkout/payment');
-        });
+        }).catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 });
