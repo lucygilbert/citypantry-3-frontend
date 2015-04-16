@@ -15,11 +15,9 @@
     <div class="form-group">
         <label for="company_name">
             Company name
-            <span class="form-element-invalid" ng-show="form.$submitted && form.companyName.$error.required">(Company's name is required.)</span>
         </label>
 
         <input class="form-control" id="company_name" name="companyName"
-            required aria-required="true"
             ng-model="address.companyName" size="30" />
     </div>
 
