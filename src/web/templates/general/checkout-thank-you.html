@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="cp-checkout-thank-you">
+        <h1 class="cp-checkout-thank-you-heading">
+            Success!
+            <span>
+                You just ordered for
+                <strong>
+                    <ng-pluralize count="order.headCount"
+                    when="{'one': '1 person',
+                        'other': '{} people'}">
+                    </ng-pluralize>
+                </strong>
+                <span ng-if="order.checkoutDurationInMinutes < 10">
+                    in
+                    <ng-pluralize count="order.checkoutDurationInMinutes"
+                        when="{'0': 'less than 1 minute',
+                            'one': '1 minute',
+                            'other': '{} minutes'}">
+                    </ng-pluralize>
+                </span>
+            </span>
+        </h1>
+
+        <cp-package-card package="package"></cp-package-card>
+
+        <a class="cp-btn cp-btn-primary cp-btn-lg" href="/search">Order more</a>
+    </div>
+</div>

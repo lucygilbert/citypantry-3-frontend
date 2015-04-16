@@ -1,0 +1,49 @@
+<aside class="cp-checkout-review">
+    <cp-package-card package="package"></cp-package-card>
+
+    <section class="cp-checkout-review-detail">
+        <h3 class="cp-heading cp-checkout-review-heading">Your order</h3>
+        <dl>
+            <dt>Delivery location</dt>
+            <dd id="delivery_location">{{ postcode }}</dd>
+
+            <dt>Date &#38; time</dt>
+            <dd id="delivery_date">{{ deliveryDate | date:'dd/MM/yy HH:mm' }}</dd>
+
+            <dt>People</dt>
+            <dd id="head_count">{{ headCount }}</dd>
+        </dl>
+        <a class="cp-checkout-review-detail-edit" href="@todo">Edit<span class="sr-only"> order</span></a>
+    </section>
+
+    <section class="cp-checkout-review-detail">
+        <h3 class="cp-heading cp-checkout-review-heading">Costs</h3>
+        <dl>
+            <dt>
+                <ng-pluralize count="headCount"
+                    when="{'one': '1 person',
+                        'other': '{} people'}">
+                </ng-pluralize>
+            </dt>
+            <dd id="sub_total_amount">{{ subTotalAmount | currency:'£':2 }}</dd>
+
+            <dt ng-if="isCutleryAndServiettesRequired">Cutlery &#38; serviettes</dt>
+            <dd ng-if="isCutleryAndServiettesRequired">-</dd>
+
+            <dt ng-if="isVendorRequiredToSetUp">Vendor setup</dt>
+            <dd ng-if="isVendorRequiredToSetUp">{{ vendorSetupCost | currency:'£':2 }}</dd>
+
+            <dt ng-if="isVendorRequiredToCleanUp">Vendor clear away</dt>
+            <dd ng-if="isVendorRequiredToCleanUp">{{ vendorCleanupCost | currency:'£':2 }}</dd>
+
+            <dt ng-if="deliveryCost === 0"><span class="text-uppercase">Free</span> delivery</dt>
+            <dd id="free_delivery" ng-if="deliveryCost === 0">-</dd>
+
+            <dt ng-if="deliveryCost > 0">Delivery</dt>
+            <dd id="delivery_cost" ng-if="deliveryCost > 0">{{ deliveryCost | currency:'£':2 }}</dd>
+
+            <dt class="cp-checkout-review-detail-total">Total</dt>
+            <dd id="total_amount" class="cp-checkout-review-detail-total">{{ totalAmount | currency:'£':2 }}</dd>
+        </dl>
+    </section>
+</aside>

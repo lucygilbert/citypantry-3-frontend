@@ -1,0 +1,265 @@
+@import '../directives/cp-back';
+@import '../directives/cp-checkout-review';
+
+.cp-checkout-steps-wrap {
+    background-color: $cp-primary-color;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -2;
+}
+
+.cp-checkout-steps {
+    color: rgba(255, 255, 255, .4);
+    display: table; // Centre floated children.
+    font-size: 15px;
+    font-weight: 700;
+    list-style-position: inside;
+    margin: 0 auto;
+    padding: 120px 0 0;
+
+    &::before {
+        background-color: rgba(255, 255, 255, .4);
+        content: '';
+        display: block;
+        height: 4px;
+        margin: 0 auto;
+        position: relative;
+        top: -6px;
+        width: 630px;
+    }
+
+    > li {
+        float: left;
+        margin: 0 75px;
+        position: relative;
+        text-align: center;
+        width: 150px;
+
+        &::before {
+            background-color: $cp-primary-color;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, .4);
+            content: '';
+            height: 14px;
+            margin-left: -7px;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            width: 14px;
+        }
+
+        &.complete {
+            color: rgba(255, 255, 255, .7);
+
+            &::before {
+                border-color: rgba(255, 255, 255, .7);
+            }
+        }
+
+        &.active {
+            color: $cp-secondary-color;
+
+            &::before {
+                border: 4px solid $cp-secondary-color;
+                height: 18px;
+                margin-left: -9px;
+                top: -17px;
+                width: 18px;
+            }
+        }
+    }
+}
+
+// @todo - duplicate of `.cp-dashboard`.
+.cp-checkout {
+    background-color: #fff;
+    float: left;
+    margin: 116px (-$grid-gutter-width / 2) 0;
+    padding: 30px 10px;
+    position: relative;
+    width: 100%;
+
+    &::before,
+    &::after {
+        border-radius: 100px / 10px;
+        @include box-shadow(0 0 15px rgba(0, 0, 0, .5));
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 10px;
+        bottom: 65%;
+        left: 10px;
+        z-index: -1;
+    }
+
+    p {
+        font-size: $font-size-large;
+    }
+}
+
+.cp-checkout-main {
+    @extend .col-md-8;
+    position: static;
+}
+
+.cp-checkout-heading {
+    font-size: $font-size-h2 !important;
+    margin: 0 0 $cp-margin-xs-vertical !important;
+}
+
+.cp-checkout-form {
+    > fieldset {
+        background-color: transparent;
+        margin-bottom: $cp-margin-large-vertical;
+        padding: 0;
+    }
+
+    .cp-heading + .cp-form-group > .cp-form-label {
+        font-weight: 400;
+        margin-bottom: $cp-margin-small-vertical;
+    }
+
+    .cp-heading {
+        font-size: $font-size-h2;
+        margin-bottom: $cp-margin-xs-vertical;
+    }
+}
+
+.cp-checkout-cutlery-and-serviettes {
+    margin-top: -$cp-margin-small-vertical;
+
+    > label {
+        font-size: $font-size-h4;
+    }
+}
+
+.cp-checkout-extra-service {
+    > legend {
+        margin-bottom: $cp-margin-small-vertical !important;
+    }
+
+    > .cp-form-group {
+        border-bottom: 4px solid $gray-light;
+        margin-bottom: 0;
+        padding-top: $cp-margin-small-vertical;
+        padding-bottom: $cp-margin-small-vertical;
+
+        &:first-of-type {
+            border-top: 4px solid $gray-light;
+        }
+
+        label {
+            margin: 7px 0 0;
+        }
+    }
+}
+
+.cp-checkout-address {
+    font-size: $font-size-h4;
+    margin-top: $cp-margin-base-vertical;
+}
+
+.cp-checkout-card-expiry-date {
+    > .cp-form-control {
+        display: inline-block;
+        width: auto;
+    }
+}
+
+.cp-checkout-payment-form {
+    @extend .cp-checkout-form;
+    margin-top: $cp-margin-base-vertical;
+
+    > fieldset {
+        margin-bottom: 18px;
+    }
+
+    .cp-form-label {
+        font-weight: 600;
+        margin-bottom: $cp-margin-xs-vertical;
+    }
+
+    .payment-methods {
+        margin-top: 27px;
+    }
+}
+
+.cp-checkout-payment-method {
+    margin-bottom: 0 !important;
+}
+
+.cp-checkout-payment-card {
+    margin-bottom: -$cp-margin-base-vertical !important;
+}
+
+.cp-checkout-promo-code {
+    margin-bottom: -$cp-margin-small-vertical !important;
+}
+
+.cp-checkout-promo-code-submit {
+    font-weight: 700;
+    height: auto;
+    margin-top: 32px;
+    padding: 0;
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        color: $cp-secondary-color;
+    }
+}
+
+.cp-checkout-promo-code-valid {
+    p {
+        font-size: $font-size-h4;
+        font-weight: 600;
+    }
+}
+
+.cp-checkout-promo-code-code {
+    font-weight: 700;
+    padding-right: 20px;
+}
+
+.cp-checkout-sidebar {
+    @extend .col-md-4;
+}
+
+.cp-checkout-thank-you {
+    text-align: center;
+
+    .cp-package-card {
+        margin: 0 auto $cp-margin-base-vertical;
+        width: 216px;
+
+        .cp-package-card-image-wrap {
+            border-radius: 50%;
+            padding-bottom: 100%;
+            -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); /* 1 x 1px transparent image to fix the overflow:hidden in Chrome */
+        }
+
+        .cp-package-card-info {
+            width: 100%;
+        }
+    }
+}
+
+.cp-checkout-thank-you-heading {
+    @extend .cp-heading;
+    margin-bottom: 36px !important;
+    text-align: center;
+
+    > span {
+        display: block;
+        font-size: $font-size-h2;
+        margin-top: $cp-margin-xs-vertical;
+    }
+
+    strong {
+        color: $cp-secondary-color;
+    }
+}

@@ -1,6 +1,11 @@
 $cp-package-card-name-font-size: $font-size-h4;
 $cp-package-card-vendor-font-size: 15px;
 
+cp-package-card {
+    display: block;
+    overflow: hidden;
+}
+
 .cp-package-card {
     color: $cp-primary-color;
     display: block;

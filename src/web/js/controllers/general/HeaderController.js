@@ -1,5 +1,3 @@
-angular.module('cp.controllers.general', []);
-
 angular.module('cp.controllers.general').controller('HeaderController', function($scope,
       $rootScope, SecurityService, CP_TELEPHONE_NUMBER_UK, CP_TELEPHONE_NUMBER_INTERNATIONAL) {
     var templateUrl = (x) => '/dist/templates/general/' + x + '-nav-menu-items.html',

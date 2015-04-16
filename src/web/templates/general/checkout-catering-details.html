@@ -1,0 +1,121 @@
+<div class="cp-checkout-steps-wrap">
+    <ng-include src="'/dist/templates/directives/cp-checkout-steps.html'" ng-init="activeStep = 0"></ng-include>
+</div>
+
+<div class="container">
+    <div class="cp-checkout">
+        <div class="cp-checkout-main">
+            <h1 class="sr-only">Catering details</h1>
+
+            <form class="cp-form cp-checkout-form" name="checkoutForm" novalidate role="form" ng-submit="nextStep()">
+                <fieldset>
+                    <legend class="cp-heading">Dietary requirements</legend>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="vegetarian_head_count">
+                            How many people are vegetarian?
+                            <span class="form-element-invalid" ng-show="checkoutForm.$submitted && checkoutForm.vegetarianHeadCount.$error.required">Please specify how many people are vegetarian.</span>
+                        </label>
+                        <select class="cp-form-control"
+                            id="vegetarian_head_count"
+                            name="vegetarianHeadCount"
+                            required
+                            aria-required="true"
+                            ng-model="order.vegetarianHeadCount"
+                            ng-options="option for option in vegetarianHeadCountOptions"></select>
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="dietary_requirements_extra">Do you have specific dietary requirements for your team?</label>
+                        <textarea class="cp-form-control"
+                            id="dietary_requirements_extra"
+                            name="dietaryRequirementsExtra"
+                            rows="6"
+                            ng-model="order.dietaryRequirementsExtra"></textarea>
+                    </div>
+                </fieldset>
+
+                <fieldset ng-if="package.packagingTypeText === 'either' || package.canDeliverCutleryAndServiettes">
+                    <legend class="cp-heading">Packaging options</legend>
+
+                    <div class="cp-form-group" ng-if="package.packagingTypeText === 'either'">
+                        <label class="cp-form-label" for="packaging_type">
+                            How would you like it to arrive?
+                            <span class="form-element-invalid" ng-show="checkoutForm.$submitted && checkoutForm.packagingType.$error.required">Please specify how you would like the order to arrive.</span>
+                        </label>
+                        <select class="cp-form-control"
+                            id="packaging_type"
+                            name="packagingType"
+                            required
+                            aria-required="true"
+                            ng-model="order.packagingType"
+                            ng-options="type.value as type.label for type in packagingTypeOptions"></select>
+                    </div>
+
+                    <div class="cp-checkbox cp-checkout-cutlery-and-serviettes" ng-if="package.canDeliverCutleryAndServiettes">
+                        <label>
+                            <input type="checkbox" ng-model="order.isCutleryAndServiettesRequired" />
+                            Include cutlery and serviettes
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="cp-checkout-extra-service" ng-if="package.canSetUpAfterDelivery || package.canCleanUpAfterDelivery">
+                    <legend class="cp-heading">Extra service</legend>
+
+                    <div class="cp-form-group" ng-if="package.canSetUpAfterDelivery">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <label class="cp-form-label" for="is_vendor_required_to_set_up">
+                                    Would you like the vendor to set up? (Extra {{ package.costToSetUpAfterDelivery | currency:'£':2 }})
+                                    <span class="form-element-invalid" ng-show="checkoutForm.$submitted && checkoutForm.isVendorRequiredToSetUp.$error.required">Please specify if you would like the vendor to set up.</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="cp-form-control"
+                                    id="is_vendor_required_to_set_up"
+                                    name="isVendorRequiredToSetUp"
+                                    required
+                                    aria-required="true"
+                                    ng-model="order.isVendorRequiredToSetUp">
+                                        <option value="false">No</option>
+                                        <option value="true">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cp-form-group" ng-if="package.canCleanUpAfterDelivery">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <label class="cp-form-label" for="is_vendor_required_to_clean_up">
+                                    Would you like the vendor to clear away? (Extra {{ package.costToCleanUpAfterDelivery | currency:'£':2 }})
+                                    <span class="form-element-invalid" ng-show="checkoutForm.$submitted && checkoutForm.isVendorRequiredToCleanUp.$error.required">Please specify if you would like the vendor to clear away.</span>
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="cp-form-control"
+                                    id="is_vendor_required_to_clean_up"
+                                    name="isVendorRequiredToCleanUp"
+                                    required
+                                    aria-required="true"
+                                    ng-model="order.isVendorRequiredToCleanUp">
+                                        <option value="false">No</option>
+                                        <option value="true">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <input class="cp-btn cp-btn-primary cp-btn-lg" type="submit" value="Next" />
+            </form>
+
+            <button class="cp-btn cp-btn-link" type="button" cp-back>Go Back</button>
+        </div>
+
+        <div class="cp-checkout-sidebar">
+            <cp-checkout-review></cp-checkout-review>
+        </div>
+    </div>
+</div>

@@ -34,6 +34,22 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'QuoteController',
             templateUrl: '/dist/templates/general/quote.html'
         }).
+        when('/checkout/catering-details', {
+            controller: 'CheckoutCateringDetailsController',
+            templateUrl: '/dist/templates/general/checkout-catering-details.html'
+        }).
+        when('/checkout/delivery-details', {
+            controller: 'CheckoutDeliveryDetailsController',
+            templateUrl: '/dist/templates/general/checkout-delivery-details.html'
+        }).
+        when('/checkout/payment', {
+            controller: 'CheckoutPaymentController',
+            templateUrl: '/dist/templates/general/checkout-payment.html'
+        }).
+        when('/checkout/thank-you', {
+            controller: 'CheckoutThankYouController',
+            templateUrl: '/dist/templates/general/checkout-thank-you.html'
+        }).
         when('/customer/account-details', {
             controller: 'CustomerAccountDetailsController',
             templateUrl: '/dist/templates/customer/account-details.html'

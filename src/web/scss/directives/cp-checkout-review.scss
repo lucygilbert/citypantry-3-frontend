@@ -1,0 +1,85 @@
+.cp-checkout-review-heading {
+    border-bottom: 2px solid $cp-primary-color;
+    font-size: $font-size-h4 !important;
+    margin: 0 !important;
+    padding-bottom: $padding-base-vertical;
+}
+
+// @todo - duplicate of `.cp-dashboard-order-detail`.
+.cp-checkout-review-detail {
+    position: relative;
+
+    > dl {
+        @extend .clearfix;
+        font-size: 16px;
+
+        > dt,
+        > dd {
+            border-bottom: 1px solid $gray-light;
+            padding-top: $padding-small-vertical;
+            padding-bottom: $padding-small-vertical;
+        }
+
+        > dt {
+            clear: left;
+            float: left;
+            font-weight: 400;
+            width: $dl-horizontal-offset;
+        }
+
+        > dd {
+            margin-left: $dl-horizontal-offset;
+            text-align: right;
+        }
+    }
+}
+
+// @todo - duplicate of `.cp-dashboard-order-detail-total`.
+.cp-checkout-review-detail-total {
+    @extend .cp-heading;
+    border-top: 2px solid $cp-primary-color !important;
+    border-bottom: 2px solid $cp-primary-color !important;
+    font-size: $font-size-h4;
+    font-weight: 700 !important;
+    padding-top: $cp-margin-small-vertical !important;
+    padding-bottom: $cp-margin-small-vertical !important;
+    position: relative;
+    top: -1px;
+}
+
+// @todo - duplicate of `.cp-dashboard-order-edit`.
+.cp-checkout-review-detail-edit {
+    font-weight: 600;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        color: $cp-secondary-color;
+    }
+}
+
+cp-package-card {
+    margin-bottom: $cp-margin-base-vertical;
+
+    .cp-package-card-image-wrap {
+        padding-bottom: 50%;
+
+        &::before,
+        &::after {
+            display: none !important;
+        }
+    }
+
+    .cp-package-card-info {
+        height: auto;
+    }
+
+    .cp-package-card-price,
+    .cp-package-card-notice {
+        display: none !important;
+    }
+}

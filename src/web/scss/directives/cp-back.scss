@@ -1,0 +1,21 @@
+button[cp-back] {
+    border: 0;
+    font-weight: 600;
+    height: auto;
+    padding: 0;
+    position: absolute;
+    top: -40px;
+    left: 25px;
+
+    &::before {
+        content: '\003c';
+        padding-right: 7px;
+    }
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        color: #fff;
+    }
+}

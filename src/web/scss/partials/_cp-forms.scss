@@ -6,7 +6,7 @@
         margin-bottom: 18px;
         padding: $cp-padding-xl-vertical ($grid-gutter-width / 2);
 
-        fieldset legend {
+        legend {
             @extend .cp-form-label;
             border-bottom: 0;
             display: inline-block;
@@ -17,6 +17,10 @@
             margin-bottom: 0;
         }
     }
+
+    .cp-heading {
+        margin-bottom: $cp-margin-xs-vertical;
+    }
 }
 
 .cp-form-group {
@@ -26,6 +30,7 @@
 
 .cp-form-label {
     color: $cp-primary-color;
+    display: block;
     font-size: $font-size-h4;
     font-weight: 600;
     line-height: 1.167; // ~21px
@@ -54,7 +59,7 @@
         font-weight: 400;
 
         > input[type='checkbox'] {
-            margin: 1px 2px 0 $padding-small-horizontal;
+            margin: 1px 2px 0 0;
         }
     }
 }
@@ -73,6 +78,10 @@
     font-size: 16px;
     font-weight: 400;
     margin: 0 $padding-small-horizontal;
+
+    &:first-of-type {
+        margin-left: 0;
+    }
 
     > input[type='radio'] {
         margin: 1px 2px 0 0;
