@@ -44,12 +44,10 @@ describe('Customer delivery addresses', function() {
     it('should be able to save the "add address" form', function() {
         element(by.css('main input.btn-primary')).click();
 
-        expect(browser.getCurrentUrl()).toMatch(/customer\/addresses$/);
+        // No notification -- just go back to the addresses page.
+        notificationModal.expectIsClosed();
 
-        notificationModal.expectIsOpen();
-        notificationModal.expectMessage('Address saved');
-        notificationModal.expectSuccessHeader();
-        notificationModal.dismiss();
+        expect(browser.getCurrentUrl()).toMatch(/customer\/addresses$/);
     });
 
     it('should list the new address in the address list', function() {
@@ -78,13 +76,11 @@ describe('Customer delivery addresses', function() {
         element(by.model('address.companyName')).clear().sendKeys('Some Company');
     });
 
-    it('should be able to save the "add address" form', function() {
+    it('should be able to save the "edit address" form', function() {
         element(by.css('main input.btn-primary')).click();
 
-        notificationModal.expectIsOpen();
-        notificationModal.expectSuccessHeader();
-        notificationModal.expectMessage('Address saved');
-        notificationModal.dismiss();
+        // No notification -- just go back to the addresses page.
+        notificationModal.expectIsClosed();
 
         expect(browser.getCurrentUrl()).toMatch(/customer\/addresses$/);
     });
@@ -101,8 +97,6 @@ describe('Customer delivery addresses', function() {
         element(by.model('address.city')).clear().sendKeys('London');
 
         element(by.css('main input.btn-primary')).click();
-
-        notificationModal.dismiss();
 
         var addresses = element.all(by.repeater('address in addresses'));
         expect(addresses.get(0).getText()).toContain('25 Lena Gardens, London, W6 7PY, United Kingdom');

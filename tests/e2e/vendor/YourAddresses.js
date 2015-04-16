@@ -38,12 +38,10 @@ describe('Vendor portal - your addresses', function() {
 
         element(by.css('main input.btn-primary')).click();
 
-        expect(browser.getCurrentUrl()).toMatch(/vendor\/addresses$/);
+        // No notification -- just go back to the addresses page.
+        notificationModal.expectIsClosed();
 
-        notificationModal.expectIsOpen();
-        notificationModal.expectSuccessHeader();
-        notificationModal.expectMessage('Address saved');
-        notificationModal.dismiss();
+        expect(browser.getCurrentUrl()).toMatch(/vendor\/addresses$/);
 
         var addresses = element.all(by.repeater('address in addresses'));
         expect(addresses.count()).toBe(4);
@@ -66,10 +64,8 @@ describe('Vendor portal - your addresses', function() {
 
         element(by.css('main input.btn-primary')).click();
 
-        notificationModal.expectIsOpen();
-        notificationModal.expectSuccessHeader();
-        notificationModal.expectMessage('Address saved');
-        notificationModal.dismiss();
+        // No notification -- just go back to the addresses page.
+        notificationModal.expectIsClosed();
 
         expect(browser.getCurrentUrl()).toMatch(/vendor\/addresses$/);
 
@@ -84,8 +80,6 @@ describe('Vendor portal - your addresses', function() {
         element(by.model('address.city')).clear().sendKeys('London');
 
         element(by.css('main input.btn-primary')).click();
-
-        notificationModal.dismiss();
 
         var addresses = element.all(by.repeater('address in addresses'));
         expect(addresses.get(0).getText()).toContain('Shepherds Bush Road, London, W6 7ZZ, United Kingdom');
