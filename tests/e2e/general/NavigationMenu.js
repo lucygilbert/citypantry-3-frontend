@@ -26,9 +26,18 @@ describe('Navigation Menu', function() {
         expect(myAccountMenu.getText()).toContain('Addresses');
         expect(myAccountMenu.getText()).toContain('Cards');
         expect(myAccountMenu.getText()).toContain('Password');
-        expect(myAccountMenu.getText()).toContain('Pay on account');
         expect(myAccountMenu.getText()).toContain('Log out');
-        expect(myAccountMenuLinks.count()).toBe(7);
+        expect(myAccountMenuLinks.count()).toBe(6);
+
+        // 'Pay on account' should not be in the menu because customer@bunnies.test is not enabled
+        // for that feature.
+        expect(myAccountMenu.getText()).not.toContain('Pay on account');
+    });
+
+    it('should present customers who have "pay on account" enabled with that menu item', function() {
+        loginAsUser('customer@apple.test');
+        myAccountButton.click();
+        expect(myAccountMenu.getText()).toContain('Pay on account');
     });
 
     it('should present vendors with the appropriate navigation options', function() {

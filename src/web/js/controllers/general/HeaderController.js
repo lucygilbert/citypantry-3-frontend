@@ -9,5 +9,11 @@ angular.module('cp.controllers.general').controller('HeaderController', function
     $scope.navMenuPresented = true;
     $scope.togglePresentNavMenu = () => $scope.navMenuPresented = !$scope.navMenuPresented;
 
+    $scope.showPayOnAccountMenuItem = false;
+    if (SecurityService.customerIsLoggedIn()) {
+        SecurityService.getCustomer()
+            .then((customer) => $scope.showPayOnAccountMenuItem = customer.paidOnAccountStatus !== 0);
+    }
+
     $rootScope.$on('$routeChangeStart', () => $scope.navMenuCollapsed = true);
 });

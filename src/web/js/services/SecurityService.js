@@ -15,6 +15,12 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             return deferred.promise;
         },
 
+        getCustomer: function() {
+            return UsersFactory.getLoggedInUser().then(function(response) {
+                return response.data.customer;
+            });
+        },
+
         inGroup: function(groups) {
             var user = this.getUser();
             if (!user || !user.group.name) {

@@ -9,7 +9,7 @@
         <li><a href="/customer/addresses">Addresses</a></li>
         <li><a href="/user/payment-cards">Cards</a></li>
         <li><a href="/customer/change-password">Password</a></li>
-        <li><a href="/customer/pay-on-account">Pay on account</a></li>
+        <li ng-if="showPayOnAccountMenuItem"><a href="/customer/pay-on-account">Pay on account</a></li>
         <li><a href="/logout">Log out</a></li>
     </ul>
 </li>
