@@ -1,6 +1,6 @@
 angular.module('cp.controllers.general').controller('CheckoutThankYouController',
         function($scope, DocumentTitleService, SecurityService, LoadingService, PackagesFactory,
-        CheckoutService) {
+        CheckoutService, NotificationService) {
     DocumentTitleService('Checkout: Thank You');
     SecurityService.requireLoggedIn();
 
