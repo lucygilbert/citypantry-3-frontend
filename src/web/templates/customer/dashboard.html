@@ -31,7 +31,7 @@
 
                         <div class="col-xs-4">
                             <div class="cp-form-group">
-                                <label class="cp-form-label" for="search_head_count">How many people?</label>
+                                <label class="cp-form-label" for="search_head_count">No. of people?</label>
                                 <select class="cp-form-control" id="search_head_count" name="searchHeadCount" ng-model="search.headCount" ng-options="headCount for headCount in headCountOptions"></select>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                         <dt>Delivery time</dt>
                         <dd>{{ nextOrder.requestedDeliveryDate | date:'HH:mm' }}</dd>
 
-                        <dt>How many people?</dt>
+                        <dt>No. of people?</dt>
                         <dd>{{ nextOrder.headCount }}</dd>
 
                         <dt>Dietary requirements</dt>
