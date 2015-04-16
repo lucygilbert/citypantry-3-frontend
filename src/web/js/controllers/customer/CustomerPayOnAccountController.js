@@ -4,10 +4,15 @@ angular.module('cp.controllers.customer').controller('CustomerPayOnAccountContro
     DocumentTitleService('Pay on account');
     SecurityService.requireLoggedIn();
 
-    UsersFactory.getLoggedInUser().success(response => {
-        $scope.user = response;
-        LoadingService.hide();
-    });
+    const setScopeStatus = () => $scope.status = $scope.user.customer.paidOnAccountStatus;
+
+    UsersFactory.getLoggedInUser()
+        .success(response => {
+            $scope.user = response;
+            setScopeStatus();
+            LoadingService.hide();
+        })
+        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
     $scope.save = function (payOnAccountForm) {
         if (!payOnAccountForm.$valid) {
@@ -19,19 +24,19 @@ angular.module('cp.controllers.customer').controller('CustomerPayOnAccountContro
         const payOnAccountDetails = {
             accountsEmail: $scope.user.customer.accountsEmail,
             accountsContactName: $scope.user.customer.accountsContactName,
-            accountsTelephoneNumber: $scope.user.customer.accountsTelephoneNumber,
-            invoicePaymentTerms: $scope.user.customer.invoicePaymentTerms,
-            maxSpendPerMonth: $scope.user.customer.maxSpendPerMonth
+            accountsTelephoneNumber: $scope.user.customer.accountsTelephoneNumber
         };
+
+        var originalStatus = $scope.status;
 
         CustomersFactory.updatePayOnAccountDetails(payOnAccountDetails)
             .success(response => {
                 $scope.user = response;
-                let notificationMessage;
+                setScopeStatus();
 
-                if ($scope.user.customer.hasRequestedToPayOnAccount) {
-                    notificationMessage = 'Your request to pay on account has been sent.';
-                    $location.hash('request_received_message');
+                let notificationMessage;
+                if (originalStatus === 1 && $scope.status === 2) {
+                    notificationMessage = 'You are now approved to pay on account.';
                 } else {
                     notificationMessage = 'Your pay on account details have been updated.';
                 }
