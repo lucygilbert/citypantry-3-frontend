@@ -44,7 +44,6 @@ angular.module('cp').directive('cpAddressForm', function(SecurityService) {
                 }
 
                 promise.then(function() {
-                    NotificationService.notifySuccess('Address saved');
                     const redirectTo = '/' + $scope.userType + '/addresses';
                     $location.path(redirectTo);
                 });
