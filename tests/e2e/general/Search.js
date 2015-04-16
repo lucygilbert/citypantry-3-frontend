@@ -35,10 +35,10 @@ describe('Search', function() {
     it('should be able to filter by delivery time', function() {
         var timeFilter = element(by.model('search.time'));
         var options = timeFilter.all(by.css('option'));
-        var firstOption = options.get(0);
+        var firstOption = options.get(0); // "-"
 
-        element(by.cssContainingText('option', '01:30')).click();
-        expectSearchResultCount(4);
+        element(by.cssContainingText('option', '07:00')).click();
+        expectSearchResultCount(7);
         firstOption.click();
 
         element(by.cssContainingText('option', '20:30')).click();
