@@ -20,7 +20,7 @@ angular.module('cp.controllers.general').controller('SearchController',
     $scope.minPackageCost = 1;
     $scope.maxPackageCost = 20;
     $scope.headCountOptions = OrdersFactory.getHeadCountOptions(500, 1);
-    $scope.timeOptions = PackagesFactory.getDeliveryTimeOptions();
+    $scope.timeOptions = PackagesFactory.getPackageDeliveryTimeOptions(0, 2330, 30);
     $scope.minDate = new Date();
     $scope.eventTypes = [];
     $scope.isAdvancedSearchVisible = false;
