@@ -12,7 +12,7 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
     $scope.minDate = new Date();
     $scope.orders = [];
     $scope.nextOrder = undefined;
-    $scope.timeOptions = PackagesFactory.getPackageDeliveryTimeOptions(0, 2330, 30);
+    $scope.timeOptions = PackagesFactory.getPackageDeliveryTimeOptions(700, 2400, 30);
 
     $scope.search = {
         date: undefined,

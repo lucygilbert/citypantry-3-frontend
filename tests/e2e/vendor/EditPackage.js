@@ -221,8 +221,8 @@ describe('Vendor portal - edit package', function() {
         eventTypeDinnerCheckbox.click();
 
         element.all(by.css('#package_notice > option')).get(2).click(); // 3 hours notice.
-        element.all(by.css('#package_delivery_time_start > option')).get(10).click(); // 05:00 start time.
-        element.all(by.css('#package_delivery_time_end > option')).get(34).click(); // 17:00 end time.
+        element(by.cssContainingText('#package_delivery_time_start > option', '07:00')).click();
+        element(by.cssContainingText('#package_delivery_time_end > option', '17:00')).click();
         deliveryCost.clear().sendKeys(10);
         freeDeliveryThreshold.clear().sendKeys(150);
 
@@ -250,7 +250,7 @@ describe('Vendor portal - edit package', function() {
         expect(eventTypeLunchCheckbox.isSelected()).toBe(true);
         expect(eventTypeDinnerCheckbox.isSelected()).toBe(true);
         expect(element(by.id('package_notice')).$('option:checked').getText()).toBe('3 hours');
-        expect(element(by.id('package_delivery_time_start')).$('option:checked').getText()).toBe('05:00');
+        expect(element(by.id('package_delivery_time_start')).$('option:checked').getText()).toBe('07:00');
         expect(element(by.id('package_delivery_time_end')).$('option:checked').getText()).toBe('17:00');
         expect(deliveryCost.getAttribute('value')).toBe('10');
         expect(freeDeliveryThreshold.getAttribute('value')).toBe('150');
@@ -264,8 +264,9 @@ describe('Vendor portal - edit package', function() {
         eventTypeLunchCheckbox.click();
         eventTypeDinnerCheckbox.click();
         element.all(by.css('#package_notice > option')).get(10).click(); // 48 hours notice.
-        element.all(by.css('#package_delivery_time_start > option')).get(12).click(); // 06:00 start time.
-        element.all(by.css('#package_delivery_time_end > option')).get(36).click(); // 18:00 end time.
+        // The delivery start time can't be reset to it's original (0600) because that isn't an
+        // option in the time wheel anymore.
+        element(by.cssContainingText('#package_delivery_time_end > option', '18:00')).click();
         deliveryCost.clear().sendKeys(15);
         freeDeliveryThreshold.clear().sendKeys(100);
         element(by.css('main input.btn.btn-primary')).click();
