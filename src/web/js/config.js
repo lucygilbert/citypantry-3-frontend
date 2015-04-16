@@ -46,6 +46,10 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'CheckoutPaymentController',
             templateUrl: '/dist/templates/general/checkout-payment.html'
         }).
+        when('/checkout/thank-you', {
+            controller: 'CheckoutThankYouController',
+            templateUrl: '/dist/templates/general/checkout-thank-you.html'
+        }).
         when('/customer/account-details', {
             controller: 'CustomerAccountDetailsController',
             templateUrl: '/dist/templates/customer/account-details.html'

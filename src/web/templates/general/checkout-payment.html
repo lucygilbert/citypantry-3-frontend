@@ -10,13 +10,28 @@
             <p>How would you like to pay for this order?</p>
 
             <form class="cp-form cp-checkout-payment-form" name="checkoutForm" novalidate role="form" ng-submit="finish()">
-                <fieldset class="row">
+                <fieldset ng-if="user.customer.isPaidOnAccount">
+                    <label class="cp-radio-inline">
+                        <input type="radio"
+                            ng-model="order.isPayOnAccount"
+                            ng-value="false" />
+                        Pay on Credit Card
+                    </label>
+                    <label class="cp-radio-inline">
+                        <input type="radio"
+                            ng-model="order.isPayOnAccount"
+                            ng-value="true" />
+                        Pay on Account
+                    </label>
+                </fieldset>
+
+                <hr ng-if="user.customer.isPaidOnAccount" />
+
+                <fieldset class="row cp-checkout-payment-method" ng-if="!order.isPayOnAccount">
                     <div class="cp-form-group col-md-6">
                         <label class="cp-form-label" for="payment_method">Payment method</label>
                         <select class="cp-form-control"
                             id="payment_method"
-                            required
-                            aria-required="true"
                             ng-model="order.paymentMethod"
                             ng-options="card as card.numberMasked for card in cards">
                                 <option value="">Add new card</option>
@@ -34,7 +49,9 @@
                     </div>
                 </fieldset>
 
-                <fieldset class="row" ng-if="!order.paymentMethod">
+                <p class="cp-form-error" ng-show="checkoutForm.$submitted && checkoutForm.$invalid">Card number, expiry month and year and CVC are required.</p>
+
+                <fieldset class="row cp-checkout-payment-card" ng-if="!order.isPayOnAccount && !order.paymentMethod">
                     <div class="cp-form-group col-md-6">
                         <label class="cp-form-label" for="card_number">Card number</label>
                         <input class="cp-form-control"
@@ -57,7 +74,9 @@
                             aria-required="true"
                             ng-model="card.expirationMonth"
                             ng-options="month.value as month.label for month in monthOptions"
-                            data-braintree-name="expiration_month"></select>
+                            data-braintree-name="expiration_month">
+                                <option value="">MM</option>
+                        </select>
 
                         <label class="sr-only" for="card_expiry_year">Expiry year</label>
                         <select class="cp-form-control"
@@ -66,10 +85,12 @@
                             aria-required="true"
                             ng-model="card.expirationYear"
                             ng-options="year.value as year.label for year in yearOptions"
-                            data-braintree-name="expiration_year"></select>
+                            data-braintree-name="expiration_year">
+                                <option value="">YYYY</option>
+                        </select>
                     </div>
 
-                    <div class="cp-form-group col-md-2">
+                    <div class="cp-form-group col-md-2 col-md-pull-1">
                         <label class="cp-form-label" for="card_cvc">
                             <abbr title="card verification code">CVC</abbr>
                         </label>
@@ -79,7 +100,7 @@
                             autocomplete="off"
                             required
                             aria-required="true"
-                            ng-maxlength="3"
+                            ng-maxlength="4"
                             ng-minlength="3"
                             ng-model="card.cvc"
                             ng-pattern="/\d\d\d/"
@@ -87,7 +108,61 @@
                     </div>
                 </fieldset>
 
+                <fieldset ng-if="order.isPayOnAccount">
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="purchase_order_number"><abbr title="purchase order">PO</abbr> number</label>
+                        <input class="cp-form-control"
+                            id="purchase_order_number"
+                            type="text"
+                            ng-model="order.purchaseOrderNumber" />
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="department_reference">Additional ref</label>
+                        <input class="cp-form-control"
+                            id="department_reference"
+                            type="text"
+                            ng-model="order.departmentReference" />
+                    </div>
+                </fieldset>
+
+                <hr ng-if="isPromoCodeVisible || isPromoCodeValid" />
+
+                <fieldset class="row cp-checkout-promo-code" ng-if="isPromoCodeVisible">
+                    <div class="cp-form-group col-md-6">
+                        <label class="cp-form-label" for="promo_code">
+                            Promo code
+                            <span class="form-element-invalid" ng-show="promoCodeError" ng-bind="promoCodeError"></span>
+                        </label>
+                        <input class="cp-form-control"
+                            id="promo_code"
+                            type="text"
+                            ng-model="order.promoCode" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <button class="cp-btn cp-btn-link cp-checkout-promo-code-submit" type="button" ng-click="submitPromoCode()">Submit</button>
+                    </div>
+                </fieldset>
+
+                <div class="cp-checkout-promo-code-valid" ng-if="isPromoCodeValid">
+                    <p>
+                        Promo code: <span class="cp-checkout-promo-code-code">{{ order.promoCode.code }}</span>
+                        <span ng-if="order.promoCode.type === 'percentage'">
+                            {{ order.promoCode.discount }}%
+                        </span>
+                        <span ng-if="order.promoCode.type === 'fixed'">
+                            {{ order.promoCode.discount | currency:'£':2 }}
+                        </span>
+                        Discount (Save {{ order.promoCodeValue | currency:'£':2 }})
+                    </p>
+                </div>
+
+                <hr />
+
                 <input class="cp-btn cp-btn-primary cp-btn-lg" type="submit" value="Pay now ({{ order.totalAmount | currency:'£':2 }})" />
+
+                <button class="cp-btn cp-btn-link" type="button" ng-click="$parent.isPromoCodeVisible = true" ng-if="!isPromoCodeVisible && !isPromoCodeValid">Promo code?</button>
             </form>
         </div>
 

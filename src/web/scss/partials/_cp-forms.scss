@@ -17,6 +17,10 @@
             margin-bottom: 0;
         }
     }
+
+    .cp-heading {
+        margin-bottom: $cp-margin-xs-vertical;
+    }
 }
 
 .cp-form-group {
@@ -74,6 +78,10 @@
     font-size: 16px;
     font-weight: 400;
     margin: 0 $padding-small-horizontal;
+
+    &:first-of-type {
+        margin-left: 0;
+    }
 
     > input[type='radio'] {
         margin: 1px 2px 0 0;

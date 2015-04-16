@@ -4,15 +4,19 @@ angular.module('cp.controllers.general').controller('CheckoutDeliveryDetailsCont
     DocumentTitleService('Checkout: Delivery Details');
     SecurityService.requireLoggedIn();
 
-    $scope.order = {postcode: CheckoutService.getPostcode()};
+    $scope.order = {
+        packageId: CheckoutService.getPackageId(),
+        postcode: CheckoutService.getPostcode()
+    };
 
     $scope.addresses = [];
     $scope.address = {countryName: 'United Kingdom'};
+    $scope.forms = {};
     $scope.isNewDeliveryAddress = true;
     $scope.package = {};
 
     function init() {
-        const promise1 = PackagesFactory.getPackage(CheckoutService.getPackageId())
+        const promise1 = PackagesFactory.getPackage($scope.order.packageId)
             .success(response => {
                 $scope.package = response;
             })
@@ -51,8 +55,11 @@ angular.module('cp.controllers.general').controller('CheckoutDeliveryDetailsCont
         $scope.address.label = ($scope.address.label ? $scope.address.label : $scope.address.addressLine1);
     }
 
-    $scope.nextStep = function(checkoutForm) {
-        // @todo - check form is valid.
+    $scope.nextStep = function() {
+        if ($scope.forms.checkoutForm && $scope.forms.checkoutForm.$invalid) {
+            $scope.forms.checkoutForm.$submitted = true;
+            return;
+        }
 
         LoadingService.show();
 

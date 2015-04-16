@@ -1,11 +1,15 @@
 angular.module('cp.controllers.general').controller('CheckoutPaymentController',
         function($scope, DocumentTitleService, SecurityService, LoadingService, PackagesFactory,
         CheckoutService, $location, UsersFactory, $q, NotificationService, OrdersFactory,
-        getCardNumberMaskFilter) {
+        getCardNumberMaskFilter, PromoCodeFactory, getPromoCodeErrorTextFilter) {
     DocumentTitleService('Checkout: Payment');
     SecurityService.requireLoggedIn();
 
-    $scope.order = {totalAmount: CheckoutService.getTotalAmount()};
+    $scope.order = {
+        isPayOnAccount: false,
+        packageId: CheckoutService.getPackageId(),
+        totalAmount: CheckoutService.getTotalAmount()
+    };
 
     $scope.cards = [];
     $scope.card = {};
@@ -15,6 +19,7 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
     $scope.isMastercardVisible = true;
     $scope.isVisaVisible = true;
     $scope.package = {};
+    $scope.user = {};
 
     const thisYear = (new Date()).getFullYear();
     $scope.yearOptions = [];
@@ -28,7 +33,7 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
     }
 
     function init() {
-        const promise1 = PackagesFactory.getPackage(CheckoutService.getPackageId())
+        const promise1 = PackagesFactory.getPackage($scope.order.packageId)
             .success(response => {
                 $scope.package = response;
             })
@@ -40,13 +45,21 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
-        $q.all([promise1, promise2]).then(() => {
-            $scope.cards.forEach(card => {
-                card.numberMasked = getCardNumberMaskFilter(card.last4, card.type);
-            });
+        const promise3 = UsersFactory.getLoggedInUser()
+            .success(response => {
+                $scope.user = response;
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+
+        $q.all([promise1, promise2, promise3]).then(() => {
+            $scope.cards.forEach(card => card.numberMasked = getCardNumberMaskFilter(card.last4, card.type));
 
             if ($scope.cards.length > 0) {
                 $scope.order.paymentMethod = $scope.cards[0];
+            }
+
+            if ($scope.user.customer.isPaidOnAccount) {
+                $scope.order.isPayOnAccount = true;
             }
 
             LoadingService.hide();
@@ -60,7 +73,7 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
             return;
         }
 
-        if (typeof paymentMethod === 'undefined') {
+        if (!paymentMethod) {
             $scope.isAmericanExpressVisible = true;
             $scope.isMaestroVisible = true;
             $scope.isMastercardVisible = true;
@@ -90,51 +103,107 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
         }
     });
 
+    function recalculateCostAmounts() {
+        if (!$scope.order.promoCode) {
+            return;
+        }
+
+        const totalAmountBeforePromoCode = $scope.order.totalAmount;
+
+        if ($scope.order.promoCode.type === 'percentage') {
+            $scope.order.totalAmount = $scope.order.totalAmount - ($scope.order.totalAmount * ($scope.order.promoCode.discount / 100));
+            $scope.order.promoCodeValue = totalAmountBeforePromoCode - $scope.order.totalAmount;
+        } else if ($scope.order.promoCode.type === 'fixed') {
+            if ($scope.order.totalAmount <= $scope.order.promoCode.discount) {
+                $scope.order.totalAmount = 0;
+                $scope.order.promoCodeValue = totalAmountBeforePromoCode;
+            } else {
+                $scope.order.totalAmount = $scope.order.totalAmount - $scope.order.promoCode.discount;
+                $scope.order.promoCodeValue = $scope.order.promoCode.discount;
+            }
+        }
+
+        CheckoutService.setTotalAmount($scope.order.totalAmount);
+    }
+
+    $scope.submitPromoCode = function() {
+        if (!$scope.order.promoCode) {
+            return;
+        }
+
+        LoadingService.show();
+
+        $scope.promoCodeError = null;
+
+        PromoCodeFactory.getPromoCodeByCode($scope.order.promoCode)
+            .success(response => {
+                if (response.isValid) {
+                    $scope.order.promoCode = response.promoCode;
+                    recalculateCostAmounts();
+                    $scope.isPromoCodeValid = true;
+                    $scope.isPromoCodeVisible = false;
+                    CheckoutService.setPromoCodeId($scope.order.promoCode.id);
+                } else {
+                    $scope.promoCodeError = getPromoCodeErrorTextFilter($scope.order.promoCode);
+                }
+
+                LoadingService.hide();
+            })
+            .catch(response => {
+                $scope.promoCodeError = response.data.errorTranslation;
+                LoadingService.hide();
+            });
+    };
+
     $scope.finish = function() {
-        // @todo - check form is valid.
+        if ($scope.checkoutForm.$invalid) {
+            $scope.checkoutForm.$submitted = true;
+            return;
+        }
 
         LoadingService.show();
 
         let orderDetails = {
             customDietaryRequirements: CheckoutService.getDietaryRequirementsExtra(),
             deliveryAddress: CheckoutService.getDeliveryAddressId(),
-            // @todo - departmentReference
             headCount: CheckoutService.getHeadCount(),
-            // @todo - isPaidOnAccount
             package: CheckoutService.getPackageId(),
             packagingTypeChoice: CheckoutService.getPackagingType(),
-            // @todo - promotion
-            // @todo - purchaseOrderNumber
+            promotion: CheckoutService.getPromoCodeId(),
             requestedDeliveryDate: CheckoutService.getDeliveryDate().toISOString(),
             vegetarianHeadCount: CheckoutService.getVegetarianHeadCount(),
-            // @todo - voucherAmount
-            // @todo - voucherName
             willVendorDeliverCutleryAndServiettes: CheckoutService.isCutleryAndServiettesRequired(),
-            willVendorSetUpAfterDelivery: CheckoutService.isVendorRequiredToSetUp(),
-            willVendorCleanUpAfterDelivery: CheckoutService.isVendorRequiredToCleanUp()
+            willVendorCleanUpAfterDelivery: CheckoutService.isVendorRequiredToCleanUp(),
+            willVendorSetUpAfterDelivery: CheckoutService.isVendorRequiredToSetUp()
         };
 
         let promises = [];
 
-        if (typeof $scope.order.paymentMethod === 'undefined') {
-            const promise1 = UsersFactory.addPaymentCard($scope.card)
-                .success(response => {
-                    orderDetails.debitCard = response.card.id;
-                })
-                .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-            promises.push(promise1);
+        if ($scope.order.isPayOnAccount) {
+            orderDetails.payOnAccount = true;
+            orderDetails.purchaseOrderNumber = $scope.order.purchaseOrderNumber;
+            orderDetails.departmentReference = $scope.order.departmentReference;
         } else {
-            orderDetails.debitCard = $scope.order.paymentMethod.id;
+            if (!$scope.order.paymentMethod) {
+                const promise1 = UsersFactory.addPaymentCard($scope.card)
+                    .success(response => {
+                        orderDetails.payOnCard = response.card.id;
+                    })
+                    .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+                promises.push(promise1);
+            } else {
+                orderDetails.payOnCard = $scope.order.paymentMethod.id;
+            }
         }
 
-        const promise2 = OrdersFactory.createOrder(orderDetails)
-            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-        promises.push(promise2);
-
         $q.all(promises).then(() => {
-            CheckoutService.setEndTime(new Date());
-            CheckoutService.reset();
-            $location.path('/checkout/thank-you');
+            OrdersFactory.createOrder(orderDetails)
+                .success(response => {
+                    CheckoutService.setEndTime(new Date());
+                    CheckoutService.reset();
+                    $location.path('/checkout/thank-you');
+                })
+                .catch(response => NotificationService.notifyError(response.data.errorTranslation));
         });
     };
 });

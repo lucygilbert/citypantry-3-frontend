@@ -1,7 +1,7 @@
-<form name="form" ng-submit="save()">
+<form class="cp-form" name="form" ng-submit="save()">
     <p class="form-error" ng-show="error" ng-bind="error"></p>
 
-    <div class="cp-form-group">
+    <div class="cp-form-group" ng-if="!isAddressLabelLastFormField">
         <label class="cp-form-label" for="address_label">
             {{ isNew ? 'Save address as...' : 'Saved location' }}
         </label>
@@ -10,7 +10,7 @@
             ng-model="address.label" size="30" />
     </div>
 
-    <hr />
+    <hr ng-if="!isAddressLabelLastFormField" />
 
     <div class="cp-form-group">
         <label class="cp-form-label" for="company_name">
@@ -18,7 +18,6 @@
         </label>
 
         <input class="cp-form-control" id="company_name" name="companyName"
-            required aria-required="true"
             ng-model="address.companyName" size="30" />
     </div>
 
@@ -99,9 +98,9 @@
     <h2 class="cp-heading">Instructions for arrival</h2>
 
     <div class="cp-form-group">
-        <p>Do you have any instructions for the delivery driver's arrival?</p>
+        <p>Please provide any arrival information to help ensure a smooth delivery.</p>
 
-        <textarea class="cp-form-control" name="deliveryInstruction" ng-model="address.deliveryInstruction"></textarea>
+        <textarea class="cp-form-control" name="deliveryInstruction" rows="6" ng-model="address.deliveryInstruction"></textarea>
     </div>
 
     <h2 class="cp-heading">Parking</h2>
@@ -109,10 +108,18 @@
     <div class="cp-form-group">
         <p>Can you recommend anywhere to park nearby?</p>
 
-        <textarea class="cp-form-control" name="parkingSuggestion" ng-model="address.parkingSuggestion"></textarea>
+        <textarea class="cp-form-control" name="parkingSuggestion" rows="6" ng-model="address.parkingSuggestion"></textarea>
     </div>
 
     <hr />
+
+    <h2 class="cp-heading" ng-if="isAddressLabelLastFormField">Save location as</h2>
+
+    <div class="cp-form-group" ng-if="isAddressLabelLastFormField">
+        <p>Enter a name to save this address and instructions for future orders.</p>
+
+        <input class="cp-form-control" name="addressLabel" ng-model="address.label" size="30" />
+    </div>
 
     <input type="submit" value="{{ isNew ? 'Save' : 'Save changes' }}" class="btn btn-primary" ng-if="!isFormSubmitButtonHidden" />
     <a class="btn btn-link" ng-click="cancel()" ng-if="!isFormSubmitButtonHidden">Cancel</a>

@@ -1,24 +1,25 @@
 angular.module('cp.services', []);
 
 angular.module('cp.services').service('CheckoutService', function() {
-    var deliveryAddressId,
-        deliveryCost,
-        deliveryDate,
-        dietaryRequirementsExtra,
-        endTime,
-        headCount,
-        isCutleryAndServiettesRequired = false,
-        isVendorRequiredToCleanUp = false,
-        isVendorRequiredToSetUp = false,
-        packageId,
-        packagingType,
-        postcode,
-        startTime,
-        subTotalAmount,
-        totalAmount,
-        vegetarianHeadCount,
-        vendorCleanupCost,
-        vendorSetupCost;
+    var deliveryAddressId;
+    var deliveryCost;
+    var deliveryDate;
+    var dietaryRequirementsExtra;
+    var endTime;
+    var headCount;
+    var isCutleryAndServiettesRequired = false;
+    var isVendorRequiredToCleanUp = false;
+    var isVendorRequiredToSetUp = false;
+    var packageId;
+    var packagingType;
+    var postcode;
+    var promoCodeId;
+    var startTime;
+    var subTotalAmount;
+    var totalAmount;
+    var vegetarianHeadCount;
+    var vendorCleanupCost;
+    var vendorSetupCost;
 
     return {
         getDeliveryAddressId: function() {
@@ -91,6 +92,14 @@ angular.module('cp.services').service('CheckoutService', function() {
 
         setPostcode: function(value) {
             postcode = value;
+        },
+
+        getPromoCodeId: function() {
+            return promoCodeId;
+        },
+
+        setPromoCodeId: function(value) {
+            promoCodeId = value;
         },
 
         getStartTime: function() {

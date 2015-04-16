@@ -61,3 +61,25 @@
         color: $cp-secondary-color;
     }
 }
+
+cp-package-card {
+    margin-bottom: $cp-margin-base-vertical;
+
+    .cp-package-card-image-wrap {
+        padding-bottom: 50%;
+
+        &::before,
+        &::after {
+            display: none !important;
+        }
+    }
+
+    .cp-package-card-info {
+        height: auto;
+    }
+
+    .cp-package-card-price,
+    .cp-package-card-notice {
+        display: none !important;
+    }
+}

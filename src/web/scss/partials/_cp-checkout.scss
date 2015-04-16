@@ -11,6 +11,68 @@
     z-index: -2;
 }
 
+.cp-checkout-steps {
+    color: rgba(255, 255, 255, .4);
+    display: table; // Centre floated children.
+    font-size: 15px;
+    font-weight: 700;
+    list-style-position: inside;
+    margin: 0 auto;
+    padding: 120px 0 0;
+
+    &::before {
+        background-color: rgba(255, 255, 255, .4);
+        content: '';
+        display: block;
+        height: 4px;
+        margin: 0 auto;
+        position: relative;
+        top: -6px;
+        width: 630px;
+    }
+
+    > li {
+        float: left;
+        margin: 0 75px;
+        position: relative;
+        text-align: center;
+        width: 150px;
+
+        &::before {
+            background-color: $cp-primary-color;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, .4);
+            content: '';
+            height: 14px;
+            margin-left: -7px;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            width: 14px;
+        }
+
+        &.complete {
+            color: rgba(255, 255, 255, .7);
+
+            &::before {
+                border-color: rgba(255, 255, 255, .7);
+            }
+        }
+
+        &.active {
+            color: $cp-secondary-color;
+
+            &::before {
+                border: 4px solid $cp-secondary-color;
+                height: 18px;
+                margin-left: -9px;
+                top: -17px;
+                width: 18px;
+            }
+        }
+    }
+}
+
 // @todo - duplicate of `.cp-dashboard`.
 .cp-checkout {
     background-color: #fff;
@@ -55,13 +117,14 @@
         padding: 0;
     }
 
-    .cp-form-label {
+    .cp-heading + .cp-form-group > .cp-form-label {
         font-weight: 400;
         margin-bottom: $cp-margin-small-vertical;
     }
 
     .cp-heading {
         font-size: $font-size-h2;
+        margin-bottom: $cp-margin-xs-vertical;
     }
 }
 
@@ -108,6 +171,7 @@
 
 .cp-checkout-payment-form {
     @extend .cp-checkout-form;
+    margin-top: $cp-margin-base-vertical;
 
     > fieldset {
         margin-bottom: 18px;
@@ -123,60 +187,79 @@
     }
 }
 
+.cp-checkout-payment-method {
+    margin-bottom: 0 !important;
+}
+
+.cp-checkout-payment-card {
+    margin-bottom: -$cp-margin-base-vertical !important;
+}
+
+.cp-checkout-promo-code {
+    margin-bottom: -$cp-margin-small-vertical !important;
+}
+
+.cp-checkout-promo-code-submit {
+    font-weight: 700;
+    height: auto;
+    margin-top: 32px;
+    padding: 0;
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        color: $cp-secondary-color;
+    }
+}
+
+.cp-checkout-promo-code-valid {
+    p {
+        font-size: $font-size-h4;
+        font-weight: 600;
+    }
+}
+
+.cp-checkout-promo-code-code {
+    font-weight: 700;
+    padding-right: 20px;
+}
+
 .cp-checkout-sidebar {
     @extend .col-md-4;
 }
 
-.cp-checkout-steps {
-    color: rgba(255, 255, 255, .4);
-    display: table; // Centre floated children.
-    font-size: 15px;
-    font-weight: 700;
-    list-style-position: inside;
-    margin: 0 auto;
-    padding: 120px 0 0;
+.cp-checkout-thank-you {
+    text-align: center;
 
-    &::before {
-        background-color: rgba(255, 255, 255, .4);
-        content: '';
+    .cp-package-card {
+        margin: 0 auto $cp-margin-base-vertical;
+        width: 216px;
+
+        .cp-package-card-image-wrap {
+            border-radius: 50%;
+            padding-bottom: 100%;
+            -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); /* 1 x 1px transparent image to fix the overflow:hidden in Chrome */
+        }
+
+        .cp-package-card-info {
+            width: 100%;
+        }
+    }
+}
+
+.cp-checkout-thank-you-heading {
+    @extend .cp-heading;
+    margin-bottom: 36px !important;
+    text-align: center;
+
+    > span {
         display: block;
-        height: 4px;
-        margin: 0 auto;
-        position: relative;
-        top: -6px;
-        width: 630px;
+        font-size: $font-size-h2;
+        margin-top: $cp-margin-xs-vertical;
     }
 
-    > li {
-        float: left;
-        margin: 0 75px;
-        position: relative;
-        text-align: center;
-        width: 150px;
-
-        &::before {
-            background-color: $cp-primary-color;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 255, 255, .4);
-            content: '';
-            height: 14px;
-            margin-left: -7px;
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            width: 14px;
-        }
-
-        &.active {
-            color: $cp-secondary-color;
-
-            &::before {
-                border: 4px solid $cp-secondary-color;
-                height: 18px;
-                margin-left: -9px;
-                top: -17px;
-                width: 18px;
-            }
-        }
+    strong {
+        color: $cp-secondary-color;
     }
 }

@@ -5,6 +5,7 @@ angular.module('cp').directive('cpCheckoutAddressForm', function() {
             address: '='
         },
         controller: function($scope) {
+            $scope.isAddressLabelLastFormField = true;
             $scope.isFormSubmitButtonHidden = true;
             $scope.isNew = true;
         },

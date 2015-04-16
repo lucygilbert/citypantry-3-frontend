@@ -978,10 +978,11 @@ body {
 }
 
 hr {
-    height: 3px;
-    color: #eee;
-    background-color: #eee;
+    height: 4px;
+    background-color: $gray-light;
     clear: both;
+    border: 0;
+    margin: 36px 0;
 }
 
 @import 'directives/cp-package-card.scss';

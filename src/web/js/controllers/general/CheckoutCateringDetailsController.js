@@ -12,6 +12,7 @@ angular.module('cp.controllers.general').controller('CheckoutCateringDetailsCont
         isCutleryAndServiettesRequired: CheckoutService.isCutleryAndServiettesRequired(),
         isVendorRequiredToCleanUp: CheckoutService.isVendorRequiredToCleanUp(),
         isVendorRequiredToSetUp: CheckoutService.isVendorRequiredToSetUp(),
+        packageId: CheckoutService.getPackageId(),
         packagingType: CheckoutService.getPackagingType(),
         vegetarianHeadCount: CheckoutService.getVegetarianHeadCount()
     };
@@ -24,7 +25,7 @@ angular.module('cp.controllers.general').controller('CheckoutCateringDetailsCont
         $scope.vegetarianHeadCountOptions.push(i);
     }
 
-    PackagesFactory.getPackage(CheckoutService.getPackageId()).success(response => {
+    PackagesFactory.getPackage($scope.order.packageId).success(response => {
         $scope.package = response;
 
         if ($scope.package.canCleanUpAfterDelivery) {
