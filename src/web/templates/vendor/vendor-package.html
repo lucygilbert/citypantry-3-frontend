@@ -5,44 +5,44 @@
 <form name="packageForm" novalidate role="form" ng-submit="submit()">
     <fieldset>
         <legend>Details &#38; pricing</legend>
-        <div class="form-group">
-            <label for="package_cuisine_type">
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_cuisine_type">
                 Food type
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCuisineType.$error.required">(Food type is required.)</span>
             </label>
-            <select class="form-control" id="package_cuisine_type" name="packageCuisineType" required aria-required="true" ng-model="package.cuisineType" ng-options="cuisineTypeOption as cuisineTypeOption.name for cuisineTypeOption in cuisineTypeOptions track by cuisineTypeOption.id"></select>
+            <select class="cp-form-control" id="package_cuisine_type" name="packageCuisineType" required aria-required="true" ng-model="package.cuisineType" ng-options="cuisineTypeOption as cuisineTypeOption.name for cuisineTypeOption in cuisineTypeOptions track by cuisineTypeOption.id"></select>
         </div>
 
-        <div class="form-group">
-            <label for="package_name">
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_name">
                 Name your catering package
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageName.$error.required">(Package name is required.)</span>
             </label>
-            <input class="form-control" id="package_name" name="packageName" type="text" required aria-describedby="package_name_help" aria-required="true" ng-model="package.name" />
+            <input class="cp-form-control" id="package_name" name="packageName" type="text" required aria-describedby="package_name_help" aria-required="true" ng-model="package.name" />
             <span class="help-block" id="package_name_help">(e.g. “Burrito Feast”, “Summer Picnic”, “Classic Brisket Selection”, “Rocket Fuel Breakfast”).</span>
         </div>
 
-        <div class="form-group">
-            <label for="package_short_description">Short package description</label>
-            <input class="form-control" id="package_short_description" name="packageShortDescription" type="text" maxlength="255" ng-model="package.shortDescription" />
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_short_description">Short package description</label>
+            <input class="cp-form-control" id="package_short_description" name="packageShortDescription" type="text" maxlength="255" ng-model="package.shortDescription" />
         </div>
 
-        <div class="form-group">
-            <label for="package_description">
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_description">
                 Package description
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageDescription.$error.required">(Package description is required.)</span>
             </label>
-            <textarea class="form-control" id="package_description" name="packageDescription" required placeholder="Letting customers know how their food will be packaged, whether it’s individual, buffet or cook on site, is really helpful." rows="6" aria-required="true" ng-model="package.description"></textarea>
+            <textarea class="cp-form-control" id="package_description" name="packageDescription" required placeholder="Letting customers know how their food will be packaged, whether it’s individual, buffet or cook on site, is really helpful." rows="6" aria-required="true" ng-model="package.description"></textarea>
         </div>
 
-        <div class="form-group">
-            <label for="package_packaging_type">
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_packaging_type">
                 How can this be packaged:
 
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packagePackagingType.$error.required">(The packaging type is required.)</span>
             </label>
 
-            <select class="form-control"
+            <select class="cp-form-control"
                 id="package_packaging_type"
                 name="packagePackagingType"
                 ng-options="type.value as type.label for type in packagingTypeOptions"
@@ -51,80 +51,80 @@
                 aria-required="true"></select>
         </div>
 
-        <div class="form-group">
+        <div class="cp-form-group">
             <fieldset>
                 <legend>Package items</legend>
                 <span class="help-block" id="package_items_help">(e.g. “1 pulled pork sandwich”, “Can of orange or lemon”, “Utensils included”, “Staff on hand to serve your party”).</span>
-                <div class="form-group" ng-repeat="packageItem in package.items track by $index">
-                    <label class="sr-only" for="package_item{{$index + 1}}">Package item {{$index + 1}}</label>
-                    <input class="form-control" id="package_item{{$index + 1}}" name="packageItems[]" type="text" aria-describedby="package_items_help" ng-model="package.items[$index]" />
+                <div class="cp-form-group" ng-repeat="packageItem in package.items track by $index">
+                    <label class="cp-form-label" class="sr-only" for="package_item{{$index + 1}}">Package item {{$index + 1}}</label>
+                    <input class="cp-form-control" id="package_item{{$index + 1}}" name="packageItems[]" type="text" aria-describedby="package_items_help" ng-model="package.items[$index]" />
                 </div>
                 <a ng-click="addPackageItem()">Add another item</a>
             </fieldset>
         </div>
 
-        <div class="form-group">
+        <div class="cp-form-group">
             <fieldset>
                 <legend>Suitable for (check all that apply)</legend>
                 <div ng-repeat="dietaryTypeOption in dietaryTypeOptions">
-                    <label class="checkbox">
+                    <label class="cp-form-label" class="checkbox">
                         <input name="packageDietaryTypes[]" type="checkbox" checklist-change="isDietaryTypeSelected(dietaryTypeOption)" checklist-model="package.dietaryRequirements" checklist-value="dietaryTypeOption" /> {{dietaryTypeOption.name}}
                     </label>
-                    <div class="form-group" ng-show="isDietaryTypeSelected(dietaryTypeOption)">
-                        <label for="package_dietary_type_notes{{$index + 1}}">Notes</label>
-                        <input class="form-control" id="package_dietary_type_notes{{$index + 1}}" name="packageDietaryTypeNotes[]" type="text" ng-model="dietaryTypeOption.notes" />
+                    <div class="cp-form-group" ng-show="isDietaryTypeSelected(dietaryTypeOption)">
+                        <label class="cp-form-label" for="package_dietary_type_notes{{$index + 1}}">Notes</label>
+                        <input class="cp-form-control" id="package_dietary_type_notes{{$index + 1}}" name="packageDietaryTypeNotes[]" type="text" ng-model="dietaryTypeOption.notes" />
                     </div>
                 </div>
             </fieldset>
         </div>
 
-        <div class="form-group">
+        <div class="cp-form-group">
             <fieldset>
                 <legend>Applicable allergens (check all that apply)</legend>
-                <label class="checkbox" ng-repeat="allergenTypeOption in allergenTypeOptions">
+                <label class="cp-form-label" class="checkbox" ng-repeat="allergenTypeOption in allergenTypeOptions">
                     <input name="packageAllergenTypes[]" type="checkbox" checklist-model="package.allergenTypes" checklist-value="allergenTypeOption" /> {{allergenTypeOption.name}}
                 </label>
             </fieldset>
         </div>
 
-        <div class="form-group">
+        <div class="cp-form-group">
             <fieldset>
                 <legend>Package type (check all that apply) </legend>
-                <label class="checkbox-inline" ng-repeat="eventTypeOption in eventTypeOptions">
+                <label class="cp-form-label" class="checkbox-inline" ng-repeat="eventTypeOption in eventTypeOptions">
                     <input name="packageEventTypes[]" type="checkbox" checklist-model="package.eventTypes" checklist-value="eventTypeOption" /> {{eventTypeOption.name}}
                 </label>
             </fieldset>
             <span class="help-block">Please only check “Dinner” if you’re able to deliver in the evening.</span>
         </div>
 
-        <div class="form-group">
+        <div class="cp-form-group">
             <fieldset>
                 <legend>
                     Does this package contain hot food?
                     <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageHotFood.$error.required">(Please specify if this package contains hot food.)</span>
                 </legend>
-                <label class="radio-inline">
+                <label class="cp-form-label" class="radio-inline">
                     <input name="packageHotFood" type="radio" value="true" required aria-required="true" ng-model="package.hotFood" ng-value="true" /> Yes
                 </label>
-                <label class="radio-inline">
+                <label class="cp-form-label" class="radio-inline">
                     <input name="packageHotFood" type="radio" value="false" required aria-required="true" ng-model="package.hotFood" ng-value="false" /> No
                 </label>
             </fieldset>
         </div>
 
-        <div class="form-group">
-            <label for="package_cost">
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_cost">
                 How much do you want to charge for this package per head?
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCost.$error.required">(Package cost is required.)</span>
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCost.$error.number">(Package cost must be a number.)</span>
             </label>
             <div class="input-group">
                 <div class="input-group-addon">£</div>
-                <input class="form-control" id="package_cost" name="packageCost" type="text" required aria-required="true" ng-model="package.costIncludingVat" currency-mask />
+                <input class="cp-form-control" id="package_cost" name="packageCost" type="text" required aria-required="true" ng-model="package.costIncludingVat" currency-mask />
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="cp-form-group">
             <fieldset>
                 <legend id="package_delivery_addresses">
                     Delivery addresses
@@ -141,7 +141,7 @@
                 <div id="addresses">
                     <div class="row" ng-repeat="vendorAddress in vendor.addresses">
                         <div class="col-sm-8">
-                            <label class="checkbox">
+                            <label class="cp-form-label" class="checkbox">
                                 <input name="vendorAddressIsSelected[]" type="checkbox"
                                     ng-model="vendorAddress.isSelected"
                                     ng-required="!hasAtLeastOneAddressSelected(vendor.addresses)"
@@ -150,8 +150,8 @@
                             </label>
                         </div>
                         <div class="col-sm-4">
-                            <label class="sr-only" for="delivery_radius{{$index + 1}}">Mile radius</label>
-                            <select class="form-control" id="delivery_radius{{$index + 1}}"
+                            <label class="cp-form-label" class="sr-only" for="delivery_radius{{$index + 1}}">Mile radius</label>
+                            <select class="cp-form-control" id="delivery_radius{{$index + 1}}"
                                 name="vendorAddressDeliveryRadius[]"
                                 ng-required="vendorAddress.isSelected"
                                 ng-change="createDeliveryZones()" ng-model="vendorAddress.deliveryRadius"
@@ -170,28 +170,28 @@
                     Min and max number of people you can deliver this package to?
                     <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageMaxPeople.$error.greaterThan">(Package maximum must be greater than package minimum.)</span>
                 </legend>
-                <label class="sr-only" for="package_min_people">Minimum</label>
-                <select class="form-control" id="package_min_people" name="packageMinPeople" required aria-required="true" ng-model="package.minPeople" ng-options="option for option in quantityOptions"></select> –
-                <label class="sr-only" for="package_max_people">Maximum</label>
-                <select class="form-control" id="package_max_people" name="packageMaxPeople" required aria-required="true" ng-model="package.maxPeople" ng-options="option for option in quantityOptions" cp-greater-than="{{package.minPeople}}"></select>
+                <label class="cp-form-label" class="sr-only" for="package_min_people">Minimum</label>
+                <select class="cp-form-control" id="package_min_people" name="packageMinPeople" required aria-required="true" ng-model="package.minPeople" ng-options="option for option in quantityOptions"></select> –
+                <label class="cp-form-label" class="sr-only" for="package_max_people">Maximum</label>
+                <select class="cp-form-control" id="package_max_people" name="packageMaxPeople" required aria-required="true" ng-model="package.maxPeople" ng-options="option for option in quantityOptions" cp-greater-than="{{package.minPeople}}"></select>
             </fieldset>
         </div>
 
-        <div class="form-group">
-            <label for="package_notice">
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_notice">
                 How much notice do you need for orders?
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageNotice.$error.required">(Package notice time is required.)</span>
             </label>
-            <select class="form-control" id="package_notice" name="packageNotice" required aria-required="true" ng-model="package.notice" ng-options="noticeOption.value as noticeOption.label for noticeOption in noticeOptions"></select>
+            <select class="cp-form-control" id="package_notice" name="packageNotice" required aria-required="true" ng-model="package.notice" ng-options="noticeOption.value as noticeOption.label for noticeOption in noticeOptions"></select>
         </div>
 
-        <div class="form-group">
+        <div class="cp-form-group">
             <fieldset>
                 <legend>
                     What days can you deliver this package?
                     <span class="form-element-invalid" ng-show="packageForm.$submitted && package.deliveryDays.length === 0">(Please specify at least one delivery day.)</span>
                 </legend>
-                <label class="checkbox-inline" ng-repeat="deliveryDayOption in deliveryDayOptions">
+                <label class="cp-form-label" class="checkbox-inline" ng-repeat="deliveryDayOption in deliveryDayOptions">
                     <input name="packageDeliveryDays[]" type="checkbox" checklist-model="package.deliveryDays" checklist-value="deliveryDayOption.value" /> {{deliveryDayOption.label}}
                 </label>
             </fieldset>
@@ -204,39 +204,39 @@
                     <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageDeliveryTimeStart.$error.required">(Delivery start time is required.)</span>
                     <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageDeliveryTimeEnd.$error.required">(Delivery end time is required.)</span>
                 </legend>
-                <label class="sr-only" for="package_delivery_time_start">Start time</label>
-                <select class="form-control" id="package_delivery_time_start" name="packageDeliveryTimeStart" required aria-required="true" ng-model="package.deliveryTimeStart" ng-options="deliveryTimeOption.value as deliveryTimeOption.label for deliveryTimeOption in deliveryTimeOptions"></select> –
-                <label class="sr-only" for="package_delivery_time_end">End time</label>
-                <select class="form-control" id="package_delivery_time_end" name="packageDeliveryTimeEnd" required aria-required="true" ng-model="package.deliveryTimeEnd" ng-options="deliveryTimeOption.value as deliveryTimeOption.label for deliveryTimeOption in deliveryTimeOptions"></select>
+                <label class="cp-form-label" class="sr-only" for="package_delivery_time_start">Start time</label>
+                <select class="cp-form-control" id="package_delivery_time_start" name="packageDeliveryTimeStart" required aria-required="true" ng-model="package.deliveryTimeStart" ng-options="deliveryTimeOption.value as deliveryTimeOption.label for deliveryTimeOption in deliveryTimeOptions"></select> –
+                <label class="cp-form-label" class="sr-only" for="package_delivery_time_end">End time</label>
+                <select class="cp-form-control" id="package_delivery_time_end" name="packageDeliveryTimeEnd" required aria-required="true" ng-model="package.deliveryTimeEnd" ng-options="deliveryTimeOption.value as deliveryTimeOption.label for deliveryTimeOption in deliveryTimeOptions"></select>
             </fieldset>
         </div>
 
-        <div class="form-group">
-            <label for="package_delivery_cost">
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_delivery_cost">
                 How much do you want to charge to deliver this package?
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageDeliveryCost.$error.required">(Package delivery cost is required.)</span>
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageDeliveryCost.$error.number">(Package delivery cost must be a number.)</span>
             </label>
             <div class="input-group">
                 <div class="input-group-addon">£</div>
-                <input class="form-control" id="package_delivery_cost" name="packageDeliveryCost" type="text" required aria-required="true" ng-model="package.deliveryCostIncludingVat" currency-mask />
+                <input class="cp-form-control" id="package_delivery_cost" name="packageDeliveryCost" type="text" required aria-required="true" ng-model="package.deliveryCostIncludingVat" currency-mask />
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="package_free_delivery_threshold">
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_free_delivery_threshold">
                 What £ spend will you offer to deliver this package for free?
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageFreeDeliveryThreshold.$error.required">(Package delivery cost threshold is required.)</span>
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageFreeDeliveryThreshold.$error.number">(Package delivery cost threshold must be a number.)</span>
             </label>
             <div class="input-group">
                 <div class="input-group-addon">£</div>
-                <input class="form-control" id="package_free_delivery_threshold" name="packageFreeDeliveryThreshold" type="text" required aria-required="true" ng-model="package.freeDeliveryThreshold" currency-mask />
+                <input class="cp-form-control" id="package_free_delivery_threshold" name="packageFreeDeliveryThreshold" type="text" required aria-required="true" ng-model="package.freeDeliveryThreshold" currency-mask />
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="package_can_deliver_cutlery_and_serviettes" class="checkbox-inline">
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_can_deliver_cutlery_and_serviettes" class="checkbox-inline">
                 <input id="package_can_deliver_cutlery_and_serviettes"
                     name="packageCanDeliverCutleryAndServiettes"
                     type="checkbox"
@@ -246,8 +246,8 @@
             </label>
         </div>
 
-        <div class="form-group">
-            <label for="package_can_set_up_after_delivery" class="checkbox-inline">
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_can_set_up_after_delivery" class="checkbox-inline">
                 <input id="package_can_set_up_after_delivery"
                     name="packageCanSetUpAfterDelivery"
                     type="checkbox"
@@ -257,8 +257,8 @@
             </label>
         </div>
 
-        <div class="form-group" ng-if="package.canSetUpAfterDelivery">
-            <label for="package_cost_to_set_up_after_delivery">
+        <div class="cp-form-group" ng-if="package.canSetUpAfterDelivery">
+            <label class="cp-form-label" for="package_cost_to_set_up_after_delivery">
                 How much do you want to charge to set up after delivery?
 
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCostToSetUpAfterDelivery.$error.required">(The cost is required.)</span>
@@ -268,7 +268,7 @@
 
             <div class="input-group">
                 <div class="input-group-addon">£</div>
-                <input class="form-control"
+                <input class="cp-form-control"
                     id="package_cost_to_set_up_after_delivery"
                     name="packageCostToSetUpAfterDelivery"
                     required
@@ -278,8 +278,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="package_can_clean_up_after_delivery" class="checkbox-inline">
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="package_can_clean_up_after_delivery" class="checkbox-inline">
                 <input id="package_can_clean_up_after_delivery"
                     name="packageCanCleanUpAfterDelivery"
                     type="checkbox"
@@ -289,8 +289,8 @@
             </label>
         </div>
 
-        <div class="form-group" ng-if="package.canCleanUpAfterDelivery">
-            <label for="package_cost_to_clean_up_after_delivery">
+        <div class="cp-form-group" ng-if="package.canCleanUpAfterDelivery">
+            <label class="cp-form-label" for="package_cost_to_clean_up_after_delivery">
                 How much do you want to charge to clean up after delivery?
 
                 <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCostToCleanUpAfterDelivery.$error.required">(The cost is required.)</span>
@@ -300,7 +300,7 @@
 
             <div class="input-group">
                 <div class="input-group-addon">£</div>
-                <input class="form-control"
+                <input class="cp-form-control"
                     id="package_cost_to_clean_up_after_delivery"
                     name="packageCostToCleanUpAfterDelivery"
                     required
@@ -310,7 +310,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="cp-form-group">
             <h2>Photos</h2>
 
             <p><button ng-file-select ng-file-change="upload($files, $event)">Click here to upload some photos</button></p>
@@ -339,71 +339,71 @@
 
                 <form id="add_address_form" name="addAddressForm" novalidate role="form">
                     <fieldset>
-                        <div class="form-group">
-                            <label for="address_address_line1">
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="address_address_line1">
                                 Address line 1
                                 <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressAddressLine1.$error.required">(Address line 1 is required.)</span>
                             </label>
-                            <input class="form-control" id="address_address_line1" name="addressAddressLine1" type="text" required aria-required="true" ng-model="newAddress.addressLine1" />
+                            <input class="cp-form-control" id="address_address_line1" name="addressAddressLine1" type="text" required aria-required="true" ng-model="newAddress.addressLine1" />
                         </div>
 
-                        <div class="form-group">
-                            <label for="address_address_line2">Address line 2</label>
-                            <input class="form-control" id="address_address_line2" name="addressAddressLine2" type="text" ng-model="newAddress.addressLine2" />
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="address_address_line2">Address line 2</label>
+                            <input class="cp-form-control" id="address_address_line2" name="addressAddressLine2" type="text" ng-model="newAddress.addressLine2" />
                         </div>
 
-                        <div class="form-group">
-                            <label for="address_address_line3">Address line 3</label>
-                            <input class="form-control" id="address_address_line3" name="addressAddressLine3" type="text" ng-model="newAddress.addressLine3" />
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="address_address_line3">Address line 3</label>
+                            <input class="cp-form-control" id="address_address_line3" name="addressAddressLine3" type="text" ng-model="newAddress.addressLine3" />
                         </div>
 
-                        <div class="form-group">
-                            <label for="address_city">
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="address_city">
                                 City
                                 <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressCity.$error.required">(City is required.)</span>
                             </label>
-                            <input class="form-control" id="address_city" name="addressCity" type="text" required aria-required="true" ng-model="newAddress.city" />
+                            <input class="cp-form-control" id="address_city" name="addressCity" type="text" required aria-required="true" ng-model="newAddress.city" />
                         </div>
 
-                        <div class="form-group">
-                            <label for="address_county">County</label>
-                            <input class="form-control" id="address_county" name="addressCounty" type="text" ng-model="newAddress.county" />
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="address_county">County</label>
+                            <input class="cp-form-control" id="address_county" name="addressCounty" type="text" ng-model="newAddress.county" />
                         </div>
 
-                        <div class="form-group">
-                            <label for="address_postcode">
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="address_postcode">
                                 Postcode
                                 <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressPostcode.$error.required">(Postcode is required.)</span>
                                 <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressPostcode.$error.pattern">(Postcode is invalid.)</span>
                             </label>
-                            <input class="form-control" id="address_postcode" name="addressPostcode" type="text" required aria-required="true" ng-model="newAddress.postcode" ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
+                            <input class="cp-form-control" id="address_postcode" name="addressPostcode" type="text" required aria-required="true" ng-model="newAddress.postcode" ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
                         </div>
 
                         <input name="addressCountryName" type="hidden" required aria-required="true" ng-model="newAddress.countryName" />
 
-                        <div class="form-group">
-                            <label for="address_landline_number">
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="address_landline_number">
                                 Landline number
                                 <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressLandlineNumber.$error.required">(Landline number is required.)</span>
                             </label>
-                            <input class="form-control" id="address_landline_number" name="addressLandlineNumber" type="tel" required aria-required="true" ng-model="newAddress.landlineNumber" />
+                            <input class="cp-form-control" id="address_landline_number" name="addressLandlineNumber" type="tel" required aria-required="true" ng-model="newAddress.landlineNumber" />
                         </div>
 
-                        <div class="form-group">
-                            <label for="address_order_notification_mobile_number">
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="address_order_notification_mobile_number">
                                 Order notification mobile number
                                 <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressOrderNotificationMobileNumber.$error.required">(Order notification mobile number is required.)</span>
                                 <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressOrderNotificationMobileNumber.$error.pattern">(Order notification mobile number is invalid.)</span>
                             </label>
-                            <input class="form-control" id="address_order_notification_mobile_number" name="addressOrderNotificationMobileNumber" type="tel" required aria-required="true" ng-model="newAddress.orderNotificationMobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
+                            <input class="cp-form-control" id="address_order_notification_mobile_number" name="addressOrderNotificationMobileNumber" type="tel" required aria-required="true" ng-model="newAddress.orderNotificationMobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
                         </div>
 
-                        <div class="form-group">
-                            <label for="address_contact_name">
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="address_contact_name">
                                 Contact name
                                 <span class="form-element-invalid" ng-show="addAddressForm.$submitted && addAddressForm.addressContactName.$error.required">(Contact name is required.)</span>
                             </label>
-                            <input class="form-control" id="address_contact_name" name="addressContactName" type="text" required aria-required="true" ng-model="newAddress.contactName" />
+                            <input class="cp-form-control" id="address_contact_name" name="addressContactName" type="text" required aria-required="true" ng-model="newAddress.contactName" />
                         </div>
                     </fieldset>
                 </form>

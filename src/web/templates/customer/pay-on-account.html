@@ -23,29 +23,29 @@
 
     <form name="payOnAccountForm" novalidate role="form" ng-if="status !== 0" ng-submit="save(payOnAccountForm)">
         <fieldset>
-            <div class="form-group">
-                <label for="accounts_contact_name">
+            <div class="cp-form-group">
+                <label class="cp-form-label" for="accounts_contact_name">
                     Accounts contact name
                     <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsContactName.$error.required">(Accounts contact name is required.)</span>
                 </label>
-                <input class="form-control" id="accounts_contact_name" name="accountsContactName" type="text" required aria-required="true" ng-model="user.customer.accountsContactName" />
+                <input class="cp-form-control" id="accounts_contact_name" name="accountsContactName" type="text" required aria-required="true" ng-model="user.customer.accountsContactName" />
             </div>
 
-            <div class="form-group">
-                <label for="accounts_email">
+            <div class="cp-form-group">
+                <label class="cp-form-label" for="accounts_email">
                     Accounts email
                     <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsEmail.$error.required">(Accounts email is required.)</span>
                     <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsEmail.$error.email">(Accounts email is invalid.)</span>
                 </label>
-                <input class="form-control" id="accounts_email" name="accountsEmail" type="email" required aria-required="true" ng-model="user.customer.accountsEmail" />
+                <input class="cp-form-control" id="accounts_email" name="accountsEmail" type="email" required aria-required="true" ng-model="user.customer.accountsEmail" />
             </div>
 
-            <div class="form-group">
-                <label for="accounts_telephone_number">
+            <div class="cp-form-group">
+                <label class="cp-form-label" for="accounts_telephone_number">
                     Accounts telephone number
                     <span class="form-element-invalid" ng-show="payOnAccountForm.$submitted && payOnAccountForm.accountsTelephoneNumber.$error.required">(Accounts telephone number is required.)</span>
                 </label>
-                <input class="form-control" id="accounts_telephone_number" name="accountsTelephoneNumber" type="tel" required aria-required="true" ng-model="user.customer.accountsTelephoneNumber" />
+                <input class="cp-form-control" id="accounts_telephone_number" name="accountsTelephoneNumber" type="tel" required aria-required="true" ng-model="user.customer.accountsTelephoneNumber" />
             </div>
 
             <input class="btn btn-primary" type="submit" value="Save" />
