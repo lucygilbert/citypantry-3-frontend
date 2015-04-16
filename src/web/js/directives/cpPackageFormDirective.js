@@ -15,7 +15,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             $scope.allergenTypeOptions = [];
             $scope.cuisineTypeOptions = [];
             $scope.deliveryDayOptions = PackagesFactory.getDeliveryDayOptions();
-            $scope.deliveryTimeOptions = PackagesFactory.getDeliveryTimeOptions();
+            $scope.deliveryTimeOptions = PackagesFactory.getPackageDeliveryTimeOptions(0, 2330, 30);
             $scope.deliveryZones = [];
             $scope.dietaryTypeOptions = [];
             $scope.eventTypeOptions = [];
