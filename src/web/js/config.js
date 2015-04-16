@@ -18,6 +18,10 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'LoginRegisterController',
             templateUrl: '/dist/templates/auth/login-register.html'
         }).
+        when('/register', {
+            controller: 'RegisterController',
+            templateUrl: '/dist/templates/auth/register.html'
+        }).
         when('/customer/dashboard', {
             controller: 'CustomerDashboardController',
             templateUrl: '/dist/templates/customer/dashboard.html'

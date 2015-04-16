@@ -1,33 +1,47 @@
-xdescribe('Register', function() {
+describe('Register as a customer', function() {
+    var company;
+    var name;
+    var email;
+    var password;
+    var registerButton;
+
     beforeEach(function() {
         browser.get('/logout');
-        browser.get('/login');
+        browser.get('/register');
+
+        company = element(by.id('registerCompany'));
+        name = element(by.id('registerName'));
+        email = element(by.id('registerEmail'));
+        password = element(by.id('registerPassword'));
+        registerButton = element(by.css('form.cp-login-form .cp-btn-primary'));
     });
 
     it('should show an error if an email is entered that is already registered', function() {
-        element(by.id('signup_name')).sendKeys('Name');
-        element(by.id('signup_email')).sendKeys('vendor@bunnies.test');
-        element(by.id('signup_password')).sendKeys('password');
+        company.sendKeys('Burger Palace');
+        name.sendKeys('Name');
+        email.sendKeys('vendor@bunnies.test');
+        password.sendKeys('password');
 
-        element(by.css('form.register .btn.btn-primary')).click();
+        registerButton.click();
 
         // Should stay on the same page.
-        expect(browser.getCurrentUrl()).toMatch(/\/login$/);
+        expect(browser.getCurrentUrl()).toMatch(/\.dev\/register$/);
 
         // Should show an error.
-        var error = element(by.css('.island-alt.signup p.form-error'));
+        var error = element(by.css('.cp-form-error'));
         expect(error.getText()).toBe('A user already exists with that email address');
         expect(error.isDisplayed()).toBe(true);
     });
 
     it('should redirect to the index page upon a successful registration', function() {
-        element(by.id('signup_name')).sendKeys('Name');
-        element(by.id('signup_email')).sendKeys('e2e-test-user@example.test');
-        element(by.id('signup_password')).sendKeys('password');
+        company.sendKeys('Burger Palace');
+        name.sendKeys('Name');
+        email.sendKeys('e2e-test-user@example.test');
+        password.sendKeys('password');
 
-        element(by.css('form.register .btn.btn-primary')).click();
+        registerButton.click();
 
-        // Should redirect to the index page.
-        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/customer\/dashboard$/);
+        // Should redirect to the customer dashboard.
+        expect(browser.getCurrentUrl()).toMatch(/\.dev\/customer\/dashboard$/);
     });
 });
