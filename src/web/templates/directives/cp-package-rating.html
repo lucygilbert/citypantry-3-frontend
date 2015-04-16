@@ -1,12 +1,7 @@
 <ul class="{{ listClass }}">
-    <li ng-if="summary.qualityRating !== null">
-        <span class="{{ attributeNameClass }}">Quality</span>
-        <div class="{{ attributeValueClass }}" cp-rating-stars="summary.qualityRating">
-        </div>
-    </li>
-    <li ng-if="summary.valueRating !== null">
-        <span class="{{ attributeNameClass }}">Value</span>
-        <div class="{{ attributeValueClass }}" cp-rating-stars="summary.valueRating">
+    <li ng-if="summary.foodQualityRating !== null">
+        <span class="{{ attributeNameClass }}">Food quality</span>
+        <div class="{{ attributeValueClass }}" cp-rating-stars="summary.foodQualityRating">
         </div>
     </li>
     <li ng-if="summary.presentationRating !== null">
@@ -14,15 +9,14 @@
         <div class="{{ attributeValueClass }}" cp-rating-stars="summary.presentationRating">
         </div>
     </li>
-    <li ng-if="summary.communicationRating !== null">
-        <span class="{{ attributeNameClass }}">Communication</span>
-        <div class="{{ attributeValueClass }}" cp-rating-stars="summary.communicationRating">
+    <li ng-if="summary.deliveryRating !== null">
+        <span class="{{ attributeNameClass }}">Delivery</span>
+        <div class="{{ attributeValueClass }}" cp-rating-stars="summary.deliveryRating">
         </div>
     </li>
-    <li ng-if="summary.onTimePercentage !== null">
-        <span class="{{ attributeNameClass }}">On time</span>
-        <div class="{{ attributeValueClass }}">
-            {{ summary.onTimePercentage }}%
+    <li ng-if="summary.overallRating !== null">
+        <span class="{{ attributeNameClass }}">Overall</span>
+        <div class="{{ attributeValueClass }}" cp-rating-stars="summary.overallRating">
         </div>
     </li>
 </ul>
