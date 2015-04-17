@@ -1,6 +1,7 @@
 angular.module('cp.controllers.general').controller('SearchController',
         function($scope, PackagesFactory, OrdersFactory, NotificationService,
-        $routeParams, DocumentTitleService, SecurityService, LoadingService, $q, $filter) {
+        $routeParams, DocumentTitleService, SecurityService, LoadingService, $q, $filter,
+        $window) {
     DocumentTitleService('Search catering packages');
     SecurityService.requireLoggedIn();
 
@@ -30,6 +31,7 @@ angular.module('cp.controllers.general').controller('SearchController',
     // This limit is not fixed - it increases when the user clicks 'show more' (triggering
     // `$scope.showMore`).
     $scope.packagesLimit = PAGINATION_LENGTH;
+    $scope.searchParams = $window.location.search;
 
     let isOnSearchPage = true;
 
