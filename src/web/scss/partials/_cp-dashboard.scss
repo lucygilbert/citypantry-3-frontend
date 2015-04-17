@@ -35,6 +35,10 @@
         @extend .clearfix;
         margin-bottom: $cp-margin-small-vertical;
     }
+
+    .cp-package-card-price {
+        display: block !important;
+    }
 }
 
 .cp-dashboard-order-heading {

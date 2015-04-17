@@ -73,9 +73,9 @@
                     <span class="cp-dashboard-order-date">{{ nextOrder.requestedDeliveryDate | date:'dd MMM yy' }}</span>
                 </header>
 
-                <!-- @todo - cp-package-card -->
+                <cp-package-card package="nextOrder.package"></cp-package-card>
 
-                <p class="cp-dashboard-order-description">{{ nextOrder.package.description }}</p>
+                <p class="cp-dashboard-order-description" js-clamp="'3'">{{ nextOrder.package.description }}</p>
 
                 <section class="cp-dashboard-order-detail">
                     <h3 class="cp-dashboard-order-detail-heading">Your order</h3>
