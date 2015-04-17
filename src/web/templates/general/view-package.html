@@ -59,7 +59,7 @@
                 </ul>
             </section>
 
-            <section>
+            <section ng-if="package.dietaryRequirements.length > 0">
                 <h2 class="cp-package-dietary-requirements-heading">This meal package is suitable for people looking for:</h2>
                 <ul class="cp-package-dietary-requirements">
                     <li ng-repeat="requirement in package.dietaryRequirements">
