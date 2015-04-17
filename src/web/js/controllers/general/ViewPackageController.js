@@ -1,7 +1,7 @@
 angular.module('cp.controllers.general').controller('ViewPackageController',
         function($scope, $routeParams, PackagesFactory, NotificationService, DocumentTitleService,
         LoadingService, SecurityService, $sce, FRONTEND_BASE, OrdersFactory,
-        $location, getPackageAvailabilityErrorTextFilter, CheckoutService) {
+        $location, getPackageAvailabilityErrorTextFilter, CheckoutService, $filter) {
     SecurityService.requireLoggedIn();
 
     // 'changeDeliveryLocationModalState' can be set to 'checking', 'available', 'notAvailabe'.
@@ -14,12 +14,12 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
     $scope.reviewsLimit = 3;
 
     $scope.order = {
-        date: $routeParams.date,
+        date: undefined,
         deliveryCost: undefined,
-        headCount: $routeParams.headCount,
-        postcode: $routeParams.postcode,
+        headCount: undefined,
+        postcode: undefined,
         subTotalAmount: undefined,
-        time: $routeParams.time,
+        time: undefined,
         totalAmount: undefined
     };
 
@@ -52,6 +52,23 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             $scope.package.eventTypes = $scope.package.eventTypes.filter(eventType => eventType.isActive);
 
             recalculateCostAmounts();
+
+            if ($routeParams.postcode) {
+                $scope.order.postcode = $routeParams.postcode;
+            }
+
+            if ($routeParams.date) {
+                const bits = $routeParams.date.split(/\D/);
+                $scope.pickedDate = $filter('date')(new Date(bits[0], bits[1] - 1, bits[2]), 'dd/MM/yyyy');
+            }
+
+            if ($routeParams.time) {
+                $scope.order.time = parseInt($routeParams.time, 10);
+            }
+
+            if ($routeParams.headCount) {
+                $scope.order.headCount = parseInt($routeParams.headCount, 10);
+            }
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
@@ -125,6 +142,27 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
 
         $scope.isDatePickerOpen = true;
     };
+
+    $scope.$watch('pickedDate', (date, oldDate) => {
+        if (typeof date === 'undefined') {
+            return;
+        }
+        if (date === oldDate) {
+            return;
+        }
+
+        if (date === null) {
+            $scope.order.date = undefined;
+        } else {
+            // The date will be a string if the URL param "date" is present.
+            if (typeof date === 'string') {
+                const bits = date.split(/\D/);
+                $scope.order.date = new Date(bits[2], bits[1] - 1, bits[0]);
+            } else {
+                $scope.order.date = date;
+            }
+        }
+    });
 
     $scope.$watch('order.headCount', (newValue, oldValue) => {
         if (newValue === oldValue) {

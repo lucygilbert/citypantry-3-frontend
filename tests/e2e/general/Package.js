@@ -138,7 +138,7 @@ describe('Package page', function() {
             var datePicker = element(by.model('date'));
 
             expect(datePicker.isDisplayed()).toBe(false);
-            element(by.model('order.date')).click();
+            element(by.model('pickedDate')).click();
             expect(datePicker.isDisplayed()).toBe(true);
         });
 
@@ -151,7 +151,7 @@ describe('Package page', function() {
         });
 
         it('should show an error if the vendor does not deliver on this day', function() {
-            element(by.model('order.date')).sendKeys(nextSunday.toISOString());
+            element(by.model('pickedDate')).sendKeys(nextSunday.toISOString());
             element.all(by.css('#order_time > option')).get(21).click(); // 11:00.
 
             element(by.css('.cp-package-form input[type="submit"]')).click();
@@ -160,7 +160,7 @@ describe('Package page', function() {
         });
 
         it('should show an error if the vendor needs more notice', function() {
-            element(by.model('order.date')).clear().sendKeys(now.toISOString());
+            element(by.model('pickedDate')).clear().sendKeys(now.toISOString());
 
             element(by.css('.cp-package-form input[type="submit"]')).click();
 
@@ -168,11 +168,11 @@ describe('Package page', function() {
         });
 
         it('should be able to proceed to checkout', function() {
-            element(by.model('order.date')).clear().sendKeys(oneWeekFromNow.toISOString());
+            element(by.model('pickedDate')).clear().sendKeys(oneWeekFromNow.toISOString());
 
             element(by.css('.cp-package-form input[type="submit"]')).click();
 
-            // @todo - test URL.
+            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/catering-details/);
         });
     });
 });

@@ -39,7 +39,7 @@ describe('Checkout', function() {
                 changeDeliveryLocation('W6 7PY');
 
                 // Select delivery date and time and head count.
-                element(by.model('order.date')).sendKeys(oneWeekFromNow.toISOString());
+                element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toISOString());
                 element.all(by.css('#order_time > option')).get(31).click(); // 13:30
                 element(by.model('order.headCount')).sendKeys(30);
 
@@ -184,7 +184,7 @@ describe('Checkout', function() {
                 changeDeliveryLocation('W12 8LB');
 
                 // Select delivery date and time and head count.
-                element(by.model('order.date')).sendKeys(oneWeekFromNow.toISOString());
+                element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toISOString());
                 element.all(by.css('#order_time > option')).get(31).click(); // 13:30
                 element(by.model('order.headCount')).sendKeys(30);
 
