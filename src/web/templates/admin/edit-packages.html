@@ -12,6 +12,7 @@
                 <th>Notice required</th>
                 <th>Cuisine type</th>
                 <th>Event types</th>
+                <th>Hot food?</th>
                 <th>Save</th>
             </tr>
         </thead>
@@ -50,6 +51,11 @@
                         ng-change="package.hasChanged = true"
                         multiple
                         size="6"></select>
+                </td>
+                <td>
+                    <input type="checkbox"
+                        ng-model="package.hotFood"
+                        ng-change="package.hasChanged = true" />
                 </td>
                 <td>
                     <button ng-click="save(package)" ng-show="package.hasChanged">Save</button>

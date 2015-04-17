@@ -40,7 +40,8 @@ angular.module('cp.controllers.admin').controller('AdminEditPackagesController',
             canDeliverCutleryAndServiettes: pkg.canDeliverCutleryAndServiettes,
             notice: pkg.notice,
             cuisineType: pkg.cuisineTypeId,
-            eventTypes: pkg.eventTypeIds
+            eventTypes: pkg.eventTypeIds,
+            hotFood: pkg.hotFood
         };
         PackagesFactory.updatePackage(pkg.id, updatedPackage)
             .success(response => {
