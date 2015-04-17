@@ -27,7 +27,7 @@
                         <span class="cp-package-specification-notice">{{ package.notice }}H <span>notice</span></span>
                     </li>
                     <li ng-repeat="event in package.eventTypes">
-                        <img ng-src="/dist/images/icons/{{ event.name | slugify }}.svg" height="55" width="55" />
+                        <img ng-src="{{ event.icon }}" height="55" width="55" />
                         <span class="cp-package-specification-label">{{ event.name }}</span>
                     </li>
                     <li ng-if="package.hotFood">
