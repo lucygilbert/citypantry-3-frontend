@@ -4,6 +4,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignupPackageControlle
 
     $scope.package = {
         allergenTypes: [],
+        costOfVat: (0).toFixed(2),
         deliveryDays: [],
         deliveryTimeEnd: 2000,
         deliveryTimeStart: 800,

@@ -125,6 +125,19 @@
         </div>
 
         <div class="cp-form-group">
+            <label class="cp-form-label" for="package_cost_of_vat">
+                How much of the package cost is <abbr title="value added tax">VAT</abbr>?
+                <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCostOfVat.$error.required">(Please specify how much of the package cost is VAT.)</span>
+                <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageCostOfVat.$error.number">(VAT amount must be a number.)</span>
+            </label>
+            <div class="input-group">
+                <div class="input-group-addon">£</div>
+                <input class="cp-form-control" id="package_cost_of_vat" name="packageCostOfVat" type="text" required aria-required="true" ng-model="package.costOfVat" currency-mask />
+            </div>
+            <span class="help-block">Leave as £0.00 if not VAT registered.</span>
+        </div>
+
+        <div class="cp-form-group">
             <fieldset>
                 <legend id="package_delivery_addresses">
                     Delivery addresses
