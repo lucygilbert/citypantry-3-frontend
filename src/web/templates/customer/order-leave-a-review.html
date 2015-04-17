@@ -3,15 +3,16 @@
 
     <form name="reviewForm" role="form" ng-submit="save()" novalidate>
         <fieldset>
-            <div class="form-group">
-                <label for="review-text">Your review</label>
-
-                <span class="form-element-invalid" ng-show="reviewForm.$submitted && reviewForm.review.$error.required">
-                    (This field is required.)
-                </span>
+            <div class="cp-form-group">
+                <label class="cp-form-label" for="review-text">
+                    Your review
+                    <span class="form-element-invalid" ng-show="reviewForm.$submitted && reviewForm.review.$error.required">
+                        (This field is required.)
+                    </span>
+                </label>
 
                 <textarea ng-model="review" cols="80" rows="6" required id="review-text" name="review"
-                    class="form-control"></textarea>
+                    class="cp-form-control"></textarea>
             </div>
 
             <input class="btn btn-primary" type="submit" value="Save" />

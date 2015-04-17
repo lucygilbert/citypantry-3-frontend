@@ -10,24 +10,29 @@
 
             <form role="form" ng-submit="send()">
                 <fieldset>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input class="form-control input-lg" ng-model="name" id="name" type="text" required aria-required="true">
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="name">Name</label>
+                        <input class="cp-form-control" ng-model="name" id="name" type="text"
+                            required aria-required="true" size="40" />
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input class="form-control input-lg" ng-model="email" id="email" type="email" required aria-required="true">
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="email">Email</label>
+                        <input class="cp-form-control" ng-model="email" id="email" type="email"
+                            required aria-required="true" size="40" />
                     </div>
 
-                    <div class="form-group">
-                        <label for="tel">Telephone number</label>
-                        <input class="form-control input-lg" ng-model="tel" id="tel" type="tel" required aria-required="true">
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="tel">Telephone number</label>
+                        <input class="cp-form-control" ng-model="tel" id="tel" type="tel"
+                            required aria-required="true" size="40" />
                     </div>
 
-                    <div class="form-group">
-                        <label for="purpose">What is the purpose of the event?</label>
-                        <textarea class="form-control input-lg" ng-model="purpose" id="purpose" placeholder="Please be as descriptive as possible." rows="10" aria-required="true"></textarea>
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="purpose">What is the purpose of the event?</label>
+                        <textarea class="cp-form-control" ng-model="purpose" id="purpose"
+                            placeholder="Please be as descriptive as possible." rows="10"
+                            required aria-required="true"></textarea>
                     </div>
 
                     <input class="btn btn-primary btn-lg" type="submit" value="Get a quote">

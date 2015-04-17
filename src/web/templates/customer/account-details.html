@@ -14,21 +14,18 @@
     <div class="account-edit-form" ng-show="showEditDetailsForm">
         <form ng-submit="save()">
             <div class="account-edit-form-inputs">
-                <label for="company_name">Company name</label>
-                <br />
-                <input class="form-control" size="40" type="text" required
+                <label class="cp-form-label" for="company_name">Company name</label>
+                <input class="cp-form-control" size="40" type="text" required
                     ng-model="inputs.customer.company" id="company_name" />
                 <br />
 
-                <label for="user_name">Full name</label>
-                <br />
-                <input class="form-control" size="40" type="text" required
+                <label class="cp-form-label" for="user_name">Full name</label>
+                <input class="cp-form-control" size="40" type="text" required
                     ng-model="inputs.user.name" id="user_name" />
                 <br />
 
-                <label for="user_email">Email address</label>
-                <br />
-                <input class="form-control" size="40" type="email" required
+                <label class="cp-form-label" for="user_email">Email address</label>
+                <input class="cp-form-control" size="40" type="email" required
                     ng-model="inputs.user.email" id="user_email" />
             </div>
 
