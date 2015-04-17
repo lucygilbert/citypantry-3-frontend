@@ -1,0 +1,37 @@
+<div class="wrapper" id="vendor-holidays">
+    <h2 class="cp-heading">Your holidays</h2>
+
+    <p>
+        Customers will not be able to place orders for your packages to be delivered on dates you
+        are on holiday.
+    </p>
+
+    <ol ng-if="holidays.length > 0">
+        <li ng-repeat="holiday in holidays">
+            From {{ holiday.start | limitTo:10 | date:'d MMM yyyy' }}
+            until {{ holiday.end | limitTo:10 | date:'d MMM yyyy' }}.
+        </li>
+    </ol>
+
+    <h3 class="cp-heading">Add a holiday</h3>
+
+    <form ng-submit="create()" role="form">
+        <div class="cp-form-group">
+            <label class="cp-form-label">Start date</label>
+            <input class="cp-form-control" type="text" ng-model="start" size="20"
+                datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}"
+                datepicker-popup="dd/MM/yyyy" is-open="isStartDatePickerOpen" year-range="2"
+                ng-click="openStartDatePicker($event)" />
+        </div>
+
+        <div class="cp-form-group">
+            <label class="cp-form-label">End date</label>
+            <input class="cp-form-control" type="text" ng-model="end" size="20"
+                datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}"
+                datepicker-popup="dd/MM/yyyy" is-open="isEndDatePickerOpen" year-range="2"
+                ng-click="openEndDatePicker($event)" />
+        </div>
+
+        <input type="submit" class="cp-btn cp-btn-primary" value="Add holiday" />
+    </form>
+</div>

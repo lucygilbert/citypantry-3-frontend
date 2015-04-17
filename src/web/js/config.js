@@ -158,6 +158,10 @@ angular.module('cp').config(function($routeProvider) {
             controller: 'VendorSignupThanksController',
             templateUrl: '/dist/templates/vendor/vendor-signup-thanks.html'
         }).
+        when('/vendor/holidays', {
+            controller: 'VendorHolidaysController',
+            templateUrl: '/dist/templates/vendor/holidays.html'
+        }).
         when('/vendor/:idOrSlug', {
             controller: 'ViewVendorController',
             templateUrl: '/dist/templates/general/view-vendor.html'

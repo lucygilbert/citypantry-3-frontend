@@ -57,10 +57,11 @@ describe('Navigation Menu', function() {
         expect(myAccountMenu.isDisplayed()).toBe(true);
 
         expect(myAccountMenu.getText()).toContain('Delivery radiuses');
+        expect(myAccountMenu.getText()).toContain('Holidays');
         expect(myAccountMenu.getText()).toContain('Supplier agreement');
         expect(myAccountMenu.getText()).toContain('Password');
         expect(myAccountMenu.getText()).toContain('Log out');
-        expect(myAccountMenuLinks.count()).toBe(4);
+        expect(myAccountMenuLinks.count()).toBe(5);
     });
 
     it('should present staff with the appropriate navigation options', function() {
