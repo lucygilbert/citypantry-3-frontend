@@ -1,19 +1,22 @@
 angular.module('cp.controllers.general').controller('SearchController',
         function($scope, PackagesFactory, OrdersFactory, NotificationService,
         $routeParams, DocumentTitleService, SecurityService, LoadingService, $q, $filter,
-        $window) {
+        SearchService) {
     DocumentTitleService('Search catering packages');
     SecurityService.requireLoggedIn();
 
     const PAGINATION_LENGTH = 20;
 
     $scope.search = {
-        postcode: $routeParams.postcode,
-        maxBudget: undefined,
-        headCount: $routeParams.headCount,
-        time: $routeParams.time,
-        date: undefined,
-        eventTypes: undefined
+        postcode: SearchService.getPostcode(),
+        maxBudget: SearchService.getMaxBudget(),
+        headCount: SearchService.getHeadCount(),
+        time: SearchService.getDeliveryTime(),
+        date: SearchService.getDeliveryDate(),
+        eventTypes: SearchService.getEventTypes(),
+        cuisineTypes: SearchService.getCuisineTypes(),
+        dietaryRequirements: SearchService.getDietaryRequirements(),
+        packagingType: SearchService.getPackagingType()
     };
 
     $scope.isSearching = true;
@@ -31,7 +34,6 @@ angular.module('cp.controllers.general').controller('SearchController',
     // This limit is not fixed - it increases when the user clicks 'show more' (triggering
     // `$scope.showMore`).
     $scope.packagesLimit = PAGINATION_LENGTH;
-    $scope.searchParams = $window.location.search;
 
     let isOnSearchPage = true;
 
@@ -55,23 +57,15 @@ angular.module('cp.controllers.general').controller('SearchController',
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         $q.all([promise1, promise2, promise3]).then(() => {
-            if ($routeParams.date) {
-                const bits = $routeParams.date.split(/\D/);
-                $scope.pickedDate = $filter('date')(new Date(bits[0], bits[1] - 1, bits[2]), 'dd/MM/yyyy');
+            if ($scope.search.date) {
+                $scope.pickedDate = $filter('date')($scope.search.date, 'dd/MM/yyyy');
             }
 
-            $scope.search.eventTypes = [];
-            if ($routeParams.eventTypeId) {
-                if ($routeParams.eventTypeId instanceof Array) {
-                    $scope.search.eventTypes = $routeParams.eventTypeId;
-                } else {
-                    $scope.search.eventTypes.push($routeParams.eventTypeId);
-                }
+            if ($scope.search.packagingType) {
+                $scope.search.packagingType = $scope.packagingTypeOptions[$scope.search.packagingType - 1].value;
+            } else {
+                $scope.search.packagingType = $scope.packagingTypeOptions[2].value; // "I don't mind".
             }
-
-            $scope.search.cuisineTypes = [];
-            $scope.search.dietaryRequirements = [];
-            $scope.search.packagingType = $scope.packagingTypeOptions[2].value; // "I don't mind".
 
             search();
         });
@@ -87,6 +81,7 @@ angular.module('cp.controllers.general').controller('SearchController',
             return;
         }
         $scope.search.maxBudget = $scope.search.tempMaxBudget;
+        SearchService.setMaxBudget($scope.search.maxBudget);
         search();
     };
 
@@ -94,6 +89,7 @@ angular.module('cp.controllers.general').controller('SearchController',
         if (newValue === oldValue) {
             return;
         }
+        SearchService.setHeadCount(newValue);
         search();
     });
 
@@ -101,6 +97,7 @@ angular.module('cp.controllers.general').controller('SearchController',
         if (newValue === oldValue) {
             return;
         }
+        SearchService.setDeliveryTime(newValue);
         search();
     });
 
@@ -108,6 +105,7 @@ angular.module('cp.controllers.general').controller('SearchController',
         if (newValue === oldValue) {
             return;
         }
+        SearchService.setEventTypes(newValue);
         search();
     });
 
@@ -115,6 +113,7 @@ angular.module('cp.controllers.general').controller('SearchController',
         if (newValue === oldValue) {
             return;
         }
+        SearchService.setCuisineTypes(newValue);
         search();
     });
 
@@ -131,12 +130,14 @@ angular.module('cp.controllers.general').controller('SearchController',
             // (empty string) in PackagesFactory.search() gets used in the search URL query string.
             $scope.search.date = undefined;
         } else {
-            // The date will be a string if the URL param "date" is present.
+            // The date will be a string if the date picker was set manually.
             if (typeof date === 'string') {
                 const bits = date.split(/\D/);
                 $scope.search.date = bits[2] + '-' + bits[1] + '-' + bits[0];
+                SearchService.setDeliveryDate(new Date(bits[2], bits[1] - 1, bits[0]));
             } else {
                 $scope.search.date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+                SearchService.setDeliveryDate(date);
             }
         }
 
@@ -147,6 +148,7 @@ angular.module('cp.controllers.general').controller('SearchController',
         if (newValue === oldValue) {
             return;
         }
+        SearchService.setPostcode(newValue);
         search();
     });
 
@@ -154,6 +156,7 @@ angular.module('cp.controllers.general').controller('SearchController',
         if (newValue === oldValue) {
             return;
         }
+        SearchService.setDietaryRequirements(newValue);
         search();
     });
 
@@ -161,6 +164,7 @@ angular.module('cp.controllers.general').controller('SearchController',
         if (newValue === oldValue) {
             return;
         }
+        SearchService.setPackagingType(newValue);
         search();
     });
 

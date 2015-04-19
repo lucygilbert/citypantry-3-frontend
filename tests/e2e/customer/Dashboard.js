@@ -23,7 +23,7 @@ describe('Dashboard page', function() {
         var datePicker = element(by.model('date'));
 
         expect(datePicker.isDisplayed()).toBe(false);
-        element(by.model('search.date')).click();
+        element(by.model('pickedDate')).click();
         expect(datePicker.isDisplayed()).toBe(true);
     });
 
@@ -62,11 +62,11 @@ describe('Dashboard page', function() {
         var now = new Date();
         var oneWeekFromNow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7);
 
-        element(by.model('search.date')).sendKeys(oneWeekFromNow.toLocaleDateString());
+        element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toLocaleDateString());
         element(by.model('search.headCount')).sendKeys(10);
 
         element(by.css('.cp-dashboard-form input[type="submit"]')).click();
 
-        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/search\?postcode=W6%207PY&headCount=10&date=\d{4}-\d{1,2}-\d{1,2}/);
+        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/search/);
     });
 });
