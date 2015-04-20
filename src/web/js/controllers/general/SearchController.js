@@ -35,8 +35,6 @@ angular.module('cp.controllers.general').controller('SearchController',
     // `$scope.showMore`).
     $scope.packagesLimit = PAGINATION_LENGTH;
 
-    let isOnSearchPage = true;
-
     function init() {
         const promise1 = PackagesFactory.getEventTypes()
             .success(response => {
@@ -167,8 +165,6 @@ angular.module('cp.controllers.general').controller('SearchController',
         SearchService.setPackagingType(newValue);
         search();
     });
-
-    $scope.$on('$destroy', () => isOnSearchPage = false);
 
     $scope.openDatePicker = function($event) {
         // Need to call these, otherwise the popup won't open (a click outside
