@@ -79,15 +79,16 @@ angular.module('cp.controllers.general').controller('SearchController',
 
     init();
 
-    $scope.$watch('search.maxBudget', (newValue, oldValue) => {
-        if (newValue === oldValue) {
+    $scope.changeMaxBudget = function() {
+        if ($scope.search.tempMaxBudget === $scope.search.maxBudget) {
             return;
         }
-        if (isNaN(newValue)) {
+        if (isNaN($scope.search.tempMaxBudget)) {
             return;
         }
+        $scope.search.maxBudget = $scope.search.tempMaxBudget;
         search();
-    });
+    };
 
     $scope.$watch('search.headCount', (newValue, oldValue) => {
         if (newValue === oldValue) {
