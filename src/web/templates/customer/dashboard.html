@@ -40,8 +40,17 @@
                     <div class="row">
                         <div class="col-xs-5" ng-if="addresses.length > 0">
                             <div class="cp-form-group">
-                                <label class="cp-form-label" for="search_postcode">Delivery location</label>
-                                <select class="cp-form-control" id="search_postcode" name="searchPostcode" ng-model="search.postcode" ng-options="address.postcode as address.label for address in addresses"></select>
+                                <label class="cp-form-label" for="search_postcode">
+                                    Delivery location
+                                    <span class="form-element-invalid" ng-show="dashboardForm.$submitted && dashboardForm.searchPostcode.$error.required">Delivery location is required</span>
+                                </label>
+                                <select class="cp-form-control"
+                                    id="search_postcode"
+                                    name="searchPostcode"
+                                    ng-model="search.postcode"
+                                    ng-options="address.postcode as address.label for address in addresses"
+                                    ng-required="!search.newPostcode">
+                                </select>
                             </div>
                         </div>
 
@@ -54,8 +63,16 @@
                                 <label class="cp-form-label" for="search_new_postcode">
                                     New location
                                     <span class="form-element-invalid" ng-show="dashboardForm.$submitted && dashboardForm.searchNewPostcode.$error.pattern">Postcode is invalid</span>
+                                    <span class="form-element-invalid" ng-show="dashboardForm.$submitted && dashboardForm.searchNewPostcode.$error.required">Postcode is required</span>
                                 </label>
-                                <input class="cp-form-control" id="search_new_postcode" name="searchNewPostcode" type="text" placeholder="POSTCODE" ng-model="search.newPostcode" ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
+                                <input class="cp-form-control"
+                                    id="search_new_postcode"
+                                    name="searchNewPostcode"
+                                    type="text"
+                                    placeholder="POSTCODE"
+                                    ng-model="search.newPostcode"
+                                    ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/"
+                                    ng-required="addresses.length === 0" />
                             </div>
                         </div>
                     </div>
