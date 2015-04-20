@@ -47,6 +47,16 @@
     padding-left: $padding-small-horizontal;
 }
 
+select.cp-form-control {
+       -moz-appearance: none;
+    -webkit-appearance: none;
+    background-image: url('data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==');
+    background-position: 98% 50%;
+    background-position: right 5px center;
+    background-repeat: no-repeat;
+    line-height: 1;
+}
+
 .cp-input-lg {
     @extend .input-lg;
     font-size: $font-size-h3;
