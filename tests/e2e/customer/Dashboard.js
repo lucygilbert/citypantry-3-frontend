@@ -67,6 +67,6 @@ describe('Dashboard page', function() {
 
         element(by.css('.cp-dashboard-form input[type="submit"]')).click();
 
-        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/search/);
+        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/search$/);
     });
 });

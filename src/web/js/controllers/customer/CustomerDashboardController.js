@@ -8,7 +8,6 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
     $scope.customer = {};
     $scope.headCountOptions = OrdersFactory.getHeadCountOptions(500, 1);
     $scope.isDatePickerOpen = false;
-    $scope.isNewPostcode = true;
     $scope.eventTypeOptions = [];
     $scope.minDate = new Date();
     $scope.orders = [];
@@ -17,8 +16,10 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
 
     $scope.search = {
         date: SearchService.getDeliveryDate(),
+        // 'eventType' is set from SearchService after all event types have loaded from the API.
         eventType: undefined,
         headCount: SearchService.getHeadCount(),
+        // 'newPostcode' are 'postcode' are set later.
         newPostcode: undefined,
         postcode: undefined,
         time: SearchService.getDeliveryTime()
@@ -47,14 +48,15 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
         $q.all([promise1, promise2, promise3]).then(() => {
             const postcode = SearchService.getPostcode();
             if (postcode) {
+                let isNewPostcode = true;
                 $scope.addresses.forEach(address => {
                     if (postcodeComparison(postcode, address.postcode)) {
                         $scope.search.postcode = postcode;
-                        $scope.isNewPostcode = false;
+                        isNewPostcode = false;
                         return false;
                     }
                 });
-                if ($scope.isNewPostcode) {
+                if (isNewPostcode) {
                     $scope.search.newPostcode = postcode;
                 }
             } else {
