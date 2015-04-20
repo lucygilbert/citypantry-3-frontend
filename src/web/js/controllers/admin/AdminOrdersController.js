@@ -1,7 +1,7 @@
 angular.module('cp.controllers.admin').controller('AdminOrdersController',
         function($scope, OrdersFactory, uiGridConstants, getOrderStatusTextFilter,
         getDeliveryStatusTextFilter, NotificationService, $window, DocumentTitleService,
-        SecurityService, LoadingService) {
+        SecurityService, LoadingService, ClearAllButtonService) {
     DocumentTitleService('Orders');
     SecurityService.requireStaff();
 
@@ -97,6 +97,8 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         paginationPageSizes: [25, 50, 75],
         paginationPageSize: 25
     };
+
+    ClearAllButtonService.addToScope($scope, vm.gridOptions);
 
     function loadOrders() {
         OrdersFactory.getAllOrders().success(response => {

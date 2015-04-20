@@ -5,6 +5,8 @@
         <button ng-click="showOrdersPlacedToday()" class="show-orders-placed-today btn btn-primary">Show orders placed today</button>
         &nbsp;
         <button ng-click="showOrdersDeliveredToday()" class="show-orders-delivered-today btn btn-primary">Show orders delivered today</button>
+        &nbsp;
+        <button ng-click="clearAllFilters()" class="btn btn-primary">Clear all filters</button>
     </p>
 
     <div ui-grid="orders.gridOptions" ui-grid-pagination id="orders-table"></div>
