@@ -179,7 +179,21 @@ angular.module('cp.controllers.general').controller('SearchController',
         $scope.packagesLimit += PAGINATION_LENGTH;
     };
 
+    // The promise assigned to this is ultimately passed to the $http service as it's `timeout`
+    // parameter. If a new search is made before a pending search finishes, the promise is aborted,
+    // causing the pending search HTTP request to be cancelled and it's results completely ignored.
+    // This prevents results for an outdated search being seen by the user when they have made a new
+    // search. It also prevents search promises resolving out of order, which happens if the API
+    // takes longer to serve the `N-1` search than the current `N` search.
+    let deferredSearchAbort;
+
     function search() {
+        if (deferredSearchAbort) {
+            deferredSearchAbort.resolve();
+        }
+
+        deferredSearchAbort = $q.defer();
+
         PackagesFactory.searchPackages(undefined, $scope.search.postcode,
                 $scope.search.maxBudget, $scope.search.headCount, $scope.search.time,
                 $scope.search.date,
@@ -189,13 +203,21 @@ angular.module('cp.controllers.general').controller('SearchController',
                 ($scope.search.cuisineTypes.length !== $scope.cuisineTypes.length ? $scope.search.cuisineTypes : []),
                 // If all dietary requirements are selected, don't send any (same effect, but shorter URL).
                 ($scope.search.dietaryRequirements.length !== $scope.dietaryRequirements.length ? $scope.search.dietaryRequirements : []),
-                $scope.search.packagingType)
+                $scope.search.packagingType,
+                deferredSearchAbort.promise)
             .success(response => {
                 $scope.packages = response.packages;
                 $scope.isSearching = false;
                 LoadingService.hide();
             })
-            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+            .catch(response => {
+                if (response.status === 0) {
+                    // The request was cancelled because a new search request has been made.
+                    // Do not show an error.
+                    return;
+                }
+                NotificationService.notifyError(response.data.errorTranslation);
+            });
     }
 
     $scope.blurIfEnterKey = function(keyEvent) {
