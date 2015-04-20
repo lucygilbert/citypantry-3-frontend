@@ -41,7 +41,7 @@
                         <div class="col-xs-5" ng-if="addresses.length > 0">
                             <div class="cp-form-group">
                                 <label class="cp-form-label" for="search_postcode">
-                                    Delivery location
+                                    Deliver to saved location
                                     <span class="form-element-invalid" ng-show="dashboardForm.$submitted && dashboardForm.searchPostcode.$error.required">Delivery location is required</span>
                                 </label>
                                 <select class="cp-form-control"
@@ -58,10 +58,10 @@
                             <span class="cp-form-separator">or</span>
                         </div>
 
-                        <div class="col-xs-4">
+                        <div class="col-xs-5">
                             <div class="cp-form-group">
                                 <label class="cp-form-label" for="search_new_postcode">
-                                    New location
+                                    Enter new delivery postcode
                                     <span class="form-element-invalid" ng-show="dashboardForm.$submitted && dashboardForm.searchNewPostcode.$error.pattern">Postcode is invalid</span>
                                     <span class="form-element-invalid" ng-show="dashboardForm.$submitted && dashboardForm.searchNewPostcode.$error.required">Postcode is required</span>
                                 </label>
