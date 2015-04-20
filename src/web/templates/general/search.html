@@ -43,6 +43,7 @@
                         id="delivery_location"
                         type="text"
                         placeholder="POSTCODE"
+                        ng-keypress="blurIfEnterKey($event)"
                         ng-model="search.postcode"
                         ng-model-options="{debounce: 1000}" />
                 </div>

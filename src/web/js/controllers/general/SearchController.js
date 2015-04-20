@@ -201,4 +201,11 @@ angular.module('cp.controllers.general').controller('SearchController',
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     }
+
+    $scope.blurIfEnterKey = function(keyEvent) {
+        if (keyEvent.which === 13) {
+            keyEvent.target.blur();
+        }
+    };
+
 });
