@@ -1,7 +1,7 @@
-angular.module('cp.controllers.general').directive('cpHeader', function() {
+angular.module('cp.controllers.general').directive('cpHeader', function(getTemplateUrl) {
     return {
         controller: 'HeaderController',
         restrict: 'EA',
-        templateUrl: '/dist/templates/directives/cp-header.html'
+        templateUrl: getTemplateUrl('directives/cp-header.html')
     };
 });

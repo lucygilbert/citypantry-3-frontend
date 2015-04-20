@@ -1,10 +1,10 @@
-angular.module('cp').directive('cpRatingStars', function() {
+angular.module('cp').directive('cpRatingStars', function(getTemplateUrl) {
     return {
         restrict: 'A',
         scope: {
             value: '=cpRatingStars'
         },
-        templateUrl: '/dist/templates/directives/cp-rating-stars.html',
+        templateUrl: getTemplateUrl('directives/cp-rating-stars.html'),
         controller: 'cpRatingStarsController'
     };
 });

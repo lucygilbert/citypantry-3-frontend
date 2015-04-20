@@ -1,11 +1,11 @@
-angular.module('cp').directive('cpPackageRating', function() {
+angular.module('cp').directive('cpPackageRating', function(getTemplateUrl) {
     return {
         restrict: 'E',
         scope: {
             summary: '=cpSummary',
             style: '@cpStyle'
         },
-        templateUrl: '/dist/templates/directives/cp-package-rating.html',
+        templateUrl: getTemplateUrl('directives/cp-package-rating.html'),
         controller: 'cpPackageRatingController'
     };
 });

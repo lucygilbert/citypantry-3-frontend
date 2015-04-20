@@ -1,10 +1,10 @@
-angular.module('cp').directive('cpPackageCard', function() {
+angular.module('cp').directive('cpPackageCard', function(getTemplateUrl) {
     return {
         restrict: 'EA',
         scope: {
             package: '=',
             searchParams: '='
         },
-        templateUrl: '/dist/templates/directives/cp-package-card.html'
+        templateUrl: getTemplateUrl('directives/cp-package-card.html')
     };
 });
