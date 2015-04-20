@@ -1,4 +1,4 @@
-angular.module('cp').config(function($routeProvider) {
+angular.module('cp').config(function($routeProvider, getTemplateUrl) {
     $routeProvider.
         when('/', {
             controller: (SecurityService, $location) => {
@@ -16,147 +16,147 @@ angular.module('cp').config(function($routeProvider) {
         }).
         when('/login', {
             controller: 'LoginRegisterController',
-            templateUrl: '/dist/templates/auth/login-register.html'
+            templateUrl: getTemplateUrl('auth/login-register.html')
         }).
         when('/register', {
             controller: 'RegisterController',
-            templateUrl: '/dist/templates/auth/register.html'
+            templateUrl: getTemplateUrl('auth/register.html')
         }).
         when('/customer/dashboard', {
             controller: 'CustomerDashboardController',
-            templateUrl: '/dist/templates/customer/dashboard.html'
+            templateUrl: getTemplateUrl('customer/dashboard.html')
         }).
         when('/search', {
             controller: 'SearchController',
-            templateUrl: '/dist/templates/general/search.html'
+            templateUrl: getTemplateUrl('general/search.html')
         }).
         when('/quote', {
             controller: 'QuoteController',
-            templateUrl: '/dist/templates/general/quote.html'
+            templateUrl: getTemplateUrl('general/quote.html')
         }).
         when('/quote/vendor/:vendorId', {
             controller: 'QuoteController',
-            templateUrl: '/dist/templates/general/quote.html'
+            templateUrl: getTemplateUrl('general/quote.html')
         }).
         when('/checkout/catering-details', {
             controller: 'CheckoutCateringDetailsController',
-            templateUrl: '/dist/templates/general/checkout-catering-details.html'
+            templateUrl: getTemplateUrl('general/checkout-catering-details.html')
         }).
         when('/checkout/delivery-details', {
             controller: 'CheckoutDeliveryDetailsController',
-            templateUrl: '/dist/templates/general/checkout-delivery-details.html'
+            templateUrl: getTemplateUrl('general/checkout-delivery-details.html')
         }).
         when('/checkout/payment', {
             controller: 'CheckoutPaymentController',
-            templateUrl: '/dist/templates/general/checkout-payment.html'
+            templateUrl: getTemplateUrl('general/checkout-payment.html')
         }).
         when('/checkout/thank-you', {
             controller: 'CheckoutThankYouController',
-            templateUrl: '/dist/templates/general/checkout-thank-you.html'
+            templateUrl: getTemplateUrl('general/checkout-thank-you.html')
         }).
         when('/customer/account-details', {
             controller: 'CustomerAccountDetailsController',
-            templateUrl: '/dist/templates/customer/account-details.html'
+            templateUrl: getTemplateUrl('customer/account-details.html')
         }).
         when('/customer/change-password', {
             controller: 'CustomerChangePasswordController',
-            templateUrl: '/dist/templates/customer/change-password.html'
+            templateUrl: getTemplateUrl('customer/change-password.html')
         }).
         when('/customer/addresses', {
             controller: 'CustomerAddressesController',
-            templateUrl: '/dist/templates/customer/addresses.html'
+            templateUrl: getTemplateUrl('customer/addresses.html')
         }).
         when('/customer/addresses/new', {
             controller: 'CustomerAddressController',
-            templateUrl: '/dist/templates/customer/address.html'
+            templateUrl: getTemplateUrl('customer/address.html')
         }).
         when('/customer/addresses/:id', {
             controller: 'CustomerAddressController',
-            templateUrl: '/dist/templates/customer/address.html'
+            templateUrl: getTemplateUrl('customer/address.html')
         }).
         when('/customer/orders', {
             controller: 'CustomerOrdersController',
-            templateUrl: '/dist/templates/customer/orders.html'
+            templateUrl: getTemplateUrl('customer/orders.html')
         }).
         when('/customer/orders/:id/messages', {
             controller: 'CustomerOrderMessagesController',
-            templateUrl: '/dist/templates/customer/order-messages.html'
+            templateUrl: getTemplateUrl('customer/order-messages.html')
         }).
         when('/customer/pay-on-account', {
             controller: 'CustomerPayOnAccountController',
-            templateUrl: '/dist/templates/customer/pay-on-account.html'
+            templateUrl: getTemplateUrl('customer/pay-on-account.html')
         }).
         when('/customer/orders/:id/leave-a-review', {
             controller: 'CustomerOrderLeaveAReviewController',
-            templateUrl: '/dist/templates/customer/order-leave-a-review.html'
+            templateUrl: getTemplateUrl('customer/order-leave-a-review.html')
         }).
         when('/reset-password/:userId/:token', {
             controller: 'AuthResetPasswordController',
-            templateUrl: '/dist/templates/auth/reset-password.html'
+            templateUrl: getTemplateUrl('auth/reset-password.html')
         }).
         when('/vendors', {
             controller: 'VendorsController',
-            templateUrl: '/dist/templates/general/vendors.html'
+            templateUrl: getTemplateUrl('general/vendors.html')
         }).
         when('/vendor/orders', {
             controller: 'VendorPortalOrdersController',
-            templateUrl: '/dist/templates/vendor/orders.html'
+            templateUrl: getTemplateUrl('vendor/orders.html')
         }).
         when('/vendor/orders/:id/messages', {
             controller: 'VendorPortalOrderMessagesController',
-            templateUrl: '/dist/templates/vendor/order-messages.html'
+            templateUrl: getTemplateUrl('vendor/order-messages.html')
         }).
         when('/vendor/addresses', {
             controller: 'VendorPortalAddressesController',
-            templateUrl: '/dist/templates/vendor/addresses.html'
+            templateUrl: getTemplateUrl('vendor/addresses.html')
         }).
         when('/vendor/addresses/:id', {
             controller: 'VendorPortalAddressController',
-            templateUrl: '/dist/templates/vendor/address.html'
+            templateUrl: getTemplateUrl('vendor/address.html')
         }).
         when('/vendor/new-address', {
             controller: 'VendorPortalAddressController',
-            templateUrl: '/dist/templates/vendor/address.html'
+            templateUrl: getTemplateUrl('vendor/address.html')
         }).
         when('/vendor/create-package', {
             controller: 'VendorPortalPackageController',
-            templateUrl: '/dist/templates/vendor/vendor-portal-create-package.html'
+            templateUrl: getTemplateUrl('vendor/vendor-portal-create-package.html')
         }).
         when('/vendor/packages', {
             controller: 'VendorPortalPackagesController',
-            templateUrl: '/dist/templates/vendor/vendor-portal-packages.html'
+            templateUrl: getTemplateUrl('vendor/vendor-portal-packages.html')
         }).
         when('/vendor/packages/:id', {
             controller: 'VendorPortalPackageController',
-            templateUrl: '/dist/templates/vendor/vendor-portal-edit-package.html'
+            templateUrl: getTemplateUrl('vendor/vendor-portal-edit-package.html')
         }).
         when('/vendor/profile', {
             controller: 'VendorPortalProfileController',
-            templateUrl: '/dist/templates/vendor/vendor-portal-profile.html'
+            templateUrl: getTemplateUrl('vendor/vendor-portal-profile.html')
         }).
         when('/vendor/delivery-radiuses', {
             controller: 'VendorPortalDeliveryRadiusesController',
-            templateUrl: '/dist/templates/vendor/vendor-portal-delivery-radiuses.html'
+            templateUrl: getTemplateUrl('vendor/vendor-portal-delivery-radiuses.html')
         }).
         when('/vendor/signup', {
             controller: 'VendorSignupController',
-            templateUrl: '/dist/templates/vendor/vendor-signup.html'
+            templateUrl: getTemplateUrl('vendor/vendor-signup.html')
         }).
         when('/vendor/signup/package', {
             controller: 'VendorSignupPackageController',
-            templateUrl: '/dist/templates/vendor/vendor-signup-package.html'
+            templateUrl: getTemplateUrl('vendor/vendor-signup-package.html')
         }).
         when('/vendor/signup/profile', {
             controller: 'VendorSignupProfileController',
-            templateUrl: '/dist/templates/vendor/vendor-signup-profile.html'
+            templateUrl: getTemplateUrl('vendor/vendor-signup-profile.html')
         }).
         when('/vendor/signup/agreement', {
             controller: 'VendorSignupAgreementController',
-            templateUrl: '/dist/templates/vendor/vendor-signup-agreement.html'
+            templateUrl: getTemplateUrl('vendor/vendor-signup-agreement.html')
         }).
         when('/vendor/signup/thanks', {
             controller: 'VendorSignupThanksController',
-            templateUrl: '/dist/templates/vendor/vendor-signup-thanks.html'
+            templateUrl: getTemplateUrl('vendor/vendor-signup-thanks.html')
         }).
         when('/vendor/holidays', {
             controller: 'VendorHolidaysController',
@@ -164,81 +164,81 @@ angular.module('cp').config(function($routeProvider) {
         }).
         when('/vendor/:idOrSlug', {
             controller: 'ViewVendorController',
-            templateUrl: '/dist/templates/general/view-vendor.html'
+            templateUrl: getTemplateUrl('general/view-vendor.html')
         }).
         when('/user/payment-cards', {
             controller: 'UserPaymentCardsController',
-            templateUrl: '/dist/templates/user/payment-cards.html'
+            templateUrl: getTemplateUrl('user/payment-cards.html')
         }).
         when('/user/payment-cards/new', {
             controller: 'UserNewPaymentCardController',
-            templateUrl: '/dist/templates/user/new-payment-card.html'
+            templateUrl: getTemplateUrl('user/new-payment-card.html')
         }).
         when('/package/:humanIdAndSlug', {
             controller: 'ViewPackageController',
-            templateUrl: '/dist/templates/general/view-package.html'
+            templateUrl: getTemplateUrl('general/view-package.html')
         }).
         when('/admin/vendors', {
             controller: 'AdminVendorsController',
             controllerAs: 'vendors',
-            templateUrl: '/dist/templates/admin/vendors.html'
+            templateUrl: getTemplateUrl('admin/vendors.html')
         }).
         when('/admin/vendors/edit', {
             controller: 'AdminEditVendorsController',
             controllerAs: 'vendors',
-            templateUrl: '/dist/templates/admin/edit-vendors.html'
+            templateUrl: getTemplateUrl('admin/edit-vendors.html')
         }).
         when('/admin/vendor/:vendorId', {
             controller: 'AdminEditVendorController',
-            templateUrl: '/dist/templates/admin/edit-vendor.html'
+            templateUrl: getTemplateUrl('admin/edit-vendor.html')
         }).
         when('/admin/packages', {
             controller: 'AdminPackagesController',
             controllerAs: 'packages',
-            templateUrl: '/dist/templates/admin/packages.html'
+            templateUrl: getTemplateUrl('admin/packages.html')
         }).
         when('/admin/packages/edit', {
             controller: 'AdminEditPackagesController',
             controllerAs: 'packages',
-            templateUrl: '/dist/templates/admin/edit-packages.html'
+            templateUrl: getTemplateUrl('admin/edit-packages.html')
         }).
         when('/admin/package/:packageId', {
             controller: 'AdminEditPackageController',
-            templateUrl: '/dist/templates/admin/edit-package.html'
+            templateUrl: getTemplateUrl('admin/edit-package.html')
         }).
         when('/admin/users', {
             controller: 'AdminUsersController',
-            templateUrl: '/dist/templates/admin/users.html'
+            templateUrl: getTemplateUrl('admin/users.html')
         }).
         when('/admin/customers', {
             controller: 'AdminCustomersController',
-            templateUrl: '/dist/templates/admin/customers.html'
+            templateUrl: getTemplateUrl('admin/customers.html')
         }).
         when('/admin/customer/:customerId', {
             controller: 'AdminEditCustomerController',
-            templateUrl: '/dist/templates/admin/edit-customer.html'
+            templateUrl: getTemplateUrl('admin/edit-customer.html')
         }).
         when('/admin/invoices', {
             controller: 'AdminInvoicesController',
-            templateUrl: '/dist/templates/admin/invoices.html'
+            templateUrl: getTemplateUrl('admin/invoices.html')
         }).
         when('/admin/invoice/:invoiceId', {
             controller: 'AdminViewInvoiceController',
-            templateUrl: '/dist/templates/admin/view-invoice.html'
+            templateUrl: getTemplateUrl('admin/view-invoice.html')
         }).
         when('/admin/orders', {
             controller: 'AdminOrdersController',
             controllerAs: 'orders',
-            templateUrl: '/dist/templates/admin/orders.html'
+            templateUrl: getTemplateUrl('admin/orders.html')
         }).
         when('/admin/order/:orderId', {
             controller: 'AdminEditOrderController',
             controllerAs: 'order',
-            templateUrl: '/dist/templates/admin/edit-order.html'
+            templateUrl: getTemplateUrl('admin/edit-order.html')
         }).
         when('/admin/orders/courier', {
             controller: 'AdminCourierOrdersController',
-            templateUrl: '/dist/templates/admin/courier-orders.html'
+            templateUrl: getTemplateUrl('admin/courier-orders.html')
         }).
         when('/logout', {
             controller: () => window.location = '/logout',

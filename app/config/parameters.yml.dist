@@ -15,3 +15,4 @@ parameters:
     templates.google_maps_javascript_api_v3_key: AIzaSyD1LSq6a2KDw3-pVN20CdqUpNEZ37wADDg
 
     citypantry_api_endpoint: https://api.citypantry.com
+    cache_buster_value: ~

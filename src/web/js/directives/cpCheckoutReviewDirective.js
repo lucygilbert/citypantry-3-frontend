@@ -1,4 +1,4 @@
-angular.module('cp').directive('cpCheckoutReview', function(CheckoutService) {
+angular.module('cp').directive('cpCheckoutReview', function(CheckoutService, getTemplateUrl) {
     return {
         restrict: 'E',
         controller: function($scope) {
@@ -14,6 +14,6 @@ angular.module('cp').directive('cpCheckoutReview', function(CheckoutService) {
             $scope.vendorCleanupCost = CheckoutService.getVendorCleanupCost();
             $scope.vendorSetupCost = CheckoutService.getVendorSetupCost();
         },
-        templateUrl: '/dist/templates/directives/cp-checkout-review.html',
+        templateUrl: getTemplateUrl('directives/cp-checkout-review.html'),
     };
 });

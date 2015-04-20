@@ -1,9 +1,9 @@
-angular.module('cp').directive('cpPackageCard', function() {
+angular.module('cp').directive('cpPackageCard', function(getTemplateUrl) {
     return {
         restrict: 'EA',
         scope: {
             package: '='
         },
-        templateUrl: '/dist/templates/directives/cp-package-card.html'
+        templateUrl: getTemplateUrl('directives/cp-package-card.html')
     };
 });

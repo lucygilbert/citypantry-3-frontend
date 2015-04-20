@@ -35,7 +35,7 @@
         <link href="/favicon.ico" rel="icon" />
 
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-        <link href="/dist/css/main.min.css" rel="stylesheet" />
+        <link href="/dist/css/main.min.css?cacheBuster={{ cacheBusterValue }}" rel="stylesheet" />
 
         <!--[if lt IE 9]>
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -75,13 +75,14 @@
         <script>
             window.hubspotBase = '{{ hubspotBase }}';
             window.googleMapsJavascriptApiV3Key = '{{ googleMapsJavascriptApiV3Key }}';
+            window.cacheBusterValue = '{{ cacheBusterValue }}';
             window.FileAPI = {
                 jsUrl: '/dist/ng-file-upload/FileAPI.min.js',
                 flashUrl: '/dist/ng-file-upload/FileAPI.flash.swf'
             };
         </script>
 
-        <script src="/dist/js/built.js"></script>
+        <script src="/dist/js/built.js?cacheBuster={{ cacheBusterValue }}"></script>
 
         <base href="/" />
     </head>

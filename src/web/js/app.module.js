@@ -46,7 +46,8 @@ angular.module('cp')
     .constant('CP_BANK_NAME', 'National Westminster Bank PLC')
     .constant('CP_BANK_SORT_CODE', '60-30-20')
     .constant('INVOICE_STATUS_AWAITING_PAYMENT', 1)
-    .constant('INVOICE_STATUS_PAID', 2);
+    .constant('INVOICE_STATUS_PAID', 2)
+    .constant('getTemplateUrl', (path) => '/dist/templates/' + path + '?cacheBuster=' + window.cacheBusterValue);
 
 angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvider, GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY,
         $sceDelegateProvider) {
@@ -100,8 +101,10 @@ angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvid
         });
     }
 })
-.run(function($rootScope, CP_TELEPHONE_NUMBER_UK, CP_TELEPHONE_NUMBER_INTERNATIONAL, CP_SUPPORT_EMAIL_ADDRESS) {
+.run(function($rootScope, CP_TELEPHONE_NUMBER_UK, CP_TELEPHONE_NUMBER_INTERNATIONAL, CP_SUPPORT_EMAIL_ADDRESS,
+        getTemplateUrl) {
     $rootScope.CP_TELEPHONE_NUMBER_UK = CP_TELEPHONE_NUMBER_UK;
     $rootScope.CP_TELEPHONE_NUMBER_INTERNATIONAL = CP_TELEPHONE_NUMBER_INTERNATIONAL;
     $rootScope.CP_SUPPORT_EMAIL_ADDRESS = CP_SUPPORT_EMAIL_ADDRESS;
+    $rootScope.getTemplateUrl = getTemplateUrl;
 });

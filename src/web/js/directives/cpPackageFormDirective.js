@@ -1,6 +1,7 @@
 angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies, $location, $q,
         $window, LoadingService, AddressFactory, PackagesFactory, VendorsFactory, uiGmapGoogleMapApi,
-        MAP_CENTER, NotificationService, SecurityService, ApiService, API_BASE, $upload) {
+        MAP_CENTER, NotificationService, SecurityService, ApiService, API_BASE, $upload,
+        getTemplateUrl) {
     return {
         restrict: 'E',
         scope: {
@@ -296,6 +297,6 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                 }
             };
         },
-        templateUrl: '/dist/templates/vendor/vendor-package.html'
+        templateUrl: getTemplateUrl('vendor/vendor-package.html')
     };
 });

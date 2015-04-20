@@ -1,7 +1,7 @@
-angular.module('cp').directive('cpAddressForm', function(SecurityService) {
-    const template = '/dist/templates/directives/cp-address-form-for-' +
+angular.module('cp').directive('cpAddressForm', function(SecurityService, getTemplateUrl) {
+    const template = getTemplateUrl('directives/cp-address-form-for-' +
         (SecurityService.customerIsLoggedIn() ? 'customer' : 'vendor') +
-        '.html';
+        '.html');
 
     return {
         restrict: 'E',

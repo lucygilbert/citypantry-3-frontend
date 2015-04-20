@@ -1,5 +1,6 @@
 angular.module('cp').directive('cpVendorProfileForm', function($cookies, $location, LoadingService,
-        PackagesFactory, VendorsFactory, NotificationService, $upload, API_BASE, ApiService) {
+        PackagesFactory, VendorsFactory, NotificationService, $upload, API_BASE, ApiService,
+        getTemplateUrl) {
     return {
         restrict: 'E',
         scope: {
@@ -84,6 +85,6 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $locati
                 }
             };
         },
-        templateUrl: '/dist/templates/vendor/vendor-profile.html'
+        templateUrl: getTemplateUrl('vendor/vendor-profile.html')
     };
 });

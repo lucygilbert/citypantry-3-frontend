@@ -1,9 +1,9 @@
-angular.module('cp').directive('cpHistoryTable', function() {
+angular.module('cp').directive('cpHistoryTable', function(getTemplateUrl) {
     return {
         restrict: 'E',
         scope: {
             history: '='
         },
-        templateUrl: '/dist/templates/directives/cp-history-table.html'
+        templateUrl: getTemplateUrl('directives/cp-history-table.html')
     };
 });

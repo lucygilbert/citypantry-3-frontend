@@ -1,4 +1,4 @@
-angular.module('cp').directive('cpCheckoutAddressForm', function() {
+angular.module('cp').directive('cpCheckoutAddressForm', function(getTemplateUrl) {
     return {
         restrict: 'E',
         scope: {
@@ -9,6 +9,6 @@ angular.module('cp').directive('cpCheckoutAddressForm', function() {
             $scope.isFormSubmitButtonHidden = true;
             $scope.isNew = true;
         },
-        templateUrl: '/dist/templates/directives/cp-address-form-for-customer.html',
+        templateUrl: getTemplateUrl('directives/cp-address-form-for-customer.html'),
     };
 });
