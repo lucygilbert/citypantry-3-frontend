@@ -1,6 +1,6 @@
 angular.module('cp.controllers.customer').controller('CustomerDashboardController',
         function($scope, DocumentTitleService, SecurityService, LoadingService, $q, PackagesFactory,
-        OrdersFactory, $location, CustomersFactory, NotificationService) {
+        OrdersFactory, $location, CustomersFactory, NotificationService, $filter, SearchService) {
     SecurityService.requireCustomer();
     DocumentTitleService('Dashboard');
 
@@ -15,12 +15,14 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
     $scope.timeOptions = PackagesFactory.getPackageDeliveryTimeOptions(700, 2400, 30);
 
     $scope.search = {
-        date: undefined,
+        date: SearchService.getDeliveryDate(),
+        // 'eventType' is set from SearchService after all event types have loaded from the API.
         eventType: undefined,
-        headCount: undefined,
+        headCount: SearchService.getHeadCount(),
+        // 'newPostcode' are 'postcode' are set later.
         newPostcode: undefined,
         postcode: undefined,
-        time: undefined
+        time: SearchService.getDeliveryTime()
     };
 
     function init() {
@@ -44,8 +46,23 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         $q.all([promise1, promise2, promise3]).then(() => {
-            if ($scope.addresses.length > 0) {
-                $scope.search.postcode = $scope.addresses[0].postcode;
+            const postcode = SearchService.getPostcode();
+            if (postcode) {
+                let isNewPostcode = true;
+                $scope.addresses.forEach(address => {
+                    if (postcodeComparison(postcode, address.postcode)) {
+                        $scope.search.postcode = postcode;
+                        isNewPostcode = false;
+                        return false;
+                    }
+                });
+                if (isNewPostcode) {
+                    $scope.search.newPostcode = postcode;
+                }
+            } else {
+                if ($scope.addresses.length > 0) {
+                    $scope.search.postcode = $scope.addresses[0].postcode;
+                }
             }
 
             const upcomingOrders = $scope.orders.filter(order => {
@@ -55,6 +72,15 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
 
             if (upcomingOrders.length > 0) {
                 $scope.nextOrder = upcomingOrders[0];
+            }
+
+            if ($scope.search.date) {
+                $scope.pickedDate = $filter('date')($scope.search.date, 'dd/MM/yyyy');
+            }
+
+            const eventTypes = SearchService.getEventTypes();
+            if (eventTypes.length > 0) {
+                $scope.search.eventType = eventTypes[0];
             }
 
             LoadingService.hide();
@@ -70,6 +96,10 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
         return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes() - off, date.getSeconds(), date.getMilliseconds()).toISOString();
     }
 
+    function postcodeComparison(postcode1, postcode2) {
+        return (postcode1.replace(/\s+/g, '').toUpperCase() === postcode2.replace(/\s+/g, '').toUpperCase());
+    }
+
     $scope.openDatePicker = function($event) {
         // Need to call these, otherwise the popup won't open (a click outside
         // of the popup closes it).
@@ -79,25 +109,45 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
         $scope.isDatePickerOpen = true;
     };
 
+    $scope.$watch('pickedDate', (date, oldDate) => {
+        if (typeof date === 'undefined') {
+            return;
+        }
+        if (date === oldDate) {
+            return;
+        }
+
+        if (date === null) {
+            $scope.search.date = undefined;
+        } else {
+            // The date will be a string if the date picker was set manually.
+            if (typeof date === 'string') {
+                const bits = date.split(/\D/);
+                $scope.search.date = new Date(bits[2], bits[1] - 1, bits[0]);
+            } else {
+                $scope.search.date = date;
+            }
+        }
+    });
+
     $scope.submit = function() {
         if (!$scope.dashboardForm.$valid) {
             $scope.dashboardForm.$submitted = true;
             return;
         }
 
-        let date;
-        if ($scope.search.date) {
-            date = $scope.search.date.getFullYear() + '-' + ($scope.search.date.getMonth() + 1) + '-' + $scope.search.date.getDate();
+        SearchService.setDeliveryDate($scope.search.date);
+
+        if ($scope.search.eventType) {
+            SearchService.setEventTypes([$scope.search.eventType]);
         }
 
-        const urlParams = {
-            postcode: $scope.search.newPostcode ? $scope.search.newPostcode : $scope.search.postcode,
-            headCount: $scope.search.headCount,
-            time: $scope.search.time,
-            date: date ? date : undefined,
-            eventTypeId: $scope.search.eventType
-        };
+        SearchService.setDeliveryTime($scope.search.time);
+        SearchService.setHeadCount($scope.search.headCount);
 
-        $location.path('/search').search(urlParams);
+        const postcode = $scope.search.newPostcode ? $scope.search.newPostcode : $scope.search.postcode;
+        SearchService.setPostcode(postcode);
+
+        $location.path('/search');
     };
 });

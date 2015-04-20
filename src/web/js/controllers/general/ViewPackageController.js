@@ -1,7 +1,7 @@
 angular.module('cp.controllers.general').controller('ViewPackageController',
         function($scope, $routeParams, PackagesFactory, NotificationService, DocumentTitleService,
-        LoadingService, SecurityService, $sce, FRONTEND_BASE, OrdersFactory,
-        $location, getPackageAvailabilityErrorTextFilter, CheckoutService, $filter) {
+        LoadingService, SecurityService, $sce, FRONTEND_BASE, OrdersFactory, $location,
+        getPackageAvailabilityErrorTextFilter, CheckoutService, $filter, SearchService) {
     SecurityService.requireLoggedIn();
 
     // 'changeDeliveryLocationModalState' can be set to 'checking', 'available', 'notAvailabe'.
@@ -13,15 +13,7 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
     $scope.packageHeadCountOptions = [];
     $scope.reviewsLimit = 3;
 
-    $scope.order = {
-        date: undefined,
-        deliveryCost: undefined,
-        headCount: undefined,
-        postcode: undefined,
-        subTotalAmount: undefined,
-        time: undefined,
-        totalAmount: undefined
-    };
+    $scope.order = {};
 
     const humanId = Number($routeParams.humanIdAndSlug.split('-')[0]);
 
@@ -51,24 +43,16 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             // Only show active event types.
             $scope.package.eventTypes = $scope.package.eventTypes.filter(eventType => eventType.isActive);
 
+            $scope.order.date = SearchService.getDeliveryDate();
+            if ($scope.order.date) {
+                $scope.pickedDate = $filter('date')($scope.order.date, 'dd/MM/yyyy');
+            }
+
+            $scope.order.headCount = SearchService.getHeadCount();
+            $scope.order.postcode = SearchService.getPostcode();
+            $scope.order.time = SearchService.getDeliveryTime();
+
             recalculateCostAmounts();
-
-            if ($routeParams.postcode) {
-                $scope.order.postcode = $routeParams.postcode;
-            }
-
-            if ($routeParams.date) {
-                const bits = $routeParams.date.split(/\D/);
-                $scope.pickedDate = $filter('date')(new Date(bits[0], bits[1] - 1, bits[2]), 'dd/MM/yyyy');
-            }
-
-            if ($routeParams.time) {
-                $scope.order.time = parseInt($routeParams.time, 10);
-            }
-
-            if ($routeParams.headCount) {
-                $scope.order.headCount = parseInt($routeParams.headCount, 10);
-            }
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
