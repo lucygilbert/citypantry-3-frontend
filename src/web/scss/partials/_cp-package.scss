@@ -1,5 +1,4 @@
 @import '../mixins/cp-arrows';
-@import '../mixins/cp-filters';
 @import '../mixins/cp-font-title';
 @import 'cp-buttons';
 @import 'cp-forms';
@@ -7,55 +6,30 @@
 @import '../directives/cp-package-rating';
 @import '../directives/cp-back';
 
-.cp-package-background-image {
-    @include cp-blur(2px);
-    background-color: $cp-primary-color;
-    background-position: center;
-    background-size: cover;
-    height: 400px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: -2;
-
-    &::before {
-        background-color: rgba(0, 0, 0, .3);
-        content: '';
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-    }
-}
-
 .cp-package {
     background-color: #fff;
     float: left;
-    margin: 116px (-$grid-gutter-width / 2) 0;
-    padding: 30px 25px;
+    margin: 60px (-$grid-gutter-width / 2) 0;
+    padding: 30px 10px;
     position: relative;
     width: 100%;
-
-    &::before,
-    &::after {
-        border-radius: 100px / 10px;
-        @include box-shadow(0 0 15px rgba(0, 0, 0, .5));
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 10px;
-        bottom: 75%;
-        left: 10px;
-        z-index: -1;
-    }
 }
 
 .cp-package-main {
-    @extend .col-xs-7;
-    @extend .col-xs-offset-1;
+    @extend .col-md-7;
+    @extend .col-md-offset-1;
     position: static;
+
+    button[cp-back] {
+        top: -20px;
+
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            color: $cp-primary-color;
+        }
+    }
 }
 
 .cp-package-carousel {
@@ -214,14 +188,14 @@
 }
 
 .cp-package-rating-heading {
-    @extend .col-xs-3;
+    @extend .col-md-3;
     color: $gray;
     font-size: $font-size-large;
     margin: 0;
 }
 
 .cp-package-rating-attributes {
-    @extend .col-xs-9;
+    @extend .col-md-9;
     @extend .list-unstyled;
     font-size: $font-size-large;
     margin-bottom: 0;
@@ -233,12 +207,12 @@
 }
 
 .cp-package-rating-attribute {
-    @extend .col-xs-5;
+    @extend .col-md-5;
     font-weight: 600;
 }
 
 .cp-package-rating-rating {
-    @extend .col-xs-7;
+    @extend .col-md-7;
 }
 
 .cp-package-reviews {
@@ -309,8 +283,7 @@
 }
 
 .cp-package-sidebar {
-    @extend .col-xs-4;
-    padding-right: 0;
+    @extend .col-md-4;
 }
 
 .cp-package-form {
