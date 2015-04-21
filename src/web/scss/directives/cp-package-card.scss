@@ -16,15 +16,18 @@ cp-package-card {
     &:active {
         color: $cp-primary-color;
 
-        .cp-package-card-image-wrap::before,
-        .cp-package-card-image-wrap::after,
+        .cp-package-card-image::before,
+        .cp-package-card-image::after,
         .cp-package-card-notice {
             display: block;
         }
     }
 }
 
-.cp-package-card-image-wrap {
+.cp-package-card-image {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
     overflow: hidden;
     padding-bottom: 100%;
     position: relative;
@@ -57,13 +60,6 @@ cp-package-card {
         text-align: center;
         width: 140px;
         z-index: 2;
-    }
-
-    img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translate3d(-50%, -50%, 0);
     }
 }
 

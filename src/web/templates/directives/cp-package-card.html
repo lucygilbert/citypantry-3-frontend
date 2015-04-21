@@ -1,7 +1,5 @@
 <a class="cp-package-card" id="{{ package.id }}" href="/package/{{ package.humanId }}-{{ package.name | slugify }}" ng-if="package">
-    <div class="cp-package-card-image-wrap">
-        <img ng-src="{{ package.images[0].medium }}" />
-    </div>
+    <div class="cp-package-card-image" style="background-image: url('{{ package.images[0].medium }}')"></div>
     <div class="cp-package-card-info">
         <div class="cp-package-card-name" ng-bind="package.name" js-clamp="'2'"></div>
         <div class="cp-package-card-vendor">{{ package.vendor.name }}</div>

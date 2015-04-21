@@ -236,10 +236,9 @@
         margin: 0 auto $cp-margin-base-vertical;
         width: 216px;
 
-        .cp-package-card-image-wrap {
+        .cp-package-card-image {
             border-radius: 50%;
             padding-bottom: 100%;
-            -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); /* 1 x 1px transparent image to fix the overflow:hidden in Chrome */
         }
 
         .cp-package-card-info {
