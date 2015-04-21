@@ -5,6 +5,7 @@ angular.module('cp.services').service('SearchService', function() {
     var dietaryRequirements = [];
     var eventTypes = [];
     var headCount;
+    var lastPackageSelected;
     var maxBudget;
     var packagingType;
     var postcode;
@@ -56,6 +57,14 @@ angular.module('cp.services').service('SearchService', function() {
 
         setHeadCount: function(value) {
             headCount = value;
+        },
+
+        getLastPackageSelected: function() {
+            return lastPackageSelected;
+        },
+
+        setLastPackageSelected: function(value) {
+            lastPackageSelected = value;
         },
 
         getMaxBudget: function() {

@@ -52,6 +52,8 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             $scope.order.postcode = SearchService.getPostcode();
             $scope.order.time = SearchService.getDeliveryTime();
 
+            SearchService.setLastPackageSelected($scope.package.id);
+
             recalculateCostAmounts();
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));

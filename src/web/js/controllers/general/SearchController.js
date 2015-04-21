@@ -1,7 +1,7 @@
 angular.module('cp.controllers.general').controller('SearchController',
         function($scope, PackagesFactory, OrdersFactory, NotificationService,
         $routeParams, DocumentTitleService, SecurityService, LoadingService, $q, $filter,
-        SearchService) {
+        SearchService, $anchorScroll) {
     DocumentTitleService('Search catering packages');
     SecurityService.requireLoggedIn();
 
@@ -70,6 +70,11 @@ angular.module('cp.controllers.general').controller('SearchController',
     }
 
     init();
+
+    const lastPackageSelected = SearchService.getLastPackageSelected();
+    if (lastPackageSelected) {
+        $anchorScroll(lastPackageSelected);
+    }
 
     $scope.changeMaxBudget = function() {
         if ($scope.search.tempMaxBudget === $scope.search.maxBudget) {
@@ -225,5 +230,4 @@ angular.module('cp.controllers.general').controller('SearchController',
             keyEvent.target.blur();
         }
     };
-
 });
