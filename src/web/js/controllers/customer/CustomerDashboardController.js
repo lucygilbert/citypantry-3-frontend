@@ -136,6 +136,8 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
             return;
         }
 
+        SearchService.reset();
+
         SearchService.setDeliveryDate($scope.search.date);
 
         if ($scope.search.eventType) {
