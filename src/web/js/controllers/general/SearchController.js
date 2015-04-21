@@ -31,9 +31,15 @@ angular.module('cp.controllers.general').controller('SearchController',
     $scope.cuisineTypes = [];
     $scope.dietaryRequirements = [];
     $scope.packagingTypeOptions = PackagesFactory.getPackagingTypeOptions();
+
     // This limit is not fixed - it increases when the user clicks 'show more' (triggering
     // `$scope.showMore`).
-    $scope.packagesLimit = PAGINATION_LENGTH;
+    const displayedPackagesCount = SearchService.getDisplayedPackagesCount();
+    if (displayedPackagesCount) {
+        $scope.packagesLimit = displayedPackagesCount;
+    } else {
+        $scope.packagesLimit = PAGINATION_LENGTH;
+    }
 
     function init() {
         const promise1 = PackagesFactory.getEventTypes()
@@ -182,6 +188,7 @@ angular.module('cp.controllers.general').controller('SearchController',
 
     $scope.showMore = function() {
         $scope.packagesLimit += PAGINATION_LENGTH;
+        SearchService.setDisplayedPackagesCount($scope.packagesLimit);
     };
 
     // The promise assigned to this is ultimately passed to the $http service as its `timeout`

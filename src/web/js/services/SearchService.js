@@ -3,6 +3,7 @@ angular.module('cp.services').service('SearchService', function() {
     var deliveryDate;
     var deliveryTime;
     var dietaryRequirements = [];
+    var displayedPackagesCount;
     var eventTypes = [];
     var headCount;
     var lastPackageSelected;
@@ -41,6 +42,14 @@ angular.module('cp.services').service('SearchService', function() {
 
         setDietaryRequirements: function(value) {
             dietaryRequirements = value;
+        },
+
+        getDisplayedPackagesCount: function() {
+            return displayedPackagesCount;
+        },
+
+        setDisplayedPackagesCount: function(value) {
+            displayedPackagesCount = value;
         },
 
         getEventTypes: function() {
