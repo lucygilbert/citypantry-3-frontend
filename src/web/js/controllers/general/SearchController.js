@@ -179,9 +179,9 @@ angular.module('cp.controllers.general').controller('SearchController',
         $scope.packagesLimit += PAGINATION_LENGTH;
     };
 
-    // The promise assigned to this is ultimately passed to the $http service as it's `timeout`
+    // The promise assigned to this is ultimately passed to the $http service as its `timeout`
     // parameter. If a new search is made before a pending search finishes, the promise is aborted,
-    // causing the pending search HTTP request to be cancelled and it's results completely ignored.
+    // causing the pending search HTTP request to be cancelled and its results completely ignored.
     // This prevents results for an outdated search being seen by the user when they have made a new
     // search. It also prevents search promises resolving out of order, which happens if the API
     // takes longer to serve the `N-1` search than the current `N` search.
