@@ -98,6 +98,20 @@ angular.module('cp.services').service('SearchService', function() {
 
         setPostcode: function(value) {
             postcode = value;
+        },
+
+        reset: function() {
+            cuisineTypes = [];
+            deliveryDate = undefined;
+            deliveryTime = undefined;
+            dietaryRequirements = [];
+            displayedPackagesCount = undefined;
+            eventTypes = [];
+            headCount = undefined;
+            lastPackageSelected = undefined;
+            maxBudget = undefined;
+            packagingType = undefined;
+            postcode = undefined;
         }
     };
 });
