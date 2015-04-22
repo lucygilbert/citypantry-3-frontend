@@ -170,25 +170,7 @@
                 <p ng-if="order.deliveryCost > 0" class="cp-package-delivery-cost">Total price includes {{ order.deliveryCost | currency:'£':0 }} delivery. <span class="text-uppercase">Free</span> delivery when you spend {{ package.freeDeliveryThreshold | currency:'£':0 }} or more.</p>
             </form>
 
-            <aside class="cp-package-vendor">
-                <div></div>
-                <div class="inner">
-                    <hgroup>
-                        <h3 class="cp-package-vendor-name">
-                            <a href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">{{ package.vendor.name }}</a>
-                        </h3>
-                        <h4 class="cp-package-vendor-business-type">{{ package.vendor.businessType.name }}</h4>
-                    </hgroup>
-
-                    <a class="cp-package-vendor-image" style="background-image: url('{{ package.vendor.images[0].medium }}');" href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}"></a>
-
-                    <p class="cp-package-vendor-address">{{ package.vendor.addresses[0] | addressSingleLineFormatter }}</p>
-
-                    <p>{{ package.vendor.description }}</p>
-
-                    <p><a class="cp-package-vendor-see-all-packages" href="/vendor/{{ package.vendor.id }}-{{ package.vendor.name | slugify }}">See all packages by this vendor</a></p>
-                </div>
-            </aside>
+            <cp-vendor-card is-see-all-packages-displayed="true" vendor="package.vendor"></cp-vendor-card>
         </div>
     </div>
 </div>

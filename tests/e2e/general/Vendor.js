@@ -15,13 +15,13 @@ describe('Individual vendor page - as Aperture Science', function() {
     });
 
     it('should show the vendor details', function() {
-        expect(element(by.css('h3.vendor-name')).getText()).toBe('Oriental Kitchen Express');
-        expect(element(by.css('.vendor-contact-details')).getText()).toBe('Olympia, London, W6, United Kingdom');
+        expect(element(by.css('.cp-vendor-card-name')).getText()).toBe('ORIENTAL KITCHEN EXPRESS');
+        expect(element(by.css('.cp-vendor-card-address')).getText()).toBe('Olympia, London, W6, United Kingdom');
     });
 
     it('should show all the active and approved packages', function() {
         expect(packages.count()).toBe(1);
-        expect(packages.get(0).getText()).toContain('Beef and mixed veg curry');
+        expect(packages.get(0).getText()).toContain('BEEF AND MIXED VEG CURRY');
 
         // 'Golden Apples' should not be displayed because it is only for the customer Apple.
     });
@@ -50,9 +50,9 @@ describe('Individual vendor page - as Apple', function() {
     it('should show all the active and approved packages', function() {
         var packages = element.all(by.repeater('package in packages'));
         expect(packages.count()).toBe(2);
-        expect(packages.get(0).getText()).toContain('Beef and mixed veg curry');
+        expect(packages.get(0).getText()).toContain('BEEF AND MIXED VEG CURRY');
 
         // 'Golden Apples' should be displayed because it is only for the customer Apple.
-        expect(packages.get(1).getText()).toContain('Golden Apples');
+        expect(packages.get(1).getText()).toContain('GOLDEN APPLES');
     });
 });

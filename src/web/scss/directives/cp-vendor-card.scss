@@ -1,0 +1,66 @@
+.cp-vendor-card {
+    background-color: $gray-lighter;
+    padding: 5px;
+    position: relative;
+
+    > div:first-child {
+        border: 1px solid #fff;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        bottom: 5px;
+        left: 5px;
+    }
+
+    > .inner {
+        padding: $cp-padding-xl-vertical ($grid-gutter-width / 2);
+        position: relative;
+    }
+
+    p {
+        line-height: 1.714; // ~24px
+        margin-bottom: $cp-margin-base-vertical;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.cp-vendor-card-name {
+    @include cp-font-title($font-size-h3);
+    margin: 0 0 $cp-margin-xs-vertical;
+    text-align: center;
+
+    > a {
+        color: $cp-primary-color;
+    }
+}
+
+.cp-vendor-card-business-type {
+    font-size: $font-size-h5;
+    margin: 0 0 $cp-padding-xl-vertical;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.cp-vendor-card-image {
+    background-size: cover;
+    border-radius: 50%;
+    display: block;
+    height: 125px;
+    margin: 0 auto $cp-padding-xl-vertical;
+    width: 125px;
+}
+
+.cp-vendor-card-address {
+    font-weight: 700;
+    line-height: $line-height-base !important;
+    text-align: center;
+}
+
+.cp-vendor-card-see-all-packages {
+    &::after {
+        @include cp-arrow-right(4px, 4px, $cp-secondary-color);
+    }
+}

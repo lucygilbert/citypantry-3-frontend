@@ -1,0 +1,18 @@
+.cp-vendor {
+    @extend .row;
+    margin-top: 60px;
+}
+
+.cp-vendor-main {
+    @extend .col-md-8;
+    @extend .col-md-push-4;
+
+    h1 {
+        margin: 0 0 $cp-margin-base-vertical;
+    }
+}
+
+.cp-vendor-sidebar {
+    @extend .col-md-4;
+    @extend .col-md-pull-8;
+}

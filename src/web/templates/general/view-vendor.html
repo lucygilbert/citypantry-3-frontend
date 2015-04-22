@@ -1,40 +1,14 @@
-<div class="wrapper">
-    <div class="row">
-        <div class="col-sm-4 sidebar">
-            <section class="island vendor">
-                <h3 class="h2 vendor-name">{{ vendor.name }}</h3>
+<div class="container">
+    <div class="cp-vendor">
+        <div class="cp-vendor-main">
+            <h1 class="cp-heading">Packages</h1>
 
-                <p class="vendor-type">{{ vendor.businessType.name }}</p>
-
-                <div ng-if="vendor.images.length > 0"
-                    class="vendor-image"
-                    style="background-image: url('{{ vendor.images[0].medium }}');"></div>
-
-                <div class="vendor-contact-details" ng-if="vendor.addresses.length > 0">
-                    <p>{{ vendor.addresses[0] | addressSingleLineFormatter }}</p>
-                </div>
-
-                <p ng-if="vendor.description">{{ vendor.description }}</p>
-
-                <a class="btn btn-primary btn-lg btn-block hire-for-an-event"
-                    ng-href="/quote/vendor/{{ vendor.id }}">Hire for an event</a>
-            </section>
+            <div class="row">
+                <div class="col-xs-6" ng-repeat="package in packages" package="package" cp-package-card></div>
+            </div>
         </div>
-
-        <div class="col-sm-8 vendor-packages">
-            <h1>Packages</h1>
-
-            <ul class="packages">
-                <li class="package" ng-repeat="package in packages">
-                    <a ng-href="/package/{{ package.humanId}}-{{ package.name | slugify }}">
-                        <div class="package-image" style="background-image: url('{{ package.images[0].medium }}');"></div>
-
-                        <h2 class="package-name">{{ package.name }}</h2>
-
-                        <span class="package-price">£{{ package.costIncludingVat }} <small>per head</small></span>
-                    </a>
-                </li>
-            </ul>
+        <div class="cp-vendor-sidebar">
+            <cp-vendor-card is-hire-for-an-event-displayed="true" vendor="vendor"></cp-vendor-card>
         </div>
     </div>
 </div>
