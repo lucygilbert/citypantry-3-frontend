@@ -1,0 +1,21 @@
+<aside class="cp-vendor-card" ng-if="vendor">
+    <div></div>
+    <div class="inner">
+        <hgroup>
+            <h3 class="cp-vendor-card-name">
+                <a href="/vendor/{{ vendor.id }}-{{ vendor.name | slugify }}">{{ vendor.name }}</a>
+            </h3>
+            <h4 class="cp-vendor-card-business-type">{{ vendor.businessType.name }}</h4>
+        </hgroup>
+
+        <a class="cp-vendor-card-image" style="background-image: url('{{ vendor.images[0].medium }}');" href="/vendor/{{ vendor.id }}-{{ vendor.name | slugify }}"></a>
+
+        <p class="cp-vendor-card-address">{{ vendor.addresses[0] | addressSingleLineFormatter }}</p>
+
+        <p>{{ vendor.description }}</p>
+
+        <p ng-if="isSeeAllPackagesDisplayed"><a class="cp-vendor-card-see-all-packages" href="/vendor/{{ vendor.id }}-{{ vendor.name | slugify }}">See all packages by this vendor</a></p>
+
+        <p ng-if="isHireForAnEventDisplayed"><a class="cp-btn cp-btn-primary cp-btn-lg cp-btn-block hire-for-an-event" ng-href="/quote/vendor/{{ vendor.id }}">Hire for an event</a></p>
+    </div>
+</aside>
