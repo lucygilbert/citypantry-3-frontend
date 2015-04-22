@@ -13,25 +13,21 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-8">
-                        <div class="cp-form-group">
-                            <label class="cp-form-label" for="login_password">Password</label>
-                            <input class="cp-form-control" id="login_password" name="loginPassword" type="password" required aria-required="true" ng-model="plainPassword" />
-                        </div>
+                    <div class="cp-form-group col-xs-8">
+                        <label class="cp-form-label" for="login_password">Password</label>
+                        <input class="cp-form-control" id="login_password" name="loginPassword" type="password" required aria-required="true" ng-model="plainPassword" />
                     </div>
 
-                    <div class="col-xs-4">
+                    <div class="cp-login-log-in col-xs-4">
                         <input class="cp-btn cp-btn-primary cp-btn-sm cp-btn-block" type="submit" value="Log in" />
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-5">
-                        <div class="cp-checkbox">
-                            <label>
-                                <input name="loginRemember" type="checkbox" checked value="true" ng-model="rememberMe" /> Remember me
-                            </label>
-                        </div>
+                    <div class="cp-checkbox cp-login-remember-me col-xs-5">
+                        <label>
+                            <input name="loginRemember" type="checkbox" checked value="true" ng-model="rememberMe" /> Remember me
+                        </label>
                     </div>
 
                     <div class="col-xs-5">
@@ -41,7 +37,7 @@
             </fieldset>
         </form>
 
-        <a class="cp-btn cp-btn-primary cp-btn-block cp-login-sign-up" href="/register">New to City Pantry? <span>Sign up</span></a>
+        <a class="cp-btn cp-btn-default cp-btn-block cp-login-sign-up" href="/register">New to City Pantry? <span>Sign up</span></a>
     </div>
 </div>
 

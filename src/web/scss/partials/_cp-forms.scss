@@ -55,6 +55,7 @@ select.cp-form-control {
     background-position: right 5px center;
     background-repeat: no-repeat;
     line-height: 1;
+    padding-right: 20px;
 }
 
 .cp-input-lg {
@@ -104,10 +105,11 @@ select.cp-form-control {
 }
 
 .cp-form-separator {
+    display: block;
     font-size: $font-size-large;
     font-weight: 600;
     position: relative;
-    top: 30px;
-    left: -3px;
+    top: 34px;
+    text-align: center;
     text-transform: uppercase;
 }
