@@ -264,7 +264,8 @@
     font-weight: 700;
 
     &::before {
-        content: '\2013 ';
+        content: '\2013';
+        padding-right: 5px;
     }
 }
 
@@ -287,7 +288,7 @@
 }
 
 .cp-package-form {
-    margin-bottom: 110px;
+    margin-bottom: 110px !important;
 }
 
 .cp-package-change-delivery-location {

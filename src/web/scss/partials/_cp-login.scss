@@ -22,9 +22,19 @@ $cp-login-sign-up-height: 69px;
     }
 }
 
+.cp-login-log-in {
+    padding-left: 0;
+}
+
 .cp-checkbox {
     margin-top: 0;
     margin-bottom: 0;
+}
+
+.cp-login-remember-me {
+    > label {
+        font-size: $font-size-base !important;
+    }
 }
 
 .cp-login-forgot-password {
@@ -40,15 +50,15 @@ $cp-login-sign-up-height: 69px;
 }
 
 .cp-login-sign-up {
-    background-color: $cp-primary-color;
-    height: $cp-login-sign-up-height;
-    line-height: $cp-login-sign-up-height - ($padding-base-vertical * 2);
+    height: $cp-login-sign-up-height !important;
+    line-height: $cp-login-sign-up-height - ($padding-base-vertical * 2) !important;
 
     > span {
         font-weight: 400;
 
         &::after {
-            content: ' \003e';
+            content: '\003e';
+            padding-left: 5px;
         }
     }
 }
