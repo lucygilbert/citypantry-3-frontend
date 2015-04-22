@@ -1,7 +1,10 @@
 <div class="container">
     <div class="cp-dashboard">
         <div class="cp-dashboard-main">
-            <h1 class="cp-dashboard-heading">Hello {{ customer.user.name | firstName }}, <span>how can we help you today?</span></h1>
+            <h1 class="cp-dashboard-heading">
+                Hello{{ customer.user.name ? ' ' + (customer.user.name | firstName) : '' }},
+                <span>how can we help you today?</span>
+            </h1>
 
             <form class="cp-form cp-dashboard-form" name="dashboardForm" novalidate role="form" ng-submit="submit()">
                 <fieldset>
