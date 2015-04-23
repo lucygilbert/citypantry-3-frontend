@@ -17,7 +17,7 @@ angular.module('cp.controllers.admin').controller('AdminVendorsController',
             },
             {
                 displayName: 'Email',
-                field: 'vendorUsers[0].user.email'
+                field: 'mainEmail'
             },
             {
                 displayName: 'Business Type',
