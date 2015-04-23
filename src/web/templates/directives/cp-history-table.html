@@ -1,4 +1,8 @@
-<table>
+<p ng-if="!isLoaded">Loading history...</p>
+
+<p ng-if="isLoaded && history.length === 0">There is no history available.</p>
+
+<table ng-if="isLoaded && history.length > 0">
     <thead>
         <th>Date</th>
         <th>Event</th>
