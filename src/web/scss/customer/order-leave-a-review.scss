@@ -1,0 +1,119 @@
+#cp-leave-a-review {
+    a[cp-back] {
+        color: $cp-primary-color;
+        top: 10px;
+        right: 0;
+        left: auto;
+    }
+
+    .cp-review-package {
+        @extend .row;
+        border: 5px solid $gray-light;
+        margin: 0 -20px;
+        padding: 20px 0;
+
+        > *[class^='col-'],
+        > *[class*=' col-'] {
+            padding: 0 20px;
+        }
+
+        > .right {
+            float: left;
+            margin-left: 20px;
+        }
+
+        h3 {
+            margin: 0 0 3px;
+        }
+
+        img {
+            float:left;
+        }
+    }
+
+    .cp-star-rating-group {
+        @extend .clearfix;
+
+        cursor: pointer;
+
+        border-width: 4px 0 0 0;
+        border-style: solid;
+        border-color: $gray-light;
+
+        label,
+        [cp-rating-stars],
+        .form-element-invalid {
+            line-height: 46px;
+            float: left;
+            margin: 0;
+        }
+        label {
+            width: 160px;
+        }
+        .form-element-invalid {
+            margin-left: 20px;
+        }
+        [cp-rating-stars] {
+            font-size: $font-size-h3;
+        }
+    }
+
+    .cp-star-rating-group:last-of-type {
+        border-bottom-width: 4px;
+    }
+
+    .cp-recommend-to-friend-rating {
+        float: left;
+        width: 100%;
+
+        .rating {
+            @include cp-font-title($font-size-h3);
+            border: 3px solid $gray-light;
+            color: $gray-light;
+            cursor: pointer;
+            float: left;
+            line-height: 50px;
+            margin-left: 1%;
+            text-align: center;
+            width: 9.1%;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+
+        .rating.active {
+            color: $cp-primary-color;
+            border-color: $cp-primary-color;
+        }
+
+        .least,
+        .most {
+            font-weight: 600;
+            margin-top: 3px;
+        }
+        .least {
+            float: left;
+        }
+        .most {
+            float: right;
+        }
+    }
+}
+
+.cp-review-package-detail {
+    padding-left: 0 !important;
+}
+
+.cp-review-package-image {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 155px;
+}
+
+.cp-review-package-vendor-name,
+.cp-review-package-short-description {
+    font-size: 16px;
+    margin-bottom: $cp-margin-small-vertical;
+}

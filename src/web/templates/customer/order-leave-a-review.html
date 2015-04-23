@@ -1,21 +1,129 @@
-<div class="thin-wrapper">
-    <h2 class="cp-heading">Leave a review for: {{ order.package.name }}</h2>
+<div class="thin-wrapper" id="cp-leave-a-review">
+    <h2 class="cp-heading">
+        {{ order.requestedDeliveryDate | date:'EEE' }},
+        <span class="cp-light">{{ order.requestedDeliveryDate | date:'dd MMM yy' }}</span>
+    </h2>
+
+    <div class="cp-review-package">
+        <div class="col-md-5">
+            <div class="cp-review-package-image" style="background-image: url('{{ order.package.images[0].thumbnail }}')"></div>
+        </div>
+        <div class="cp-review-package-detail col-md-7">
+            <h3 class="cp-heading">{{ order.package.name }}</h3>
+
+            <p class="cp-review-package-vendor-name">{{ order.package.vendor.name }}</p>
+
+            <p class="cp-review-package-short-description" ng-if="order.package.shortDescription" js-clamp="'3'">{{ order.package.shortDescription }}</p>
+
+            <a ng-href="/package/{{ order.package.humanId }}-{{ order.package.name | slugify }}" class="link-account">View details</a>
+        </div>
+    </div>
+
+    <h2 class="cp-heading">Your feedback</h2>
 
     <form name="reviewForm" role="form" ng-submit="save()" novalidate>
         <fieldset>
             <div class="cp-form-group">
-                <label class="cp-form-label" for="review-text">
-                    Your review
-                    <span class="form-element-invalid" ng-show="reviewForm.$submitted && reviewForm.review.$error.required">
-                        (This field is required.)
-                    </span>
-                </label>
+                <div class="cp-star-rating-group">
+                    <label class="cp-form-label">Food quality</label>
 
-                <textarea ng-model="review" cols="80" rows="6" required id="review-text" name="review"
-                    class="cp-form-control"></textarea>
+                    <div cp-rating-stars="review.foodQualityRating" cp-is-editable="true"></div>
+
+                    <div class="form-element-invalid" ng-if="errors.foodQualityRatingRequiredError">
+                        This field is required.
+                    </div>
+                </div>
+
+                <div class="cp-star-rating-group">
+                    <label class="cp-form-label">Presentation</label>
+
+                    <div cp-rating-stars="review.presentationRating" cp-is-editable="true"></div>
+
+                    <div class="form-element-invalid" ng-if="errors.presentationRatingRequiredError">
+                        This field is required.
+                    </div>
+                </div>
+
+                <div class="cp-star-rating-group">
+                    <label class="cp-form-label">Delivery</label>
+
+                    <div cp-rating-stars="review.deliveryRating" cp-is-editable="true"></div>
+
+                    <div class="form-element-invalid" ng-if="errors.deliveryRatingRequiredError">
+                        This field is required.
+                    </div>
+                </div>
+
+                <div class="cp-star-rating-group">
+                    <label class="cp-form-label">Overall</label>
+
+                    <div cp-rating-stars="review.overallRating" cp-is-editable="true"></div>
+
+                    <div class="form-element-invalid" ng-if="errors.overallRatingRequiredError">
+                        This field is required.
+                    </div>
+                </div>
             </div>
 
-            <input class="btn btn-primary" type="submit" value="Save" />
+            <div class="cp-form-group cp-is-delivered-on-time">
+                <label class="cp-form-label">
+                    Was the package delivered on time?
+                </label>
+
+                <div class="form-element-invalid" ng-if="errors.isDeliveredOnTimeRequiredError">
+                    This field is required.
+                </div>
+
+                <label class="cp-checkbox-inline">
+                    <input type="radio" ng-model="review.isDeliveredOnTime" value="1" />
+                    Yes
+                </label>
+
+                <label class="cp-checkbox-inline">
+                    <input type="radio" ng-model="review.isDeliveredOnTime" value="0" />
+                    No
+                </label>
+            </div>
+
+            <div class="cp-form-group">
+                <label class="cp-form-label" for="reviewText">
+                    Comment
+                </label>
+
+                <textarea class="cp-form-control" id="reviewText" ng-model="review.review" cols="80" rows="6"
+                    required aria-required="true"></textarea>
+            </div>
+
+            <div class="cp-form-group cp-recommend-to-friend-rating">
+                <label class="cp-form-label">
+                    Based on today’s experience, how likely are you to recommend<br />
+                    City Pantry to a friend?
+                </label>
+
+                <span class="form-element-invalid" ng-if="errors.recommendToFriendRatingRequiredError">
+                    This field is required.
+                </span>
+
+                <div class="cp-recommend-to-friend-rating">
+                    <div ng-repeat="number in oneToTen"
+                            class="rating"
+                            ng-class="{active: review.recommendToFriendRating === number}"
+                            ng-click="setRecommendToFriendRating(number)">
+                        {{ number }}
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <span class="least">Least</span>
+                    <span class="most">Most</span>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <input class="cp-btn cp-btn-primary" type="submit" value="Submit" />
         </fieldset>
     </form>
+
+    <a class="cp-btn cp-btn-link" href="/customer/orders" cp-back>Go back</a>
 </div>

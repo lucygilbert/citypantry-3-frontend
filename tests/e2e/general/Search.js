@@ -75,11 +75,11 @@ describe('Search', function() {
     it('should be able to filter by postcode', function() {
         var postcodeFilter = element(by.model('search.postcode'));
 
-        postcodeFilter.sendKeys('W12');
+        postcodeFilter.sendKeys('W12').sendKeys(protractor.Key.ENTER);
         expectSearchResultCount(1);
-        postcodeFilter.sendKeys(' 8LB');
+        postcodeFilter.sendKeys(' 8LB').sendKeys(protractor.Key.ENTER);
         expectSearchResultCount(1);
-        postcodeFilter.clear();
+        postcodeFilter.clear().sendKeys(protractor.Key.ENTER);
         expectSearchResultCount(7);
     });
 

@@ -31,7 +31,9 @@
                 <td ng-click="showReceipt(order)">{{ order.headCount }}</td>
                 <td ng-click="showReceipt(order)">{{ order.statusText | getOrderStatusText }}</td>
                 <td>
-                    <a ng-click="acceptOrder(order)" ng-if="order.statusText === 'pending_vendor_approval'" class="accept-order">
+                    <a ng-click="acceptOrder(order)"
+                            ng-if="!order.hasRequestedDeliveryDatePassed && order.statusText === 'pending_vendor_approval'"
+                            class="accept-order">
                         Accept order
                     </a>
                 </td>
