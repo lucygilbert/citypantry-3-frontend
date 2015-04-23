@@ -5,6 +5,13 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             return userIsLoggedInAndAvailable ? JSON.parse(localStorage.getItem('user')) : false;
         },
 
+        getUserId: function() {
+            const user = this.getUser();
+            if (user) {
+                return user.id;
+            }
+        },
+
         getVendor: function() {
             var deferred = $q.defer();
 
@@ -48,9 +55,12 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             return !!$cookies.userId;
         },
 
+        urlToForwardToAfterLogin: undefined,
+
         requireLoggedIn: function() {
             if (!this.isLoggedIn()) {
-                $location.path('/login');
+                this.urlToForwardToAfterLogin = $location.url();
+                $location.url('/login');
             }
         },
 
@@ -61,18 +71,24 @@ angular.module('cp.services').service('SecurityService', function($location, $co
         },
 
         requireStaff: function() {
+            this.requireLoggedIn();
+
             if (!this.staffIsLoggedIn()) {
                 $location.path('/');
             }
         },
 
         requireVendor: function() {
+            this.requireLoggedIn();
+
             if (!this.vendorIsLoggedIn()) {
                 $location.path('/');
             }
         },
 
         requireCustomer: function() {
+            this.requireLoggedIn();
+
             if (!this.customerIsLoggedIn()) {
                 $location.path('/');
             }

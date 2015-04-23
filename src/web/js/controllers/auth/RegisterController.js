@@ -1,6 +1,6 @@
 angular.module('cp.controllers.authentication').controller('RegisterController',
         function($scope, $cookies, $window, AuthenticationFactory, LoadingService,
-        DocumentTitleService, SecurityService) {
+        DocumentTitleService, SecurityService, ABTestService) {
     LoadingService.hide();
     SecurityService.requireLoggedOut();
     DocumentTitleService('New to City Pantry? Sign up!');
@@ -24,10 +24,14 @@ angular.module('cp.controllers.authentication').controller('RegisterController',
 
         AuthenticationFactory.registerCustomer(registerDetails)
             .success(function(response) {
-                $cookies.userId = response.apiAuth.userId;
-                $cookies.salt = response.apiAuth.salt;
-                $window.localStorage.setItem('user', JSON.stringify(response.user));
-                $window.location = '/';
+                ABTestService.isAllowedToSeeDashboardAndSearchResultsWhenLoggedOut
+                    .addEvent('registered', {userId: response.apiAuth.userId})
+                    .finally(() => {
+                        $cookies.userId = response.apiAuth.userId;
+                        $cookies.salt = response.apiAuth.salt;
+                        $window.localStorage.setItem('user', JSON.stringify(response.user));
+                        $window.location = '/';
+                    });
             })
             .catch(function(response) {
                 $scope.registerError = response.data.errorTranslation;

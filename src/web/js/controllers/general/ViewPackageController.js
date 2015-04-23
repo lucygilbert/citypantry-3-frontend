@@ -1,7 +1,8 @@
 angular.module('cp.controllers.general').controller('ViewPackageController',
         function($scope, $routeParams, PackagesFactory, NotificationService, DocumentTitleService,
         LoadingService, SecurityService, $sce, FRONTEND_BASE, OrdersFactory, $location,
-        getPackageAvailabilityErrorTextFilter, CheckoutService, $filter, SearchService) {
+        getPackageAvailabilityErrorTextFilter, CheckoutService, $filter, SearchService,
+        ABTestService) {
     SecurityService.requireLoggedIn();
 
     // 'changeDeliveryLocationModalState' can be set to 'checking', 'available', 'notAvailabe'.
@@ -55,6 +56,9 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             SearchService.setLastPackageSelected($scope.package.id);
 
             recalculateCostAmounts();
+
+            ABTestService.isAllowedToSeeDashboardAndSearchResultsWhenLoggedOut
+                .addEvent('viewedPackage', {packageId: $scope.package.id, userId: SecurityService.getUserId()});
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 

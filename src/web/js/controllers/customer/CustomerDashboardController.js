@@ -1,7 +1,17 @@
 angular.module('cp.controllers.customer').controller('CustomerDashboardController',
         function($scope, DocumentTitleService, SecurityService, LoadingService, $q, PackagesFactory,
-        OrdersFactory, $location, CustomersFactory, NotificationService, $filter, SearchService) {
-    SecurityService.requireCustomer();
+        OrdersFactory, $location, CustomersFactory, NotificationService, $filter, SearchService,
+        ABTestService) {
+    if (!SecurityService.isLoggedIn() && !ABTestService.isAllowedToSeeDashboardAndSearchResultsWhenLoggedOut()) {
+        SecurityService.requireCustomer();
+        return;
+    }
+
+    if (SecurityService.vendorIsLoggedIn()) {
+        $location.path('/vendor/orders');
+        return;
+    }
+
     DocumentTitleService('Dashboard');
 
     $scope.addresses = [];
@@ -25,7 +35,7 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
         time: SearchService.getDeliveryTime()
     };
 
-    function init() {
+    function initIfLoggedIn() {
         const promise1 = PackagesFactory.getEventTypes()
             .success(response => {
                 $scope.eventTypeOptions = response.eventTypes;
@@ -87,7 +97,20 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
         });
     }
 
-    init();
+    function initIfLoggedOut() {
+        PackagesFactory.getEventTypes()
+            .success(response => {
+                $scope.eventTypeOptions = response.eventTypes;
+                LoadingService.hide();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    }
+
+    if (SecurityService.isLoggedIn()) {
+        initIfLoggedIn();
+    } else {
+        initIfLoggedOut();
+    }
 
     // @todo - This function seems pointless.
     function toIso8601String(date) {

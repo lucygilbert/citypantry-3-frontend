@@ -2,7 +2,7 @@ angular.module('cp.controllers.user', []);
 
 angular.module('cp.controllers.user').controller('LoginRegisterController',
         function($scope, $http, $cookies, $window, AuthenticationFactory, DocumentTitleService, SecurityService,
-        LoadingService, NotificationService) {
+        LoadingService, NotificationService, ABTestService) {
     DocumentTitleService('Log in');
     SecurityService.requireLoggedOut();
     LoadingService.hide();
@@ -23,9 +23,21 @@ angular.module('cp.controllers.user').controller('LoginRegisterController',
                 $cookies.salt = response.data.apiAuth.salt;
                 $window.localStorage.setItem('user',
                         JSON.stringify(response.data.user));
-                $window.location = '/';
+
+                ABTestService.isAllowedToSeeDashboardAndSearchResultsWhenLoggedOut
+                    .addEvent('loggedIn', {userId: response.data.apiAuth.userId})
+                    .finally(() => {
+                        if (SecurityService.urlToForwardToAfterLogin) {
+                            $window.location = SecurityService.urlToForwardToAfterLogin;
+                        } else {
+                            $window.location = '/';
+                        }
+                    });
             })
             .catch(function(response) {
+                if (!response || !response.data.errorTranslation) {
+                    $scope.loginError = 'An unknown error occurred.';
+                }
                 $scope.loginError = response.data.errorTranslation;
                 LoadingService.hide();
             });

@@ -1,5 +1,3 @@
-angular.module('cp.services', []);
-
 angular.module('cp.services').service('CheckoutService', function() {
     var deliveryAddressId;
     var deliveryCost;
