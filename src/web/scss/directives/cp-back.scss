@@ -1,6 +1,8 @@
+@import '../mixins/cp-font-title';
+
 button[cp-back] {
+    @include cp-font-title(16px);
     border: 0;
-    font-weight: 600;
     height: auto;
     padding: 0;
     position: absolute;
