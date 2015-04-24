@@ -33,7 +33,7 @@ angular.module('cp.controllers.general').controller('SearchController',
     $scope.isAdvancedSearchVisible = false;
     $scope.cuisineTypes = [];
     $scope.dietaryRequirements = [];
-    $scope.packagingTypeOptions = PackagesFactory.getPackagingTypeOptions();
+    $scope.packagingTypeOptions = PackagesFactory.getPackagingTypeChoiceOptions();
 
     // This limit is not fixed - it increases when the user clicks 'show more' (triggering
     // `$scope.showMore`).
@@ -53,7 +53,7 @@ angular.module('cp.controllers.general').controller('SearchController',
 
         const promise2 = PackagesFactory.getCuisineTypes()
             .success(response => {
-                $scope.cuisineTypes = response.cuisineTypes;
+                $scope.cuisineTypes = response.cuisineTypes.filter(cuisineType => cuisineType.hasPackages);
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
@@ -71,7 +71,7 @@ angular.module('cp.controllers.general').controller('SearchController',
             if ($scope.search.packagingType) {
                 $scope.search.packagingType = $scope.packagingTypeOptions[$scope.search.packagingType - 1].value;
             } else {
-                $scope.search.packagingType = $scope.packagingTypeOptions[2].value; // "I don't mind".
+                $scope.search.packagingType = $scope.packagingTypeOptions[2].value; // "Don't care".
             }
 
             search();

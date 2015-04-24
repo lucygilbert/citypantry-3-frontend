@@ -99,18 +99,17 @@ describe('Search', function() {
         advancedSearch.click();
 
         var cuisineTypes = element.all(by.repeater('cuisineType in cuisineTypes'));
-        expect(cuisineTypes.get(0).getText()).toBe('American');
-        expect(cuisineTypes.get(1).getText()).toBe('Argentinian');
-        expect(cuisineTypes.get(2).getText()).toBe('Brazilian');
+        expect(cuisineTypes.get(0).getText()).toBe('British');
+        expect(cuisineTypes.get(1).getText()).toBe('Japanese');
 
-        cuisineTypes.get(3).click();
+        cuisineTypes.get(0).click();
         expectSearchResultCount(1);
 
-        cuisineTypes.get(25).click();
+        cuisineTypes.get(1).click();
         expectSearchResultCount(3);
 
+        cuisineTypes.get(2).click();
         cuisineTypes.get(3).click();
-        cuisineTypes.get(25).click();
         expectSearchResultCount(7);
     });
 
