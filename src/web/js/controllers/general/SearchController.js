@@ -157,11 +157,9 @@ angular.module('cp.controllers.general').controller('SearchController',
     });
 
     $scope.$watch('search.postcode', (newValue, oldValue) => {
-        if (newValue === oldValue) {
-            return;
-        }
         SearchService.setPostcode(newValue);
-        search();
+        // Don't perform a search, because we want to wait until the enter key is pressed before
+        // searching (which is trigger by `$scope.searhAndBlurIfEnterKey`).
     });
 
     $scope.$watchCollection('search.dietaryRequirements', (newValue, oldValue) => {
@@ -235,8 +233,9 @@ angular.module('cp.controllers.general').controller('SearchController',
             });
     }
 
-    $scope.blurIfEnterKey = function(keyEvent) {
+    $scope.searchAndBlurIfEnterKey = function(keyEvent) {
         if (keyEvent.which === 13) {
+            search();
             keyEvent.target.blur();
         }
     };
