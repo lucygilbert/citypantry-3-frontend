@@ -176,3 +176,13 @@
 .cp-search-notice {
     font-size: $font-size-h4;
 }
+
+.cp-search-cuisine-type-uncheck-all {
+    font-size: $font-size-base !important;
+    font-weight: 600;
+    height: auto !important;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: ($grid-gutter-width / 2);
+}

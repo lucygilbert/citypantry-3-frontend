@@ -97,12 +97,17 @@
                                 </label>
                             </div>
                         </div>
+                        <button class="cp-btn cp-btn-link cp-search-cuisine-type-uncheck-all"
+                                type="button"
+                                ng-click="search.cuisineTypes = []"
+                                ng-show="search.cuisineTypes.length > 0"
+                            >Uncheck all</button>
                     </fieldset>
                 </div>
 
                 <div class="col-md-6">
                     <fieldset>
-                        <legend class="cp-search-advanced-search-label" ng-show="dietaryRequirements.length > 0">Diet specific</legend>
+                        <legend class="cp-search-advanced-search-label" ng-show="dietaryRequirements.length > 0">Specific dietary requirements</legend>
                         <div class="row">
                             <div class="cp-checkbox col-md-6 col-lg-4" ng-repeat="dietaryRequirement in dietaryRequirements">
                                 <label>
