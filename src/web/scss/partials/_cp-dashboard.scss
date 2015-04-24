@@ -52,7 +52,7 @@
     @extend .col-md-4;
 }
 
-.cp-dashboard-order {
+.cp-dashboard-aside {
     border: 5px solid $gray-light;
     padding: $cp-padding-xl-vertical ($grid-gutter-width / 2);
 
@@ -64,16 +64,29 @@
     .cp-package-card-price {
         display: block !important;
     }
+
+    .cp-package-rating-inline {
+        margin-bottom: $cp-margin-small-vertical;
+
+        > li {
+            margin-bottom: $cp-margin-small-vertical;
+            width: 40%;
+
+            &:nth-child(odd) {
+                border-left: 0;
+            }
+        }
+    }
 }
 
-.cp-dashboard-order-heading {
+.cp-dashboard-aside-heading {
     @include cp-font-title($font-size-h3);
     float: left;
     margin: 0;
     width: 60%;
 }
 
-.cp-dashboard-order-date {
+.cp-dashboard-aside-order-date {
     @include cp-font-title($font-size-h3);
     float: right;
     font-weight: 400;
@@ -82,12 +95,12 @@
     width: 40%;
 }
 
-.cp-dashboard-order-description {
+.cp-dashboard-aside-package-description {
     font-size: 16px;
     margin-bottom: $cp-margin-base-vertical;
 }
 
-.cp-dashboard-order-detail {
+.cp-dashboard-aside-order-detail {
     position: relative;
 
     > dl {
@@ -115,7 +128,7 @@
     }
 }
 
-.cp-dashboard-order-detail-total {
+.cp-dashboard-aside-order-detail-total {
     @include cp-font-title($font-size-h4);
     border-top: 2px solid $cp-primary-color !important;
     border-bottom: 2px solid $cp-primary-color !important;
@@ -126,14 +139,14 @@
     top: -1px;
 }
 
-.cp-dashboard-order-detail-heading {
+.cp-dashboard-aside-order-detail-heading {
     @include cp-font-title($font-size-h4);
     border-bottom: 2px solid $cp-primary-color;
     margin: 0;
     padding-bottom: $padding-base-vertical;
 }
 
-.cp-dashboard-order-edit {
+.cp-dashboard-aside-order-edit {
     font-weight: 600;
     position: absolute;
     top: 0;

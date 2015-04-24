@@ -75,18 +75,18 @@
             </form>
         </div>
         <div class="cp-dashboard-sidebar">
-            <aside class="cp-dashboard-order" ng-if="nextOrder">
+            <aside class="cp-dashboard-aside" ng-if="nextOrder">
                 <header>
-                    <h2 class="cp-dashboard-order-heading">Next order</h2>
-                    <span class="cp-dashboard-order-date">{{ nextOrder.requestedDeliveryDate | date:'dd MMM yy' }}</span>
+                    <h2 class="cp-dashboard-aside-heading">Next order</h2>
+                    <span class="cp-dashboard-aside-order-date">{{ nextOrder.requestedDeliveryDate | date:'dd MMM yy' }}</span>
                 </header>
 
                 <cp-package-card package="nextOrder.package"></cp-package-card>
 
-                <p class="cp-dashboard-order-description" js-clamp="'3'">{{ nextOrder.package.description }}</p>
+                <p class="cp-dashboard-aside-package-description" js-clamp="'3'">{{ nextOrder.package.description }}</p>
 
-                <section class="cp-dashboard-order-detail">
-                    <h3 class="cp-dashboard-order-detail-heading">Your order</h3>
+                <section class="cp-dashboard-aside-order-detail">
+                    <h3 class="cp-dashboard-aside-order-detail-heading">Your order</h3>
                     <dl>
                         <dt>Delivery time</dt>
                         <dd>{{ nextOrder.requestedDeliveryDate | date:'HH:mm' }}</dd>
@@ -97,15 +97,29 @@
                         <dt>Dietary requirements</dt>
                         <dd>{{ nextOrder.vegetarianHeadCount }}</dd>
 
-                        <dt class="cp-dashboard-order-detail-total">Total</dt>
-                        <dd class="cp-dashboard-order-detail-total">{{ nextOrder.totalAmountAfterVoucher | currency:'£' }}</dd>
+                        <dt class="cp-dashboard-aside-order-detail-total">Total</dt>
+                        <dd class="cp-dashboard-aside-order-detail-total">{{ nextOrder.totalAmountAfterVoucher | currency:'£' }}</dd>
                     </dl>
-                    <a class="cp-dashboard-order-edit" href="@todo">Edit<span class="sr-only"> order</span></a>
+                    <a class="cp-dashboard-aside-order-edit" href="@todo">Edit<span class="sr-only"> order</span></a>
                 </section>
 
                 <a class="cp-btn cp-btn-default cp-btn-lg cp-btn-block"
                     ng-href="/package/{{ nextOrder.package.humanId }}-{{ nextOrder.package.name | slugify }}"
                     >View details</a>
+            </aside>
+
+            <aside class="cp-dashboard-aside" ng-if="!nextOrder && recommendedPackage">
+                <header>
+                    <h2 class="cp-dashboard-aside-heading">We recommend</h2>
+                </header>
+
+                <cp-package-card package="recommendedPackage"></cp-package-card>
+
+                <cp-package-rating cp-summary="reviewsSummary" cp-style="horizontal"></cp-package-rating>
+
+                <p class="cp-dashboard-aside-package-description" js-clamp="'3'">{{ recommendedPackage.description }}</p>
+
+                <a class="cp-btn cp-btn-default cp-btn-lg cp-btn-block" ng-href="/package/{{ recommendedPackage.humanId }}-{{ recommendedPackage.name | slugify }}">View details</a>
             </aside>
         </div>
     </div>
