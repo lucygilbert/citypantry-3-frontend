@@ -50,12 +50,12 @@ describe('Dashboard page', function() {
     });
 
     it('should show customer\'s next order', function() {
-        expect(element(by.css('.cp-dashboard-order')).isPresent()).toBe(true);
-        expect(element(by.css('.cp-dashboard-order-date')).getText()).toMatch(/\d{2} \w+ \d{2}/);
+        expect(element(by.css('.cp-dashboard-aside')).isPresent()).toBe(true);
+        expect(element(by.css('.cp-dashboard-aside-order-date')).getText()).toMatch(/\d{2} \w+ \d{2}/);
         expect(element(by.css('.cp-package-card-name')).getText()).toBe('PAELLA');
         expect(element(by.css('.cp-package-card-vendor')).getText()).toBe('Flame Mangal');
         expect(element(by.css('.cp-package-card-price')).getText()).toContain('10.00');
-        expect(element(by.css('.cp-dashboard-order-description')).getText()).toBe('Yummy');
+        expect(element(by.css('.cp-dashboard-aside-package-description')).getText()).toBe('Yummy');
     });
 
     it('should be able to search for food', function() {

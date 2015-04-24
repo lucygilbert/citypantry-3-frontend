@@ -20,7 +20,6 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
     $scope.isDatePickerOpen = false;
     $scope.eventTypeOptions = [];
     $scope.minDate = new Date();
-    $scope.orders = [];
     $scope.nextOrder = undefined;
     $scope.timeOptions = PackagesFactory.getPackageDeliveryTimeOptions(700, 2400, 30);
 
@@ -37,25 +36,26 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
 
     function initIfLoggedIn() {
         const promise1 = PackagesFactory.getEventTypes()
-            .success(response => {
-                $scope.eventTypeOptions = response.eventTypes;
-            })
+            .success(response => $scope.eventTypeOptions = response.eventTypes)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         const promise2 = CustomersFactory.getAddresses()
-            .success(response => {
-                $scope.addresses = response.addresses;
-            })
+            .success(response => $scope.addresses = response.addresses)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
-        const promise3 = OrdersFactory.getOrdersByCurrentCustomer()
-            .success(response => {
-                $scope.customer = response.customer;
-                $scope.orders = response.orders;
-            })
+        const promise3 = SecurityService.getCustomer()
+            .then(customer => $scope.customer = customer)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
-        $q.all([promise1, promise2, promise3]).then(() => {
+        const promise4 = OrdersFactory.getNextCustomerOrder()
+            .then(nextOrder => $scope.nextOrder = nextOrder)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+
+        const promise5 = PackagesFactory.getRecommendedPackage()
+            .success(response => $scope.recommendedPackage = response.recommendedPackage)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+
+        $q.all([promise1, promise2, promise3, promise4, promise5]).then(() => {
             const postcode = SearchService.getPostcode();
             if (postcode) {
                 let isNewPostcode = true;
@@ -75,15 +75,6 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
                 }
             }
 
-            const upcomingOrders = $scope.orders.filter(order => {
-                    return order.statusText !== 'not_placed' && order.requestedDeliveryDate >= toIso8601String(new Date());
-                })
-                .sort((a, b) => a.requestedDeliveryDate > b.requestedDeliveryDate);
-
-            if (upcomingOrders.length > 0) {
-                $scope.nextOrder = upcomingOrders[0];
-            }
-
             if ($scope.search.date) {
                 $scope.pickedDate = $filter('date')($scope.search.date, 'dd/MM/yyyy');
             }
@@ -91,6 +82,10 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
             const eventTypes = SearchService.getEventTypes();
             if (eventTypes.length > 0) {
                 $scope.search.eventType = eventTypes[0];
+            }
+
+            if ($scope.recommendedPackage) {
+                loadReviews($scope.recommendedPackage.id);
             }
 
             LoadingService.hide();
@@ -110,13 +105,6 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
         initIfLoggedIn();
     } else {
         initIfLoggedOut();
-    }
-
-    // @todo - This function seems pointless.
-    function toIso8601String(date) {
-        const off = date.getTimezoneOffset();
-
-        return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes() - off, date.getSeconds(), date.getMilliseconds()).toISOString();
     }
 
     function postcodeComparison(postcode1, postcode2) {
@@ -152,6 +140,14 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
             }
         }
     });
+
+    const loadReviews = (id) => {
+        PackagesFactory.getPackageReviews(id)
+            .success(response => {
+                $scope.reviewsSummary = response.summary;
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
 
     $scope.submit = function() {
         if (!$scope.dashboardForm.$valid) {
