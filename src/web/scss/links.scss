@@ -1,3 +1,5 @@
+@import 'mixins/cp-arrows';
+
 a[ng-click] {
     cursor: pointer;
 }
@@ -9,7 +11,9 @@ a[ng-click] {
 }
 
 .link-account {
-    color: #f15a24;
-    font-weight: bold;
-    font-size: 0.9em;
+    @include cp-font-title(16px);
+
+    &::after {
+        @include cp-arrow-right(5px, 5px, $cp-secondary-color);
+    }
 }

@@ -2,7 +2,8 @@ angular.module('cp').directive('cpRatingStars', function(getTemplateUrl) {
     return {
         restrict: 'A',
         scope: {
-            value: '=cpRatingStars'
+            value: '=cpRatingStars',
+            editable: '=cpIsEditable',
         },
         templateUrl: getTemplateUrl('directives/cp-rating-stars.html'),
         controller: 'cpRatingStarsController'
@@ -18,5 +19,13 @@ angular.module('cp').controller('cpRatingStarsController', function($scope) {
         } else {
             return 'icon-star-o';
         }
+    };
+
+    $scope.set = (value) => {
+        if (!$scope.editable) {
+            return;
+        }
+
+        $scope.value = value;
     };
 });

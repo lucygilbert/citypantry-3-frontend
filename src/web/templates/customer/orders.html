@@ -35,7 +35,9 @@
                     </a>
                 </td>
                 <td>
-                    <a href="/customer/orders/{{ order.id }}/leave-a-review" ng-if="!order.hasBeenReviewed" class="leave-a-review">
+                    <a href="/customer/orders/{{ order.id }}/leave-a-review"
+                            ng-if="order.hasRequestedDeliveryDatePassed && !order.hasBeenReviewed"
+                            class="leave-a-review">
                         Write review
                     </a>
                 </td>

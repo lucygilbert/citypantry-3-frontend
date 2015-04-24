@@ -1,6 +1,14 @@
 describe('Leaving a review for an order', function() {
     var notificationModal = require('../NotificationModal.js');
     var first = true;
+    var foodQualityRating;
+    var presentationRating;
+    var deliveryRating;
+    var overallRating;
+    var isDeliveredOnTime;
+    var comment;
+    var recommendToFriendRating;
+    var submit;
 
     beforeEach(function() {
         if (first) {
@@ -17,19 +25,37 @@ describe('Leaving a review for an order', function() {
         leaveAReviewLink.click();
 
         expect(browser.getCurrentUrl()).toMatch(/\.dev\/customer\/orders\/[0-9a-f]{24}\/leave-a-review$/);
+
+        var stars = element.all(by.css('.cp-star-rating-group'));
+        foodQualityRating = stars.get(0);
+        presentationRating = stars.get(1);
+        deliveryRating = stars.get(2);
+        overallRating = stars.get(3);
+        isDeliveredOnTime = element(by.css('.cp-is-delivered-on-time'));
+        comment = element(by.model('review.review'));
+        recommendToFriendRating = element(by.css('.cp-form-group.cp-recommend-to-friend-rating'));
+        submit = element(by.css('.cp-btn-primary'));
     });
 
-    it('should display the package name in the title', function() {
-        expect(element(by.css('main   h2')).getText()).toBe('LEAVE A REVIEW FOR: BEEF AND MIXED VEG CURRY');
+    it('should display the package details', function() {
+        expect(element(by.css('.cp-review-package h3')).getText()).toBe('BEEF AND MIXED VEG CURRY');
+        expect(element(by.css('.cp-review-package-vendor-name')).getText()).toBe('Oriental Kitchen Express');
     });
 
-    it('should not allow an empty review to be saved', function() {
-        element(by.css('textarea')).clear();
-        element(by.css('main input[type="submit"]')).click();
+    function getStar(parent, number) {
+        return parent.element(by.css('i[ng-click="set(' + number + ')"]'));
+    }
 
-        expect(element(by.css('main')).getText()).toContain('This field is required.');
+    it('should be able to set star ratings for food quality, etc.', function() {
+        getStar(foodQualityRating, 3).click();
+        getStar(presentationRating, 5).click();
+        getStar(deliveryRating, 1).click();
+        getStar(overallRating, 4).click();
+    });
 
-        notificationModal.expectIsClosed();
+    it('should be able to complete the other form fields', function() {
+        isDeliveredOnTime.all(by.css('input')).get(0).click();
+        recommendToFriendRating.all(by.css('.rating')).get(7).click();
     });
 
     it('should not allow short reviews to be saved', function() {
