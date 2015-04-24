@@ -5,18 +5,18 @@
 
     <form class="cp-form cp-login-form" role="form" ng-submit="submit()" name="registerForm">
         <fieldset>
-            <div class="cp-form-group">
-                <label class="cp-form-label" for="registerCompany">Company name</label>
-                <input class="cp-form-control" id="registerCompany" name="registerCompany"
-                    required aria-required="true"
-                    ng-model="company" />
-            </div>
 
             <div class="cp-form-group">
                 <label class="cp-form-label" for="registerName">Your name</label>
                 <input class="cp-form-control" id="registerName" name="registerName"
                     required aria-required="true"
                     ng-model="name" />
+            </div>
+
+            <div class="cp-form-group">
+                <label class="cp-form-label" for="registerCompany">Company name (optional)</label>
+                <input class="cp-form-control" id="registerCompany" name="registerCompany"
+                    ng-model="company" />
             </div>
 
             <div class="cp-form-group">
