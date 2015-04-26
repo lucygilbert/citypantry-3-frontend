@@ -5,6 +5,7 @@
         <li ng-repeat="address in addresses">
             {{ address | addressSingleLineFormatter }}
             <a class="btn btn-primary cp-edit-address" ng-href="/vendor/addresses/{{ address.id }}">Edit</a>
+            <a class="btn btn-primary cp-edit-address" ng-click="deleteAddress(address)">Delete</a>
             <br />
             Landline: {{ address.landlineNumber }}
             <br />
