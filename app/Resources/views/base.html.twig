@@ -19,7 +19,7 @@
             _kms('//i.kissmetrics.com/i.js');
             _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
             {% if user %}
-                _kmq.push(['identify', {{ user.user.id }}]);
+                _kmq.push(['identify', {{ user.user.humanId }}]);
             {% endif %}
         </script>
         {% endif %}
