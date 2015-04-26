@@ -1,0 +1,33 @@
+<div class="wrapper" id="vendor-delivery-radiuses">
+    <h2 class="cp-heading">Package delivery radii</h2>
+
+    <p>Leave the radius field empty if the vendor cannot deliver a package from an address.</p>
+
+    <form ng-submit="save()" role="form">
+        <div ng-repeat="package in packages">
+            <h2>
+                {{ package.name }}
+                ({{ package.vendor.name }},
+                {{ package.isFullyActive ? 'active' : 'inactive' }},
+                {{ package.hotFood ? 'hot' : 'cold' }})
+            </h2>
+
+            <p ng-repeat="address in package.vendor.addresses">
+                <b>Radius:</b>
+                <input class="form-control" ng-model="package.deliveryRadiuses[address.id]"
+                    ng-change="package.hasChanged = true"
+                    type="number" min="0" max="20" step="0.01" />
+                miles
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <b>From:</b>
+                {{ address | addressSingleLineFormatter }}
+            </p>
+
+            <p ng-show="!package.vendor.addresses.length">
+                There are no addresses for this vendor - add them by masquerading as a vendor.
+            </p>
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Save" />
+    </form>
+</div>
