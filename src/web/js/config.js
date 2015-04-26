@@ -197,6 +197,10 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
             controllerAs: 'packages',
             templateUrl: getTemplateUrl('admin/packages.html')
         }).
+        when('/admin/packages/delivery-radii', {
+            controller: 'AdminEditDeliveryRadiiController',
+            templateUrl: getTemplateUrl('admin/edit-delivery-radii.html')
+        }).
         when('/admin/packages/edit', {
             controller: 'AdminEditPackagesController',
             controllerAs: 'packages',
