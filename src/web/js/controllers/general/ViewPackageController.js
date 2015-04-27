@@ -2,7 +2,7 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         function($scope, $routeParams, PackagesFactory, NotificationService, DocumentTitleService,
         LoadingService, SecurityService, $sce, FRONTEND_BASE, OrdersFactory, $location,
         getPackageAvailabilityErrorTextFilter, CheckoutService, $filter, SearchService,
-        ABTestService) {
+        ABTestService, dateIsBSTInEffectFilter) {
     SecurityService.requireLoggedIn();
 
     // 'changeDeliveryLocationModalState' can be set to 'checking', 'available', 'notAvailabe'.
@@ -207,16 +207,22 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
 
         const timeHour = Math.floor($scope.order.time / 100);
         const timeMinute = Math.floor($scope.order.time % 100);
-        const dateTime = new Date($scope.order.date.getFullYear(), $scope.order.date.getMonth(), $scope.order.date.getDate(), timeHour, timeMinute);
+        const iso8601DateString = (
+            $scope.order.date.getFullYear() + '-' +
+            ('0' + ($scope.order.date.getMonth() + 1)).substr(-2) + '-' +
+            ('0' + $scope.order.date.getDate()).substr(-2) +
+            'T' +
+            ('0' + timeHour).substr(-2) + ':' +
+            ('0' + timeMinute).substr(-2) + ':' +
+            '00' +
+            (dateIsBSTInEffectFilter($scope.order.date) ? '+0100' : 'Z')
+        );
+        const dateTime = new Date(iso8601DateString);
 
         // Format the date as YYYY-MM-DD because that is the format expected by the availability API.
-        const date = $scope.order.date.getFullYear() + '-' +
-            ('0' + ($scope.order.date.getMonth() + 1)).substr(-2) + '-' +
-            ('0' + $scope.order.date.getDate()).substr(-2);
+        const date = iso8601DateString.substr(0, 10);
 
-        const time = $scope.order.time;
-
-        PackagesFactory.checkIfPackageCanBeDelivered($scope.package.id, date, time, $scope.order.postcode)
+        PackagesFactory.checkIfPackageCanBeDelivered($scope.package.id, date, $scope.order.time, $scope.order.postcode)
             .success(response => {
                 if (response.isAvailable) {
                     CheckoutService.setPackageId($scope.package.id);

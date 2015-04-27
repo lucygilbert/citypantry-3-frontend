@@ -82,8 +82,12 @@
     <form class="admin-form" role="form" ng-submit="save()">
         <fieldset>
             <div class="form-group">
-                <label for="delivery_date">Delivery date and time</label>
-                <input class="form-control input-lg" id="delivery_date" type="text" required aria-describedby="delivery_date_help" aria-required="true" ng-model="order.requestedDeliveryDate" cp-convert-date />
+                <label for="delivery_date">
+                    Delivery date and time in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 format</a>
+                </label>
+                <input class="form-control input-lg" id="delivery_date" type="text"
+                    required aria-describedby="delivery_date_help" aria-required="true"
+                    ng-model="order.requestedDeliveryDate" />
                 <span class="help-block" id="delivery_date_help">Changing this will trigger an email to the vendor and customer. The vendor will have to confirm if they can accept the order.</span>
             </div>
 

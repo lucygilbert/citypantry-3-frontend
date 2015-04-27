@@ -1,5 +1,7 @@
 angular.module('cp.controllers.admin').controller('AdminEditOrderController',
-        function($scope, $routeParams, $window, $location, OrdersFactory, NotificationService, addressSingleLineFormatterFilter, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, $routeParams, $window, $location, OrdersFactory, NotificationService,
+        addressSingleLineFormatterFilter, DocumentTitleService, SecurityService, LoadingService,
+        dateIsBSTInEffectFilter) {
     DocumentTitleService('Edit Order');
     SecurityService.requireStaff();
 
