@@ -64,7 +64,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-9">
                     <fieldset>
                         <legend class="cp-search-event-type-label" ng-show="eventTypes.length > 0">Event type:</legend>
                         <label class="cp-checkbox-inline" ng-repeat="eventType in eventTypes">
@@ -74,6 +74,9 @@
                             {{ eventType.name }}
                         </label>
                     </fieldset>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary" ng-click="clearAllFilters()">Clear all</button>
                 </div>
             </div>
         </fieldset>
