@@ -186,7 +186,7 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             return;
         }
 
-        $location.path('/search?postcode=' + $scope.newPostcode);
+        $location.path('/search').query('postcode', $scope.newPostcode);
     };
 
     $scope.closeChangeDeliveryLocationModal = function() {
