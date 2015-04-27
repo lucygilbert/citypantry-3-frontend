@@ -25,6 +25,11 @@ body {
     quotes: '\201c' '\201d';
 }
 
+.cp-asterisk-required {
+    color: red;
+    font-weight: bold;
+}
+
 .form-inline-xs .form-group {
     display: inline-block;
     margin-bottom: 0;
