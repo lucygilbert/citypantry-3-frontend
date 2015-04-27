@@ -85,7 +85,7 @@ describe('Vendor portal - edit package', function() {
         expect(element.all(by.css('input[name="packageDeliveryDays[]"]')).get(6).isSelected()).toBe(false);
 
         var packagingType = element(by.model('package.packagingType'));
-        expect(packagingType.all(by.css('option')).count()).toBe(3);
+        expect(packagingType.all(by.css('option')).count()).toBe(5);
         expect(packagingType.element(by.cssContainingText('option', 'Individual')).isSelected()).toBe(true);
     });
 
