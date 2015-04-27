@@ -85,6 +85,17 @@ angular.module('cp.controllers.general').controller('SearchController',
         $anchorScroll(lastPackageSelected);
     }
 
+    $scope.clearAllFilters = () => {
+        $scope.search = {
+            postcode: $scope.search.postcode,
+            eventTypes: [],
+            cuisineTypes: [],
+            dietaryRequirements: []
+        };
+        $scope.pickedDate = null;
+        search();
+    };
+
     $scope.changeMaxBudget = function() {
         if ($scope.search.tempMaxBudget === $scope.search.maxBudget) {
             return;
