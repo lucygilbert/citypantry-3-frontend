@@ -1,5 +1,5 @@
 angular.module('cp.controllers.general').controller('HeaderController', function($scope,
-      $rootScope, SecurityService, CP_TELEPHONE_NUMBER_UK, CP_TELEPHONE_NUMBER_INTERNATIONAL,
+      $rootScope, $window, $location, SecurityService, CP_TELEPHONE_NUMBER_UK, CP_TELEPHONE_NUMBER_INTERNATIONAL,
       getTemplateUrl) {
     var templateUrl = (x) => getTemplateUrl('general/' + x + '-nav-menu-items.html'),
         blankToDefault = (x) => x === '' ? 'default' : x;
@@ -17,4 +17,12 @@ angular.module('cp.controllers.general').controller('HeaderController', function
     }
 
     $rootScope.$on('$routeChangeStart', () => $scope.navMenuCollapsed = true);
+
+    $scope.decideLogoLink = () => {
+        if ($window.location.href.indexOf('/login') > -1) {
+            $window.location.href = window.hubspotBase;
+        } else {
+            $location.path('/');
+        }
+    };
 });
