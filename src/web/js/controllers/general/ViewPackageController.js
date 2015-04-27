@@ -195,13 +195,6 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         $scope.isChangeDeliveryLocationModalOpen = false;
     };
 
-    // @todo - This function seems pointless.
-    function toIso8601String(date) {
-        const off = date.getTimezoneOffset();
-
-        return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes() - off, date.getSeconds(), date.getMilliseconds()).toISOString();
-    }
-
     $scope.order = function() {
         if (!$scope.packageForm.$valid) {
             $scope.packageForm.$submitted = true;
@@ -216,7 +209,14 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         const timeMinute = Math.floor($scope.order.time % 100);
         const dateTime = new Date($scope.order.date.getFullYear(), $scope.order.date.getMonth(), $scope.order.date.getDate(), timeHour, timeMinute);
 
-        PackagesFactory.checkIfPackageCanBeDelivered($scope.package.id, toIso8601String(dateTime), $scope.order.postcode)
+        // Format the date as YYYY-MM-DD because that is the format expected by the availability API.
+        const date = $scope.order.date.getFullYear() + '-' +
+            ('0' + ($scope.order.date.getMonth() + 1)).substr(-2) + '-' +
+            ('0' + $scope.order.date.getDate()).substr(-2);
+
+        const time = $scope.order.time;
+
+        PackagesFactory.checkIfPackageCanBeDelivered($scope.package.id, date, time, $scope.order.postcode)
             .success(response => {
                 if (response.isAvailable) {
                     CheckoutService.setPackageId($scope.package.id);
