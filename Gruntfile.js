@@ -214,7 +214,10 @@ module.exports = function (grunt) {
                 },
             },
             js: {
-                files: ['src/web/**/*.js'],
+                files: [
+                    'src/web/**/*.js',
+                    'node_modules/citypantry-js-lib/dist/lib-es6.js'
+                ],
                 tasks: ['js'],
                 options: {
                     debounceDelay: 100,
