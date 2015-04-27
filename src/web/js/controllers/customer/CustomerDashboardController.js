@@ -93,12 +93,20 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
     }
 
     function initIfLoggedOut() {
-        PackagesFactory.getEventTypes()
+        const promise1 = PackagesFactory.getEventTypes()
+            .success(response => $scope.eventTypeOptions = response.eventTypes)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+
+        const promise2 = PackagesFactory.getRecommendedPackage()
             .success(response => {
-                $scope.eventTypeOptions = response.eventTypes;
-                LoadingService.hide();
+                $scope.recommendedPackage = response.recommendedPackage;
+                if ($scope.recommendedPackage) {
+                    loadReviews($scope.recommendedPackage.id);
+                }
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+
+        $q.all([promise1, promise2]).then(() => LoadingService.hide());
     }
 
     if (SecurityService.isLoggedIn()) {
