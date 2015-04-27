@@ -115,7 +115,8 @@
 
                 <cp-package-card package="recommendedPackage"></cp-package-card>
 
-                <cp-package-rating cp-summary="reviewsSummary" cp-style="horizontal"></cp-package-rating>
+                <cp-package-rating cp-summary="reviewsSummary" cp-style="horizontal"
+                    ng-if="reviewsSummary"></cp-package-rating>
 
                 <p class="cp-dashboard-aside-package-description" js-clamp="'3'">{{ recommendedPackage.description }}</p>
 
