@@ -4914,20 +4914,34 @@ angular.module('ui.grid')
    * @name clearAllFilters
    * @methodOf ui.grid.class:Grid
    * @description Clears all filters and optionally refreshes the visible rows.
-   * @params {object} refreshRows Optional parameter. Defaults to true.
+   * @params {object} refreshRows Defaults to true.
+   * @params {object} clearConditions Defaults to false.
+   * @params {object} clearFlags Defaults to false.
    * @returns {promise} If `refreshRows` is true, returns a promise of the rows refreshing.
    */
-  Grid.prototype.clearAllFilters = function clearAllFilters(refreshRows) {
+  Grid.prototype.clearAllFilters = function clearAllFilters(refreshRows, clearConditions, clearFlags) {
     // Default `refreshRows` to true because it will be the most commonly desired behaviour.
     if (refreshRows === undefined) {
       refreshRows = true;
+    }
+    if (clearConditions === undefined) {
+      clearConditions = false;
+    }
+    if (clearFlags === undefined) {
+      clearFlags = false;
     }
 
     this.columns.forEach(function(column) {
       column.filters.forEach(function(filter) {
         filter.term = undefined;
-        filter.condition = undefined;
-        filter.flags = undefined;
+
+        if (clearConditions) {
+          filter.condition = undefined;
+        }
+
+        if (clearFlags) {
+          filter.flags = undefined;
+        }
       });
     });
 
