@@ -160,6 +160,14 @@
     bottom: 0;
 }
 
+.cp-search-clear-all {
+    font-size: $font-size-base !important;
+    font-weight: 600;
+    position: absolute;
+    right: 150px;
+    bottom: 0;
+}
+
 .cp-search-advanced-search::after {
     @include cp-arrow-down(4px, 4px, $cp-primary-color);
 }
