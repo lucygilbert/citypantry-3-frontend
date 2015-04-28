@@ -1,15 +1,13 @@
 <div class="wrapper">
-    <h1 class="section-title">Meet the vendors</h1>
-
     <ul class="vendors">
         <li class="vendor" ng-repeat="vendor in vendors">
             <a href="/vendor/{{ vendor.id }}-{{ vendor.slug }}">
                 <div class="img-responsive vendor-image"
                     style="background-image: url({{ vendor.images[0].medium }});"></div>
 
-                <h2 class="vendor-name">{{ vendor.name }}</h2>
+                <h2 class="cp-vendors-name">{{ vendor.name }}</h2>
 
-                <span class="vendor-type">{{ vendor.businessType.name }}</span>
+                <span class="cp-vendors-type">{{ vendor.businessType.name }}</span>
             </a>
         </li>
     </ul>
