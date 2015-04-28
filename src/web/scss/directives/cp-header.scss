@@ -58,11 +58,23 @@ cp-header {
 
         > li,
         > li > a {
+
             color: $cp-primary-color;
             font-weight: bold;
             font-size: $cp-font-size-header;
             line-height: $cp-header-main-item-height - $cp-header-main-item-vertical-padding - $cp-header-main-item-vertical-padding;
             text-decoration: none;
+        }
+
+        > li > a.btn-login-green {
+            margin-top: -10px;
+            line-height: 26px;
+            color: white;
+            background-color: #96af05;
+        }
+
+        > li > a.btn-login-green:hover {
+            background-color: #758d05;
         }
 
         li.dropdown {

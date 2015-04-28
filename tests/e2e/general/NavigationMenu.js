@@ -91,11 +91,10 @@ describe('Navigation Menu', function() {
     it('should present the default navigation options to people who aren\'t logged in', function() {
         logout();
 
-        expect(navMenu.getText()).toContain('Log in / sign up');
-        expect(navMenu.getText()).toContain('FAQ');
-        expect(navMenu.getText()).toContain('Event quote');
+        expect(navMenu.getText()).toContain('How it works');
         expect(navMenu.getText()).toContain('020');
-        expect(navMenuLinks.count()).toBe(4);
+        expect(navMenu.getText()).toContain('LOG IN');
+        expect(navMenuLinks.count()).toBe(3);
 
         expect(myAccountMenu.isPresent()).toBe(false);
         expect(myAccountButton.isPresent()).toBe(false);
