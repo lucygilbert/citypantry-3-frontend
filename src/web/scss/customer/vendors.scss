@@ -1,0 +1,10 @@
+.cp-vendors-name {
+    @include cp-font-title($cp-package-card-name-font-size);
+    color: $cp-primary-color;
+    margin-bottom: 4px;
+}
+
+.cp-vendors-type {
+    font-size: $cp-package-card-vendor-font-size;
+    color: $cp-primary-color;
+}
