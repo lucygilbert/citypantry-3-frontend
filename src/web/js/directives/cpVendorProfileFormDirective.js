@@ -6,7 +6,8 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $locati
         scope: {
             destination: '@cpDestination',
             submitValue: '@cpSubmitValue',
-            vendor: '=cpVendor'
+            vendor: '=cpVendor',
+            showSuccessModal: '=cpShowSuccessModal'
         },
         controller: function($scope) {
             $scope.vendorMaxPeopleOptions = PackagesFactory.getQuantityOptions();
@@ -44,6 +45,10 @@ angular.module('cp').directive('cpVendorProfileForm', function($cookies, $locati
                         // the controller will not refresh, so call LoadingService.hide() here for
                         // that case only.
                         LoadingService.hide();
+
+                        if ($scope.showSuccessModal) {
+                            NotificationService.notifySuccess('Your profile has been updated.');
+                        }
                     })
                     .catch(response => {
                         $scope.vendorProfileFormError = response.data.errorTranslation;

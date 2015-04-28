@@ -1,25 +1,27 @@
+var modalSelector = '[ng-controller="NotificationModalController"]';
+
 module.exports = {
     expectIsOpen: function() {
-        expect(element(by.css('[ng-controller="NotificationModalController"]')).isDisplayed()).toBe(true);
+        expect(element(by.css(modalSelector)).isDisplayed()).toBe(true);
     },
 
     expectIsClosed: function() {
-        expect(element(by.css('[ng-controller="NotificationModalController"]')).isDisplayed()).toBe(false);
+        expect(element(by.css(modalSelector)).isDisplayed()).toBe(false);
     },
 
     expectSuccessHeader: function() {
-        expect(element(by.css('[ng-controller="NotificationModalController"] .modal-header')).getText()).toBe('Success');
+        expect(element(by.css(modalSelector + ' .modal-header')).getText()).toBe('Success');
     },
 
     expectErrorHeader: function() {
-        expect(element(by.css('[ng-controller="NotificationModalController"] .modal-header')).getText()).toBe('Error');
+        expect(element(by.css(modalSelector + ' .modal-header')).getText()).toBe('Error');
     },
 
     expectMessage: function(message) {
-        expect(element(by.css('[ng-controller="NotificationModalController"] .modal-body')).getText()).toBe(message);
+        expect(element(by.css(modalSelector + ' .modal-body')).getText()).toBe(message);
     },
 
     dismiss: function() {
-        element(by.css('[ng-controller="NotificationModalController"] .modal-footer button')).click();
+        element(by.css(modalSelector + ' .modal-footer button')).click();
     }
 };
