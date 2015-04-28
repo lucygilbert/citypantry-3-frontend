@@ -49,10 +49,10 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             },
             {
                 displayName: 'Customer',
-                field: 'customerUser.name',
+                field: 'customerUserAndCompanyName',
                 cellTemplate: `
                     <div class="ui-grid-cell-contents">
-                        <a href="/admin/customer/{{row.entity.customer.id}}">{{row.entity.customerUser.name}}, {{row.entity.customer.company}}</a>
+                        <a href="/admin/customer/{{row.entity.customer.id}}">{{row.entity.customerUserAndCompanyName}}</a>
                     </div>
                 `
             },
@@ -105,6 +105,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             angular.forEach(response.orders, row => {
                 row.statusTextTranslation = getOrderStatusTextFilter(row.statusText);
                 row.deliveryStatusTextTranslation = getDeliveryStatusTextFilter(row.deliveryStatus);
+                row.customerUserAndCompanyName = row.customerUser.name + ', ' + row.customer.company;
             });
 
             vm.gridOptions.data = response.orders;
