@@ -13,9 +13,10 @@ describe('Navigation Menu', function() {
         loginAsUser('customer@bunnies.test');
 
         expect(navMenu.getText()).toContain('Dashboard');
+        expect(navMenu.getText()).toContain('Vendors');
         expect(navMenu.getText()).toContain('My account');
         expect(navMenu.getText()).toContain('020');
-        expect(navMenuLinks.count()).toBe(3);
+        expect(navMenuLinks.count()).toBe(4);
 
         expect(myAccountMenu.isDisplayed()).toBe(false);
         myAccountButton.click();
