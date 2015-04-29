@@ -87,6 +87,7 @@
 
                 <section class="cp-dashboard-aside-order-detail">
                     <h3 class="cp-dashboard-aside-order-detail-heading">Your order</h3>
+                    <p class="cp-dashboard-aside-order-edit-notice" ng-show="isEditOrderNoticeDisplayed">To make a change to this order, please call us on <a ng-href="tel:{{ CP_TELEPHONE_NUMBER_INTERNATIONAL }}">{{ CP_TELEPHONE_NUMBER_UK }}</a>.</p>
                     <dl>
                         <dt>Delivery time</dt>
                         <dd>{{ nextOrder.requestedDeliveryDate | date:'HH:mm' }}</dd>
@@ -100,7 +101,7 @@
                         <dt class="cp-dashboard-aside-order-detail-total">Total</dt>
                         <dd class="cp-dashboard-aside-order-detail-total">{{ nextOrder.totalAmountAfterVoucher | currency:'£' }}</dd>
                     </dl>
-                    <a class="cp-dashboard-aside-order-edit" href="@todo">Edit<span class="sr-only"> order</span></a>
+                    <a class="cp-dashboard-aside-order-edit" ng-click="isEditOrderNoticeDisplayed = true">Edit<span class="sr-only"> order</span></a>
                 </section>
 
                 <a class="cp-btn cp-btn-default cp-btn-lg cp-btn-block"

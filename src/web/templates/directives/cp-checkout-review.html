@@ -13,7 +13,7 @@
             <dt>People</dt>
             <dd id="head_count">{{ headCount }}</dd>
         </dl>
-        <a class="cp-checkout-review-detail-edit" href="@todo">Edit<span class="sr-only"> order</span></a>
+        <a class="cp-checkout-review-detail-edit" ng-href="/package/{{ package.humanId }}-{{ package.name | slugify }}">Edit<span class="sr-only"> order</span></a>
     </section>
 
     <section class="cp-checkout-review-detail">

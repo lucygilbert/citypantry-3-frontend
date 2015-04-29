@@ -159,3 +159,9 @@
         color: $cp-secondary-color;
     }
 }
+
+.cp-dashboard-aside-order-edit-notice {
+    background-color: #fffbcc;
+    margin: $cp-margin-small-vertical 0;
+    padding: $padding-large-vertical ($grid-gutter-width / 2);
+}
