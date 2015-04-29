@@ -76,7 +76,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             {
                 cellFilter: 'currency:\'£\':2',
                 displayName: 'Cost',
-                field: 'totalAmount'
+                field: 'totalAmountAfterVoucher'
             },
             {
                 displayName: 'Order Status',
@@ -98,8 +98,8 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         ],
         enableFiltering: true,
         enableSorting: true,
-        paginationPageSizes: [25, 50, 75],
-        paginationPageSize: 25
+        paginationPageSizes: [100, 200, 300],
+        paginationPageSize: 100
     };
 
     ClearAllButtonService.addToScope($scope, vm.gridOptions);
