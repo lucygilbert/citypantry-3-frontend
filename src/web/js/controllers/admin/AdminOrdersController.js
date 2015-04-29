@@ -11,7 +11,11 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         columnDefs: [
             {
                 displayName: 'Order No',
-                field: 'humanId'
+                field: 'humanId',
+                sort: {
+                    direction: uiGridConstants.DESC,
+                    priority: 0,
+                },
             },
             {
                 cellFilter: 'date:\'d MMM yyyy H:mm\'',
