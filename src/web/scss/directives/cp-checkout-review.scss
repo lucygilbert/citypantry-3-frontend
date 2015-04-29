@@ -62,8 +62,22 @@
     }
 }
 
-.cp-checkout-review-detail cp-package-card {
-    margin-bottom: $cp-margin-base-vertical;
+.cp-checkout-review {
+    cp-package-card {
+        margin-bottom: $cp-margin-base-vertical;
+    }
+
+    .cp-package-card {
+        &:hover,
+        &:focus,
+        &:active {
+            .cp-package-card-image::before,
+            .cp-package-card-image::after,
+            .cp-package-card-notice {
+                display: none;
+            }
+        }
+    }
 
     .cp-package-card-image {
         padding-bottom: 50%;

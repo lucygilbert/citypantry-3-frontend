@@ -232,9 +232,23 @@
 .cp-checkout-thank-you {
     text-align: center;
 
+    cp-package-card {
+        margin-bottom: $cp-margin-base-vertical;
+    }
+
     .cp-package-card {
-        margin: 0 auto $cp-margin-base-vertical;
+        margin: 0 auto;
         width: 216px;
+
+        &:hover,
+        &:focus,
+        &:active {
+            .cp-package-card-image::before,
+            .cp-package-card-image::after,
+            .cp-package-card-notice {
+                display: none;
+            }
+        }
 
         .cp-package-card-image {
             border-radius: 50%;
@@ -242,7 +256,12 @@
         }
 
         .cp-package-card-info {
+            height: auto;
             width: 100%;
+        }
+
+        .cp-package-card-price {
+            display: none;
         }
     }
 }
