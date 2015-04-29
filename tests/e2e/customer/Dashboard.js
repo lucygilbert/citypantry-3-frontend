@@ -58,6 +58,14 @@ describe('Dashboard page', function() {
         expect(element(by.css('.cp-dashboard-aside-package-description')).getText()).toBe('Yummy');
     });
 
+    it('should show a notice to call City Pantry if \'Edit\' is clicked', function() {
+        var editOrderNotice = element(by.css('.cp-dashboard-aside-order-edit-notice'));
+        expect(editOrderNotice.isDisplayed()).toBe(false);
+
+        element(by.css('.cp-dashboard-aside-order-edit')).click();
+        expect(editOrderNotice.isDisplayed()).toBe(true);
+    });
+
     it('should be able to search for food', function() {
         var now = new Date();
         var oneWeekFromNow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7);
