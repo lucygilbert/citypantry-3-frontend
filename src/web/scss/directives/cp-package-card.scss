@@ -7,19 +7,25 @@ cp-package-card {
 }
 
 .cp-package-card {
-    color: $cp-primary-color;
     display: block;
     position: relative;
 
+    &,
     &:hover,
     &:focus,
     &:active {
         color: $cp-primary-color;
+    }
 
-        .cp-package-card-image::before,
-        .cp-package-card-image::after,
-        .cp-package-card-notice {
-            display: block;
+    &.show-order-now-button-on-hover {
+        &:hover,
+        &:focus,
+        &:active {
+            .cp-package-card-image::before,
+            .cp-package-card-image::after,
+            .cp-package-card-notice {
+                display: block;
+            }
         }
     }
 }

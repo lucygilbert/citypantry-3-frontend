@@ -1,4 +1,4 @@
-<a class="cp-package-card" id="{{ package.id }}" href="/package/{{ package.humanId }}-{{ package.name | slugify }}" ng-if="package">
+<a class="cp-package-card" id="{{ package.id }}" href="/package/{{ package.humanId }}-{{ package.name | slugify }}" ng-if="package" ng-class="{'show-order-now-button-on-hover': showOrderNowButtonOnHover}">
     <div class="cp-package-card-image" style="background-image: url('{{ package.images[0].medium }}')"></div>
     <div class="cp-package-card-info">
         <div class="cp-package-card-name" ng-bind="package.name" js-clamp="'2'"></div>
