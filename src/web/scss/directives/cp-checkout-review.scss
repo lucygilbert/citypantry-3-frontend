@@ -67,11 +67,6 @@
 
     .cp-package-card-image {
         padding-bottom: 50%;
-
-        &::before,
-        &::after {
-            display: none !important;
-        }
     }
 
     .cp-package-card-info {
