@@ -1,10 +1,7 @@
-angular.module('cp.controllers.user', []);
-
 angular.module('cp.controllers.user').controller('LoginRegisterController',
-        function($scope, $http, $cookies, $window, AuthenticationFactory, DocumentTitleService, SecurityService,
+        function($scope, $cookies, $window, AuthenticationFactory, DocumentTitleService, SecurityService,
         LoadingService, NotificationService, ABTestService) {
     DocumentTitleService('Log in');
-    SecurityService.requireLoggedOut();
     LoadingService.hide();
 
     $scope.login = function() {
@@ -59,6 +56,5 @@ angular.module('cp.controllers.user').controller('LoginRegisterController',
     $scope.closeDialog = function () {
         $scope.resetEmail = '';
         $scope.isOpen = false;
-
     };
 });
