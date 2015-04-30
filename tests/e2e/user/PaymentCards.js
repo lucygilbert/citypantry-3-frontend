@@ -25,7 +25,9 @@ describe('Payment cards', function() {
         element(by.css('main a.btn-primary')).click();
         expect(browser.getCurrentUrl()).toMatch(/\.dev\/user\/payment-cards\/new$/);
 
-        expect(element.all(by.css('main input[type="number"]')).count()).toBe(2);
+        expect(element.all(by.css('main input[type="number"]')).count()).toBe(1);
+        // The CVV field has type text, because the CVV number might begin with a zero.
+        expect(element.all(by.css('main input[type="text"]')).count()).toBe(1);
         expect(element.all(by.css('main select')).count()).toBe(2);
     });
 
