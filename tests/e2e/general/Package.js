@@ -21,7 +21,7 @@ describe('Package page', function() {
         });
 
         it('should show the package title', function() {
-            expect(element(by.css('main h1')).getText()).toBe('CARROTS');
+            expect(element(by.css('h1.cp-package-name')).getText()).toBe('CARROTS');
         });
 
         it('should load the package details', function() {
@@ -105,33 +105,33 @@ describe('Package page', function() {
             element(by.model('$parent.newPostcode')).sendKeys('QWERTY');
             element(by.css('.cp-modal button[type="submit"]')).click();
 
-            var error = element.all(by.css('.cp-modal .cp-form-error')).get(1);
+            var error = element.all(by.css('.cp-delivery-location-modal .cp-form-error')).get(1);
             expect(error.getText()).toBe('Postcode is invalid');
             expect(error.isDisplayed()).toBe(true);
 
-            element(by.css('.cp-modal .close')).click();
+            element(by.css('.cp-delivery-location-modal .close')).click();
         });
 
         it('should be able to change delivery location', function() {
             element(by.css('.cp-package-change-delivery-location')).click();
             element(by.model('$parent.newPostcode')).sendKeys('W12 8LB');
-            element(by.css('.cp-modal button[type="submit"]')).click();
+            element(by.css('.cp-delivery-location-modal button[type="submit"]')).click();
 
             expect(element(by.css('.cp-modal-title')).getText()).toBe('AVAILABLE');
             expect(element(by.id('order_postcode')).getAttribute('value')).toBe('W12 8LB');
 
-            element(by.css('.cp-modal .close')).click();
+            element(by.css('.cp-delivery-location-modal .close')).click();
         });
 
         it('should show an error if the meal cannot be delivered to this postcode', function() {
             element(by.css('.cp-package-change-delivery-location')).click();
             element(by.model('$parent.newPostcode')).sendKeys('EC1V 9NS');
-            element(by.css('.cp-modal button[type="submit"]')).click();
+            element(by.css('.cp-delivery-location-modal button[type="submit"]')).click();
 
             expect(element(by.css('.cp-modal-title')).getText()).toBe('NOT AVAILABLE');
             expect(element(by.id('order_postcode')).getAttribute('value')).toBe('W12 8LB');
 
-            element(by.css('.cp-modal .close')).click();
+            element(by.css('.cp-delivery-location-modal .close')).click();
         });
 
         it('should show a date picker when delivery date is focused', function() {

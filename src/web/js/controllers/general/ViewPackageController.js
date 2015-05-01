@@ -2,8 +2,12 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         function($scope, $routeParams, PackagesFactory, NotificationService, DocumentTitleService,
         LoadingService, SecurityService, $sce, FRONTEND_BASE, OrdersFactory, $location,
         getPackageAvailabilityErrorTextFilter, CheckoutService, $filter, SearchService,
-        ABTestService, dateIsBSTInEffectFilter) {
-    SecurityService.requireLoggedIn();
+        ABTestService, dateIsBSTInEffectFilter, $window) {
+    // If the user is not logged in, show them a login modal.
+    $scope.isLoggedIn = SecurityService.isLoggedIn();
+    if (!$scope.isLoggedIn) {
+        SecurityService.urlToForwardToAfterLogin = $window.location.href;
+    }
 
     // 'changeDeliveryLocationModalState' can be set to 'checking', 'available', 'notAvailabe'.
     $scope.changeDeliveryLocationModalState = undefined;

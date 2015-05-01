@@ -30,7 +30,7 @@ describe('Individual vendor page - as Aperture Science', function() {
         packages.get(0).element(by.css('a')).click();
 
         expect(browser.getCurrentUrl()).toMatch(/\.dev\/package\/\d+-beef-and-mixed-veg-curry$/);
-        expect(element(by.css('main h1')).getText()).toBe('BEEF AND MIXED VEG CURRY');
+        expect(element(by.css('h1.cp-package-name')).getText()).toBe('BEEF AND MIXED VEG CURRY');
     });
 });
 

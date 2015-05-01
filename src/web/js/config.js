@@ -22,6 +22,10 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
             controller: 'RegisterController',
             templateUrl: getTemplateUrl('auth/register.html')
         }).
+        when('/forgot-password', {
+            controller: 'ForgotPasswordController',
+            templateUrl: getTemplateUrl('auth/forgot-password.html')
+        }).
         when('/customer/dashboard', {
             controller: 'CustomerDashboardController',
             templateUrl: getTemplateUrl('customer/dashboard.html')
