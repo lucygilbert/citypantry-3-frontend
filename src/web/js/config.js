@@ -192,6 +192,10 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
             controller: 'UserNewPaymentCardController',
             templateUrl: getTemplateUrl('user/new-payment-card.html')
         }).
+        when('/package/deleted', {
+            controller: 'DeletedPackageController',
+            templateUrl: getTemplateUrl('general/deleted-package.html')
+        }).
         when('/package/:humanIdAndSlug', {
             controller: 'ViewPackageController',
             templateUrl: getTemplateUrl('general/view-package.html')

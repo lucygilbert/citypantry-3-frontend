@@ -26,6 +26,11 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         .success(response => {
             $scope.package = response;
 
+            if ($scope.package.recycled || !$scope.package.approved || !$scope.package.active) {
+                $location.path('/package/deleted');
+                return;
+            }
+
             for (let i = 0; i < $scope.package.dietaryRequirements.length; i++) {
                 const dietaryRequirement = $scope.package.dietaryRequirements[i];
                 if (dietaryRequirement.name === 'Vegetarian') {
