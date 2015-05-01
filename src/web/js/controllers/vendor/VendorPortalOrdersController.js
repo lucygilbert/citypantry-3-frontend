@@ -1,7 +1,17 @@
 angular.module('cp.controllers.general').controller('VendorPortalOrdersController',
-        function($scope, OrdersFactory, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
+        function($scope, OrdersFactory, NotificationService, DocumentTitleService, SecurityService,
+        LoadingService, SupplierAgreementService, $location) {
     SecurityService.requireVendor();
     DocumentTitleService('Your orders');
+
+    // If the vendor has not accepted the latest supplier agreement, we want to force them
+    // to accept before they can accept any more orders.
+    SupplierAgreementService.vendorHasAcceptedSupplierAgreement(SecurityService.getVendor())
+        .then(function(hasAccepted) {
+            if (!hasAccepted) {
+                $location.path('/vendor/supplier-agreement');
+            }
+        });
 
     function loadOrders() {
         OrdersFactory.getOrdersByCurrentVendor()

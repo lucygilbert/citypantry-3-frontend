@@ -1,11 +1,21 @@
 angular.module('cp').config(function($routeProvider, getTemplateUrl) {
     $routeProvider.
         when('/', {
-            controller: (SecurityService, $location) => {
+            controller: (SecurityService, $location, SupplierAgreementService) => {
                 if (SecurityService.customerIsLoggedIn()) {
                     $location.path('/customer/dashboard');
                 } else if (SecurityService.vendorIsLoggedIn()) {
-                    $location.path('/vendor/orders');
+                    // The page to go to depends on whether the vendor has accepted the latest
+                    // supplier agreement. If they haven't, we want to force them to accept before
+                    // browsing any other pages.
+                    SupplierAgreementService.vendorHasAcceptedSupplierAgreement(SecurityService.getVendor())
+                        .then(function(hasAccepted) {
+                            if (hasAccepted) {
+                                $location.path('/vendor/orders');
+                            } else {
+                                $location.path('/vendor/supplier-agreement');
+                            }
+                        });
                 } else if (SecurityService.staffIsLoggedIn()) {
                     $location.path('/admin/orders');
                 } else {
@@ -164,7 +174,11 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
         }).
         when('/vendor/holidays', {
             controller: 'VendorHolidaysController',
-            templateUrl: '/dist/templates/vendor/holidays.html'
+            templateUrl: getTemplateUrl('vendor/holidays.html')
+        }).
+        when('/vendor/supplier-agreement', {
+            controller: 'VendorSupplierAgreementController',
+            templateUrl: getTemplateUrl('vendor/supplier-agreement.html')
         }).
         when('/vendor/:idOrSlug', {
             controller: 'ViewVendorController',
