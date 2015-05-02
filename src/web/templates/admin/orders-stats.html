@@ -1,0 +1,19 @@
+<div class="wrapper">
+    <h1>Orders Stats</h1>
+
+    <h2>Sales per day</h2>
+
+    <p>Orders are with any status, excludes deleted orders, and in UTC days.</p>
+
+    <p><b>May</b></p>
+
+    <p ng-repeat="day in may">{{ day.start | date:'d' }}: {{ day.sales }}</p>
+
+    <p><b>April</b></p>
+
+    <p ng-repeat="day in april">{{ day.start | date:'d' }}: {{ day.sales }}</p>
+
+    <p><b>March</b></p>
+
+    <p ng-repeat="day in march">{{ day.start | date:'d' }}: {{ day.sales }}</p>
+</div>
