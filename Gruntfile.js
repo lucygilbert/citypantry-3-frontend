@@ -157,6 +157,7 @@ module.exports = function (grunt) {
                         'src/web/lib/js-clamp/js-clamp.js',
                         'src/web/lib/ng-file-upload/angular-file-upload-shim.min.js',
                         'src/web/lib/ng-file-upload/angular-file-upload.min.js',
+                        'src/web/lib/iso8601.min.js',
                         'node_modules/grunt-6to5/node_modules/6to5/browser-polyfill.js',
                         'node_modules/randy/browser/randy.js',
                     ],
