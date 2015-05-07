@@ -52,10 +52,10 @@ describe('Dashboard page', function() {
     it('should show customer\'s next order', function() {
         expect(element(by.css('.cp-dashboard-aside')).isPresent()).toBe(true);
         expect(element(by.css('.cp-dashboard-aside-order-date')).getText()).toMatch(/\d{2} \w+ \d{2}/);
-        expect(element(by.css('.cp-package-card-name')).getText()).toBe('PAELLA');
-        expect(element(by.css('.cp-package-card-vendor')).getText()).toBe('Flame Mangal');
-        expect(element(by.css('.cp-package-card-price')).getText()).toContain('10.00');
-        expect(element(by.css('.cp-dashboard-aside-package-description')).getText()).toBe('Yummy');
+        expect(element(by.css('.cp-package-card-name')).getText()).toBe('CARROTS');
+        expect(element(by.css('.cp-package-card-vendor')).getText()).toBe('Hong Tin');
+        expect(element(by.css('.cp-package-card-price')).getText()).toContain('£20.00');
+        expect(element(by.css('.cp-dashboard-aside-package-description')).getText()).toBe('Yum');
     });
 
     it('should show a notice to call City Pantry if \'Edit\' is clicked', function() {
