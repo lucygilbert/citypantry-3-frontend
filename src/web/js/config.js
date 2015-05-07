@@ -266,6 +266,10 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
             controller: 'AdminCourierOrdersController',
             templateUrl: getTemplateUrl('admin/courier-orders.html')
         }).
+        when('/admin/orders/stats', {
+            controller: 'AdminOrdersStatsController',
+            templateUrl: getTemplateUrl('admin/orders-stats.html')
+        }).
         when('/logout', {
             controller: () => window.location = '/logout',
             template: '<div class="wrapper">Logging out...</div>'

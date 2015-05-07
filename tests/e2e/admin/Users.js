@@ -42,6 +42,13 @@ describe('Admin - users page', function() {
     it('should allow the admin to masquerade as another user', function() {
         gridTestUtils.enterFilterInColumn('users-table', 1, 'Vendor');
         element(by.css('.masquerade')).click();
-        expect(browser.getCurrentUrl()).toMatch(/\.dev\/vendor\/orders$/);
+
+        // This sometimes fails without a `wait()`, because of the full-page reload I suspect.
+        // Sometimes it passes though.
+        browser.wait(function() {
+            return browser.getCurrentUrl().then(function(url) {
+                return /\.dev\/vendor\/orders$/.test(url);
+            });
+        });
     });
 });

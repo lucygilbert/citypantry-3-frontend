@@ -73,11 +73,16 @@ describe('Admin - orders page', function() {
         gridTestUtils.expectRowCount('orders-table', 4);
     });
 
-    it('should find 2 orders when the "show orders delivered today" button is clicked', function() {
-        // If this fails saying 3 rows were found, are you running just this test and not the Order.js
-        // file which edits one order's delivery date? When all tests are run, there should only be
-        // 3 order found.
+    it('should find some orders when the "show orders delivered today" button is clicked', function() {
         element(by.css('main .show-orders-delivered-today')).click();
-        gridTestUtils.expectRowCount('orders-table', 2);
+
+        // Then number of rows found depends on a few things:
+        // - time the test is run (because the time in fixtures varies, and the time and timezone when
+        // running the tests varies).
+        // - if this test is being ran in isolation.
+        // For that reason, we don't want to be too strict about the expected row count. However,
+        // there should be at least 1 order regardless of those factors.
+        var rows = element(by.id('orders-table')).all(by.repeater('(rowRenderIndex, row) in rowContainer.renderedRows track by $index'));
+        expect(rows.count()).toBeGreaterThan(0);
     });
 });
