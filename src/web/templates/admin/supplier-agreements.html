@@ -1,0 +1,17 @@
+<div class="wrapper" ng-if="supplierAgreements && !chosenSupplierAgreement">
+    <h1>Choose a supplier agreement</h1>
+
+    <p ng-repeat="supplierAgreement in supplierAgreements">
+        <a ng-click="setChosen(supplierAgreement)">{{ supplierAgreement.date | date:'longDate' }}</a>
+    </p>
+</div>
+
+<div class="wrapper" ng-if="vendors && chosenSupplierAgreement">
+    <h1>Supplier agreement published {{ chosenSupplierAgreement.date | date:'longDate' }}</h1>
+
+    <p ng-repeat="vendor in vendors">
+        <a ng-href="/admin/vendor/{{ vendor.id }}">{{ vendor.name }}</a>
+        -
+        {{ hasAgreed(vendor) ? 'agreed' : 'not yet' }}
+    </p>
+</div>
