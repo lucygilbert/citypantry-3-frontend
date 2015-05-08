@@ -29,6 +29,11 @@ angular.module('cp.controllers.customer').controller('CustomerOrdersController',
 
         OrdersFactory.getOrderInvoices(order.id)
             .success(response => {
+                if (response.oldInvoice) {
+                    $window.location = response.oldInvoice;
+                    return;
+                }
+
                 if (response.invoices.length === 0) {
                     NotificationService.notifyError('The invoice for this order is not available to download.');
                     return;
