@@ -1,0 +1,18 @@
+<div class="wrapper">
+    <h2 class="cp-heading">Global ID lookup</h2>
+
+    <p>Enter any ID to look up the anything in the database.</p>
+
+    <p>
+        <input ng-model="id" />
+        <input type="submit" value="Search" ng-click="changeUrl()" />
+    </p>
+
+    <p ng-if="hasSearched">{{ matches.length }} match(es).</p>
+
+    <div ng-repeat="match in matches">
+        <h2 class="cp-heading">Type: {{ match.type }}</h2>
+
+        <pre><tt>{{ match.document | json }}</tt></pre>
+    </div>
+</div>

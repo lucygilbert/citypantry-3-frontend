@@ -274,6 +274,14 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
             controller: 'AdminSupplierAgreementsController',
             templateUrl: getTemplateUrl('admin/supplier-agreements.html')
         }).
+        when('/admin/global-id-lookup', {
+            controller: 'AdminGlobalIdLookupController',
+            templateUrl: getTemplateUrl('admin/global-id-lookup.html')
+        }).
+        when('/admin/global-id-lookup/:id', {
+            controller: 'AdminGlobalIdLookupController',
+            templateUrl: getTemplateUrl('admin/global-id-lookup.html')
+        }).
         when('/logout', {
             controller: () => window.location = '/logout',
             template: '<div class="wrapper">Logging out...</div>'
