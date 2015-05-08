@@ -1,19 +1,19 @@
 <div class="wrapper">
-    <h1>Orders Stats</h1>
+    <h1 class="cp-heading">Orders stats</h1>
 
-    <h2>Sales per day</h2>
+    <h2 class="cp-heading">Sales per day</h2>
 
-    <p>Orders are with any status, excludes deleted orders, and in UTC days.</p>
+    <p>Orders included can have any status (accepted or pending). Excludes deleted orders. Sales are grouped into UTC days.</p>
 
-    <p><b>May</b></p>
+    <h3 class="cp-heading">May</h3>
+
+    <p><b>Month total: {{ getTotalInMonth(may) }}</b></p>
 
     <p ng-repeat="day in may">{{ day.start | date:'d' }}: {{ day.sales }}</p>
 
-    <p><b>April</b></p>
+    <h3 class="cp-heading">April</h3>
+
+    <p><b>Month total: {{ getTotalInMonth(april) }}</b></p>
 
     <p ng-repeat="day in april">{{ day.start | date:'d' }}: {{ day.sales }}</p>
-
-    <p><b>March</b></p>
-
-    <p ng-repeat="day in march">{{ day.start | date:'d' }}: {{ day.sales }}</p>
 </div>
