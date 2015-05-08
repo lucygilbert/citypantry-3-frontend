@@ -1,0 +1,19 @@
+@import 'cp-buttons';
+@import 'cp-forms';
+
+.cp-meal-plan-create-account {
+    margin: 100px auto 0;
+    width: 390px;
+
+    p {
+        font-size: 16px;
+    }
+
+    .cp-form {
+        margin-top: $cp-margin-base-vertical;
+
+        .cp-form-group:last-of-type {
+            margin-bottom: $cp-margin-base-vertical;
+        }
+    }
+}
