@@ -17,6 +17,7 @@
         "localStorage": false,
         "angular": false,
         "console": false,
+        "parseIso8601": false,
         "randy": false
     }
 }

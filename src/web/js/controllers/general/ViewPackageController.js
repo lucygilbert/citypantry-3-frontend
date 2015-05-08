@@ -214,9 +214,15 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
 
         $scope.packageFormError = null;
 
-        const timeHour = Math.floor($scope.order.time / 100);
-        const timeMinute = Math.floor($scope.order.time % 100);
-        const iso8601DateString = (
+        const timeHour = Math.floor(parseInt($scope.order.time, 10) / 100);
+        const timeMinute = Math.floor(parseInt($scope.order.time, 10) % 100);
+
+        const dateToCheckIfInBst = new Date($scope.order.date.getTime());
+        dateToCheckIfInBst.setHours(timeHour);
+        dateToCheckIfInBst.setMinutes(timeMinute);
+        const isBst = dateIsBSTInEffectFilter(dateToCheckIfInBst);
+
+        $scope.iso8601DateString = (
             $scope.order.date.getFullYear() + '-' +
             ('0' + ($scope.order.date.getMonth() + 1)).substr(-2) + '-' +
             ('0' + $scope.order.date.getDate()).substr(-2) +
@@ -224,12 +230,12 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             ('0' + timeHour).substr(-2) + ':' +
             ('0' + timeMinute).substr(-2) + ':' +
             '00' +
-            (dateIsBSTInEffectFilter($scope.order.date) ? '+0100' : 'Z')
+            (isBst ? '+01:00' : '+00:00')
         );
-        const dateTime = new Date(iso8601DateString);
+        const dateTime = new Date(parseIso8601($scope.iso8601DateString));
 
         // Format the date as YYYY-MM-DD because that is the format expected by the availability API.
-        const date = iso8601DateString.substr(0, 10);
+        const date = $scope.iso8601DateString.substr(0, 10);
 
         PackagesFactory.checkIfPackageCanBeDelivered($scope.package.id, date, $scope.order.time, $scope.order.postcode)
             .success(response => {

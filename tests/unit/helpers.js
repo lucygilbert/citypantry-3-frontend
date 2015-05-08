@@ -27,3 +27,9 @@ var newPromise = function() {
         },
     };
 };
+
+var newValidForm = function() {
+    return {
+        $valid: true,
+    };
+};
