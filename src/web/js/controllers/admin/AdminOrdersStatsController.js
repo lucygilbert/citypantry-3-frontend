@@ -12,4 +12,12 @@ angular.module('cp.controllers.admin').controller('AdminOrdersStatsController',
     $q.all(loadingPromises)
         .then(() => LoadingService.hide())
         .catch(() => NotificationService.notifyError());
+
+    $scope.getTotalInMonth = (month) => {
+        let tally = 0;
+        for (let i = 0; i < month.length; i++) {
+            tally += month[i].sales;
+        }
+        return tally;
+    };
 });
