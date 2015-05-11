@@ -138,7 +138,10 @@
     <h2>Customer service actions</h2>
 
     <div class="add-customer-service-event">
-        <p><button ng-click="delete()" class="btn btn-primary">Delete order</button></p>
+        <p><button ng-click="delete()" class="btn btn-primary">Delete order</button><br />
+        If paid on card, you must refund the order through Braintree.
+        If paid on account, no action is needed.
+        In either case, notify the vendor and the customer.</p>
 
         <p><button ng-click="addCustomerServiceEvent('Order delivered +15 mins late')" class="btn btn-primary">Order delivered +15 mins late</button></p>
 
