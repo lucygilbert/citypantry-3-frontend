@@ -11,6 +11,10 @@ angular.module('cp.controllers.admin').controller('AdminEditVendorController',
             DocumentTitleService('Edit vendor: ' + $scope.vendor.name);
         });
 
+    VendorsFactory.getVendorReviews($routeParams.vendorId)
+        .success(response => $scope.reviews = response.reviews)
+        .error(response => NotificationService.notifyError(response.data.errorTranslation));
+
     $scope.save = function() {
         LoadingService.show();
 

@@ -1,0 +1,10 @@
+<div class="cp-review-card">
+    Order #: <a href="/admin/order/{{ order.id }}">{{ order.humanId }}</a><br />
+    Customer: <a href="/admin/customer/{{ order.customer.id }}">{{ order.customer.company }}</a><br />
+    Message: {{ review.review }}<br />
+    Food quality: {{ review.foodQualityRating.value }}/5<br />
+    Presentation: {{ review.presentationRating.value }}/5<br />
+    Delivery: {{ review.deliveryRating.value }}/5<br />
+    Overall: {{ review.overallRating.value }}/5<br />
+    Recommend to friend: {{ review.recommendToFriendRating.value }}/10<br />
+</div>

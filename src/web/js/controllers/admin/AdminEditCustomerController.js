@@ -10,6 +10,10 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
         })
         .error(response => NotificationService.notifyError(response.data.errorTranslation));
 
+    CustomersFactory.getCustomerReviews($routeParams.customerId)
+        .success(response => $scope.reviews = response.reviews)
+        .error(response => NotificationService.notifyError(response.data.errorTranslation));
+
     $scope.revokePaymentOnAccount = function() {
         LoadingService.show();
 
