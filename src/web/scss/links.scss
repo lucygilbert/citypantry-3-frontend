@@ -17,3 +17,11 @@ a[ng-click] {
         @include cp-arrow-right(5px, 5px, $cp-secondary-color);
     }
 }
+
+.link-image-options {
+    color: $cp-primary-color;
+
+    &::after {
+        @include cp-arrow-right(4px, 5px, $cp-primary-color);
+    }
+}

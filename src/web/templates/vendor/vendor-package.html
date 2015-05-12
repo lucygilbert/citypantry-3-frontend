@@ -340,6 +340,11 @@
 
             <p ng-repeat="image in package.images">
                 <img ng-src="{{ image.thumbnail }}" />
+                <br />
+                <a ng-show="!$first" ng-click="setCoverImage($index)" class="link-image-options">Set as cover photo</a>
+                <span ng-show="$first">Current cover image</span>
+                <br />
+                <a ng-click="deleteImage($index)" class="link-image-options">Delete</a>
             </p>
         </div>
 
