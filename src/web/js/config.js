@@ -200,6 +200,10 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
             controller: 'ViewPackageController',
             templateUrl: getTemplateUrl('general/view-package.html')
         }).
+        when('/meal-plan/create-account', {
+            controller: 'MealPlanCreateAccountController',
+            templateUrl: getTemplateUrl('auth/meal-plan-create-account.html')
+        }).
         when('/admin/vendors', {
             controller: 'AdminVendorsController',
             controllerAs: 'vendors',

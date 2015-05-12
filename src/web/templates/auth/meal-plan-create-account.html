@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="cp-meal-plan cp-meal-plan-create-account">
+        <h1 class="cp-heading">Thank you</h1>
+
+        <p>Thank you for your interest in our meal plan. We will get back to you within 24 hours.</p>
+        <p>While you wait for us you can create your account to check out the delicious food we have on offer.</p>
+
+        <p class="cp-form-error" ng-show="createAccountError" ng-bind="createAccountError"></p>
+
+        <form class="cp-form" role="form" ng-submit="create()">
+            <fieldset>
+                <div class="cp-form-group">
+                    <label class="cp-form-label" for="new">New password</label>
+                    <input class="cp-form-control" id="new" type="password" required aria-required="true" ng-model="newPassword" />
+                </div>
+
+                <div class="cp-form-group">
+                    <label class="cp-form-label" for="confirm">Confirm password</label>
+                    <input class="cp-form-control" id="confirm" type="password" required aria-required="true" ng-model="confirmPassword" />
+                </div>
+
+                <input class="cp-btn cp-btn-primary" type="submit" value="Create" />
+                <button class="cp-btn cp-btn-link" type="button" ng-click="continue()">Not now</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
