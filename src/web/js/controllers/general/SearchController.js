@@ -2,9 +2,6 @@ angular.module('cp.controllers.general').controller('SearchController',
         function($scope, PackagesFactory, OrdersFactory, NotificationService,
         $routeParams, DocumentTitleService, SecurityService, LoadingService, $q, $filter,
         SearchService, $anchorScroll, ABTestService) {
-    if (!SecurityService.isLoggedIn() && !ABTestService.isAllowedToSeeDashboardAndSearchResultsWhenLoggedOut()) {
-        SecurityService.requireLoggedIn();
-    }
 
     DocumentTitleService('Search catering packages');
 
