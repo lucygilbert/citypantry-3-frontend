@@ -12,6 +12,10 @@ angular.module('cp.controllers.admin').controller('AdminEditPackageController',
 
     $scope.packagingTypes = PackagesFactory.getPackagingTypeOptions();
 
+    PackagesFactory.getPackageReviews($routeParams.packageId)
+        .success(response => $scope.reviews = response.reviews)
+        .error(response => NotificationService.notifyError(response.data.errorTranslation));
+
     $scope.save = function() {
         LoadingService.show();
 

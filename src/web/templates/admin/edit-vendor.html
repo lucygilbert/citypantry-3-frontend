@@ -5,6 +5,12 @@
 
     <cp-history-table document-id="vendor.id" document-type="CityPantry\VendorBundle\Document\Vendor"></cp-history-table>
 
+    <h2>Review history</h2>
+
+    <cp-review-card ng-repeat="review in reviews" review="review"></cp-review-card>
+
+    <p ng-show="reviews.length === 0">No reviews.</p>
+
     <h2>Edit details</h2>
 
     <form role="form" ng-submit="save()">

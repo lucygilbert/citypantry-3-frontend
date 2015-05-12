@@ -213,4 +213,10 @@
     <h2>Order history</h2>
 
     <cp-history-table document-id="order.id" document-type="CityPantry\OrderBundle\Document\Order"></cp-history-table>
+
+    <h2>Review</h2>
+
+    <cp-review-card ng-if="review" review="review"></cp-review-card>
+
+    <p ng-show="!review">No review.</p>
 </div>

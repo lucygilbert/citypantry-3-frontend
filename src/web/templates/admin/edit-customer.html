@@ -5,6 +5,12 @@
 
     <cp-history-table document-id="customer.id" document-type="CityPantry\CustomerBundle\Document\Customer"></cp-history-table>
 
+    <h2>Review history</h2>
+
+    <cp-review-card ng-repeat="review in reviews" review="review"></cp-review-card>
+
+    <p ng-show="reviews.length === 0">No reviews.</p>
+
     <h2>Details</h2>
 
     <p>Pay on account? {{ customer.paidOnAccountStatus | getPaidOnAccountStatusText }}</p>

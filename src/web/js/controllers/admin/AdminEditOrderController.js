@@ -33,6 +33,10 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
         .success(response => $scope.messages = response.messages)
         .error(response => NotificationService.notifyError(response.data.errorTranslation));
 
+    OrdersFactory.getOrderReviews($routeParams.orderId)
+        .success(response => $scope.review = response.review)
+        .error(response => NotificationService.notifyError(response.data.errorTranslation));
+
     $scope.$watch('headCount', function(updatedHeadCount) {
         $scope.vegetarianHeadCountOptions = getVegetarianHeadCountOptions(updatedHeadCount);
         $scope.vegetarianHeadCount = getVegetarianHeadCountValue($scope.vegetarianHeadCount);
