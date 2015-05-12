@@ -34,7 +34,6 @@ angular.module('cp.services').service('ABTestService', function($q, ApiService) 
 
     // A hash of {test: options}. Each `test` will be made available as a service method.
     const tests = {
-        isAllowedToSeeDashboardAndSearchResultsWhenLoggedOut: [true, false]
     };
 
     const service = {};

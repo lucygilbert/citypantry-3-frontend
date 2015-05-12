@@ -2,10 +2,6 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
         function($scope, DocumentTitleService, SecurityService, LoadingService, $q, PackagesFactory,
         OrdersFactory, $location, CustomersFactory, NotificationService, $filter, SearchService,
         ABTestService) {
-    if (!SecurityService.isLoggedIn() && !ABTestService.isAllowedToSeeDashboardAndSearchResultsWhenLoggedOut()) {
-        SecurityService.requireCustomer();
-        return;
-    }
 
     if (SecurityService.vendorIsLoggedIn()) {
         $location.path('/vendor/orders');

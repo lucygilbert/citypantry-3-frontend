@@ -65,9 +65,6 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             SearchService.setLastPackageSelected($scope.package.id);
 
             recalculateCostAmounts();
-
-            ABTestService.isAllowedToSeeDashboardAndSearchResultsWhenLoggedOut
-                .addEvent('viewedPackage', {packageId: $scope.package.id, userId: SecurityService.getUserId()});
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 

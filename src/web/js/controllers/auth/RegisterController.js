@@ -24,14 +24,10 @@ angular.module('cp.controllers.authentication').controller('RegisterController',
 
         AuthenticationFactory.registerCustomer(registerDetails)
             .success(function(response) {
-                ABTestService.isAllowedToSeeDashboardAndSearchResultsWhenLoggedOut
-                    .addEvent('registered', {userId: response.apiAuth.userId})
-                    .finally(() => {
-                        $cookies.userId = response.apiAuth.userId;
-                        $cookies.salt = response.apiAuth.salt;
-                        $window.localStorage.setItem('user', JSON.stringify(response.user));
-                        $window.location = '/';
-                    });
+                $cookies.userId = response.apiAuth.userId;
+                $cookies.salt = response.apiAuth.salt;
+                $window.localStorage.setItem('user', JSON.stringify(response.user));
+                $window.location = '/';
             })
             .catch(function(response) {
                 $scope.registerError = response.data.errorTranslation;
