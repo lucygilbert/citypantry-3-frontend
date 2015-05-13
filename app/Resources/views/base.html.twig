@@ -76,6 +76,7 @@
             window.hubspotBase = '{{ hubspotBase }}';
             window.googleMapsJavascriptApiV3Key = '{{ googleMapsJavascriptApiV3Key }}';
             window.cacheBusterValue = '{{ cacheBusterValue }}';
+            window.includeAnalyticsJs = {{ includeAnalyticsJs ? 'true' : 'false' }};
             window.FileAPI = {
                 jsUrl: '/dist/ng-file-upload/FileAPI.min.js',
                 flashUrl: '/dist/ng-file-upload/FileAPI.flash.swf'
@@ -106,6 +107,20 @@
             })(document,"script","hs-analytics",300000);
             </script>
             <!-- End of Async HubSpot Analytics Code -->
+        {% endif %}
+
+        {% if includeAnalyticsJs and includeRegistrationTrackingCode %}
+            <!-- Google AdWords registration. -->
+            <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/973394162/?value=0&amp;currency_code=GBP&amp;label=IKapCI3EtVwQ8qGT0AM&amp;guid=ON&amp;script=0"/>
+            </div>
+
+            <!-- Twitter registrations. -->
+            <img height="1" width="1" style="display:none;" alt="" src="https://analytics.twitter.com/i/adsct?txn_id=l62ac&amp;p_id=Twitter&amp;tw_sale_amount=0&amp;tw_order_quantity=0" />
+            <img height="1" width="1" style="display:none;" alt="" src="//t.co/i/adsct?txn_id=l62ac&amp;p_id=Twitter&amp;tw_sale_amount=0&amp;tw_order_quantity=0" />
+
+            <!-- Facebook registration. -->
+            <img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6029823221946&amp;cd[value]=0.00&amp;cd[currency]=GBP&amp;noscript=1" />
         {% endif %}
     </body>
 </html>

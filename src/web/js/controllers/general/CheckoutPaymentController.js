@@ -201,6 +201,8 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
                 .success(response => {
                     CheckoutService.setEndTime(new Date());
                     CheckoutService.reset();
+                    CheckoutService.setLastCreatedOrder(response.updatedObject);
+
                     $location.path('/checkout/thank-you');
                 })
                 .catch(response => NotificationService.notifyError(response.data.errorTranslation));
