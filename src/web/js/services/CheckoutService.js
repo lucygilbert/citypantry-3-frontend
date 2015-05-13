@@ -18,6 +18,7 @@ angular.module('cp.services').service('CheckoutService', function($window) {
     var vegetarianHeadCount;
     var vendorCleanupCost;
     var vendorSetupCost;
+    let lastCreatedOrder;
 
     return {
         getDeliveryAddressId: function() {
@@ -343,6 +344,23 @@ angular.module('cp.services').service('CheckoutService', function($window) {
             }
         },
 
+        getLastCreatedOrder: function() {
+            if (lastCreatedOrder !== undefined) {
+                return lastCreatedOrder;
+            } else if ($window.localStorage.getItem('lastCreatedOrder') !== null) {
+                return JSON.parse($window.localStorage.getItem('lastCreatedOrder'));
+            } else {
+                return undefined;
+            }
+        },
+
+        setLastCreatedOrder: function(value) {
+            if (value !== undefined) {
+                lastCreatedOrder = value;
+                $window.localStorage.setItem('lastCreatedOrder', JSON.stringify(lastCreatedOrder));
+            }
+        },
+
         reset: function() {
             dietaryRequirementsExtra = undefined;
             isCutleryAndServiettesRequired = false;
@@ -357,6 +375,8 @@ angular.module('cp.services').service('CheckoutService', function($window) {
             $window.localStorage.removeItem('isVendorRequiredToSetUp');
             $window.localStorage.removeItem('packagingType');
             $window.localStorage.removeItem('vegetarianHeadCount');
+
+            // Deliberately do not reset 'lastCreatedOrder'.
         }
     };
 });

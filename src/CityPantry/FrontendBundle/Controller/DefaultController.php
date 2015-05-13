@@ -6,6 +6,7 @@ use CityPantry\ApiClient;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class DefaultController extends BaseController
@@ -29,13 +30,16 @@ class DefaultController extends BaseController
      * )
      * @Template("angular.html.twig")
      */
-    public function angularPagesAction()
+    public function angularPagesAction(Request $request)
     {
         $api = $this->getApiClient();
+
+        $includeRegistrationTrackingCode = $request->query->get('includeRegistrationTrackingCode') === '1';
 
         return [
             'isLoggedIn' => $api->isLoggedIn(),
             'user' => $api->getAuthenticatedUser()->json(),
+            'includeRegistrationTrackingCode' => $includeRegistrationTrackingCode,
         ];
     }
 }

@@ -27,7 +27,7 @@ angular.module('cp.controllers.authentication').controller('RegisterController',
                 $cookies.userId = response.apiAuth.userId;
                 $cookies.salt = response.apiAuth.salt;
                 $window.localStorage.setItem('user', JSON.stringify(response.user));
-                $window.location = '/';
+                $window.location = '/?includeRegistrationTrackingCode=1';
             })
             .catch(function(response) {
                 $scope.registerError = response.data.errorTranslation;

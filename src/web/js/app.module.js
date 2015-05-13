@@ -32,6 +32,7 @@ angular.module('cp')
         longitude: -0.127691
     })
     .constant('GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY', window.googleMapsJavascriptApiV3Key)
+    .constant('INCLUDE_ANALYTICS_JS', window.includeAnalyticsJs)
     .constant('CP_TELEPHONE_NUMBER_UK', '020 3397 8376')
     .constant('CP_TELEPHONE_NUMBER_INTERNATIONAL', '+442033978376')
     .constant('CP_SUPPORT_EMAIL_ADDRESS', 'support@citypantry.com')
@@ -73,15 +74,17 @@ angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvid
     $rootScope.hubspotBase = HUBSPOT_BASE;
 
     $rootScope.$on('$routeChangeStart', function(event, oldRoute, newRoute) {
-        // Don't show the loading service animation when the page change is just the search query
-        // changing. It's not pretty when typing fast and the animation flickers with each key press.
-        let isFromSearchToSearch = oldRoute.$route && oldRoute.$route.controller === 'SearchController' &&
-            newRoute.$route && newRoute.$route.controller === 'SearchController';
-        if (isFromSearchToSearch) {
-            return;
+        LoadingService.show();
+
+        // HubSpot tracking.
+        if (window._hsq && typeof window._hsq.push === 'function') {
+            window._hsq.push(['trackPageView']);
         }
 
-        LoadingService.show();
+        // Google Analytics tracking.
+        if (window.ga && typeof window.ga === 'function') {
+            window.ga('send', 'pageview', $location.url());
+        }
     });
 
     $rootScope.$on('$routeChangeError', function () {
@@ -102,9 +105,10 @@ angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvid
     }
 })
 .run(function($rootScope, CP_TELEPHONE_NUMBER_UK, CP_TELEPHONE_NUMBER_INTERNATIONAL, CP_SUPPORT_EMAIL_ADDRESS,
-        getTemplateUrl) {
+        INCLUDE_ANALYTICS_JS, getTemplateUrl) {
     $rootScope.CP_TELEPHONE_NUMBER_UK = CP_TELEPHONE_NUMBER_UK;
     $rootScope.CP_TELEPHONE_NUMBER_INTERNATIONAL = CP_TELEPHONE_NUMBER_INTERNATIONAL;
     $rootScope.CP_SUPPORT_EMAIL_ADDRESS = CP_SUPPORT_EMAIL_ADDRESS;
+    $rootScope.INCLUDE_ANALYTICS_JS = INCLUDE_ANALYTICS_JS;
     $rootScope.getTemplateUrl = getTemplateUrl;
 });

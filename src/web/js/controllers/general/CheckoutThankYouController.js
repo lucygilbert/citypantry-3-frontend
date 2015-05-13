@@ -8,10 +8,9 @@ angular.module('cp.controllers.general').controller('CheckoutThankYouController'
         endTime: CheckoutService.getEndTime(),
         headCount: CheckoutService.getHeadCount(),
         packageId: CheckoutService.getPackageId(),
-        startTime: CheckoutService.getStartTime()
+        startTime: CheckoutService.getStartTime(),
+        object: CheckoutService.getLastCreatedOrder()
     };
-
-    $scope.package = {};
 
     $scope.order.checkoutDurationInMinutes = Math.floor((Math.abs($scope.order.endTime - $scope.order.startTime) / 1000) / 60);
 
