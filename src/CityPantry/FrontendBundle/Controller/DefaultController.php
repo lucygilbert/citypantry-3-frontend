@@ -34,11 +34,14 @@ class DefaultController extends BaseController
     {
         $api = $this->getApiClient();
 
+        $user = $api->getAuthenticatedUser()->json();
+        $isStaff = $user && $user['user']['group']['name'] === 'staff';
         $includeRegistrationTrackingCode = $request->query->get('includeRegistrationTrackingCode') === '1';
 
         return [
             'isLoggedIn' => $api->isLoggedIn(),
-            'user' => $api->getAuthenticatedUser()->json(),
+            'user' => $user,
+            'isStaff' => $isStaff,
             'includeRegistrationTrackingCode' => $includeRegistrationTrackingCode,
         ];
     }
