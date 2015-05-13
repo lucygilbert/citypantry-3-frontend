@@ -214,7 +214,6 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
                     allergenTypes: ($scope.package.allergenTypes.length > 0) ? $scope.package.allergenTypes : [],
                     eventTypes: ($scope.package.eventTypes.length > 0) ? $scope.package.eventTypes : [],
                     hotFood: $scope.package.hotFood,
-                    costExcludingVat: ($scope.package.costIncludingVat - $scope.package.costOfVat),
                     costIncludingVat: $scope.package.costIncludingVat,
                     costOfVat: $scope.package.costOfVat,
                     deliveryRadiuses: deliveryRadiuses,
