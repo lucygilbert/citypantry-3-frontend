@@ -33,7 +33,7 @@ describe('Admin - order page', function() {
             expect(element(by.model('order.requestedDeliveryDate')).getAttribute('value')).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}\:\d{2}\:\d{2}[+-]\d{2}\:\d{2}$/);
             expect(element(by.model('order.customerUser.name')).getAttribute('value')).toBe('Customer');
             expect(element(by.css('a.vendor-link')).getText()).toBe('Hong Tin');
-            expect(element(by.css('a.package-link')).getText()).toBe('Carrots');
+            expect(element.all(by.css('a.package-link')).first().getText()).toBe('Edit');
             expect(element(by.model('headCount')).getAttribute('value')).toBe('4'); // Actually shows 5.
             expect(element(by.model('vegetarianHeadCount')).getAttribute('value')).toBe('0');
         });

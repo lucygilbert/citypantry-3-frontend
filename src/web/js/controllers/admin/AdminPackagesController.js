@@ -51,6 +51,8 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
                     <br />
                     <a ng-click="grid.appScope.delete(row.entity[col.field])">Delete</a>
                     <br />
+                    <a href="/package/{{row.entity.humanId}}">View</a>
+                    <br />
                     <a ng-if="!row.entity.approved" ng-click="grid.appScope.approve(row.entity[col.field])"
                         class="approve-package">Approve</a>
                     </div>`,

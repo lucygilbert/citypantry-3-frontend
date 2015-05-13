@@ -32,7 +32,11 @@
 
             <div class="form-group">
                 <label>Package</label>
-                <p><a class="package-link" href="/admin/package/{{ order.package.id }}">{{ order.package.name }}</a></p>
+                <p>
+                    {{ order.package.name }} /
+                    <a class="package-link" href="/admin/package/{{ order.package.id }}">Edit</a> /
+                    <a class="package-link" href="/package/{{ order.package.humanId }}">View</a>
+                </p>
             </div>
 
             <div class="form-group">
