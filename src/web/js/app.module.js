@@ -74,15 +74,17 @@ angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvid
     $rootScope.hubspotBase = HUBSPOT_BASE;
 
     $rootScope.$on('$routeChangeStart', function(event, oldRoute, newRoute) {
-        // Don't show the loading service animation when the page change is just the search query
-        // changing. It's not pretty when typing fast and the animation flickers with each key press.
-        let isFromSearchToSearch = oldRoute.$route && oldRoute.$route.controller === 'SearchController' &&
-            newRoute.$route && newRoute.$route.controller === 'SearchController';
-        if (isFromSearchToSearch) {
-            return;
+        LoadingService.show();
+
+        // HubSpot tracking.
+        if (window._hsq && typeof window._hsq.push === 'function') {
+            window._hsq.push(['trackPageView']);
         }
 
-        LoadingService.show();
+        // Google Analytics tracking.
+        if (window.ga && typeof window.ga === 'function') {
+            window.ga('send', 'pageview', $location.url());
+        }
     });
 
     $rootScope.$on('$routeChangeError', function () {

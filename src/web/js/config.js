@@ -3,7 +3,7 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
         when('/', {
             controller: (SecurityService, $location, SupplierAgreementService) => {
                 if (SecurityService.customerIsLoggedIn()) {
-                    $location.path('/customer/dashboard');
+                    $location.url('/customer/dashboard');
                 } else if (SecurityService.vendorIsLoggedIn()) {
                     // The page to go to depends on whether the vendor has accepted the latest
                     // supplier agreement. If they haven't, we want to force them to accept before
@@ -11,15 +11,15 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
                     SupplierAgreementService.vendorHasAcceptedSupplierAgreement(SecurityService.getVendor())
                         .then(function(hasAccepted) {
                             if (hasAccepted) {
-                                $location.path('/vendor/orders');
+                                $location.url('/vendor/orders');
                             } else {
-                                $location.path('/vendor/supplier-agreement');
+                                $location.url('/vendor/supplier-agreement');
                             }
                         });
                 } else if (SecurityService.staffIsLoggedIn()) {
-                    $location.path('/admin/orders');
+                    $location.url('/admin/orders');
                 } else {
-                    $location.path('/login');
+                    $location.url('/login');
                 }
             },
             template: '<div class="wrapper">Loading...</div>'
