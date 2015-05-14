@@ -1,4 +1,4 @@
-angular.module('cp.controllers.general').directive('cpBack', function($window, $location) {
+angular.module('cp.controllers.general').directive('cpBack', function($window, $location, $rootScope) {
     return {
         restrict: 'A',
         scope: {
@@ -10,6 +10,15 @@ angular.module('cp.controllers.general').directive('cpBack', function($window, $
                     $location.path('/search');
                 } else {
                     $window.history.back();
+                }
+
+                try {
+                    // Because this click event is outside of the Angular digest cycle, we must
+                    // manually call $apply on $rootScope so the `$location.path()` call takes
+                    // affect.
+                    $rootScope.$apply();
+                } catch (e) {
+                    // Already in a digest -- ignore the error.
                 }
             });
         }
