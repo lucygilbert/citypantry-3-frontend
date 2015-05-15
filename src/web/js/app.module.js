@@ -75,7 +75,9 @@ angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvid
 
     $rootScope.$on('$routeChangeStart', function(event, oldRoute, newRoute) {
         LoadingService.show();
+    });
 
+    $rootScope.$on('$routeChangeSuccess', function(event, oldRoute, newRoute) {
         // HubSpot tracking.
         if (window._hsq && typeof window._hsq.push === 'function') {
             window._hsq.push(['trackPageView']);
