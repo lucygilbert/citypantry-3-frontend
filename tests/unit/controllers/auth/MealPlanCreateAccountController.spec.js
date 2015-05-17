@@ -40,7 +40,11 @@ describe('MealPlanCreateAccountController', function() {
 
         it('should set a cookie value to persist authentication', function() {
             makeCtrl();
-            getLoggedInUserHttpRequest.resolveSuccess({id: 'abc123'});
+            getLoggedInUserHttpRequest.resolveSuccess({
+                user: {
+                    id: 'abc123'
+                }
+            });
 
             expect(UsersFactory.getLoggedInUser).toHaveBeenCalled();
             expect(scope.user).toEqual({id: 'abc123'});

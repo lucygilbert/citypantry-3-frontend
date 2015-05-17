@@ -1,14 +1,19 @@
 angular.module('cp.controllers.authentication').controller('MealPlanCreateAccountController',
         function($scope, $cookies, $routeParams, $window, SecurityService, DocumentTitleService,
         LoadingService, NotificationService, UsersFactory) {
-    SecurityService.requireLoggedOut();
     DocumentTitleService('Create account');
+
+    $scope.userHasPassword = false;
 
     UsersFactory.getLoggedInUser($routeParams.userId, $routeParams.otat)
         .success(response => {
-            $scope.user = response;
+            $scope.user = response.user;
             $cookies.userId = $scope.user.id;
+            $cookies.otat = $routeParams.otat;
             $window.localStorage.setItem('user', JSON.stringify($scope.user));
+
+            $scope.userHasPassword = response.userHasPassword;
+
             LoadingService.hide();
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
