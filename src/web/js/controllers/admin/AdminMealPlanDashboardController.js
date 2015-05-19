@@ -82,7 +82,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardControl
             $scope.gridOptions.data = response.customers;
 
             LoadingService.hide();
-        }).error(() => NotificationService.notifyError());
+        }).error((response) => NotificationService.notifyError(response.data.errorTranslation));
     }
 
     loadMealPlanCustomers();
