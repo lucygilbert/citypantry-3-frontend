@@ -8,8 +8,8 @@ angular.module('cp.controllers.authentication').controller('MealPlanCreateAccoun
     UsersFactory.getLoggedInUser($routeParams.userId, $routeParams.otat)
         .success(response => {
             $scope.user = response.user;
-            $cookies.userId = $scope.user.id;
-            $cookies.otat = $routeParams.otat;
+            $cookies.userId = response.apiAuth.userId;
+            $cookies.salt = response.apiAuth.salt;
             $window.localStorage.setItem('user', JSON.stringify($scope.user));
 
             $scope.userHasPassword = response.userHasPassword;
