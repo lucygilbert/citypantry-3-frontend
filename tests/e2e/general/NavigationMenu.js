@@ -82,6 +82,7 @@ describe('Navigation Menu', function() {
         myAccountButton.click();
         expect(myAccountMenu.isDisplayed()).toBe(true);
 
+        expect(myAccountMenu.getText()).toContain('Meal plan');
         expect(myAccountMenu.getText()).toContain('Edit packages');
         expect(myAccountMenu.getText()).toContain('Edit vendors');
         expect(myAccountMenu.getText()).toContain('Edit delivery radii');
@@ -89,7 +90,7 @@ describe('Navigation Menu', function() {
         expect(myAccountMenu.getText()).toContain('Supplier agreements');
         expect(myAccountMenu.getText()).toContain('Global ID lookup');
         expect(myAccountMenu.getText()).toContain('Log out');
-        expect(myAccountMenuLinks.count()).toBe(7);
+        expect(myAccountMenuLinks.count()).toBe(8);
     });
 
     it('should present the default navigation options to people who aren\'t logged in', function() {
