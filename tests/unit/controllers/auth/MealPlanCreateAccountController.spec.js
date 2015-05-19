@@ -38,13 +38,22 @@ describe('MealPlanCreateAccountController', function() {
             spyOn(UsersFactory, 'getLoggedInUser').and.returnValue(getLoggedInUserHttpRequest);
         });
 
-        it('should set a cookie value to persist authentication', function() {
+        it('should set cookie values to persist authentication', function() {
             makeCtrl();
-            getLoggedInUserHttpRequest.resolveSuccess({id: 'abc123'});
+            getLoggedInUserHttpRequest.resolveSuccess({
+                user: {
+                    id: 'abc123'
+                },
+                apiAuth: {
+                    userId: 'abc123',
+                    salt: 'salty'
+                }
+            });
 
             expect(UsersFactory.getLoggedInUser).toHaveBeenCalled();
             expect(scope.user).toEqual({id: 'abc123'});
             expect(cookies.userId).toBe('abc123');
+            expect(cookies.salt).toBe('salty');
             expect(NotificationService.notifyError).not.toHaveBeenCalled();
         });
 

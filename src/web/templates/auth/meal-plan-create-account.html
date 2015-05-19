@@ -3,11 +3,14 @@
         <h1 class="cp-heading">Thank you</h1>
 
         <p>Thank you for your interest in our meal plan. We will get back to you within 24 hours.</p>
-        <p>While you wait for us you can create your account to check out the delicious food we have on offer.</p>
+
+        <p ng-if="userHasPassword"><a href="/">Continue to Dashboard</a></p>
+
+        <p ng-if="!userHasPassword">While you wait for us you can create your account to check out the delicious food we have on offer.</p>
 
         <p class="cp-form-error" ng-show="createAccountError" ng-bind="createAccountError"></p>
 
-        <form class="cp-form" role="form" ng-submit="create()">
+        <form class="cp-form" role="form" ng-if="!userHasPassword" ng-submit="create()">
             <fieldset>
                 <div class="cp-form-group">
                     <label class="cp-form-label" for="new">New password</label>
