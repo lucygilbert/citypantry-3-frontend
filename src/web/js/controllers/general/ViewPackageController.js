@@ -27,7 +27,7 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             $scope.package = response;
 
             if ($scope.package.recycled || !$scope.package.approved || !$scope.package.active) {
-                $location.path('/package/deleted');
+                $location.url('/package/deleted').replace();
                 return;
             }
 
