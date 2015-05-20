@@ -35,6 +35,8 @@ angular.module('cp')
     .constant('INCLUDE_ANALYTICS_JS', window.includeAnalyticsJs)
     .constant('CP_TELEPHONE_NUMBER_UK', '020 3397 8376')
     .constant('CP_TELEPHONE_NUMBER_INTERNATIONAL', '+442033978376')
+    .constant('CP_TWILIO_ORDER_DELIVERY_NUMBER', '+441223750398')
+    .constant('CP_TWILIO_SMS_CENTRE_NUMBER', '+441708394026')
     .constant('CP_SUPPORT_EMAIL_ADDRESS', 'support@citypantry.com')
     .constant('CP_POSTAL_ADDRESS', [
         'Francis House',

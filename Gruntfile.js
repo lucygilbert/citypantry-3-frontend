@@ -61,6 +61,13 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
+                        src: ['src/web/templates/admin/sms-centre/*'],
+                        dest: 'web/dist/templates/admin/sms-centre',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
                         src: ['src/web/templates/general/*'],
                         dest: 'web/dist/templates/general',
                         filter: 'isFile'
