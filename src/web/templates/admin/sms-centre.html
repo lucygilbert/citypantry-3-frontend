@@ -31,7 +31,7 @@
             <button class="cp-sms-message-list-item"
                 ng-repeat="message in sentbox"
                 ng-click="viewMessage(message)"
-                >{{message.from}} : {{message.summary}}</button>
+                >{{message.to}} : {{message.summary}}</button>
         </div>
 
         <div ng-if="sentboxPage === 'view'" class="cp-sms-message-view">

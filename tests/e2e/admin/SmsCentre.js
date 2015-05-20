@@ -33,7 +33,7 @@ describe('Admin - SMS centre', function() {
     });
 
     it('should display inbox messages', function() {
-        expect(element.all(by.css('.cp-sms-message-list:first-child > button')).count()).toBe(1);
+        expect(element.all(by.repeater('message in inbox')).count()).toBe(1);
     });
 
     it('should let you view a message when clicked', function() {
@@ -49,10 +49,12 @@ describe('Admin - SMS centre', function() {
 
     it('should display sentbox messages', function() {
         sentboxNavButton.click();
-        expect(element.all(by.css('.cp-sms-message-list:last-child > button')).count()).toBe(3);
+        // The number of SMS messages sent will vary depending on whether this test is run on it's
+        // own or not.
+        expect(element.all(by.repeater('message in sentbox')).count()).toBeGreaterThan(2);
     });
 
-    it('should prefilled the To field when you click Reply', function() {
+    it('should prefill the To field when you click Reply', function() {
         inboxNavButton.click();
         inboxMessageItem.click();
         inboxReplyButton.click();
