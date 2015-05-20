@@ -164,14 +164,18 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
         LoadingService.show();
 
         let orderDetails = {
-            customDietaryRequirements: CheckoutService.getDietaryRequirementsExtra(),
             deliveryAddress: CheckoutService.getDeliveryAddressId(),
             headCount: CheckoutService.getHeadCount(),
             package: CheckoutService.getPackageId(),
             packagingTypeChoice: CheckoutService.getPackagingType(),
             promotion: CheckoutService.getPromoCodeId(),
             requestedDeliveryDate: CheckoutService.getDeliveryDate().toISOString(),
-            vegetarianHeadCount: CheckoutService.getVegetarianHeadCount(),
+            // The object `dietaryRequirements` must be in a structure that the API's
+            // `DietaryRequirementService::createDietaryRequirementCollectionFromArray()` expects.
+            dietaryRequirements: {
+                customInstructions: CheckoutService.getDietaryRequirementsExtra(),
+                vegetarians: CheckoutService.getVegetarianHeadCount()
+            },
             willVendorDeliverCutleryAndServiettes: CheckoutService.isCutleryAndServiettesRequired(),
             willVendorCleanUpAfterDelivery: CheckoutService.isVendorRequiredToCleanUp(),
             willVendorSetUpAfterDelivery: CheckoutService.isVendorRequiredToSetUp()

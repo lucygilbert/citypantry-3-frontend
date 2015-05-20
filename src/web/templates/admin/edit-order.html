@@ -117,16 +117,10 @@
                 <span class="help-block" id="head_count_help">Changing this will trigger an email to the vendor and customer. The vendor will have to confirm if they can accept the order. If this is increased and the order is not paid on account, the order’s payment card will be charged.</span>
             </div>
 
-            <div class="form-group">
-                <label for="vegetarian_head_count">Number of vegetarians</label>
-                <select class="form-control input-lg" id="vegetarian_head_count" required aria-describedby="vegetarian_head_count_help" aria-required="true" ng-model="vegetarianHeadCount" ng-options="option as option for option in vegetarianHeadCountOptions"></select>
-                <span class="help-block" id="vegetarian_head_count_help">Changing this will trigger an email to the vendor and customer. The vendor will have to confirm if they can accept the order.</span>
-            </div>
-
-            <div class="form-group">
-                <label for="dietary_requirements">Dietary requirements</label>
-                <textarea class="form-control input-lg" id="dietary_requirements" rows="3" ng-model="order.customDietaryRequirements"></textarea>
-            </div>
+            <cp-dietary-requirements-form
+                ng-if="order.dietaryRequirements"
+                cp-model="order.dietaryRequirements"
+                ></cp-dietary-requirements-form>
 
             <div class="form-group">
                 <label for="city_pantry_commission">City Pantry commission %</label>

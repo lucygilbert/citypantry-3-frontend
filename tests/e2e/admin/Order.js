@@ -35,18 +35,10 @@ describe('Admin - order page', function() {
             expect(element(by.css('a.vendor-link')).getText()).toBe('Hong Tin');
             expect(element.all(by.css('a.package-link')).first().getText()).toBe('Edit');
             expect(element(by.model('headCount')).getAttribute('value')).toBe('4'); // Actually shows 5.
-            expect(element(by.model('vegetarianHeadCount')).getAttribute('value')).toBe('0');
         });
 
         it('should allow the requested delivery date to be changed', function() {
             element(by.model('order.requestedDeliveryDate')).clear().sendKeys('01/01/2016 12:30');
-        });
-
-        it('should update the options for vegetarian head count when head count is changed', function() {
-            var options = element.all(by.css('#vegetarian_head_count > option'));
-            expect(options.count()).toBe(6); // 6 because 5 options + zero option = 6.
-            element(by.model('headCount')).sendKeys('11');
-            expect(options.count()).toBe(12); // 12 because 11 options + zero option = 12.
         });
 
         it('should be able to save changes', function() {

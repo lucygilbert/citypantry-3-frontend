@@ -1,0 +1,63 @@
+cp-dietary-requirements-form {
+    display: block;
+
+    .cp-dietary-requirements-form-requirements,
+    .cp-dietary-requirements-form-custom-instructions {
+        legend {
+            @include cp-font-title($font-size-h2);
+            font-size: $font-size-h2 !important;
+            font-weight: 700 !important;
+            line-height: 1 !important;
+        }
+    }
+
+    .cp-dietary-requirements-form-requirements {
+        .cp-form-group {
+            padding-bottom: 30px;
+        }
+    }
+
+    .cp-dietary-requirements-form-requirement {
+        border-bottom: 4px solid #ededed;
+        overflow: hidden;
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        &:first-of-type {
+            border-top: 4px solid #ededed;
+        }
+
+        .cp-dietary-requirements-form-requirement-head-count {
+            float: left;
+            margin-right: 10px;
+            width: 100px;
+        }
+
+        .cp-dietary-requirements-form-requirement-people {
+            @include cp-font-title(16px);
+            float: left;
+            line-height: 38px;
+            width: 105px;
+        }
+
+        .cp-dietary-requirements-form-requirement-diet {
+            float: left;
+            width: 125px;
+        }
+
+        .cp-dietary-requirements-form-requirement-plus {
+            @include cp-font-title(16px);
+            float: left;
+            line-height: 38px;
+            text-align: center;
+            width: 20px;
+        }
+    }
+
+    .cp-dietary-requirements-form-requirements-add {
+        @include cp-font-title(16px);
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+}

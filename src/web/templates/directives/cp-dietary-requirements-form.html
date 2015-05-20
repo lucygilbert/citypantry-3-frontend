@@ -1,0 +1,61 @@
+<div ng-if="!isLoaded">
+    Loading dietary requirement options...
+</div>
+
+<div ng-if="isLoaded">
+    <fieldset class="cp-dietary-requirements-form-requirement">
+        <legend>Dietary requirements</legend>
+
+        <div class="cp-form-group">
+            <label class="cp-form-label">Do you have specific dietary requirements for your team?</label>
+            <div class="cp-dietary-requirements-form-requirement" ng-repeat="requirementGroup in model.requirements">
+                <select class="cp-form-control cp-dietary-requirements-form-requirement-head-count"
+                        id="dietary_requirement{{ $index }}_head_count"
+                        ng-model="requirementGroup.headCount"
+                        ng-options="headCount for headCount in headCountOptions"></select>
+
+                <span class="cp-dietary-requirements-form-requirement-people">people are:</span>
+
+                <select class="cp-form-control cp-dietary-requirements-form-requirement-diet"
+                        id="dietary_requirement{{ $index }}_diet1"
+                        ng-model="requirementGroup.requirementIds[0]"
+                        ng-options="option.id as option.name for option in options">
+                    <option value="">Diet</option>
+                </select>
+
+                <span class="cp-dietary-requirements-form-requirement-plus">+</span>
+
+                <select class="cp-form-control cp-dietary-requirements-form-requirement-diet"
+                        id="dietary_requirement{{ $index }}_diet2"
+                        ng-model="requirementGroup.requirementIds[1]"
+                        ng-options="option.id as option.name for option in options">
+                    <option value="">Diet</option>
+                </select>
+
+                <span class="cp-dietary-requirements-form-requirement-plus">+</span>
+
+                <select class="cp-form-control cp-dietary-requirements-form-requirement-diet"
+                        id="dietary_requirement{{ $index }}_diet3"
+                        ng-model="requirementGroup.requirementIds[2]"
+                        ng-options="option.id as option.name for option in options">
+                    <option value="">Diet</option>
+                </select>
+            </div>
+
+            <a class="cp-dietary-requirements-form-requirement-add" ng-click="addMore()">Add more</a>
+        </div>
+    </fieldset>
+
+    <fieldset class="cp-dietary-requirements-form-custom-instructions">
+        <legend>Additional requirements</legend>
+
+        <div class="cp-form-group">
+            <label class="cp-form-label" for="custom_instructions">Please enter here anyone that you have not covered above.</label>
+            <textarea class="cp-form-control"
+                id="custom_instructions"
+                name="customInstructions"
+                rows="6"
+                ng-model="model.customInstructions"></textarea>
+        </div>
+    </fieldset>
+</div>
