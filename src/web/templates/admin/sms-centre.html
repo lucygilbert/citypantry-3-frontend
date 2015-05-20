@@ -1,0 +1,54 @@
+<div class="cp-sms-wrapper">
+    <div class="cp-sms-sidebar">
+        <ul>
+            <li><button ng-click="goToPage('send')">Send message</button></li>
+            <li><button ng-click="goToPage('inbox')">Inbox</button></li>
+            <li><button ng-click="goToPage('sentbox')">Sentbox</button></li>
+        </ul>
+    </div>
+
+    <div ng-if="mainPage === 'inbox'" class="cp-sms-message">
+        <div ng-if="inboxPage === 'list'" class="cp-sms-message-list">
+            <button class="cp-sms-message-list-item"
+                ng-repeat="message in inbox"
+                ng-click="viewMessage(message)"
+                >{{message.from}} : {{message.summary}}</button>
+        </div>
+
+        <div ng-if="inboxPage === 'view'" class="cp-sms-message-view">
+            <div class="cp-sms-nav">
+                <button ng-click="goToList()">Back</button>
+                <button ng-click="replyToMessage(selected)">Reply</button>
+            </div>
+
+            <p><h4>FROM:</h4> {{ selected.from }}</p>
+            <p><h4>BODY:</h4> {{ selected.body }}</p>
+        </div>
+    </div>
+
+    <div ng-if="mainPage === 'sentbox'" class="cp-sms-message">
+        <div ng-if="sentboxPage === 'list'" class="cp-sms-message-list">
+            <button class="cp-sms-message-list-item"
+                ng-repeat="message in sentbox"
+                ng-click="viewMessage(message)"
+                >{{message.from}} : {{message.summary}}</button>
+        </div>
+
+        <div ng-if="sentboxPage === 'view'" class="cp-sms-message-view">
+            <div class="cp-sms-nav">
+                <button ng-click="goToList()">Back</button>
+            </div>
+
+            <p><h4>TO:</h4> {{ selected.to }}</p>
+            <p><h4>BODY:</h4> {{ selected.body }}</p>
+        </div>
+    </div>
+
+    <div ng-if="mainPage === 'send'" class="cp-sms-send">
+        <div class="cp-sms-nav">
+            <button ng-click="sendMessage()">Send</button>
+        </div>
+        <input class="cp-sms-send-to" type="tel" ng-model="newMessage.toNumber" placeholder="Enter the number here"/>
+        <textarea class="cp-sms-send-body" ng-model="newMessage.message" placeholder="Enter your message here"></textarea>
+    </div>
+</div>
