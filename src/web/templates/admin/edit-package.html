@@ -1,11 +1,22 @@
 <div class="wrapper">
     <h1>Package {{ vendorPackage.humanId }}</h1>
 
+    <h2>Visibility</h2>
+
     <div class="visiblity-description">
         <p ng-if="isVisibleToCustomers && vendorPackage.onlyForCustomer">This package is only visible to {{ vendorPackage.onlyForCustomer.company }}.</p>
         <p ng-if="isVisibleToCustomers && !vendorPackage.onlyForCustomer">This package is visible to all customers.</p>
         <p ng-if="!isVisibleToCustomers">This package is not visible to customers.</p>
     </div>
+
+    <ul class="visibility-actions">
+        <li ng-if="isOnlyNeedingApproval">
+            <a ng-click="approve()">Approve</a>
+        </li>
+        <li ng-if="!vendorPackage.onlyForCustomer">
+            <a ng-click="getCustomerLimitPackageVisibilityTo()">Set single-customer visibility</a>
+        </li>
+    </ul>
 
     <h2>History</h2>
 

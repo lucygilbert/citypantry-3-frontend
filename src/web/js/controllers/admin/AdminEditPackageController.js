@@ -1,14 +1,19 @@
 angular.module('cp.controllers.admin').controller('AdminEditPackageController',
-        function($scope, $routeParams, PackagesFactory, NotificationService, DocumentTitleService, SecurityService, LoadingService) {
-    DocumentTitleService('Edit Package');
+        function($scope, $routeParams, PackagesFactory, NotificationService, DocumentTitleService,
+        SecurityService, LoadingService, CustomersFactory, $window) {
+    DocumentTitleService('Edit package');
     SecurityService.requireStaff();
 
-    PackagesFactory.getPackage($routeParams.packageId)
-        .success(vendorPackage => {
-            $scope.vendorPackage = vendorPackage;
-            $scope.isVisibleToCustomers = vendorPackage.active && vendorPackage.approved && !vendorPackage.recycled;
-            LoadingService.hide();
-        });
+    function loadPackage() {
+        PackagesFactory.getPackage($routeParams.packageId)
+            .success(vendorPackage => {
+                $scope.vendorPackage = vendorPackage;
+                $scope.isVisibleToCustomers = vendorPackage.active && vendorPackage.approved && !vendorPackage.recycled;
+                $scope.isOnlyNeedingApproval = vendorPackage.active && !vendorPackage.recycled && !vendorPackage.approved;
+                LoadingService.hide();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    }
 
     $scope.packagingTypes = PackagesFactory.getPackagingTypeOptions();
 
@@ -29,10 +34,41 @@ angular.module('cp.controllers.admin').controller('AdminEditPackageController',
 
         PackagesFactory.updatePackage($routeParams.packageId, updatedPackage)
             .success(response => {
-                $scope.vendorPackage = response.updatedObject;
                 NotificationService.notifySuccess('The package has been edited.');
-                LoadingService.hide();
+                loadPackage();
             })
             .catch((response) => NotificationService.notifyError(response.data.errorTranslation));
     };
+
+    $scope.approve = function() {
+        LoadingService.show();
+
+        PackagesFactory.approvePackage($routeParams.packageId)
+            .success(loadPackage)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
+    function updatePackagesOnlyForCustomerProperty(customer) {
+        LoadingService.show();
+
+        PackagesFactory.updatePackage($routeParams.packageId, {onlyForCustomer: customer.id})
+            .success(loadPackage)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    }
+
+    $scope.getCustomerLimitPackageVisibilityTo = function() {
+        let customerId = $window.prompt('Which customer do you want this package to be visible to? Enter their ID.');
+        customerId = parseInt(customerId, 10);
+
+        if (!customerId) {
+            $window.alert('No numeric customer ID was entered.');
+            return;
+        }
+
+        CustomersFactory.getCustomer(customerId)
+            .success(response => updatePackagesOnlyForCustomerProperty(response))
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
+    loadPackage();
 });
