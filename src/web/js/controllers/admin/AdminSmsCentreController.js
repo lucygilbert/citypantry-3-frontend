@@ -41,11 +41,12 @@ angular.module('cp.controllers.admin').controller('AdminSmsCentreController',
     };
 
     $scope.sendMessage = () => {
+        LoadingService.show();
+
         SmsFactory.sendSms($scope.newMessage).success((response) => {
             NotificationService.notifySuccess('Message sent.');
             $scope.newMessage.toNumber = '';
             $scope.newMessage.message = '';
-            LoadingService.show();
             init();
         }).catch((response) => {
             NotificationService.notifyError('Failed to send message.');
