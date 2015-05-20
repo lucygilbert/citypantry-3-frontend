@@ -1,5 +1,6 @@
-describe('Vendor portal - edit package', function() {
-    var notificationModal = require('../NotificationModal.js');
+var notificationModal = require('../NotificationModal.js');
+
+describe('Vendor portal - edit a non-meal-plan package', function() {
     var isFirst = true;
     var deliveryCost;
     var dietaryTypeDairyFreeCheckbox;
@@ -100,6 +101,11 @@ describe('Vendor portal - edit package', function() {
 
     it('should show a notes textbox for the vegetarian dietary type', function() {
         expect(element.all(by.css('input[name="packageDietaryTypeNotes[]"]')).get(0).isDisplayed()).toBe(true);
+    });
+
+    it('should have notice options up to 14 days because this is not a meal plan package', function() {
+        var noticeOptions = element(by.model('package.notice')).all(by.css('option'));
+        expect(noticeOptions.last().getText()).toBe('14 days');
     });
 
     // This test will fail if the suite is run in isolation because the address added by
@@ -220,7 +226,7 @@ describe('Vendor portal - edit package', function() {
         eventTypeLunchCheckbox.click();
         eventTypeDinnerCheckbox.click();
 
-        element.all(by.css('#package_notice > option')).get(2).click(); // 3 hours notice.
+        element(by.cssContainingText('#package_notice > option', '3 hours')).click();
         element(by.cssContainingText('#package_delivery_time_start > option', '07:00')).click();
         element(by.cssContainingText('#package_delivery_time_end > option', '17:00')).click();
         deliveryCost.clear().sendKeys(10);
@@ -263,12 +269,30 @@ describe('Vendor portal - edit package', function() {
         dietaryTypeDairyFreeCheckbox.click();
         eventTypeLunchCheckbox.click();
         eventTypeDinnerCheckbox.click();
-        element.all(by.css('#package_notice > option')).get(10).click(); // 48 hours notice.
+        element(by.cssContainingText('#package_notice > option', '2 days')).click();
         // The delivery start time can't be reset to it's original (0600) because that isn't an
         // option in the time wheel anymore.
         element(by.cssContainingText('#package_delivery_time_end > option', '18:00')).click();
         deliveryCost.clear().sendKeys(15);
         freeDeliveryThreshold.clear().sendKeys(100);
         element(by.css('main input.btn.btn-primary')).click();
+    });
+});
+
+describe('Vendor portal - edit a meal-plan package', function() {
+    var isFirst = true;
+
+    beforeEach(function() {
+        if (isFirst) {
+            loginAsUser('vendor@kebab-centre.test');
+            browser.get('/vendor/packages');
+            element.all(by.css('#table_packages a.edit-package')).get(0).click();
+            isFirst = false;
+        }
+    });
+
+    it('should have notice options up to 24 hours because is a meal plan package', function() {
+        var noticeOptions = element(by.model('package.notice')).all(by.css('option'));
+        expect(noticeOptions.last().getText()).toBe('24 hours');
     });
 });

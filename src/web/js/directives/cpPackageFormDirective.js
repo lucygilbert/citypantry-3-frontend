@@ -22,7 +22,7 @@ angular.module('cp').directive('cpPackageForm', function($anchorScroll, $cookies
             $scope.eventTypeOptions = [];
             $scope.isAddAddressFormOpen = false;
             $scope.map = {};
-            $scope.noticeOptions = PackagesFactory.getNoticeOptions();
+            $scope.noticeOptions = PackagesFactory.getNoticeOptions($scope.package.isMealPlan);
             $scope.quantityOptions = PackagesFactory.getQuantityOptions();
             $scope.radiusOptions = PackagesFactory.getRadiusOptions();
             $scope.packagingTypeOptions = PackagesFactory.getPackagingTypeOptions();
