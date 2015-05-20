@@ -38,10 +38,21 @@
     margin-bottom: $cp-margin-base-vertical;
     margin-left: -90px;
 
+    // Prevent the carousel becoming "highlighted" with the browser's blue highlight colour when
+    // the user clicks through the carousel too quickly.
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
     img {
         margin-right: auto;
         margin-left: auto;
-        max-height: 370px;
+    }
+
+    img,
+    .carousel-inner > .item > img {
+        height: 370px;
     }
 
     .carousel-control {
