@@ -82,12 +82,10 @@
                                 <td class="order-details-cell" id="number_of_people">{{ modalOrder.headCount }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Vegetarian</th>
-                                <td class="order-details-cell" id="vegetarian">{{ modalOrder.vegetarianHeadCount }}</td>
-                            </tr>
-                            <tr>
                                 <th scope="row">Dietary requirements</th>
-                                <td class="order-details-cell" id="dietary_requirements">{{ modalOrder.customDietaryRequirements }}</td>
+                                <td class="order-details-cell" id="dietary_requirements">
+                                    {{ modalOrder.dietaryRequirements | dietaryRequirementsFormatter }}
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">Subtotal</th>

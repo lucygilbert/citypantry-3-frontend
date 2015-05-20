@@ -10,16 +10,12 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
     $scope.messages = [];
     $scope.order = {};
     $scope.refundAmount = 0;
-    $scope.vegetarianHeadCountOptions = [];
-    $scope.vegetarianHeadCount = undefined;
 
     OrdersFactory.getOrder($routeParams.orderId)
         .success(function(order) {
             $scope.order = order;
             $scope.headCountOptions = OrdersFactory.getHeadCountOptions($scope.order.package.maxPeople, $scope.order.package.minPeople);
             $scope.headCount = $scope.order.headCount;
-            $scope.vegetarianHeadCountOptions = getVegetarianHeadCountOptions($scope.order.headCount);
-            $scope.vegetarianHeadCount = getVegetarianHeadCountValue($scope.order.vegetarianHeadCount);
 
             if ($scope.order.pickupAddress !== null) {
                 $scope.order.pickupAddressString = addressSingleLineFormatterFilter($scope.order.pickupAddress);
@@ -37,28 +33,6 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
         .success(response => $scope.review = response.review)
         .error(response => NotificationService.notifyError(response.data.errorTranslation));
 
-    $scope.$watch('headCount', function(updatedHeadCount) {
-        $scope.vegetarianHeadCountOptions = getVegetarianHeadCountOptions(updatedHeadCount);
-        $scope.vegetarianHeadCount = getVegetarianHeadCountValue($scope.vegetarianHeadCount);
-    });
-
-    function getVegetarianHeadCountOptions(headCount = 1) {
-        const options = [];
-
-        for (let i = 0; i <= headCount; i += 1) {
-            options.push(i);
-        }
-
-        return options;
-    }
-
-    function getVegetarianHeadCountValue(vegetarianHeadCount = 0) {
-        if (vegetarianHeadCount > $scope.headCount) {
-            return $scope.headCount;
-        }
-        return vegetarianHeadCount;
-    }
-
     $scope.save = function() {
         LoadingService.show();
 
@@ -67,9 +41,8 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
             pickupDate: $scope.order.pickupDate,
             cityPantryCommission: $scope.order.cityPantryCommission,
             headCount: $scope.headCount,
-            vegetarianHeadCount: $scope.vegetarianHeadCount,
-            deliveryInstruction: $scope.order.deliveryInstruction,
-            customDietaryRequirements: $scope.order.customDietaryRequirements
+            dietaryRequirements: $scope.order.dietaryRequirements.getStructuredForApiCall(),
+            deliveryInstruction: $scope.order.deliveryInstruction
         };
 
         OrdersFactory.updateOrder($routeParams.orderId, updatedOrder)
