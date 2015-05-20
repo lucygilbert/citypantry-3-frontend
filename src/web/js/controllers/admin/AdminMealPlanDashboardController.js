@@ -1,6 +1,6 @@
 angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardController',
         function($scope, uiGridConstants, NotificationService, DocumentTitleService,
-        SecurityService, LoadingService, CustomersFactory, getCustomerMealPlanStatusTextFilter,
+        SecurityService, LoadingService, MealPlanFactory, getCustomerMealPlanStatusTextFilter,
         getCurrentMealPlanStatusTextFilter) {
     DocumentTitleService('Meal plan');
     SecurityService.requireStaff();
@@ -70,9 +70,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardControl
     };
 
     function loadMealPlanCustomers() {
-        CustomersFactory.getAllCustomers().success(response => {
-            response.customers = response.customers.filter(customer => customer.mealPlanStatusText !== 'none');
-
+        MealPlanFactory.getCustomers().success(response => {
             angular.forEach(response.customers, customer => {
                 customer.mealPlanStatusTextTranslation = getCustomerMealPlanStatusTextFilter(customer.mealPlanStatus);
                 customer.currentMealPlanStatusTextTranslation = getCurrentMealPlanStatusTextFilter(customer.currentMealPlanStatus);
@@ -82,7 +80,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardControl
             $scope.gridOptions.data = response.customers;
 
             LoadingService.hide();
-        }).error((response) => NotificationService.notifyError(response.data.errorTranslation));
+        }).catch((response) => NotificationService.notifyError(response.data.errorTranslation));
     }
 
     loadMealPlanCustomers();
