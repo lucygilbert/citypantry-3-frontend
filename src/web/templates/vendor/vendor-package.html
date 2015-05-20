@@ -193,9 +193,17 @@
         <div class="cp-form-group">
             <label class="cp-form-label" for="package_notice">
                 How much notice do you need for orders?
-                <span class="form-element-invalid" ng-show="packageForm.$submitted && packageForm.packageNotice.$error.required">(Package notice time is required.)</span>
+                <span class="form-element-invalid"
+                    ng-show="packageForm.$submitted && packageForm.packageNotice.$error.required"
+                    >(Package notice time is required.)</span>
             </label>
-            <select class="cp-form-control" id="package_notice" name="packageNotice" required aria-required="true" ng-model="package.notice" ng-options="noticeOption.value as noticeOption.label for noticeOption in noticeOptions"></select>
+            <select class="cp-form-control"
+                id="package_notice"
+                name="packageNotice"
+                required aria-required="true"
+                ng-model="package.notice"
+                ng-options="noticeOption.value as noticeOption.label for noticeOption in noticeOptions"
+                ></select>
         </div>
 
         <div class="cp-form-group">
