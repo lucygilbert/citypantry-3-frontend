@@ -10,7 +10,11 @@
 
         <p class="cp-form-error" ng-show="createAccountError" ng-bind="createAccountError"></p>
 
-        <form class="cp-form" role="form" ng-if="!userHasPassword" ng-submit="create()">
+        <!--
+        This ng-show must not be an ng-if, because the password models must bind to the
+        controller's scope.
+        -->
+        <form class="cp-form" role="form" ng-show="!userHasPassword" ng-submit="create()">
             <fieldset>
                 <div class="cp-form-group">
                     <label class="cp-form-label" for="new">New password</label>
