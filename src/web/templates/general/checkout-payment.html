@@ -160,7 +160,9 @@
 
                 <hr />
 
-                <input class="cp-btn cp-btn-primary cp-btn-lg" type="submit" value="Pay now ({{ order.totalAmount | currency:'£':2 }})" />
+                <input analytics-on="click" analytics-event="payNow" analytics-category="buttonEvents"
+                        class="cp-btn cp-btn-primary cp-btn-lg" type="submit"
+                        value="Pay now ({{ order.totalAmount | currency:'£':2 }})" />
 
                 <button class="cp-btn cp-btn-link" type="button" ng-click="$parent.isPromoCodeVisible = true" ng-if="!isPromoCodeVisible && !isPromoCodeValid">Promo code?</button>
             </form>
