@@ -57,7 +57,7 @@ describe('MealPlanCreateAccountController', function() {
             expect(NotificationService.notifyError).not.toHaveBeenCalled();
         });
 
-        it('should call UsersFactory.changeOwnPassword with new password and current password', function() {
+        it('should call UsersFactory.changeOwnPassword with the new password', function() {
             scope.newPassword = 'password';
             scope.confirmPassword = 'password';
 
@@ -65,7 +65,20 @@ describe('MealPlanCreateAccountController', function() {
             scope.create();
 
             expect(UsersFactory.changeOwnPassword.calls.mostRecent().args)
-                .toEqual([{newPassword: 'password', currentPassword: null}]);
+                .toEqual([{newPassword: 'password'}]);
+        });
+
+        it('should not call UsersFactory.changeOwnPassword with the new password if the confirmed password does not match', function() {
+            scope.newPassword = 'password';
+            scope.confirmPassword = 'not indentical';
+
+            makeCtrl();
+            scope.create();
+
+            expect(UsersFactory.changeOwnPassword).not.toHaveBeenCalled();
+            expect(NotificationService.notifyError).toHaveBeenCalled();
+            expect(scope.newPassword).toBe('');
+            expect(scope.confirmPassword).toBe('');
         });
     });
 });

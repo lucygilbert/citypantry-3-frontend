@@ -34,12 +34,7 @@ angular.module('cp.controllers.authentication').controller('MealPlanCreateAccoun
 
         $scope.createAccountError = null;
 
-        var passwords = {
-            newPassword: $scope.newPassword,
-            currentPassword: null
-        };
-
-        UsersFactory.changeOwnPassword(passwords)
+        UsersFactory.changeOwnPassword({newPassword: $scope.newPassword})
             .success(function(response) {
                 $window.location = '/';
             })
