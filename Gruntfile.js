@@ -167,6 +167,11 @@ module.exports = function (grunt) {
                         'src/web/lib/iso8601.min.js',
                         'node_modules/grunt-6to5/node_modules/6to5/browser-polyfill.js',
                         'node_modules/randy/browser/randy.js',
+                        'node_modules/angulartics/dist/angulartics.min.js',
+                        'node_modules/angulartics/dist/angulartics-ga.min.js',
+                        'node_modules/angulartics/dist/angulartics-hubspot.min.js',
+                        'node_modules/angulartics/dist/angulartics-kissmetrics.min.js',
+                        'src/web/lib/angulartics-console.js',
                     ],
                     'web/dist/js/built-citypantry-es6.js': [
                         'node_modules/citypantry-js-lib/dist/lib-es6.js',
