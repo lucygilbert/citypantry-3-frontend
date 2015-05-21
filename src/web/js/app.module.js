@@ -1,3 +1,16 @@
+let angularticsDependencies;
+if (window.includeAnalyticsJs && !window.isStaff) {
+    angularticsDependencies = [
+        'angulartics.google.analytics',
+        'angulartics.hubspot',
+        'angulartics.kissmetrics'
+    ];
+} else {
+    angularticsDependencies = [
+        'angulartics.console'
+    ];
+}
+
 angular.module('cp', [
     'cpLib',
     'cpLibIntegration',
@@ -19,8 +32,9 @@ angular.module('cp', [
     'uiGmapgoogle-maps',
     'uiSlider',
     'angularFileUpload',
-    'js.clamp'
-]);
+    'js.clamp',
+    'angulartics'
+].concat(angularticsDependencies));
 
 const baseHost = window.location.host.replace('order.', '');
 angular.module('cp')
@@ -77,18 +91,6 @@ angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvid
 
     $rootScope.$on('$routeChangeStart', function(event, oldRoute, newRoute) {
         LoadingService.show();
-    });
-
-    $rootScope.$on('$routeChangeSuccess', function(event, oldRoute, newRoute) {
-        // HubSpot tracking.
-        if (window._hsq && typeof window._hsq.push === 'function') {
-            window._hsq.push(['trackPageView']);
-        }
-
-        // Google Analytics tracking.
-        if (window.ga && typeof window.ga === 'function') {
-            window.ga('send', 'pageview', $location.url());
-        }
     });
 
     $rootScope.$on('$routeChangeError', function () {
