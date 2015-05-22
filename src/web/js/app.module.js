@@ -3,11 +3,13 @@ if (window.includeAnalyticsJs && !window.isStaff) {
     angularticsDependencies = [
         'angulartics.google.analytics',
         'angulartics.hubspot',
-        'angulartics.kissmetrics'
+        'angulartics.kissmetrics',
+        'angulartics.citypantry'
     ];
 } else {
     angularticsDependencies = [
-        'angulartics.console'
+        'angulartics.console',
+        'angulartics.citypantry'
     ];
 }
 

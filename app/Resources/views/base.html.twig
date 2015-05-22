@@ -81,6 +81,9 @@
         {% endif %}
 
         <script>
+            {% if user %}
+                window.userId = '{{ user.user.id }}';
+            {% endif %}
             window.frontendBase = '{{ frontendBase }}';
             window.apiBase = '{{ apiBase }}';
             window.hubspotBase = '{{ hubspotBase }}';
