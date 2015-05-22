@@ -224,6 +224,10 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'MealPlanCreateAccountController',
             templateUrl: getTemplateUrl('auth/meal-plan-create-account.html')
         }).
+        when('/admin/database-query', {
+            controller: 'AdminDatabaseQueryController',
+            templateUrl: getTemplateUrl('admin/database-query.html')
+        }).
         when('/admin/vendors', {
             controller: 'AdminVendorsController',
             controllerAs: 'vendors',

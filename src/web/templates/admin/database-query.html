@@ -1,0 +1,16 @@
+<div class="thin-wrapper">
+    <div class="cp-database-query">
+        <h1>Database query</h1>
+        <p>Data is not quite in real-time.</p>
+        <textarea class="cp-database-query-input" ng-model="query" placeholder="Enter your query here"></textarea>
+        <br /><br />
+        <button class="btn btn-primary" ng-click="sendQuery()">Send query</button>
+    </div>
+
+    <hr />
+
+    <h2>Output</h2>
+    <div class="cp-database-query-output">
+    <code><pre>{{output}}</pre></code>
+    </div>
+</div>
