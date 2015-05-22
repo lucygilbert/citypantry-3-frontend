@@ -81,6 +81,8 @@
         {% endif %}
 
         <script>
+            window.frontendBase = '{{ frontendBase }}';
+            window.apiBase = '{{ apiBase }}';
             window.hubspotBase = '{{ hubspotBase }}';
             window.googleMapsJavascriptApiV3Key = '{{ googleMapsJavascriptApiV3Key }}';
             window.cacheBusterValue = '{{ cacheBusterValue }}';

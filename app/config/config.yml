@@ -30,6 +30,8 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
+        frontendBase: %templates.frontend_base%
+        apiBase: %templates.api_base%
         includeAnalyticsJs: %templates.include_analytics_js%
         includeSocialButtons: %templates.include_social_buttons%
         phoneNumberUk: %templates.phone_number_uk%
