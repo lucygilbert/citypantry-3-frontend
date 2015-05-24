@@ -1,3 +1,8 @@
+window.isKarma = true;
+
+window.console.info = function() {
+};
+
 var newPromise = function() {
     var thenCallback;
     var successCallback;
