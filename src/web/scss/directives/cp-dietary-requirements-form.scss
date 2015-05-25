@@ -3,11 +3,24 @@ cp-dietary-requirements-form {
 
     .cp-dietary-requirements-form-requirements,
     .cp-dietary-requirements-form-custom-instructions {
-        legend {
+        margin-bottom: 36px;
+
+        > legend {
             @include cp-font-title($font-size-h2);
+            border-bottom: 0;
+            color: $cp-primary-color;
             font-size: $font-size-h2 !important;
             font-weight: 700 !important;
             line-height: 1 !important;
+            margin-bottom: $cp-margin-xs-vertical;
+        }
+
+        > legend + .cp-form-group {
+            > label {
+                font-size: $font-size-h4;
+                font-weight: 400;
+                margin-bottom: 18px;
+            }
         }
     }
 

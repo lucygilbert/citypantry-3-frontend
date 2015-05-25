@@ -295,8 +295,16 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
             templateUrl: getTemplateUrl('admin/meal-plan-dashboard.html')
         }).
         when('/admin/meal-plan/customer/:customerId/setup', {
-            controller: 'AdminSetUpMealPlanCustomerController',
-            templateUrl: getTemplateUrl('admin/meal-plan-customer-setup.html')
+            controller: 'AdminMealPlanSetupMealPreferencesController',
+            templateUrl: getTemplateUrl('admin/meal-plan-setup-meal-preferences.html')
+        }).
+        when('/admin/meal-plan/customer/:customerId/setup/delivery-details', {
+            controller: 'AdminMealPlanSetupDeliveryDetailsController',
+            templateUrl: getTemplateUrl('admin/meal-plan-setup-delivery-details.html')
+        }).
+        when('/admin/meal-plan/customer/:customerId/setup/payment', {
+            controller: 'AdminMealPlanSetupPaymentController',
+            templateUrl: getTemplateUrl('admin/meal-plan-setup-payment.html')
         }).
         when('/logout', {
             controller: () => window.location = '/logout',

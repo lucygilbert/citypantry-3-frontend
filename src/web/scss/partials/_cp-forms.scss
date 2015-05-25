@@ -113,3 +113,128 @@ select.cp-form-control {
     text-align: center;
     text-transform: uppercase;
 }
+
+.cp-slider-input {
+    clear: both;
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+    height: 18px;
+
+    &:focus {
+        outline: none;
+
+        &::-webkit-slider-thumb {
+            border-color: $input-border-focus;
+        }
+
+        &::-moz-range-thumb {
+            border-color: $input-border-focus;
+        }
+
+        &::-ms-thumb {
+            border-color: $input-border-focus;
+        }
+    }
+
+    &::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: $brand-primary;
+    }
+
+    &::-webkit-slider-thumb {
+        border: 2px solid $brand-primary;
+        height: 16px;
+        width: 16px;
+        border-radius: 8px;;
+        background: #ffffff;
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -6px;
+    }
+
+    &::-moz-range-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: $brand-primary;
+    }
+
+    &::-moz-range-thumb {
+      border: 2px solid $brand-primary;
+      height: 16px;
+      width: 16px;
+      border-radius: 8px;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    &::-ms-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: transparent;
+      border-color: transparent;
+      border-width: 16px 0;
+      color: transparent;
+    }
+
+    &::-ms-fill-lower {
+      background: #2a6495;
+    }
+
+    &::-ms-fill-upper {
+      background: $brand-primary;
+    }
+
+    &::-ms-thumb {
+      border: 2px solid $brand-primary;
+      height: 16px;
+      width: 16px;
+      border-radius: 8px;
+      background: #ffffff;
+      cursor: pointer;
+    }
+}
+
+.cp-slider-output {
+    font-size: $font-size-h4;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0;
+    text-align: center;
+}
+
+slider {
+    margin: $cp-margin-small-vertical 0;
+
+    .bar {
+        background: transparent !important;
+    }
+
+    .bar.selection {
+        background: $cp-primary-color !important;
+    }
+
+    .bubble.selection {
+        display: none !important;
+    }
+
+    .pointer {
+        background-color: #97ad07 !important;
+        opacity: 1 !important;
+    }
+}
+
+.cp-slider-output-low {
+    float: left;
+}
+
+.cp-slider-output-high {
+    float: right;
+}

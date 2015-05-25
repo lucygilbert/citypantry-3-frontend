@@ -1,0 +1,232 @@
+<div class="cp-meal-plan-setup-steps-wrap">
+    <ng-include src="getTemplateUrl('directives/cp-meal-plan-setup-steps.html')" ng-init="activeStep = 2"></ng-include>
+</div>
+
+<div class="thin-container">
+    <div class="cp-meal-plan-setup">
+        <div class="cp-meal-plan-setup-main">
+            <h1 class="cp-heading">Payment details</h1>
+
+            <form class="cp-form cp-meal-plan-setup-form" name="mealPlanSetupForm" novalidate role="form" ng-submit="generateMealPlan()">
+                <div class="cp-form-group cp-meal-plan-setup-is-pay-on-account">
+                    <label class="cp-radio-inline">
+                        <input name="isPayOnAccount"
+                               type="radio"
+                               ng-model="preferences.isPayOnAccount"
+                               ng-value="false" />
+                        Pay on Credit Card
+                    </label>
+                    <label class="cp-radio-inline">
+                        <input name="isPayOnAccount"
+                               type="radio"
+                               ng-model="preferences.isPayOnAccount"
+                               ng-value="true" />
+                        Pay on Account
+                    </label>
+                </div>
+
+                <hr />
+
+                <fieldset ng-if="!preferences.isPayOnAccount">
+                    <legend>
+                        Payment terms
+                        <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.paymentTerms.$error.required">Please specify your preferred payment terms</span>
+                    </legend>
+                    <div class="cp-form-group">
+                        <label class="cp-radio-inline">
+                            <input name="paymentTerms"
+                                   type="radio"
+                                   ng-model="preferences.paymentTerms"
+                                   ng-value="2"
+                                   required
+                                   aria-required="true" />
+                            Pay at the time of order
+                        </label>
+                        <label class="cp-radio-inline">
+                            <input name="paymentTerms"
+                                   type="radio"
+                                   ng-model="preferences.paymentTerms"
+                                   ng-value="3"
+                                   required
+                                   aria-required="true" />
+                            Pay on the day of delivery
+                        </label>
+                    </div>
+                </fieldset>
+
+                <hr ng-if="!preferences.isPayOnAccount" />
+
+                <fieldset ng-if="preferences.isPayOnAccount">
+                    <div ng-if="!customer.isPaidOnAccount">
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="accounts_contact_name">
+                                Accounts contact name
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.accountsContactName.$error.required">Accounts contact name is required</span>
+                            </label>
+                            <input class="cp-form-control"
+                                   id="accounts_contact_name"
+                                   name="accountsContactName"
+                                   required
+                                   aria-required="true"
+                                   ng-model="preferences.accountsContactName" />
+                        </div>
+
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="accounts_email">
+                                Accounts email
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.accountsEmail.$error.required">Accounts email is required</span>
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.accountsEmail.$error.email">Accounts email is invalid</span>
+                            </label>
+                            <input class="cp-form-control"
+                                   id="accounts_email"
+                                   name="accountsEmail"
+                                   type="email"
+                                   required
+                                   aria-required="true"
+                                   ng-model="preferences.accountsEmail" />
+                        </div>
+
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="accounts_telephone_number">
+                                Accounts telephone number
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.accountsTelephoneNumber.$error.required">Accounts telephone number is required</span>
+                            </label>
+                            <input class="cp-form-control"
+                                   id="accounts_telephone_number"
+                                   name="accountsTelephoneNumber"
+                                   type="tel"
+                                   required
+                                   aria-required="true"
+                                   ng-model="preferences.accountsTelephoneNumber" />
+                        </div>
+
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="invoice_payment_terms">
+                                Payment terms
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.invoicePaymentTerms.$error.required">Payment terms is required</span>
+                            </label>
+                            <input class="cp-form-control"
+                                   id="invoice_payment_terms"
+                                   name="invoicePaymentTerms"
+                                   type="text"
+                                   required
+                                   aria-required="true"
+                                   ng-model="preferences.invoicePaymentTerms" />
+                        </div>
+
+                        <div class="cp-form-group">
+                            <label class="cp-form-label" for="max_spend_per_month">
+                                Account limit per month
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.maxSpendPerMonth.$error.required">Account limit per month is required</span>
+                            </label>
+                            <div class="input-group">
+                                <div class="input-group-addon">£</div>
+                                <input class="cp-form-control"
+                                       id="max_spend_per_month"
+                                       name="maxSpendPerMonth"
+                                       type="number"
+                                       min="1"
+                                       step="0.01"
+                                       required
+                                       aria-required="true"
+                                       ng-model="preferences.maxSpendPerMonth" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="purchase_order_number"><abbr title="purchase order">PO</abbr> number</label>
+                        <input class="cp-form-control"
+                               id="purchase_order_number"
+                               type="text"
+                               ng-model="preferences.purchaseOrderNumber" />
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="department_reference">Additional ref</label>
+                        <input class="cp-form-control"
+                               id="department_reference"
+                               type="text"
+                               ng-model="preferences.departmentReference" />
+                    </div>
+                </fieldset>
+
+                <hr ng-if="preferences.isPayOnAccount" />
+
+                <fieldset class="cp-meal-plan-setup-billing-address">
+                    <legend>Billing address</legend>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="company_name">Company name</label>
+                        <input class="cp-form-control"
+                               id="company_name"
+                               name="companyName"
+                               ng-model="billingAddress.companyName" />
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="address_line1">
+                            Address line 1
+                            <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.addressLine1.$error.required">Address line 1 is required</span>
+                        </label>
+                        <input class="cp-form-control"
+                               id="address_line1"
+                               name="addressLine1"
+                               required
+                               aria-required="true"
+                               ng-model="billingAddress.addressLine1" />
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="address_line2">Address line 2</label>
+                        <input class="cp-form-control"
+                               id="address_line2"
+                               name="addressLine2"
+                               ng-model="billingAddress.addressLine2" />
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="address_line3">Address line 3</label>
+                        <input class="cp-form-control"
+                               id="address_line3"
+                               name="addressLine3"
+                               ng-model="billingAddress.addressLine3" />
+                    </div>
+
+                    <div class="row">
+                        <div class="cp-form-group col-md-5">
+                            <label class="cp-form-label" for="city">
+                                Town/City
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.city.$error.required">City is required</span>
+                            </label>
+                            <input class="cp-form-control"
+                                   id="city"
+                                   name="city"
+                                   required
+                                   aria-required="true"
+                                   ng-model="billingAddress.city" />
+                        </div>
+
+                        <div class="cp-form-group col-md-3">
+                            <label class="cp-form-label" for="postcode">
+                                Postcode
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.postcode.$error.required">Postcode is required</span>
+                            </label>
+                            <input class="cp-form-control"
+                                   id="postcode"
+                                   name="postcode"
+                                   required
+                                   aria-required="true"
+                                   ng-model="billingAddress.postcode"
+                                   ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
+                        </div>
+                    </div>
+                </fieldset>
+
+                <hr />
+
+                <input class="cp-btn cp-btn-primary cp-btn-lg" type="submit" value="Generate meal plan" />
+            </form>
+        </div>
+    </div>
+</div>
