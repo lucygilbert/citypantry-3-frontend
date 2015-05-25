@@ -1,0 +1,280 @@
+<div class="cp-meal-plan-setup-steps-wrap">
+    <ng-include src="getTemplateUrl('directives/cp-meal-plan-setup-steps.html')" ng-init="activeStep = 0"></ng-include>
+</div>
+
+<div class="thin-container">
+    <div class="cp-meal-plan-setup">
+        <div class="cp-meal-plan-setup-main">
+            <h1 class="cp-heading">Preferences</h1>
+
+            <form class="cp-form cp-meal-plan-setup-form" name="mealPlanSetupForm" novalidate role="form" ng-submit="nextStep()">
+                <fieldset>
+                    <div class="cp-form-group cp-meal-plan-setup-delivery-days">
+                        <label class="cp-form-label">
+                            Days for catering
+                            <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && preferences.deliveryDays.length === 0">Please specify the day(s) for catering</span>
+                        </label>
+                        <div class="cp-meal-plan-setup-days-of-the-week">
+                            <div ng-repeat="day in daysOfTheWeek"
+                                 class="cp-meal-plan-setup-day-of-the-week"
+                                 ng-class="{active: preferences.deliveryDays.indexOf(day) > -1}"
+                                 ng-click="toggleDayForDelivery(day)">
+                                {{ day | limitTo:3 }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cp-form-group">
+                        <fieldset>
+                            <legend>
+                                Meal plan duration
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.duration.$error.required">Duration is required</span>
+                            </legend>
+                            <label class="cp-radio-inline">
+                                <input name="duration"
+                                       type="radio"
+                                       value="1"
+                                       required
+                                       aria-required="true"
+                                       ng-model="preferences.duration" />
+                                2 weeks
+                            </label>
+                            <label class="cp-radio-inline">
+                                <input name="duration"
+                                       type="radio"
+                                       value="2"
+                                       required
+                                       aria-required="true"
+                                       ng-model="preferences.duration" />
+                                1 month
+                            </label>
+                        </fieldset>
+                    </div>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="start_date">
+                            Start date
+                            <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.startDate.$error.required">Start date is required</span>
+                        </label>
+                        <input id="start_date"
+                               class="cp-form-control"
+                               name="startDate"
+                               type="text"
+                               required
+                               aria-required="true"
+                               datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}"
+                               datepicker-popup="dd/MM/yyyy"
+                               is-open="isDatePickerOpen"
+                               min-date="minDate"
+                               year-range="2"
+                               ng-click="openDatePicker($event)"
+                               ng-model="pickedDate" />
+                    </div>
+
+                    <div class="cp-form-group">
+                        <fieldset>
+                            <legend>
+                                Do you want catering on bank holidays?
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.isToBeCateredOnBankHolidays.$error.required">Please specify if you would like catering on bank holidays</span>
+                            </legend>
+                            <label class="cp-radio-inline">
+                                <input name="isToBeCateredOnBankHolidays"
+                                       type="radio"
+                                       value="true"
+                                       required
+                                       aria-required="true"
+                                       ng-model="preferences.isToBeCateredOnBankHolidays" />
+                                Yes
+                            </label>
+                            <label class="cp-radio-inline">
+                                <input name="isToBeCateredOnBankHolidays"
+                                       type="radio"
+                                       value="false"
+                                       required
+                                       aria-required="true"
+                                       ng-model="preferences.isToBeCateredOnBankHolidays" />
+                                No
+                            </label>
+                        </fieldset>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="cp-form-group col-md-5">
+                            <label class="cp-form-label" for="event_type">
+                                Event type
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.eventType.$error.required">Event type is required</span>
+                            </label>
+                            <select class="cp-form-control"
+                                    id="event_type"
+                                    name="eventType"
+                                    required
+                                    aria-required="true"
+                                    ng-model="preferences.eventType"
+                                    ng-options="eventType.id as eventType.name for eventType in eventTypes">
+                                <option value="">-</option>
+                            </select>
+                        </div>
+
+                        <div class="cp-form-group col-md-3">
+                            <label class="cp-form-label" for="time">
+                                Time
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.time.$error.required">Time is required</span>
+                            </label>
+                            <select class="cp-form-control"
+                                    id="time"
+                                    name="time"
+                                    required
+                                    aria-required="true"
+                                    ng-model="preferences.time"
+                                    ng-options="time.value as time.label for time in timeOptions">
+                                <option value="">-</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cp-form-group col-md-3 cp-meal-plan-setup-head-count">
+                            <label class="cp-form-label" for="head_count">
+                                No. of people?
+                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.headCount.$error.required">No. of people is required</span>
+                            </label>
+                            <select class="cp-form-control"
+                                    id="head_count"
+                                    name="headCount"
+                                    required
+                                    aria-required="true"
+                                    ng-model="preferences.headCount"
+                                    ng-options="headCount for headCount in headCountOptions">
+                                <option value="">-</option>
+                            </select>
+                        </div>
+
+                        <div class="cp-form-group col-md-5 cp-meal-plan-setup-budget-per-person">
+                            <label class="cp-form-label" for="budget_per_person">Budget per person</label>
+                            <slider id="budget_per_person"
+                                    floor="1"
+                                    ceiling="50"
+                                    ng-model-low="preferences.minBudget"
+                                    ng-model-high="preferences.maxBudget"></slider>
+                            <output class="cp-slider-output" for="budget_per_person">
+                                <span class="cp-slider-output-low">Min: {{ preferences.minBudget | currency:'£':0 }}</span>
+                                <span class="cp-slider-output-high">Max: {{ preferences.maxBudget | currency:'£':0 }}</span>
+                            </output>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="cp-form-group">
+                        <fieldset class="cp-meal-plan-setup-cuisine-types">
+                            <legend>Cuisine</legend>
+                            <div class="row">
+                                <div class="cp-checkbox col-md-6 col-lg-4" ng-repeat="cuisineType in cuisineTypes">
+                                    <label>
+                                        <input type="checkbox"
+                                               checklist-model="preferences.cuisineTypes"
+                                               checklist-value="cuisineType.id" />
+                                        {{ cuisineType.name }}
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </fieldset>
+
+                <cp-dietary-requirements-form cp-model="preferences.dietaryRequirements"></cp-dietary-requirements-form>
+
+                <fieldset class="cp-meal-plan-setup-packaging-options">
+                    <legend>Packaging options</legend>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="packaging_type">How would you like it to arrive?</label>
+                        <select class="cp-form-control"
+                                id="packaging_type"
+                                name="packagingType"
+                                ng-model="preferences.packagingType"
+                                ng-options="type.value as type.label for type in packagingTypeOptions"></select>
+                    </div>
+
+                    <div class="cp-checkbox cp-meal-plan-setup-cutlery-and-serviettes">
+                        <label>
+                            <input type="checkbox" ng-model="preferences.isCutleryAndServiettesRequired" />
+                            Include cutlery and serviettes
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="cp-meal-plan-setup-extra-service">
+                    <legend>Extra service</legend>
+
+                    <div class="cp-form-group">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <label class="cp-form-label" for="is_vendor_required_to_set_up">Would you like the vendor to set up?</label>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="cp-form-control"
+                                        id="is_vendor_required_to_set_up"
+                                        name="isVendorRequiredToSetUp"
+                                        ng-model="preferences.isVendorRequiredToSetUp">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cp-form-group">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <label class="cp-form-label" for="is_vendor_required_to_clean_up">Would you like the vendor to clear away?</label>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="cp-form-control"
+                                        id="is_vendor_required_to_clean_up"
+                                        name="isVendorRequiredToCleanUp"
+                                        ng-model="preferences.isVendorRequiredToCleanUp">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="cp-meal-plan-setup-package-dispositions">
+                    <legend>Package dispositions</legend>
+
+                    <div class="cp-form-group">
+                        <label class="cp-form-label">What packages should and should not be included in the meal plan?</label>
+                        <div class="cp-meal-plan-setup-package-disposition" ng-repeat="packageDisposition in preferences.packageDispositions">
+                            <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.packageId{{ $index }}.$error.pattern">Package ID is invalid</span>
+                            <input class="cp-form-control cp-meal-plan-setup-package-disposition-package"
+                                   id="package_disposition{{ $index }}_package"
+                                   name="packageId{{ $index }}"
+                                   type="text"
+                                   placeholder="Package ID"
+                                   ng-model="packageDisposition.packageId"
+                                   ng-pattern="/[0-9a-f]{24}/" />
+
+                            <select class="cp-form-control cp-meal-plan-setup-package-disposition-disposition"
+                                    id="package_disposition{{ $index }}_disposition"
+                                    ng-model="packageDisposition.disposition"
+                                    ng-options="disposition.value as disposition.label for disposition in packageDispositionOptions">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+
+                        <a class="cp-meal-plan-setup-package-dispositions-add" ng-click="preferences.packageDispositions.push({})">Add more</a>
+                    </div>
+                </fieldset>
+
+                <input class="cp-btn cp-btn-primary cp-btn-lg" type="submit" value="Next" />
+            </form>
+
+            <button class="cp-btn cp-btn-link" type="button" cp-back>Go Back</button>
+        </div>
+    </div>
+</div>

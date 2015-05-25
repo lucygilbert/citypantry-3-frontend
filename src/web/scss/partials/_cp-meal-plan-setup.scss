@@ -1,0 +1,277 @@
+@import 'cp-buttons';
+@import 'cp-forms';
+
+// @todo - duplicate of `.cp-checkout-steps-wrap`.
+.cp-meal-plan-setup-steps-wrap {
+    background-color: $cp-primary-color;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -2;
+}
+
+// @todo - duplicate of `.cp-checkout-steps`.
+.cp-meal-plan-setup-steps {
+    color: rgba(255, 255, 255, .4);
+    display: table; // Centre floated children.
+    font-size: 15px;
+    font-weight: 700;
+    list-style-position: inside;
+    margin: 0 auto;
+    padding: 120px 0 0;
+
+    &::before {
+        background-color: rgba(255, 255, 255, .4);
+        content: '';
+        display: block;
+        height: 4px;
+        margin: 0 auto;
+        position: relative;
+        top: -6px;
+        width: 350px;
+    }
+
+    > li {
+        float: left;
+        margin: 0 5px;
+        position: relative;
+        text-align: center;
+        width: 150px;
+
+        &::before {
+            background-color: $cp-primary-color;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, .4);
+            content: '';
+            height: 14px;
+            margin-left: -7px;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            width: 14px;
+        }
+
+        &.complete {
+            color: rgba(255, 255, 255, .7);
+
+            &::before {
+                border-color: rgba(255, 255, 255, .7);
+            }
+        }
+
+        &.active {
+            color: $cp-secondary-color;
+
+            &::before {
+                border: 4px solid $cp-secondary-color;
+                height: 18px;
+                margin-left: -9px;
+                top: -17px;
+                width: 18px;
+            }
+        }
+    }
+}
+
+.thin-container {
+    @extend .container;
+    width: 740px;
+}
+
+.cp-meal-plan-setup {
+    background-color: #fff;
+    float: left;
+    margin: 116px 0 0;
+    padding: 30px 40px;
+    position: relative;
+    width: 100%;
+
+    &::before,
+    &::after {
+        border-radius: 100px / 10px;
+        @include box-shadow(0 0 15px rgba(0, 0, 0, .5));
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 10px;
+        bottom: 65%;
+        left: 10px;
+        z-index: -1;
+    }
+
+    p {
+        font-size: $font-size-h4;
+    }
+}
+
+.cp-meal-plan-setup-main {
+    position: static;
+    width: 100%;
+
+    h1.cp-heading {
+        font-size: $font-size-h2;
+        margin-top: 0;
+    }
+}
+
+.cp-meal-plan-setup-form {
+    > fieldset {
+        background-color: transparent;
+        margin-bottom: 36px;
+        padding: 0;
+
+        > legend + .cp-form-group {
+            > .cp-form-label {
+                font-weight: 400;
+                margin-bottom: 18px;
+            }
+        }
+    }
+}
+
+.cp-meal-plan-setup-days-of-the-week {
+    overflow: hidden;
+}
+
+.cp-meal-plan-setup-day-of-the-week {
+    @include cp-font-title($font-size-h3);
+    border: 3px solid $gray-light;
+    color: $gray-light;
+    cursor: pointer;
+    float: left;
+    font-size: $font-size-h2;
+    line-height: 80px;
+    margin-left: 1%;
+    text-align: center;
+    width: 13.429%;
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &.active {
+        color: $cp-primary-color;
+        border-color: $cp-primary-color;
+    }
+}
+
+.cp-meal-plan-setup-head-count,
+.cp-meal-plan-setup-budget-per-person {
+    margin-bottom: 0;
+}
+
+.cp-meal-plan-setup-cuisine-types,
+.cp-meal-plan-setup-packaging-options,
+.cp-meal-plan-setup-extra-service,
+.cp-meal-plan-setup-delivery-instruction,
+.cp-meal-plan-setup-parking-suggestion,
+.cp-meal-plan-setup-billing-address,
+.cp-meal-plan-setup-package-dispositions {
+    legend {
+        @include cp-font-title($font-size-h2);
+        font-size: $font-size-h2 !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+    }
+}
+
+// @todo - duplicate of `.cp-checkout-cutlery-and-serviettes`.
+.cp-meal-plan-setup-cutlery-and-serviettes {
+    margin-top: -$cp-margin-small-vertical;
+
+    > label {
+      font-size: $font-size-h4;
+    }
+}
+
+// @todo - duplicate of `.cp-checkout-extra-service`.
+.cp-meal-plan-setup-extra-service {
+    > legend {
+        margin-bottom: $cp-margin-small-vertical !important;
+    }
+
+    > .cp-form-group {
+        border-bottom: 4px solid $gray-light;
+        margin-bottom: 0;
+        padding-top: $cp-margin-small-vertical;
+        padding-bottom: $cp-margin-small-vertical;
+
+        &:first-of-type {
+            border-top: 4px solid $gray-light;
+        }
+
+        label {
+            margin: 7px 0 0;
+        }
+    }
+}
+
+// @todo - duplicate of `.cp-checkout-address`.
+.cp-meal-plan-setup-address {
+    font-size: $font-size-h4;
+    margin-top: $cp-margin-base-vertical;
+}
+
+.cp-meal-plan-setup-is-pay-on-account {
+    label {
+        font-size: $font-size-h4;
+        font-weight: 600;
+    }
+}
+
+.cp-meal-plan-setup-billing-address {
+    > legend {
+        margin-bottom: $cp-margin-small-vertical !important;
+    }
+
+    .cp-form-group:first-of-type {
+        > label {
+            font-weight: 600 !important;
+            margin-bottom: $cp-margin-xs-vertical !important;
+        }
+    }
+}
+
+.cp-meal-plan-setup-package-dispositions {
+    .cp-form-group {
+        padding-bottom: 30px;
+    }
+}
+
+.cp-meal-plan-setup-package-disposition {
+    border-bottom: 4px solid #ededed;
+    overflow: hidden;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    &:first-of-type {
+        border-top: 4px solid #ededed;
+    }
+
+    .cp-meal-plan-setup-package-disposition-package {
+        float: left;
+        margin-right: 10px;
+        width: 450px;
+    }
+
+    .cp-meal-plan-setup-package-disposition-disposition {
+        float: left;
+        width: 170px;
+    }
+
+    .form-element-invalid {
+        display: block;
+        font-size: $font-size-h4;
+        font-weight: 600;
+        margin-bottom: $cp-margin-xs-vertical;
+    }
+}
+
+.cp-meal-plan-setup-package-dispositions-add {
+    @include cp-font-title(16px);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}

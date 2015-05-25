@@ -64,7 +64,8 @@ angular.module('cp')
     .constant('CP_BANK_SORT_CODE', '60-30-20')
     .constant('INVOICE_STATUS_AWAITING_PAYMENT', 1)
     .constant('INVOICE_STATUS_PAID', 2)
-    .constant('getTemplateUrl', (path) => '/dist/templates/' + path + '?cacheBuster=' + window.cacheBusterValue);
+    .constant('getTemplateUrl', (path) => '/dist/templates/' + path + '?cacheBuster=' + window.cacheBusterValue)
+    .constant('CP_PAY_ON_ACCOUNT', 1);
 
 angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvider, GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY,
         $sceDelegateProvider) {
