@@ -92,7 +92,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupPaymentCont
 
                     MealPlanFactory.generateMealPlan($scope.customer.id, startDate)
                         .success(response => {
-                            $location.path(`/admin/meal-plan/customer/${$scope.customer.id}/review`);
+                            $location.path(`/admin/meal-plan`);
                         })
                         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
                 })
