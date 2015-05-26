@@ -97,12 +97,12 @@ describe('Admin - Meal plan setup', function() {
             element(by.model('billingAddress.postcode')).sendKeys('W12 8LB');
         });
 
-        it('should be able to proceed to the "review" page', function() {
+        it('should be able to proceed to the "meal plan dashboard" page', function() {
             element.all(by.css('input[name="paymentTerms"]')).first().click();
 
             element(by.css('.cp-meal-plan-setup-form input[type="submit"]')).click();
 
-            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/review$/);
+            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan$/);
         });
     });
 
@@ -160,12 +160,12 @@ describe('Admin - Meal plan setup', function() {
             element(by.model('billingAddress.postcode')).sendKeys('W12 8LB');
         });
 
-        it('should be able to proceed to the "review" page', function() {
+        it('should be able to proceed to the "meal plan dashboard" page', function() {
             element.all(by.css('input[name="paymentTerms"]')).first().click();
 
             element(by.css('.cp-meal-plan-setup-form input[type="submit"]')).click();
 
-            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/review$/);
+            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan$/);
         });
     });
 
@@ -224,10 +224,10 @@ describe('Admin - Meal plan setup', function() {
             element(by.model('billingAddress.postcode')).sendKeys('W12 8LB');
         });
 
-        it('should be able to proceed to the "review" page', function() {
+        it('should be able to proceed to the "meal plan dashboard" page', function() {
             element(by.css('.cp-meal-plan-setup-form input[type="submit"]')).click();
 
-            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/review$/);
+            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan$/);
         });
     });
 });
