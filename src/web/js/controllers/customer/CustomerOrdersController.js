@@ -7,10 +7,7 @@ angular.module('cp.controllers.customer').controller('CustomerOrdersController',
         OrdersFactory.getOrdersByCurrentCustomer()
             .success(response => {
                 $scope.customer = response.customer;
-                // Only orders that are active or pending vendor approval should be visible on this page.
-                $scope.orders = response.orders.filter(order => order.statusText !== 'not_placed')
-                    .sort((a, b) => a.humanId > b.humanId)
-                    .reverse();
+                $scope.orders = response.orders;
                 $scope.count = $scope.orders.length;
                 LoadingService.hide();
             })
