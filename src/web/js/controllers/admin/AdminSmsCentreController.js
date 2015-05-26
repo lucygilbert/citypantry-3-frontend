@@ -9,16 +9,13 @@ angular.module('cp.controllers.admin').controller('AdminSmsCentreController',
 
     function init() {
         $scope.inbox = [];
-        $scope.orderDeliveryReplies = [];
         $scope.sentbox = [];
         SmsFactory.getSmsHistory().success((response) => {
             $scope.sms = response.sms;
             $scope.sms.forEach((element, index, array) => {
                 element.summary = element.body.length > 30 ? element.body.slice(0, 30) + '...' : element.body;
-                if (element.to === CP_TWILIO_SMS_CENTRE_NUMBER) {
+                if (element.to === CP_TWILIO_SMS_CENTRE_NUMBER || element.to === CP_TWILIO_ORDER_DELIVERY_NUMBER) {
                     $scope.inbox.push(element);
-                } else if (element.to === CP_TWILIO_ORDER_DELIVERY_NUMBER) {
-                    $scope.orderDeliveryReplies.push(element);
                 } else {
                     $scope.sentbox.push(element);
                 }
