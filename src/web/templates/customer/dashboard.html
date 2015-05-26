@@ -97,7 +97,7 @@
                         <dd>{{ nextOrder.headCount }}</dd>
 
                         <dt>Dietary requirements</dt>
-                        <dd>{{ nextOrder.dietaryRequirements | dietaryRequirementsFormatter }}</dd>
+                        <dd ng-bind-html="nextOrder.dietaryRequirements | dietaryRequirementsFormatter"></dd>
 
                         <dt class="cp-dashboard-aside-order-detail-total">Total</dt>
                         <dd class="cp-dashboard-aside-order-detail-total">{{ nextOrder.totalAmountAfterVoucher | currency:'£' }}</dd>

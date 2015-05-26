@@ -93,8 +93,8 @@
                             </tr>
                             <tr>
                                 <th scope="row">Dietary requirements</th>
-                                <td class="order-details-cell" id="dietary_requirements">
-                                    {{ modalOrder.dietaryRequirements | dietaryRequirementsFormatter }}
+                                <td class="order-details-cell" id="dietary_requirements"
+                                    ng-bind-html="modalOrder.dietaryRequirements | dietaryRequirementsFormatter">
                                 </td>
                             </tr>
                             <tr>
