@@ -75,7 +75,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupPaymentCont
             .success(response => {
                 $scope.billingAddress = response.newAddress;
             })
-            .catch(response => NotificationService.notifyError(response.data.errorTranslation));;
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
         promises.push(createBillingAddressPromise);
 
         $q.all(promises).then(() => {
