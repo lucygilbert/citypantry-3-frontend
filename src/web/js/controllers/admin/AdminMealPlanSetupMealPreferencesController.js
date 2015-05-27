@@ -126,7 +126,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
 
         $window.localStorage.setItem('startDate', $scope.preferences.startDate.toISOString());
 
-        let packageDispositions = {};
+        const packageDispositions = {};
 
         $scope.preferences.packageDispositions.forEach(packageDisposition => {
             packageDispositions[packageDisposition.packageId] = packageDisposition.disposition;
@@ -136,17 +136,17 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
             cuisineTypes: $scope.preferences.cuisineTypes,
             deliveryDays: $scope.preferences.deliveryDays,
             dietaryRequirements: $scope.preferences.dietaryRequirements.getStructuredForApiCall(),
-            duration: $scope.preferences.duration,
+            duration: parseInt($scope.preferences.duration, 10),
             eventType: $scope.preferences.eventType,
             headCount: $scope.preferences.headCount,
-            isToBeCateredOnBankHolidays: $scope.preferences.isToBeCateredOnBankHolidays,
-            maxBudget: $scope.preferences.maxBudget,
-            minBudget: $scope.preferences.minBudget,
+            isToBeCateredOnBankHolidays: $scope.preferences.isToBeCateredOnBankHolidays === 'true',
+            maxBudget: parseInt($scope.preferences.maxBudget, 10),
+            minBudget: parseInt($scope.preferences.minBudget, 10),
             packageDispositions: packageDispositions,
             packagingTypeChoice: $scope.preferences.packagingType,
             requestCutleryAndServiettes: $scope.preferences.isCutleryAndServiettesRequired,
-            requestVendorSetUpAfterDelivery: $scope.preferences.isVendorRequiredToSetUp,
-            requestVendorCleanUpAfterDelivery: $scope.preferences.isVendorRequiredToCleanUp,
+            requestVendorSetUpAfterDelivery: $scope.preferences.isVendorRequiredToSetUp === 'true',
+            requestVendorCleanUpAfterDelivery: $scope.preferences.isVendorRequiredToCleanUp === 'true',
             time: $scope.preferences.time
         };
 
