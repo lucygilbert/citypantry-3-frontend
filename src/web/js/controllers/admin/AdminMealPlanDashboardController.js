@@ -56,6 +56,8 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardControl
                     <a ng-if="!row.entity.isStatusRequestedCallback" href="@todo">Current</a>
                     <br />
                     <a ng-if="!row.entity.isStatusRequestedCallback" href="@todo">New</a>
+                    <br />
+                    <a ng-if="!row.entity.isStatusRequestedCallback" href="@todo">Review</a>
                     </div>`,
                 displayName: 'Action',
                 field: 'id',
@@ -66,12 +68,17 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardControl
         enableFiltering: true,
         enableSorting: true,
         paginationPageSizes: [25, 50, 75],
-        paginationPageSize: 25
+        paginationPageSize: 25,
+        rowHeight: 100
     };
 
     function loadMealPlanCustomers() {
         MealPlanFactory.getCustomers().success(response => {
             angular.forEach(response.customers, customer => {
+                MealPlanFactory.getMealPlans(customer.id).success(response => {
+                    customer.mealPlans = response.mealPlans;
+                }).catch((response) => NotificationService.notifyError(response.data.errorTranslation));
+
                 customer.mealPlanStatusTextTranslation = getCustomerMealPlanStatusTextFilter(customer.mealPlanStatus);
                 customer.currentMealPlanStatusTextTranslation = getCurrentMealPlanStatusTextFilter(customer.currentMealPlanStatus);
                 customer.isStatusRequestedCallback = customer.mealPlanStatusText === 'requested_callback';

@@ -149,6 +149,7 @@ module.exports = function (grunt) {
                         'src/web/js/lib/angular.js',
                         'src/web/js/lib/angular-cookies.min.js',
                         'src/web/js/lib/angular-currency-mask.js',
+                        'src/web/js/lib/angular-drag-and-drop-lists.js',
                         'src/web/js/lib/angular-google-maps.min.js',
                         'src/web/js/lib/angular-route.min.js',
                         'src/web/js/lib/checklist-model.js',

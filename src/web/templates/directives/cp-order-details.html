@@ -1,0 +1,18 @@
+<section class="cp-order-details" ng-if="order">
+    <h3 class="cp-order-details-heading">Your order</h3>
+    <p class="cp-order-details-edit-notice" ng-show="isEditOrderNoticeDisplayed">To make a change to this order, please call us on <a ng-href="tel:{{ cpTelephoneNumberInternational }}">{{ cpTelephoneNumberUk }}</a>.</p>
+    <dl>
+        <dt>Delivery time</dt>
+        <dd class="cp-order-details-delivery-time">{{ order.requestedDeliveryDate | date:'HH:mm' }}</dd>
+
+        <dt>No. of people?</dt>
+        <dd class="cp-order-details-head-count">{{ order.headCount }}</dd>
+
+        <dt>Dietary requirements</dt>
+        <dd class="cp-order-details-dietary-requirements" ng-bind-html="order.dietaryRequirements | dietaryRequirementsFormatter"></dd>
+
+        <dt class="cp-order-details-total">Total</dt>
+        <dd class="cp-order-details-total">{{ order.totalAmountAfterVoucher | currency:'£' }}</dd>
+    </dl>
+    <a class="cp-order-details-edit" ng-click="isEditOrderNoticeDisplayed = true">Edit<span class="sr-only"> order</span></a>
+</section>

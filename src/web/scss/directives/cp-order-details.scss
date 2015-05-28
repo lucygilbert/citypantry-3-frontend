@@ -1,0 +1,65 @@
+.cp-order-details {
+    position: relative;
+
+    > dl {
+        @extend .clearfix;
+        font-size: 16px;
+
+        > dt,
+        > dd {
+            border-bottom: 1px solid $gray-light;
+            padding-top: $padding-small-vertical;
+            padding-bottom: $padding-small-vertical;
+        }
+
+        > dt {
+            clear: left;
+            float: left;
+            font-weight: 400;
+            width: $dl-horizontal-offset;
+        }
+
+        > dd {
+            margin-left: $dl-horizontal-offset;
+            text-align: right;
+        }
+    }
+}
+
+.cp-order-details-total {
+    @include cp-font-title($font-size-h4);
+    border-top: 2px solid $cp-primary-color !important;
+    border-bottom: 2px solid $cp-primary-color !important;
+    font-weight: 700 !important;
+    padding-top: $cp-margin-small-vertical !important;
+    padding-bottom: $cp-margin-small-vertical !important;
+    position: relative;
+    top: -1px;
+}
+
+.cp-order-details-heading {
+    @include cp-font-title($font-size-h4);
+    border-bottom: 2px solid $cp-primary-color;
+    margin: 0;
+    padding-bottom: $padding-base-vertical;
+}
+
+.cp-order-details-edit {
+    font-weight: 600;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        color: $cp-secondary-color;
+    }
+}
+
+.cp-order-details-edit-notice {
+    background-color: #fffbcc;
+    margin: $cp-margin-small-vertical 0;
+    padding: $padding-large-vertical ($grid-gutter-width / 2);
+}

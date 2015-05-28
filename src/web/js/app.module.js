@@ -33,7 +33,8 @@ angular.module('cp', [
     'uiSlider',
     'angularFileUpload',
     'js.clamp',
-    'angulartics'
+    'angulartics',
+    'dndLists'
 ].concat(angularticsDependencies));
 
 const baseHost = window.location.host.replace('order.', '');
