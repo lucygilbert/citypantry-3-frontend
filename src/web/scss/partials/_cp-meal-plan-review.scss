@@ -1,0 +1,177 @@
+@import '../directives/cp-order-details';
+
+.cp-meal-plan-review {
+    @extend .row;
+}
+
+.cp-meal-plan-review-main {
+    @extend .col-md-8;
+}
+
+.cp-meal-plan-review-header {
+    margin-bottom: $cp-margin-base-vertical;
+
+    .cp-heading {
+        margin-bottom: 3px;
+
+        .meals-count,
+        .total-amount {
+            font-weight: 400;
+
+            &::before {
+                content: '\0399';
+                padding: 0 20px 0 10px;
+            }
+        }
+    }
+}
+
+.cp-meal-plan-review-delivery-address {
+    font-size: $font-size-h4;
+    margin-bottom: 0;
+
+    b {
+        font-weight: 600;
+    }
+}
+
+.cp-meal-plan-review-orders {
+    list-style: none;
+    margin-bottom: $cp-margin-base-vertical;
+    padding-left: 0;
+    position: relative;
+
+    .dndDraggingSource {
+        display: none;
+    }
+
+    .dndPlaceholder {
+        background-color: $gray;
+        display: block;
+        min-height: 80px;
+    }
+}
+
+.cp-meal-plan-review-order {
+    border-bottom: 2px solid $gray-lighter;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 2px 0;
+    position: relative;
+
+    &:first-child {
+        border-top: 2px solid $gray-lighter;
+    }
+
+    &.selected {
+        background-color: #dae7f5;
+    }
+}
+
+.cp-meal-plan-review-order-date {
+    @include cp-font-title($font-size-h3);
+    background-color: $cp-primary-color;
+    color: #fff;
+    float: left;
+    font-weight: 400;
+    padding: 12px 0;
+    text-align: center;
+    width: 100px;
+
+    .cp-meal-plan-review-order-day {
+        display: block;
+        font-size: $font-size-h2;
+        font-weight: 700;
+    }
+}
+
+.cp-meal-plan-review-order-package-image {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    float: left;
+    height: 70px;
+    margin: 5px 15px;
+    width: 70px;
+}
+
+.cp-meal-plan-review-order-package-info {
+    float: left;
+    padding: 14px 0;
+
+    .cp-meal-plan-review-order-package-name {
+        @include cp-font-title(24px);
+        display: block;
+        margin-bottom: 3px;
+    }
+
+    .cp-meal-plan-review-order-vendor-name {
+        font-size: 18px;
+    }
+
+    .cp-meal-plan-review-order-availability-error {
+        color: $state-danger-text;
+        display: block;
+        font-size: 16px;
+        font-weight: 700;
+    }
+}
+
+.cp-meal-plan-review-sidebar {
+    @extend .col-md-4;
+}
+
+.cp-meal-plan-review-aside {
+    border: 5px solid $gray-light;
+    padding: $cp-padding-xl-vertical ($grid-gutter-width / 2);
+
+    > header {
+        margin-bottom: $cp-margin-small-vertical;
+    }
+
+    .cp-package-card-price {
+        display: block !important;
+    }
+
+    .cp-package-card-image {
+        padding-bottom: 50%;
+    }
+
+    .cp-package-rating-inline {
+        margin-bottom: $cp-margin-small-vertical;
+
+        > li {
+            margin-bottom: $cp-margin-small-vertical;
+            width: 40%;
+
+            &:nth-child(odd) {
+                border-left: 0;
+            }
+        }
+    }
+}
+
+.cp-meal-plan-review-aside-order-date {
+    @include cp-font-title($font-size-h3);
+    font-weight: 400;
+    line-height: 1;
+}
+
+.cp-meal-plan-review-aside-package-description {
+    font-size: 16px;
+    margin-bottom: $cp-margin-base-vertical;
+}
+
+.cp-replace-package {
+    font-size: $font-size-base;
+    font-weight: 700;
+    height: 36px;
+
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        color: $cp-secondary-color;
+    }
+}

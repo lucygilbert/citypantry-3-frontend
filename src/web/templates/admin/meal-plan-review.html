@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="cp-meal-plan-review-header">
+        <h1 class="cp-heading">
+            {{ mealPlan.requirementsAtGeneration.durationTextTranslation }} meal plan
+            <span class="meals-count"><ng-pluralize
+                count="mealPlan.proposedOrders.length"
+                when="{'one': '1 meal',
+                       'other': '{} meals'}">
+            </ng-pluralize></span>
+            <span class="total-amount">{{ mealPlan.totalCost | currency:'£':2 }}</span>
+        </h1>
+        <p class="cp-meal-plan-review-delivery-address"><b>Delivery address</b>: {{ mealPlan.requirementsAtGeneration.deliveryAddress | addressSingleLineFormatter }}</p>
+    </div>
+    <div class="cp-meal-plan-review">
+        <div class="cp-meal-plan-review-main">
+            <ul class="cp-meal-plan-review-orders" dnd-list="mealPlan.proposedOrders">
+                <li class="cp-meal-plan-review-order"
+                    ng-repeat="order in mealPlan.proposedOrders"
+                    dnd-draggable="order"
+                    dnd-moved="$parent.moved($index)"
+                    dnd-effect-allowed="move"
+                    dnd-selected="$parent.selected(order)"
+                    ng-class="{'selected': $parent.selectedOrder === order, 'unavailable': order.isAvailable === false}"
+                    >
+                    <div class="cp-meal-plan-review-order-date">
+                        <span class="cp-meal-plan-review-order-day">{{ order.requestedDeliveryDate | date:'EEE' }}</span>
+                        {{ order.requestedDeliveryDate | date:'dd/MM' }}
+                    </div>
+
+                    <div class="cp-meal-plan-review-order-package-image" style="background-image: url('{{ order.package.images[0].medium }}')"></div>
+
+                    <div class="cp-meal-plan-review-order-package-info">
+                        <span class="cp-meal-plan-review-order-package-name">{{ order.package.name }}</span>
+                        <span class="cp-meal-plan-review-order-vendor-name">{{ order.package.vendor.name }}</span>
+                        <span ng-if="order.availabilityErrorText" class="cp-meal-plan-review-order-availability-error">{{ order.availabilityErrorText }}</span>
+                    </div>
+                </li>
+            </ul>
+
+            <button class="cp-btn cp-btn-primary cp-btn-lg" ng-click="send()" ng-disabled="isSendToCustomerButtonDisabled">Send to customer</button>
+        </div>
+        <div class="cp-meal-plan-review-sidebar">
+            <aside class="cp-meal-plan-review-aside" ng-if="selectedOrder">
+                <header>
+                    <h2 class="sr-only">Your order</h2>
+                    <span class="cp-meal-plan-review-aside-order-date">
+                        <b>{{ selectedOrder.requestedDeliveryDate | date:'EEE' }},</b>
+                        {{ selectedOrder.requestedDeliveryDate | date:'dd/MM/yy' }}
+                    </span>
+                </header>
+
+                <cp-package-card package="selectedOrder.package"></cp-package-card>
+
+                <cp-package-rating cp-summary="reviewsSummary" cp-style="horizontal" ng-if="reviewsSummary"></cp-package-rating>
+
+                <p class="cp-meal-plan-review-aside-package-description" js-clamp="'3'">{{ selectedOrder.package.description }}</p>
+
+                <cp-order-details order="selectedOrder"></cp-order-details>
+
+                <a class="cp-btn cp-btn-default cp-btn-lg cp-btn-block"
+                    ng-href="/package/{{ selectedOrder.package.humanId }}-{{ selectedOrder.package.name | slugify }}"
+                    >View details</a>
+
+                <button class="cp-btn cp-btn-link cp-btn-block cp-replace-package" ng-click="replace()">Replace with new package</button>
+            </aside>
+        </div>
+    </div>
+</div>
