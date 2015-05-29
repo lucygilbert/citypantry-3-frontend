@@ -75,7 +75,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardControl
     function loadMealPlanCustomers() {
         MealPlanFactory.getCustomers().success(response => {
             angular.forEach(response.customers, customer => {
-                MealPlanFactory.getMealPlans(customer.id).success(response => {
+                MealPlanFactory.getCustomerMealPlans(customer.id).success(response => {
                     customer.mealPlans = response.mealPlans;
                 }).catch((response) => NotificationService.notifyError(response.data.errorTranslation));
 

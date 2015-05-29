@@ -1,5 +1,5 @@
 angular.module('cp.controllers.admin').controller('AdminMealPlanPaymentController',
-        function($scope, $q, DocumentTitleService, LoadingService, SecurityService,
+        function($scope, $q, $routeParams, DocumentTitleService, LoadingService, SecurityService, NotificationService,
         CustomersFactory, UsersFactory, getCardNumberMaskFilter) {
     DocumentTitleService('Meal plan payment');
     SecurityService.requireStaff();

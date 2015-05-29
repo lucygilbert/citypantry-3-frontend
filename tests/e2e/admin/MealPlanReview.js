@@ -51,9 +51,9 @@ describe('Admin - meal plan review', function() {
         expect(element(by.css('.cp-package-card-vendor')).getText()).toBe('Hong Tin');
         expect(element(by.css('.cp-package-card-price')).getText()).toContain('£7.30');
         expect(element(by.css('.cp-meal-plan-review-aside-package-description')).getText()).toBe('Yum');
-        expect(element(by.css('.cp-order-details-delivery-time')).toMatch(/([01]\d|2[0-3]):([0-5]\d)/);
-        expect(element(by.css('.cp-order-details-head-count')).toBe('10');
-        expect(element(by.css('.cp-order-details-dietary-requirements')).toBe('None');
+        expect(element(by.css('.cp-order-details-delivery-time'))).toMatch(/([01]\d|2[0-3]):([0-5]\d)/);
+        expect(element(by.css('.cp-order-details-head-count'))).toBe('10');
+        expect(element(by.css('.cp-order-details-dietary-requirements'))).toBe('None');
         expect(element.all(by.css('.cp-order-details-total')).get(1).getText()).toContain('67.78');
 
         mealPlanOrders.get(1).click();
@@ -62,8 +62,8 @@ describe('Admin - meal plan review', function() {
         expect(element(by.css('.cp-package-card-vendor')).getText()).toBe('Flame Mangal');
         expect(element(by.css('.cp-package-card-price')).getText()).toContain('£10.00');
         expect(element(by.css('.cp-meal-plan-review-aside-package-description')).getText()).toBe('Yummy');
-        expect(element(by.css('.cp-order-details-head-count')).toBe('15');
-        expect(element(by.css('.cp-order-details-dietary-requirements')).toBe('None');
+        expect(element(by.css('.cp-order-details-head-count'))).toBe('15');
+        expect(element(by.css('.cp-order-details-dietary-requirements'))).toBe('None');
         expect(element.all(by.css('.cp-order-details-total')).get(1).getText()).toContain('127.50');
 
         // Revert the changes so other tests will pass.

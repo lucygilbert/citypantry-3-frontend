@@ -86,7 +86,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupPaymentCont
                 purchaseOrderNumber: $scope.preferences.purchaseOrderNumber
             };
 
-            MealPlanFactory.updateMealPlanPreferences($scope.customer.id, mealPlanPreferences)
+            MealPlanFactory.setCustomerMealPlanRequirements($scope.customer.id, mealPlanPreferences)
                 .success(response => {
                     const startDate = $window.localStorage.getItem('startDate');
 
