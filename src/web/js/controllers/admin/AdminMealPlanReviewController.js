@@ -10,7 +10,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanReviewController
     $scope.mealPlan = {};
     $scope.proposedOrdersPackageIsNotAvailable = [];
     $scope.reviewsSummary = {};
-    $scope.selectedOrder;
+    $scope.selectedOrder = {};
 
     MealPlanFactory.getMealPlan($routeParams.customerId, $routeParams.mealPlanId)
         .success(response => {

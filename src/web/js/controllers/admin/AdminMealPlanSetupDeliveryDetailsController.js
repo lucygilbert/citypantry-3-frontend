@@ -56,7 +56,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupDeliveryDet
         promise.then(response => {
             $scope.address = $scope.preferences.deliveryAddress ? response.data.updatedAddress : response.data.newAddress;
 
-            MealPlanFactory.updateMealPlanPreferences($routeParams.customerId, {deliveryAddress: $scope.address.id})
+            MealPlanFactory.setCustomerMealPlanRequirements($routeParams.customerId, {deliveryAddress: $scope.address.id})
                 .success(response => {
                     $location.path(`/admin/meal-plan/customer/${$routeParams.customerId}/setup/payment`);
                 })

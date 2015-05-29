@@ -1,4 +1,5 @@
 describe('Meal plan payment', function() {
+    var gridTestUtils = require('../lib/gridTestUtils.spec.js');
     var isFirst = true;
 
     beforeEach(function() {

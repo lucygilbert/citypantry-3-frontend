@@ -132,7 +132,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
             packageDispositions[packageDisposition.packageId] = packageDisposition.disposition;
         });
 
-        const mealPlanPreferences = {
+        const mealPlanRequirements = {
             cuisineTypes: $scope.preferences.cuisineTypes,
             deliveryDays: $scope.preferences.deliveryDays,
             dietaryRequirements: $scope.preferences.dietaryRequirements.getStructuredForApiCall(),
@@ -150,7 +150,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
             time: $scope.preferences.time
         };
 
-        MealPlanFactory.updateMealPlanPreferences($routeParams.customerId, mealPlanPreferences)
+        MealPlanFactory.setCustomerMealPlanRequirements($routeParams.customerId, mealPlanRequirements)
             .success(response => {
                 $location.path(`/admin/meal-plan/customer/${$routeParams.customerId}/setup/delivery-details`);
             })
