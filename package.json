@@ -30,7 +30,7 @@
     "grunt-contrib-copy": "~0.8.0",
     "grunt-contrib-imagemin": "~0.9.4",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-csso": "git://github.com/amyboyd/grunt-csso.git",
+    "grunt-csso": "~0.7.1",
     "grunt-sass": "~1.0.0",
     "jasmine-core": "~2.3.4",
     "jasmine-reporters": "~2.0.6",
