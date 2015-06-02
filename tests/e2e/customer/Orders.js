@@ -16,9 +16,13 @@ describe('Customer orders', function() {
     it('should have 4 orders', function() {
         var orders = element.all(by.repeater('order in orders'));
         expect(orders.count()).toBe(4);
-        expect(orders.get(0).getText()).toContain('Beef and mixed veg curry');
-        expect(orders.get(1).getText()).toContain('Paella');
+    });
+
+    it('should be sorted with the most-forward delivery date first', function() {
+        var orders = element.all(by.repeater('order in orders'));
+        expect(orders.get(0).getText()).toContain('Paella');
+        expect(orders.get(1).getText()).toContain('Carrots');
         expect(orders.get(2).getText()).toContain('Marshmallows');
-        expect(orders.get(3).getText()).toContain('Carrots');
+        expect(orders.get(3).getText()).toContain('Beef and mixed veg curry');
     });
 });

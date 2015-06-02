@@ -6,7 +6,8 @@ describe('Vendor portal - individual order messages', function() {
             first = false;
             loginAsUser('vendor@bunnies.test');
             browser.get('/vendor/orders');
-            var order = element.all(by.repeater('order in orders')).get(0);
+            var INDEX_OF_ORDER_WITH_NO_MESSAGES_IN_LIST = 1;
+            var order = element.all(by.repeater('order in orders')).get(INDEX_OF_ORDER_WITH_NO_MESSAGES_IN_LIST);
             var messagesLink = order.element(by.css('a.send-message'));
             expect(messagesLink.getText()).toBe('Customer');
             messagesLink.click();

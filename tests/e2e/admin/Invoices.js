@@ -29,8 +29,8 @@ describe('Admin - invoices page', function() {
         gridTestUtils.expectHeaderCellValueMatch('invoices-table', 8, 'View');
     });
 
-    it('should have 7 rows', function() {
-        gridTestUtils.expectRowCount('invoices-table', 7);
+    it('should have 5 rows', function() {
+        gridTestUtils.expectRowCount('invoices-table', 5);
     });
 
     it('should find 1 invoice when filtered by status', function() {
@@ -39,21 +39,19 @@ describe('Admin - invoices page', function() {
         gridTestUtils.expectCellValueMatch('invoices-table', 0, 5, 'Customer, Aperture Science');
     });
 
-    it('should find 7 invoices when filter is cancelled', function() {
+    it('should find 5 invoices when filter is cancelled', function() {
         gridTestUtils.cancelFilterInColumn('invoices-table', 6);
-        gridTestUtils.expectRowCount('invoices-table', 7);
+        gridTestUtils.expectRowCount('invoices-table', 5);
     });
 
-    it('should toggle the invoice status', function() {
-        gridTestUtils.expectCellValueMatch('invoices-table', 4, 6, 'Awaiting payment');
-        var invoiceStatusLink = element.all(by.css('#invoices-table a.invoice-status')).first();
-        invoiceStatusLink.click();
-        gridTestUtils.expectCellValueMatch('invoices-table', 4, 6, 'Paid');
-        notificationModal.expectIsOpen();
-        notificationModal.expectSuccessHeader();
-        notificationModal.dismiss();
-        invoiceStatusLink.click();
-        gridTestUtils.expectCellValueMatch('invoices-table', 4, 6, 'Awaiting payment');
+    it('should be able to mark an invoice as paid', function() {
+        gridTestUtils.enterFilterInColumn('invoices-table', 6, 'Awaiting payment');
+
+        var markAsPaidLink = element.all(by.css('#invoices-table a.invoice-status')).first();
+        markAsPaidLink.click();
+
+        gridTestUtils.expectRowCount('invoices-table', 0);
+
         notificationModal.expectIsOpen();
         notificationModal.expectSuccessHeader();
         notificationModal.dismiss();

@@ -49,6 +49,6 @@ describe('Admin - users page', function() {
             return browser.getCurrentUrl().then(function(url) {
                 return /\.dev\/vendor\/orders$/.test(url);
             });
-        });
+        }, 15000);
     });
 });

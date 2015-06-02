@@ -6,7 +6,7 @@ module.exports = {
             return browser.driver.getCurrentUrl().then(function(url) {
                 return (/\/login$/.test(url));
             });
-        });
+        }, 30000);
     },
 
     loginAsUser: function(email) {
@@ -26,6 +26,6 @@ module.exports = {
             return browser.getCurrentUrl().then(function(url) {
                 return (/\.dev\/(customer\/dashboard|admin\/orders|vendor\/orders)$/.test(url));
             });
-        });
+        }, 30000);
     },
 }

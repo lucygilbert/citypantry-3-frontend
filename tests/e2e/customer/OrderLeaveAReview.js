@@ -19,7 +19,9 @@ describe('Leaving a review for an order', function() {
     });
 
     it('should have a link to leave a review', function() {
-        var order = element.all(by.repeater('order in orders')).get(0);
+        var INDEX_OF_REVIEWABLE_ORDER_IN_LIST = 3;
+        var order = element.all(by.repeater('order in orders')).get(INDEX_OF_REVIEWABLE_ORDER_IN_LIST);
+
         var leaveAReviewLink = order.element(by.css('a.leave-a-review'));
         expect(leaveAReviewLink.getText()).toBe('Write review');
         leaveAReviewLink.click();
