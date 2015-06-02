@@ -179,8 +179,6 @@ module.exports = function (grunt) {
                         'src/web/js/cpLibIntegration.js',
                         'src/web/js/app.module.js',
                         'src/web/js/config.js',
-                        'src/web/js/factories/**/*.js',
-                        'src/web/js/filters/**/*.js',
                         'src/web/js/controllers/**/*.js',
                         'src/web/js/services/**/*.js',
                         'src/web/js/directives/**/*.js',
