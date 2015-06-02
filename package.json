@@ -12,6 +12,8 @@
     "install-pre-commit": "ln -s ../../bin/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit"
   },
   "url": "https://citypantry.com/",
+  "repository": "https://github.com/CityPantry/citypantry-3-frontend",
+  "license": "Apache License 2.0",
   "copyright": "2015",
   "version": "3.0.0",
   "dependencies": {
