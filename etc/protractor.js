@@ -13,8 +13,6 @@ var helpers = require('./protractor-helpers.js');
 
     onPrepare = function() {
         require('jasmine-reporters'); // is not available earlier, so we need to put it in here
-        // require('../test/e2e/matchers.js');
-        jasmine.getEnv().addReporter(new jasmine.JUnitXmlReporter('build/protractor-logs/', true, true));
 
         // Sets the width of the window, otherwise the default min width
         // of our site is too small and the login page is unusable.
