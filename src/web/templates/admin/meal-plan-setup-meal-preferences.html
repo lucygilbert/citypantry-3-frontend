@@ -120,7 +120,7 @@
                                     name="eventType"
                                     required
                                     aria-required="true"
-                                    ng-model="preferences.eventType"
+                                    ng-model="preferences.eventTypeId"
                                     ng-options="eventType.id as eventType.name for eventType in eventTypes">
                                 <option value="">-</option>
                             </select>
@@ -183,7 +183,7 @@
                                 <div class="cp-checkbox col-md-6 col-lg-4" ng-repeat="cuisineType in cuisineTypes">
                                     <label>
                                         <input type="checkbox"
-                                               checklist-model="preferences.cuisineTypes"
+                                               checklist-model="preferences.cuisineTypeIds"
                                                checklist-value="cuisineType.id" />
                                         {{ cuisineType.name }}
                                     </label>

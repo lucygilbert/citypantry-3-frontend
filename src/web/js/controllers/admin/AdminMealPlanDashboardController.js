@@ -51,7 +51,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardControl
             {
                 cellTemplate: `<div class="ui-grid-cell-contents">
                     <a ng-if="row.entity.isStatusRequestedCallback" href="/admin/meal-plan/customer/{{row.entity[col.field]}}/setup">Setup</a>
-                    <a ng-if="!row.entity.isStatusRequestedCallback" href="@todo">Preferences</a>
+                    <a ng-if="!row.entity.isStatusRequestedCallback" href="/admin/meal-plan/customer/{{row.entity[col.field]}}/edit">Preferences</a>
                     <br />
                     <a ng-if="!row.entity.isStatusRequestedCallback" href="@todo">Current</a>
                     <br />

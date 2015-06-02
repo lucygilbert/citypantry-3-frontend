@@ -1,8 +1,10 @@
 angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPreferencesController',
-        function($scope, $location, $routeParams, $q, $window, DocumentTitleService, SecurityService,
+        function($scope, $location, $routeParams, $q, $window, DocumentTitleService, SecurityService, ApiService,
         LoadingService, NotificationService, CustomersFactory, MealPlanFactory, OrdersFactory, PackagesFactory) {
     DocumentTitleService('Meal preferences');
     SecurityService.requireStaff();
+
+    const setupOrEdit = $location.path().slice($location.path().lastIndexOf('/') + 1);
 
     $scope.preferences = {
         cuisineTypes: [],
@@ -39,23 +41,38 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
     $scope.timeOptions = PackagesFactory.getPackageDeliveryTimeOptions(700, 2400, 30);
 
     function init() {
-        const promise1 = PackagesFactory.getEventTypes()
+        const initPromises = [];
+
+        initPromises[0] = PackagesFactory.getEventTypes()
             .success(response => $scope.eventTypes = response.eventTypes)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
-        const promise2 = PackagesFactory.getCuisineTypes()
+        initPromises[1] = PackagesFactory.getCuisineTypes()
             .success(response => $scope.cuisineTypes = response.cuisineTypes)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
-        const promise3 = PackagesFactory.getDietaryTypes()
+        initPromises[2] = PackagesFactory.getDietaryTypes()
             .success(response => $scope.dietaryRequirements = response.dietaryRequirements)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
-        const promise4 = CustomersFactory.getCustomer($routeParams.customerId)
+        initPromises[3] = CustomersFactory.getCustomer($routeParams.customerId)
             .success(response => $scope.customer = response)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
-        $q.all([promise1, promise2, promise3, promise4]).then(() => {
+        if (setupOrEdit === 'edit') {
+            initPromises[4] = ApiService.get('/meal-plan/customers/' + $routeParams.customerId + '/requirements', ApiService.getAuthHeaders())
+                .success(response => {
+                    $scope.preferences = response.requirements;
+                    $scope.preferences.isToBeCateredOnBankHolidays = $scope.preferences.isToBeCateredOnBankHolidays ?
+                        'true' : 'false';
+                    $scope.preferences.eventTypeId = $scope.preferences.eventType.id;
+                    $scope.preferences.cuisineTypeIds = $scope.preferences.cuisineTypes.map(cuisineType => {
+                        return cuisineType.id;
+                    });
+                }).catch(response => NotificationService.notifyError(response.data.errorTranslation));
+        }
+
+        $q.all(initPromises).then(() => {
             $scope.cuisineTypes.forEach(cuisineType => {
                 $scope.preferences.cuisineTypes.push(cuisineType.id);
             });
