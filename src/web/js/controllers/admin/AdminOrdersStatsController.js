@@ -4,13 +4,19 @@ angular.module('cp.controllers.admin').controller('AdminOrdersStatsController',
     DocumentTitleService('Orders Stats');
     SecurityService.requireStaff();
 
-    const may = ApiService.get('/orders/sales-in-month/2015/05').success(response => $scope.may = response);
-    const april = ApiService.get('/orders/sales-in-month/2015/04').success(response => $scope.april = response);
-    const march = ApiService.get('/orders/sales-in-month/2015/03').success(response => $scope.march = response);
+    $scope.isReady = false;
 
-    const loadingPromises = [may, april, march];
+    const loadingPromises = [
+        ApiService.get('/orders/sales-in-month/2015/06').success(response => $scope.june = response),
+        ApiService.get('/orders/sales-in-month/2015/05').success(response => $scope.may = response),
+        ApiService.get('/orders/sales-in-month/2015/04').success(response => $scope.april = response)
+    ];
+
     $q.all(loadingPromises)
-        .then(() => LoadingService.hide())
+        .then(() => {
+            $scope.isReady = true;
+            LoadingService.hide();
+        })
         .catch(() => NotificationService.notifyError());
 
     $scope.getTotalInMonth = (month) => {
