@@ -86,4 +86,17 @@
             </fieldset>
         </form>
     </section>
+
+    <h2>Delivery addresses</h2>
+
+    <ul>
+        <li ng-repeat="address in customer.addresses">
+            Label: {{ address.label }}<br />
+            {{ address | addressSingleLineFormatter }}<br />
+            Office manager: {{ address.officeManagerName }}<br />
+            Company name: {{ address.companyName }}
+        </li>
+    </ul>
+
+    <p ng-if="customer.addresses.length === 0">This customer has no delivery addresses.</p>
 </div>
