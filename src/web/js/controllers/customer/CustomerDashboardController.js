@@ -30,6 +30,14 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
         time: SearchService.getDeliveryTime()
     };
 
+    const loadReviews = (id) => {
+        PackagesFactory.getPackageReviews(id)
+            .success(response => {
+                $scope.reviewsSummary = response.summary;
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
     function initIfLoggedIn() {
         const promise1 = PackagesFactory.getEventTypes()
             .success(response => $scope.eventTypeOptions = response.eventTypes)
@@ -144,14 +152,6 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
             }
         }
     });
-
-    const loadReviews = (id) => {
-        PackagesFactory.getPackageReviews(id)
-            .success(response => {
-                $scope.reviewsSummary = response.summary;
-            })
-            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-    };
 
     $scope.submit = function() {
         if (!$scope.dashboardForm.$valid) {

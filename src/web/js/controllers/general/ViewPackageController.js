@@ -22,6 +22,44 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
 
     const humanId = Number($routeParams.humanIdAndSlug.split('-')[0]);
 
+    const loadReviews = (id) => {
+        PackagesFactory.getPackageReviews(id)
+            .success(response => {
+                $scope.reviews = response.reviews;
+                $scope.reviewsSummary = response.summary;
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
+    const loadSimilarPackages = (id) => {
+        PackagesFactory.getSimilarPackages(id)
+            .success(response => {
+                $scope.otherPackagesBySameVendor = response.otherPackagesBySameVendor;
+                $scope.similarPackagesByDifferentVendors = response.similarPackagesByDifferentVendors;
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
+    const recalculateCostAmounts = () => {
+        if (!$scope.package) {
+            return;
+        }
+
+        if ($scope.order.headCount === undefined) {
+            $scope.order.headCount = $scope.package.minPeople;
+        }
+
+        $scope.order.subTotalAmount = $scope.package.costIncludingVat * $scope.order.headCount;
+
+        if ($scope.order.subTotalAmount >= $scope.package.freeDeliveryThreshold) {
+            $scope.order.deliveryCost = 0;
+        } else {
+            $scope.order.deliveryCost = $scope.package.deliveryCostIncludingVat;
+        }
+
+        $scope.order.totalAmount = $scope.order.subTotalAmount + $scope.order.deliveryCost;
+    };
+
     PackagesFactory.getPackageByHumanId(humanId)
         .success(response => {
             $scope.package = response;
@@ -90,44 +128,6 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             }
         }
         return false;
-    };
-
-    const loadReviews = (id) => {
-        PackagesFactory.getPackageReviews(id)
-            .success(response => {
-                $scope.reviews = response.reviews;
-                $scope.reviewsSummary = response.summary;
-            })
-            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-    };
-
-    const loadSimilarPackages = (id) => {
-        PackagesFactory.getSimilarPackages(id)
-            .success(response => {
-                $scope.otherPackagesBySameVendor = response.otherPackagesBySameVendor;
-                $scope.similarPackagesByDifferentVendors = response.similarPackagesByDifferentVendors;
-            })
-            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-    };
-
-    const recalculateCostAmounts = () => {
-        if (!$scope.package) {
-            return;
-        }
-
-        if ($scope.order.headCount === undefined) {
-            $scope.order.headCount = $scope.package.minPeople;
-        }
-
-        $scope.order.subTotalAmount = $scope.package.costIncludingVat * $scope.order.headCount;
-
-        if ($scope.order.subTotalAmount >= $scope.package.freeDeliveryThreshold) {
-            $scope.order.deliveryCost = 0;
-        } else {
-            $scope.order.deliveryCost = $scope.package.deliveryCostIncludingVat;
-        }
-
-        $scope.order.totalAmount = $scope.order.subTotalAmount + $scope.order.deliveryCost;
     };
 
     $scope.openDatePicker = function($event) {
