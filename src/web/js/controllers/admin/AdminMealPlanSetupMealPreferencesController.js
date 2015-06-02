@@ -40,27 +40,19 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
 
     function init() {
         const promise1 = PackagesFactory.getEventTypes()
-            .success(response => {
-                $scope.eventTypes = response.eventTypes;
-            })
+            .success(response => $scope.eventTypes = response.eventTypes)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         const promise2 = PackagesFactory.getCuisineTypes()
-            .success(response => {
-                $scope.cuisineTypes = response.cuisineTypes;
-            })
+            .success(response => $scope.cuisineTypes = response.cuisineTypes)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         const promise3 = PackagesFactory.getDietaryTypes()
-            .success(response => {
-                $scope.dietaryRequirements = response.dietaryRequirements;
-            })
+            .success(response => $scope.dietaryRequirements = response.dietaryRequirements)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         const promise4 = CustomersFactory.getCustomer($routeParams.customerId)
-            .success(response => {
-                $scope.customer = response;
-            })
+            .success(response => $scope.customer = response)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         $q.all([promise1, promise2, promise3, promise4]).then(() => {
@@ -127,9 +119,28 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
         $window.localStorage.setItem('startDate', $scope.preferences.startDate.toISOString());
 
         const packageDispositions = {};
+        const promises = [];
+        let hasErrors = false;
 
         $scope.preferences.packageDispositions.forEach(packageDisposition => {
-            packageDispositions[packageDisposition.packageId] = packageDisposition.disposition;
+            const packageHumanIdIsSet = packageDisposition.packageHumanId !== null &&
+                packageDisposition.packageHumanId !== undefined;
+            const packageDispositionIsSet = packageDisposition.disposition !== null &&
+                packageDisposition.disposition !== undefined;
+
+            if (!packageHumanIdIsSet || !packageDispositionIsSet) {
+                return;
+            }
+
+            const promise = PackagesFactory.getPackageByHumanId(packageDisposition.packageHumanId)
+                .success(response => {
+                    packageDispositions[response.id] = packageDisposition.disposition;
+                })
+                .catch(response => {
+                    hasErrors = true;
+                    NotificationService.notifyError(response.data.errorTranslation);
+                });
+            promises.push(promise);
         });
 
         const mealPlanRequirements = {
@@ -150,10 +161,14 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
             time: $scope.preferences.time
         };
 
-        MealPlanFactory.setCustomerMealPlanRequirements($routeParams.customerId, mealPlanRequirements)
-            .success(response => {
-                $location.path(`/admin/meal-plan/customer/${$routeParams.customerId}/setup/delivery-details`);
-            })
-            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+        $q.all(promises).then(() => {
+            if (!hasErrors) {
+                MealPlanFactory.setCustomerMealPlanRequirements($routeParams.customerId, mealPlanRequirements)
+                    .success(response => {
+                        $location.path(`/admin/meal-plan/customer/${$routeParams.customerId}/setup/delivery-details`);
+                    })
+                    .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+            }
+        });
     };
 });
