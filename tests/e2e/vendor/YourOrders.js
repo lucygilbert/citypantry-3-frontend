@@ -16,12 +16,16 @@ describe('Vendor portal - your orders', function() {
     it('should have two orders', function() {
         var orders = element.all(by.repeater('order in orders'));
         expect(orders.count()).toBe(2);
-        expect(orders.get(0).getText()).toContain('Marshmallows');
-        expect(orders.get(1).getText()).toContain('Carrots');
+    });
+
+    it('should list the orders with the most-forward first', function() {
+        var orders = element.all(by.repeater('order in orders'));
+        expect(orders.get(0).getText()).toContain('Carrots');
+        expect(orders.get(1).getText()).toContain('Marshmallows');
     });
 
     it('should be able to accept an order', function() {
-        var pendingOrder = element.all(by.repeater('order in orders')).get(1);
+        var pendingOrder = element.all(by.repeater('order in orders')).get(0);
         expect(pendingOrder.getText()).toContain('Pending vendor approval');
 
         var acceptLink = pendingOrder.element(by.css('a.accept-order'));

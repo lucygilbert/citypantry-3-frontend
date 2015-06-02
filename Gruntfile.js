@@ -166,7 +166,7 @@ module.exports = function (grunt) {
                         'src/web/lib/ng-file-upload/angular-file-upload-shim.min.js',
                         'src/web/lib/ng-file-upload/angular-file-upload.min.js',
                         'src/web/lib/iso8601.min.js',
-                        'node_modules/grunt-6to5/node_modules/6to5/browser-polyfill.js',
+                        'node_modules/grunt-babel/node_modules/babel-core/browser-polyfill.js',
                         'node_modules/randy/browser/randy.js',
                         'node_modules/angulartics/dist/angulartics.min.js',
                         'node_modules/angulartics/dist/angulartics-ga.min.js',
@@ -179,8 +179,6 @@ module.exports = function (grunt) {
                         'src/web/js/cpLibIntegration.js',
                         'src/web/js/app.module.js',
                         'src/web/js/config.js',
-                        'src/web/js/factories/**/*.js',
-                        'src/web/js/filters/**/*.js',
                         'src/web/js/controllers/**/*.js',
                         'src/web/js/services/**/*.js',
                         'src/web/js/directives/**/*.js',
@@ -205,7 +203,7 @@ module.exports = function (grunt) {
             }
         },
 
-        '6to5': {
+        'babel': {
             options: {
                 sourceMap: true
             },
@@ -271,7 +269,7 @@ module.exports = function (grunt) {
      */
     grunt.registerTask('js', [
         'concat:dist',
-        '6to5:dist',
+        'babel:dist',
         'concat:dist2',
     ]);
 };
