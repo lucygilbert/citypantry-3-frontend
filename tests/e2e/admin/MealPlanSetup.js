@@ -64,7 +64,7 @@ describe('Admin - Meal plan setup', function() {
         });
 
         it('should load the customer\'s saved addresses', function() {
-            var addresses = element.all(by.css('#saved_addresses > option'));
+            var addresses = element.all(by.css('#existing_addresses > option'));
             expect(addresses.count()).toBe(2); // 2 because 1 option + "not selected" option = 2.
             expect(addresses.get(1).getText()).toBe('Lena Gardens');
         });
@@ -72,10 +72,10 @@ describe('Admin - Meal plan setup', function() {
         it('should be able to select the customer\'s saved address', function() {
             element(by.cssContainingText('option', 'Lena Gardens')).click();
 
-            expect(element(by.model('address.officeManagerName')).getAttribute('value')).toBe('Bunny Rabbit');
-            expect(element(by.model('address.landlineNumber')).getAttribute('value')).toBe('02012345678');
-            expect(element(by.model('address.deliveryInstruction')).getAttribute('value')).toBe('Ask for someone');
-            expect(element(by.model('address.parkingSuggestion')).getAttribute('value')).toBe('Paint your car invisible so traffic wardens can\'t see it');
+            expect(element(by.model('newOrUpdatedAddress.officeManagerName')).getAttribute('value')).toBe('Bunny Rabbit');
+            expect(element(by.model('newOrUpdatedAddress.landlineNumber')).getAttribute('value')).toBe('02012345678');
+            expect(element(by.model('newOrUpdatedAddress.deliveryInstruction')).getAttribute('value')).toBe('Ask for someone');
+            expect(element(by.model('newOrUpdatedAddress.parkingSuggestion')).getAttribute('value')).toBe('Paint your car invisible so traffic wardens can\'t see it');
         });
 
         it('should be able to proceed to the "payment" step', function() {
@@ -137,6 +137,10 @@ describe('Admin - Meal plan setup', function() {
             element(by.css('.cp-meal-plan-setup-form input[type="submit"]')).click();
 
             expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/setup\/delivery-details$/);
+        });
+
+        it('should be able to switch to entering a new address', function() {
+            element(by.cssContainingText('#existing_addresses option', 'Select')).click();
         });
 
         it('should be able to fill in the "delivery address" form', function() {
