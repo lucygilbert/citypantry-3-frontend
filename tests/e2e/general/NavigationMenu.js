@@ -70,13 +70,12 @@ describe('Navigation Menu', function() {
 
         expect(navMenu.getText()).toContain('My account');
         expect(navMenu.getText()).toContain('Orders');
-        expect(navMenu.getText()).toContain('Courier');
         expect(navMenu.getText()).toContain('Invoices');
         expect(navMenu.getText()).toContain('Packages');
         expect(navMenu.getText()).toContain('Vendors');
         expect(navMenu.getText()).toContain('Customers');
         expect(navMenu.getText()).toContain('Users');
-        expect(navMenuLinks.count()).toBe(8);
+        expect(navMenuLinks.count()).toBe(7);
 
         expect(myAccountMenu.isDisplayed()).toBe(false);
         myAccountButton.click();
