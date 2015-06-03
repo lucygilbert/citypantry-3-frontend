@@ -6,6 +6,7 @@ describe('ViewPackageController', function() {
     var PackagesFactory;
     var CheckoutService;
     var LoadingService;
+    var $httpBackend;
     var $routeParams;
 
     beforeEach(function() {
@@ -13,19 +14,75 @@ describe('ViewPackageController', function() {
     });
 
     beforeEach(inject(function($controller, $rootScope, _$routeParams_, _CheckoutService_,
-            _PackagesFactory_, _LoadingService_) {
+            _PackagesFactory_, _LoadingService_, _$httpBackend_) {
         scope = $rootScope.$new();
+        $httpBackend = _$httpBackend_;
         CheckoutService = _CheckoutService_;
         PackagesFactory = _PackagesFactory_;
         LoadingService = _LoadingService_;
         $routeParams = _$routeParams_;
+        $routeParams.humanIdAndSlug = '123';
 
         makeCtrl = function () {
             $controller('ViewPackageController', {
                 $scope: scope,
             });
         };
+
+        spyOn(PackagesFactory, 'getPackageByHumanId').and.callThrough();
+        spyOn(PackagesFactory, 'getPackageReviews').and.callThrough();
+        spyOn(PackagesFactory, 'getDietaryTypes').and.returnValue(newPromise());
+        spyOn(PackagesFactory, 'getSimilarPackages').and.returnValue(newPromise());
     }));
+
+    it('should not display empty reviews', function() {
+        makeCtrl();
+
+        $httpBackend.expectGET('http://api.localhost:9876/packages/123').respond(
+            200,
+            {
+                id: 'abc123',
+                recycled: false,
+                approved: true,
+                active: true,
+                dietaryRequirements: 'cheese',
+                vendor: {
+                    name: 'Bob',
+                },
+                eventTypes: [
+                    {
+                        isActive: true,
+                    },
+                ],
+            }
+        );
+
+        $httpBackend.expectGET('http://api.localhost:9876/reviews/package/abc123').respond(
+            200,
+            {
+                reviews: [
+                    {
+                        review: 'Good.',
+                    },
+                    {
+                        review: '',
+                    },
+                    {
+                        review: 'Great.',
+                    },
+                    {
+                        review: 'Excellent.',
+                    },
+                ]
+            }
+        );
+
+        $httpBackend.flush();
+        expect(PackagesFactory.getPackageByHumanId).toHaveBeenCalled();
+        expect(PackagesFactory.getPackageReviews).toHaveBeenCalled();
+
+        expect(scope.reviews.length).toBe(3);
+    });
 
     describe('should convert a date/time to an ISO 8601 string, a date string, and a time string', function() {
         var checkPromise;
@@ -36,7 +93,6 @@ describe('ViewPackageController', function() {
             spyOn(CheckoutService, 'setDeliveryDate');
             spyOn(LoadingService, 'show');
             spyOn(LoadingService, 'hide');
-            $routeParams.humanIdAndSlug = '123';
             scope.package = {
                 id: 'abcdef',
             };
