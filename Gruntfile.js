@@ -173,9 +173,9 @@ module.exports = function (grunt) {
                         'node_modules/angulartics/dist/angulartics-hubspot.min.js',
                         'node_modules/angulartics/dist/angulartics-kissmetrics.min.js',
                         'src/web/lib/angulartics-console.js',
+                        'node_modules/citypantry-js-lib/dist/lib-es5-without-browser-polyfill.js',
                     ],
                     'web/dist/js/built-citypantry-es6.js': [
-                        'node_modules/citypantry-js-lib/dist/lib-es6.js',
                         'src/web/js/cpLibIntegration.js',
                         'src/web/js/app.module.js',
                         'src/web/js/config.js',
