@@ -61,26 +61,6 @@
                     </div>
 
                     <div class="cp-form-group">
-                        <label class="cp-form-label" for="start_date">
-                            Next meal plan start date
-                            <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.startDate.$error.required">Start date is required</span>
-                        </label>
-                        <input id="start_date"
-                               class="cp-form-control"
-                               name="startDate"
-                               type="text"
-                               required
-                               aria-required="true"
-                               datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}"
-                               datepicker-popup="dd/MM/yyyy"
-                               is-open="isDatePickerOpen"
-                               min-date="minDate"
-                               year-range="2"
-                               ng-click="openDatePicker($event)"
-                               ng-model="pickedDate" />
-                    </div>
-
-                    <div class="cp-form-group">
                         <fieldset>
                             <legend>
                                 Do you want catering on bank holidays?

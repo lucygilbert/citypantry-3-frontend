@@ -53,9 +53,10 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardControl
                     <a href="/admin/meal-plan/customer/{{ row.entity.id }}/setup/preferences"
                         class="edit-meal-plan-preferences">Preferences</a>
                     <br />
-                    <a ng-if="!row.entity.isStatusRequestedCallback" href="@todo">Current</a>
+                    <a href="/admin/meal-plan/customer/{{ row.entity.id }}/setup/request-generation"
+                        class="request-meal-plan-generation">New</a>
                     <br />
-                    <a ng-if="!row.entity.isStatusRequestedCallback" href="@todo">New</a>
+                    <a ng-if="!row.entity.isStatusRequestedCallback" href="@todo">Current</a>
                     <br />
                     <a ng-if="!row.entity.isStatusRequestedCallback" href="@todo">Review</a>
                     </div>`,

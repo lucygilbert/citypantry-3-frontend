@@ -306,6 +306,10 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'AdminMealPlanSetupPaymentController',
             templateUrl: getTemplateUrl('admin/meal-plan-setup-payment.html')
         }).
+        when('/admin/meal-plan/customer/:customerId/setup/request-generation', {
+            controller: 'AdminMealPlanRequestGenerationController',
+            templateUrl: getTemplateUrl('admin/meal-plan-request-generation.html')
+        }).
         when('/admin/meal-plan/customer/:customerId/meal-plan/:mealPlanId/review', {
             controller: 'AdminMealPlanReviewController',
             templateUrl: getTemplateUrl('admin/meal-plan-review.html')

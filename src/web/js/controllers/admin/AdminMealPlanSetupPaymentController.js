@@ -40,7 +40,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupPaymentCont
 
         LoadingService.show();
 
-        let promises = [];
+        const promises = [];
 
         const hasRequestedToPayOnAccount = $scope.preferences.isPayOnAccount && !$scope.customer.isPaidOnAccount;
 
@@ -52,9 +52,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupPaymentCont
             };
 
             const updateCustomerPromise = CustomersFactory.updateCustomer($scope.customer.id, updatedCustomer)
-                .success(response => {
-                    $scope.customer = response.updatedObject;
-                })
+                .success(response => $scope.customer = response.updatedObject)
                 .catch(response => NotificationService.notifyError(response.data.errorTranslation));
             promises.push(updateCustomerPromise);
 
@@ -64,17 +62,13 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupPaymentCont
             };
 
             const setUpRequestToPayOnAccountPromise = CustomersFactory.setUpRequestToPayOnAccount($scope.customer.id, payOnAccountDetails)
-                .success(response => {
-                    $scope.customer = response.customer;
-                })
+                .success(response => $scope.customer = response.customer)
                 .catch(response => NotificationService.notifyError(response.data.errorTranslation));
             promises.push(setUpRequestToPayOnAccountPromise);
         }
 
         const createBillingAddressPromise = AddressFactory.createBillingAddress($scope.billingAddress, $scope.customer.id)
-            .success(response => {
-                $scope.billingAddress = response.newAddress;
-            })
+            .success(response => $scope.billingAddress = response.newAddress)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
         promises.push(createBillingAddressPromise);
 
@@ -87,15 +81,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupPaymentCont
             };
 
             MealPlanFactory.setCustomerMealPlanRequirements($scope.customer.id, mealPlanPreferences)
-                .success(response => {
-                    const startDate = $window.localStorage.getItem('startDate');
-
-                    MealPlanFactory.generateMealPlan($scope.customer.id, startDate)
-                        .success(response => {
-                            $location.path(`/admin/meal-plan`);
-                        })
-                        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-                })
+                .success(response => $location.path(`/admin/meal-plan`))
                 .catch(response => NotificationService.notifyError(response.data.errorTranslation));
         });
     };

@@ -22,7 +22,6 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
         minBudget: 1,
         packageDispositions: {},
         packagingType: undefined,
-        startDate: undefined,
         time: undefined
     };
 
@@ -88,36 +87,6 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
 
     init();
 
-    $scope.$watch('pickedDate', (date, oldDate) => {
-        if (typeof date === 'undefined') {
-            return;
-        }
-        if (date === oldDate) {
-            return;
-        }
-
-        if (date === null) {
-            $scope.preferences.startDate = undefined;
-        } else {
-            // The date will be a string if the date picker was set manually.
-            if (typeof date === 'string') {
-                const bits = date.split(/\D/);
-                $scope.preferences.startDate = new Date(bits[2], bits[1] - 1, bits[0]);
-            } else {
-                $scope.preferences.startDate = date;
-            }
-        }
-    });
-
-    $scope.openDatePicker = $event => {
-        // Need to call these, otherwise the popup won't open (a click outside
-        // of the popup closes it).
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $scope.isDatePickerOpen = true;
-    };
-
     $scope.toggleDayForDelivery = day => {
         const index = $scope.preferences.deliveryDays.indexOf(day);
 
@@ -149,8 +118,6 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
         }
 
         LoadingService.show();
-
-        $window.localStorage.setItem('startDate', $scope.preferences.startDate.toISOString());
 
         const packageDispositions = {};
         const packageDispositionIdPromises = [];

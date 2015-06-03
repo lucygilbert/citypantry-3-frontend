@@ -1,0 +1,43 @@
+<div class="cp-meal-plan-setup-steps-wrap">
+</div>
+
+<div class="thin-container">
+    <div class="cp-meal-plan-setup">
+        <p ng-if="isDetailedEnoughToGenerateMealPlan === false">
+            This customer's requirements are not yet detailed enough to generate a meal plan.
+            Fill in more requirements then come back to this page.
+        </p>
+
+        <div class="cp-meal-plan-setup-main" ng-if="isDetailedEnoughToGenerateMealPlan === true">
+            <h1 class="cp-heading">Generate a meal plan</h1>
+
+            <form class="cp-form cp-meal-plan-setup-form" novalidate role="form" ng-submit="requestGeneration()">
+                <fieldset>
+                    <div class="cp-form-group">
+                        <label class="cp-form-label" for="start_date">
+                            Start date
+                        </label>
+
+                        <input id="start_date"
+                            class="cp-form-control"
+                            name="startDate"
+                            type="text"
+                            required
+                            aria-required="true"
+                            datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}"
+                            datepicker-popup="dd/MM/yyyy"
+                            is-open="isDatePickerOpen"
+                            min-date="minDate"
+                            year-range="2"
+                            ng-click="openDatePicker($event)"
+                            ng-model="$parent.startDate" />
+                    </div>
+                </fieldset>
+
+                <input class="cp-btn cp-btn-primary cp-btn-lg" type="submit" value="Start meal plan generation" />
+            </form>
+        </div>
+
+        <button class="cp-btn cp-btn-link" type="button" cp-back>Go Back</button>
+    </div>
+</div>

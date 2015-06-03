@@ -2,9 +2,6 @@ var gridTestUtils = require('../lib/gridTestUtils.spec.js');
 var notificationModal = require('../NotificationModal.js');
 
 describe('Admin - Meal plan setup', function() {
-    var now = new Date();
-    var oneWeekFromNow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7);
-
     describe('Saved address', function() {
         var isFirst = true;
 
@@ -50,7 +47,6 @@ describe('Admin - Meal plan setup', function() {
         it('should be able to proceed to the "delivery details" step', function() {
             element.all(by.css('.cp-meal-plan-setup-day-of-the-week')).first().click();
             element.all(by.css('input[name="duration"]')).first().click();
-            element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toISOString());
             element.all(by.css('input[name="isToBeCateredOnBankHolidaysString"]')).first().click();
             element(by.model('preferences.eventTypeId')).sendKeys('Lunch');
             element(by.model('preferences.time')).sendKeys(1330);
@@ -109,7 +105,7 @@ describe('Admin - Meal plan setup', function() {
 
         it('should be able to proceed to the "meal plan dashboard" page', function() {
             var submit = element(by.css('.cp-meal-plan-setup-form input[type="submit"]'));
-            expect(submit.getAttribute('value')).toBe('Generate meal plan');
+            expect(submit.getAttribute('value')).toBe('Save');
             submit.click();
 
             expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan$/);
@@ -123,7 +119,7 @@ describe('Admin - Meal plan setup', function() {
             if (isFirst) {
                 loginAsUser('alice@bunnies.test');
                 browser.get('/admin/meal-plan');
-                gridTestUtils.enterFilterInColumn('meal-plan-table', 2, 'Pending first generation');
+                gridTestUtils.enterFilterInColumn('meal-plan-table', 2, 'Requested callback');
                 element.all(by.css('#meal-plan-table .edit-meal-plan-preferences')).first().click();
                 expect(browser.getCurrentUrl()).toMatch(/\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/setup\/preferences$/);
                 isFirst = false;
@@ -133,7 +129,6 @@ describe('Admin - Meal plan setup', function() {
         it('should be able to proceed to the "delivery details" step', function() {
             element.all(by.css('.cp-meal-plan-setup-day-of-the-week')).first().click();
             element.all(by.css('input[name="duration"]')).first().click();
-            element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toISOString());
             element.all(by.css('input[name="isToBeCateredOnBankHolidaysString"]')).first().click();
             element(by.model('preferences.eventTypeId')).sendKeys('Lunch');
             element(by.model('preferences.time')).sendKeys(1330);
@@ -182,7 +177,7 @@ describe('Admin - Meal plan setup', function() {
 
         it('should be able to proceed to the "meal plan dashboard" page', function() {
             var submit = element(by.css('.cp-meal-plan-setup-form input[type="submit"]'));
-            expect(submit.getAttribute('value')).toBe('Generate meal plan');
+            expect(submit.getAttribute('value')).toBe('Save');
             submit.click();
 
             expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan$/);
@@ -196,7 +191,7 @@ describe('Admin - Meal plan setup', function() {
             if (isFirst) {
                 loginAsUser('alice@bunnies.test');
                 browser.get('/admin/meal-plan');
-                gridTestUtils.enterFilterInColumn('meal-plan-table', 2, 'Pending first generation');
+                gridTestUtils.enterFilterInColumn('meal-plan-table', 2, 'Requested callback');
                 element.all(by.css('#meal-plan-table .edit-meal-plan-preferences')).first().click();
                 expect(browser.getCurrentUrl()).toMatch(/\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/setup\/preferences$/);
                 isFirst = false;
@@ -206,7 +201,6 @@ describe('Admin - Meal plan setup', function() {
         it('should be able to proceed to the "delivery details" step', function() {
             element.all(by.css('.cp-meal-plan-setup-day-of-the-week')).first().click();
             element.all(by.css('input[name="duration"]')).first().click();
-            element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toISOString());
             element.all(by.css('input[name="isToBeCateredOnBankHolidaysString"]')).first().click();
             element(by.model('preferences.eventTypeId')).sendKeys('Lunch');
             element(by.model('preferences.time')).sendKeys(1330);
@@ -254,7 +248,7 @@ describe('Admin - Meal plan setup', function() {
 
         it('should be able to proceed to the "meal plan dashboard" page', function() {
             var submit = element(by.css('.cp-meal-plan-setup-form input[type="submit"]'));
-            expect(submit.getAttribute('value')).toBe('Generate meal plan');
+            expect(submit.getAttribute('value')).toBe('Save');
             submit.click();
 
             expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan$/);
