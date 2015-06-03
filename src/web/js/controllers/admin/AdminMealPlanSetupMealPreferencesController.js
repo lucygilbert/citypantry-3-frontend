@@ -20,7 +20,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
         isVendorRequiredToSetUp: false,
         maxBudget: 50,
         minBudget: 1,
-        packageDispositions: [{}],
+        packageDispositions: {},
         packagingType: undefined,
         startDate: undefined,
         time: undefined
@@ -65,8 +65,21 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
                 $scope.preferences.eventTypeId = $scope.preferences.eventType ?
                     $scope.preferences.eventType.id :
                     null;
-                $scope.preferences.cuisineTypeIds = $scope.preferences.cuisineTypes
-                    .map(cuisineType => cuisineType.id);
+
+                if ($scope.preferences.cuisineTypes) {
+                    $scope.preferences.cuisineTypeIds = $scope.preferences.cuisineTypes
+                        .map(cuisineType => cuisineType.id);
+                } else {
+                    $scope.preferences.cuisineTypeIds = [];
+                }
+
+                // The preferences are stored in the API as an object with the key being a human ID
+                // and the value being a disposition. That doesn't work well with Angular forms,
+                // so convert the object to an array for ease-of-use.
+                $scope.preferences.packageDispositionsArray = [];
+                angular.forEach($scope.preferences.packageDispositions, (disposition, packageId) => {
+                    $scope.preferences.packageDispositionsArray.push({packageId, disposition});
+                });
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
@@ -115,6 +128,20 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
         }
     };
 
+    $scope.addDisposition = () => {
+        $scope.preferences.packageDispositionsArray.push({packageId: null, disposition: null});
+    };
+
+    const isSet = (input) => input !== null &&
+        input !== 'null' &&
+        input !== undefined &&
+        input !== '';
+
+    // Whether some fields are true (boolean) or 'true' (string) depends on whether they have
+    // been set by Angular on model changes or if they have been set from the API and not
+    // changed.
+    const isTrueBooleanOrString = (input) => input === true || input === 'true';
+
     $scope.nextStep = () => {
         if ($scope.mealPlanSetupForm.$invalid) {
             $scope.mealPlanSetupForm.$submitted = true;
@@ -126,59 +153,55 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
         $window.localStorage.setItem('startDate', $scope.preferences.startDate.toISOString());
 
         const packageDispositions = {};
-        const promises = [];
+        const packageDispositionIdPromises = [];
         let hasErrors = false;
 
-        $scope.preferences.packageDispositions.forEach(packageDisposition => {
-            const packageHumanIdIsSet = packageDisposition.packageHumanId !== null &&
-                packageDisposition.packageHumanId !== undefined &&
-                packageDisposition.packageHumanId !== '';
-            const packageDispositionIsSet = packageDisposition.disposition !== null &&
-                packageDisposition.disposition !== undefined &&
-                packageDisposition.disposition !== '';
+        angular.forEach($scope.preferences.packageDispositionsArray, packageIdAndDisposition => {
+            const packageId = packageIdAndDisposition.packageId;
+            const disposition = packageIdAndDisposition.disposition;
 
-            if (!packageHumanIdIsSet || !packageDispositionIsSet) {
+            if (!isSet(disposition) || !isSet(packageId)) {
                 return;
             }
 
-            const promise = PackagesFactory.getPackageByHumanId(packageDisposition.packageHumanId)
+            if (packageId.length === 24) {
+                packageDispositions[packageId] = parseInt(disposition, 10);
+                return;
+            }
+
+            const promise = PackagesFactory.getPackageByHumanId(parseInt(packageId, 10))
                 .success(response => {
-                    packageDispositions[response.id] = packageDisposition.disposition;
+                    packageDispositions[response.id] = parseInt(disposition, 10);
                 })
                 .catch(response => {
                     hasErrors = true;
                     NotificationService.notifyError(response.data.errorTranslation);
                 });
-            promises.push(promise);
+            packageDispositionIdPromises.push(promise);
         });
 
-        // Whether some fields are true (boolean) or 'true' (string) depends on whether they have
-        // been set by Angular on model changes or if they have been set from the API and not
-        // changed.
-        const isTrueBooleanOrString = (input) => input === true || input === 'true';
-
-        const mealPlanRequirements = {
-            cuisineTypes: $scope.preferences.cuisineTypeIds,
-            deliveryDays: $scope.preferences.deliveryDays,
-            dietaryRequirements: $scope.preferences.dietaryRequirements.getStructuredForApiCall(),
-            duration: parseInt($scope.preferences.duration, 10),
-            eventType: $scope.preferences.eventTypeId,
-            headCount: parseInt($scope.preferences.headCount, 10),
-            isToBeCateredOnBankHolidays: isTrueBooleanOrString($scope.preferences.isToBeCateredOnBankHolidaysString),
-            maxBudget: parseInt($scope.preferences.maxBudget, 10),
-            minBudget: parseInt($scope.preferences.minBudget, 10),
-            packageDispositions: packageDispositions,
-            packagingTypeChoice: parseInt($scope.preferences.packagingTypeChoice, 10),
-            requestCutleryAndServiettes: $scope.preferences.requestCutleryAndServiettes,
-            requestVendorSetUpAfterDelivery: isTrueBooleanOrString($scope.preferences.requestVendorSetUpAfterDelivery),
-            requestVendorCleanUpAfterDelivery: isTrueBooleanOrString($scope.preferences.requestVendorCleanUpAfterDelivery),
-            time: parseInt($scope.preferences.time, 10)
-        };
-
-        $q.all(promises).then(() => {
+        $q.all(packageDispositionIdPromises).then(() => {
             if (hasErrors) {
                 return;
             }
+
+            const mealPlanRequirements = {
+                cuisineTypes: $scope.preferences.cuisineTypeIds,
+                deliveryDays: $scope.preferences.deliveryDays,
+                dietaryRequirements: $scope.preferences.dietaryRequirements.getStructuredForApiCall(),
+                duration: parseInt($scope.preferences.duration, 10),
+                eventType: $scope.preferences.eventTypeId,
+                headCount: parseInt($scope.preferences.headCount, 10),
+                isToBeCateredOnBankHolidays: isTrueBooleanOrString($scope.preferences.isToBeCateredOnBankHolidaysString),
+                maxBudget: parseInt($scope.preferences.maxBudget, 10),
+                minBudget: parseInt($scope.preferences.minBudget, 10),
+                packageDispositions: packageDispositions,
+                packagingTypeChoice: parseInt($scope.preferences.packagingTypeChoice, 10),
+                requestCutleryAndServiettes: $scope.preferences.requestCutleryAndServiettes,
+                requestVendorSetUpAfterDelivery: isTrueBooleanOrString($scope.preferences.requestVendorSetUpAfterDelivery),
+                requestVendorCleanUpAfterDelivery: isTrueBooleanOrString($scope.preferences.requestVendorCleanUpAfterDelivery),
+                time: parseInt($scope.preferences.time, 10)
+            };
 
             MealPlanFactory.setCustomerMealPlanRequirements($routeParams.customerId, mealPlanRequirements)
                 .success(response => $location.path(`/admin/meal-plan/customer/${$routeParams.customerId}/setup/delivery-details`))

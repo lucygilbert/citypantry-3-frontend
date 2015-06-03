@@ -8,16 +8,18 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
     var PackagesFactory;
     var MealPlanFactory;
     var CustomersFactory;
+    var getCustomerMealPlanRequirementsPromise;
     var setCustomerMealPlanRequirementsPromise;
     var getPackageByHumanIdPromise;
     var rootScope;
+    var $routeParams;
 
     beforeEach(function() {
         module('cp');
     });
 
     beforeEach(inject(function($controller, $rootScope, _NotificationService_, _PackagesFactory_,
-            _MealPlanFactory_, _CustomersFactory_, _$httpBackend_) {
+            _MealPlanFactory_, _CustomersFactory_, _$httpBackend_, _$routeParams_) {
         scope = $rootScope.$new();
         rootScope = $rootScope;
         $httpBackend = _$httpBackend_;
@@ -25,6 +27,9 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
         PackagesFactory = _PackagesFactory_;
         MealPlanFactory = _MealPlanFactory_;
         CustomersFactory = _CustomersFactory_;
+
+        $routeParams = _$routeParams_;
+        $routeParams.customerId = 'c123';
 
         makeCtrl = function () {
             $controller('AdminMealPlanSetupMealPreferencesController', {
@@ -37,7 +42,9 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
         spyOn(PackagesFactory, 'getCuisineTypes').and.returnValue(newPromise());
         spyOn(PackagesFactory, 'getDietaryTypes').and.returnValue(newPromise());
         spyOn(CustomersFactory, 'getCustomer').and.returnValue(newPromise());
-        spyOn(MealPlanFactory, 'getCustomerMealPlanRequirements').and.returnValue(newPromise());
+
+        getCustomerMealPlanRequirementsPromise = newPromise();
+        spyOn(MealPlanFactory, 'getCustomerMealPlanRequirements').and.returnValue(getCustomerMealPlanRequirementsPromise);
 
         spyOn(PackagesFactory, 'getPackageByHumanId').and.callThrough();
 
@@ -55,6 +62,24 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
         expect(CustomersFactory.getCustomer).toHaveBeenCalled();
     });
 
+    it('should convert the package dispositions object from the API to an array', function() {
+        makeCtrl();
+
+        getCustomerMealPlanRequirementsPromise.resolveSuccess({requirements: {
+            packageDispositions: {
+                'aaaa1111aaaa1111aaaa1111': 1,
+                'bbbb2222bbbb2222bbbb2222': 2,
+                'cccc3333cccc3333cccc3333': 2,
+            },
+        }});
+
+        expect(scope.preferences.packageDispositionsArray).toEqual([
+            {packageId: 'aaaa1111aaaa1111aaaa1111', disposition: 1},
+            {packageId: 'bbbb2222bbbb2222bbbb2222', disposition: 2},
+            {packageId: 'cccc3333cccc3333cccc3333', disposition: 2},
+        ]);
+    });
+
     it('should call getPackageByHumanId for each non-null package disposition', function() {
         scope.mealPlanSetupForm = {};
         scope.mealPlanSetupForm.$invalid = false;
@@ -62,27 +87,15 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
         makeCtrl();
 
         scope.preferences.startDate = new Date();
-        scope.preferences.packageDispositions = [
-            {
-                packageHumanId: 1,
-                disposition: 1,
-            },
-            {
-                packageHumanId: null,
-                disposition: 2,
-            },
-            {
-                packageHumanId: 4,
-                disposition: null,
-            },
-            {
-                packageHumanId: 2,
-                disposition: 2,
-            },
-            {
-                packageHumanId: '',
-                disposition: '',
-            },
+        scope.preferences.packageDispositionsArray = [
+            {packageId: 1, disposition: 1},
+            {packageId: null, disposition: 2},
+            {packageId: 4, disposition: null},
+            // If the package ID is a string representation of a number, it should be treated as a number.
+            {packageId: '2', disposition: 2},
+            // The package ID can be a human ID or a Mongo ID.
+            {packageId: 'aaaa1111aaaa1111aaaa1111', disposition: 1},
+            {packageId: '', disposition: ''},
         ];
         scope.preferences.dietaryRequirements = {
             getStructuredForApiCall: function () {
@@ -92,7 +105,11 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
 
         scope.nextStep();
 
+        // Only two calls should be made -- one for each human ID. The Mongo ID does not need a call
+        // to 'getPackageByHumanId'.
         expect(PackagesFactory.getPackageByHumanId.calls.count()).toBe(2);
+        expect(PackagesFactory.getPackageByHumanId.calls.argsFor(0)).toEqual([1]);
+        expect(PackagesFactory.getPackageByHumanId.calls.argsFor(1)).toEqual([2]);
     });
 
     it('should show an error message is an invalid package ID is entered', function() {
@@ -101,11 +118,8 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
 
         makeCtrl();
 
-        scope.preferences.packageDispositions = [
-            {
-                packageHumanId: 1,
-                disposition: 1,
-            },
+        scope.preferences.packageDispositionsArray = [
+            {packageId: 1, disposition: 1}
         ];
 
         scope.preferences.startDate = new Date();
@@ -139,11 +153,10 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
 
         makeCtrl();
 
-        scope.preferences.packageDispositions = [
-            {
-                packageHumanId: 1,
-                disposition: 1,
-            },
+        scope.preferences.packageDispositionsArray = [
+            {packageId: 'aaaa1111aaaa1111aaaa1111', disposition: 1},
+            {packageId: 'bbbb2222bbbb2222bbbb2222', disposition: 2},
+            {packageId: 1, disposition: 2},
         ];
 
         scope.preferences.startDate = new Date();
@@ -163,10 +176,12 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
         expect(PackagesFactory.getPackageByHumanId).toHaveBeenCalled();
 
         $httpBackend.flush();
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
 
         expect(MealPlanFactory.setCustomerMealPlanRequirements).toHaveBeenCalled();
-
-        $httpBackend.verifyNoOutstandingExpectation();
+        var setRequirementsCallArgs = MealPlanFactory.setCustomerMealPlanRequirements.calls.mostRecent().args;
+        expect(setRequirementsCallArgs[1].dietaryRequirements).toBe('chunky bunny.');
     });
 
     it('should not call setCustomerMealPlanRequirements if all required fields are not correctly filled', function() {

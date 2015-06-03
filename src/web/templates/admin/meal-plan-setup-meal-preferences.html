@@ -267,13 +267,12 @@
 
                     <div class="cp-form-group">
                         <label class="cp-form-label">What packages should and should not be included in the meal plan?</label>
-                        <div class="cp-meal-plan-setup-package-disposition" ng-repeat="packageDisposition in preferences.packageDispositions">
+                        <div class="cp-meal-plan-setup-package-disposition" ng-repeat="packageDisposition in preferences.packageDispositionsArray">
                             <input class="cp-form-control cp-meal-plan-setup-package-disposition-package"
                                    id="package_disposition{{ $index }}_package"
-                                   name="packageHumanId{{ $index }}"
-                                   type="number"
-                                   placeholder="Package ID"
-                                   ng-model="packageDisposition.packageHumanId" />
+                                   name="packageId{{ $index }}"
+                                   placeholder="Package ID (human or MongoDB)"
+                                   ng-model="packageDisposition.packageId" />
 
                             <select class="cp-form-control cp-meal-plan-setup-package-disposition-disposition"
                                     id="package_disposition{{ $index }}_disposition"
@@ -284,7 +283,7 @@
                             </select>
                         </div>
 
-                        <a class="cp-meal-plan-setup-package-dispositions-add" ng-click="preferences.packageDispositions.push({})">Add more</a>
+                        <a class="cp-meal-plan-setup-package-dispositions-add" ng-click="addDisposition()">Add more</a>
                     </div>
                 </fieldset>
 
