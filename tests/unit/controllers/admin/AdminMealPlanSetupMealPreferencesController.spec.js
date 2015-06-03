@@ -79,6 +79,10 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
                 packageHumanId: 2,
                 disposition: 2,
             },
+            {
+                packageHumanId: '',
+                disposition: '',
+            },
         ];
         scope.preferences.dietaryRequirements = {
             getStructuredForApiCall: function () {

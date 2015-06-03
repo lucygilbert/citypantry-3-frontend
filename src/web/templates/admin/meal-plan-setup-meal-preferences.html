@@ -268,8 +268,6 @@
                     <div class="cp-form-group">
                         <label class="cp-form-label">What packages should and should not be included in the meal plan?</label>
                         <div class="cp-meal-plan-setup-package-disposition" ng-repeat="packageDisposition in preferences.packageDispositions">
-                            <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.packageHumanId{{ $index }}.$error.number">Package ID is invalid</span>
-                            <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.packageDisposition{{ $index }}.$error.required">Select an option for the package</span>
                             <input class="cp-form-control cp-meal-plan-setup-package-disposition-package"
                                    id="package_disposition{{ $index }}_package"
                                    name="packageHumanId{{ $index }}"
@@ -281,8 +279,7 @@
                                     id="package_disposition{{ $index }}_disposition"
                                     name="packageDisposition{{ $index }}"
                                     ng-model="packageDisposition.disposition"
-                                    ng-options="disposition.value as disposition.label for disposition in packageDispositionOptions"
-                                    required>
+                                    ng-options="disposition.value as disposition.label for disposition in packageDispositionOptions">
                                 <option value="" selected disabled>Select</option>
                             </select>
                         </div>

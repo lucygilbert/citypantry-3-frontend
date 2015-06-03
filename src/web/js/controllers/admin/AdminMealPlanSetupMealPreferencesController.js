@@ -131,9 +131,11 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
 
         $scope.preferences.packageDispositions.forEach(packageDisposition => {
             const packageHumanIdIsSet = packageDisposition.packageHumanId !== null &&
-                packageDisposition.packageHumanId !== undefined;
+                packageDisposition.packageHumanId !== undefined &&
+                packageDisposition.packageHumanId !== '';
             const packageDispositionIsSet = packageDisposition.disposition !== null &&
-                packageDisposition.disposition !== undefined;
+                packageDisposition.disposition !== undefined &&
+                packageDisposition.disposition !== '';
 
             if (!packageHumanIdIsSet || !packageDispositionIsSet) {
                 return;
