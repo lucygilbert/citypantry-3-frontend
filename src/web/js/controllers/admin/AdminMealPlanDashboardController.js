@@ -1,7 +1,7 @@
 angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardController',
         function($scope, uiGridConstants, NotificationService, DocumentTitleService,
         SecurityService, LoadingService, MealPlanFactory, getCustomerMealPlanStatusTextFilter,
-        getCurrentMealPlanStatusTextFilter) {
+        getMealPlanStatusTextFilter) {
     DocumentTitleService('Meal plan');
     SecurityService.requireStaff();
 
@@ -56,9 +56,8 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardControl
                     <a href="/admin/meal-plan/customer/{{ row.entity.id }}/setup/request-generation"
                         class="request-meal-plan-generation">New</a>
                     <br />
-                    <a ng-if="!row.entity.isStatusRequestedCallback" href="@todo">Current</a>
-                    <br />
-                    <a ng-if="!row.entity.isStatusRequestedCallback" href="@todo">Review</a>
+                    <a href="/admin/meal-plan/customer/{{ row.entity.id }}/meal-plans"
+                        class="view-all-meal-plans">Meal plans</a>
                     </div>`,
                 displayName: 'Action',
                 field: 'id',
@@ -81,7 +80,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardControl
                 }).catch((response) => NotificationService.notifyError(response.data.errorTranslation));
 
                 customer.mealPlanStatusTextTranslation = getCustomerMealPlanStatusTextFilter(customer.mealPlanStatus);
-                customer.currentMealPlanStatusTextTranslation = getCurrentMealPlanStatusTextFilter(customer.currentMealPlanStatus);
+                customer.currentMealPlanStatusTextTranslation = getMealPlanStatusTextFilter(customer.currentMealPlanStatus);
                 customer.isStatusRequestedCallback = customer.mealPlanStatusText === 'requested_callback';
             });
 
