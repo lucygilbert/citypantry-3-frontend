@@ -37,6 +37,7 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
         spyOn(PackagesFactory, 'getCuisineTypes').and.returnValue(newPromise());
         spyOn(PackagesFactory, 'getDietaryTypes').and.returnValue(newPromise());
         spyOn(CustomersFactory, 'getCustomer').and.returnValue(newPromise());
+        spyOn(MealPlanFactory, 'getCustomerMealPlanRequirements').and.returnValue(newPromise());
 
         spyOn(PackagesFactory, 'getPackageByHumanId').and.callThrough();
 

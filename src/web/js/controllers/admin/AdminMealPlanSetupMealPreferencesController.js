@@ -4,8 +4,6 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
     DocumentTitleService('Meal preferences');
     SecurityService.requireStaff();
 
-    const setupOrEdit = $location.path().slice($location.path().lastIndexOf('/') + 1);
-
     $scope.preferences = {
         cuisineTypes: [],
         deliveryDays: [],
@@ -59,28 +57,20 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
             .success(response => $scope.customer = response)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
-        if (setupOrEdit === 'edit') {
-            initPromises[4] = ApiService.get('/meal-plan/customers/' + $routeParams.customerId + '/requirements', ApiService.getAuthHeaders())
-                .success(response => {
-                    $scope.preferences = response.requirements;
-                    $scope.preferences.isToBeCateredOnBankHolidays = $scope.preferences.isToBeCateredOnBankHolidays ?
-                        'true' : 'false';
-                    $scope.preferences.eventTypeId = $scope.preferences.eventType.id;
-                    $scope.preferences.cuisineTypeIds = $scope.preferences.cuisineTypes.map(cuisineType => {
-                        return cuisineType.id;
-                    });
-                }).catch(response => NotificationService.notifyError(response.data.errorTranslation));
-        }
+        initPromises[4] = MealPlanFactory.getCustomerMealPlanRequirements($routeParams.customerId)
+            .success(response => {
+                $scope.preferences = response.requirements;
+                $scope.preferences.isToBeCateredOnBankHolidaysString = $scope.preferences.isToBeCateredOnBankHolidays ?
+                    'true' : 'false';
+                $scope.preferences.eventTypeId = $scope.preferences.eventType ?
+                    $scope.preferences.eventType.id :
+                    null;
+                $scope.preferences.cuisineTypeIds = $scope.preferences.cuisineTypes
+                    .map(cuisineType => cuisineType.id);
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
-        $q.all(initPromises).then(() => {
-            $scope.cuisineTypes.forEach(cuisineType => {
-                $scope.preferences.cuisineTypes.push(cuisineType.id);
-            });
-
-            $scope.preferences.packagingType = $scope.packagingTypeOptions[0].value; // "Individual portions".
-
-            LoadingService.hide();
-        });
+        $q.all(initPromises).then(() => LoadingService.hide());
     }
 
     init();
@@ -160,32 +150,37 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
             promises.push(promise);
         });
 
+        // Whether some fields are true (boolean) or 'true' (string) depends on whether they have
+        // been set by Angular on model changes or if they have been set from the API and not
+        // changed.
+        const isTrueBooleanOrString = (input) => input === true || input === 'true';
+
         const mealPlanRequirements = {
-            cuisineTypes: $scope.preferences.cuisineTypes,
+            cuisineTypes: $scope.preferences.cuisineTypeIds,
             deliveryDays: $scope.preferences.deliveryDays,
             dietaryRequirements: $scope.preferences.dietaryRequirements.getStructuredForApiCall(),
             duration: parseInt($scope.preferences.duration, 10),
-            eventType: $scope.preferences.eventType,
-            headCount: $scope.preferences.headCount,
-            isToBeCateredOnBankHolidays: $scope.preferences.isToBeCateredOnBankHolidays === 'true',
+            eventType: $scope.preferences.eventTypeId,
+            headCount: parseInt($scope.preferences.headCount, 10),
+            isToBeCateredOnBankHolidays: isTrueBooleanOrString($scope.preferences.isToBeCateredOnBankHolidaysString),
             maxBudget: parseInt($scope.preferences.maxBudget, 10),
             minBudget: parseInt($scope.preferences.minBudget, 10),
             packageDispositions: packageDispositions,
-            packagingTypeChoice: $scope.preferences.packagingType,
-            requestCutleryAndServiettes: $scope.preferences.isCutleryAndServiettesRequired,
-            requestVendorSetUpAfterDelivery: $scope.preferences.isVendorRequiredToSetUp === 'true',
-            requestVendorCleanUpAfterDelivery: $scope.preferences.isVendorRequiredToCleanUp === 'true',
-            time: $scope.preferences.time
+            packagingTypeChoice: parseInt($scope.preferences.packagingTypeChoice, 10),
+            requestCutleryAndServiettes: $scope.preferences.requestCutleryAndServiettes,
+            requestVendorSetUpAfterDelivery: isTrueBooleanOrString($scope.preferences.requestVendorSetUpAfterDelivery),
+            requestVendorCleanUpAfterDelivery: isTrueBooleanOrString($scope.preferences.requestVendorCleanUpAfterDelivery),
+            time: parseInt($scope.preferences.time, 10)
         };
 
         $q.all(promises).then(() => {
-            if (!hasErrors) {
-                MealPlanFactory.setCustomerMealPlanRequirements($routeParams.customerId, mealPlanRequirements)
-                    .success(response => {
-                        $location.path(`/admin/meal-plan/customer/${$routeParams.customerId}/setup/delivery-details`);
-                    })
-                    .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+            if (hasErrors) {
+                return;
             }
+
+            MealPlanFactory.setCustomerMealPlanRequirements($routeParams.customerId, mealPlanRequirements)
+                .success(response => $location.path(`/admin/meal-plan/customer/${$routeParams.customerId}/setup/delivery-details`))
+                .catch(response => NotificationService.notifyError(response.data.errorTranslation));
         });
     };
 });

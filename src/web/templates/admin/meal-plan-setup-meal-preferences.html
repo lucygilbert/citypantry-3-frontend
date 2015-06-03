@@ -62,7 +62,7 @@
 
                     <div class="cp-form-group">
                         <label class="cp-form-label" for="start_date">
-                            Start date
+                            Next meal plan start date
                             <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.startDate.$error.required">Start date is required</span>
                         </label>
                         <input id="start_date"
@@ -84,24 +84,26 @@
                         <fieldset>
                             <legend>
                                 Do you want catering on bank holidays?
-                                <span class="form-element-invalid" ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.isToBeCateredOnBankHolidays.$error.required">Please specify if you would like catering on bank holidays</span>
+                                <span class="form-element-invalid"
+                                    ng-show="mealPlanSetupForm.$submitted && mealPlanSetupForm.isToBeCateredOnBankHolidaysString.$error.required"
+                                    >Please specify if you would like catering on bank holidays</span>
                             </legend>
                             <label class="cp-radio-inline">
-                                <input name="isToBeCateredOnBankHolidays"
-                                       type="radio"
-                                       value="true"
-                                       required
-                                       aria-required="true"
-                                       ng-model="preferences.isToBeCateredOnBankHolidays" />
+                                <input name="isToBeCateredOnBankHolidaysString"
+                                    type="radio"
+                                    value="true"
+                                    required
+                                    aria-required="true"
+                                    ng-model="preferences.isToBeCateredOnBankHolidaysString" />
                                 Yes
                             </label>
                             <label class="cp-radio-inline">
-                                <input name="isToBeCateredOnBankHolidays"
-                                       type="radio"
-                                       value="false"
-                                       required
-                                       aria-required="true"
-                                       ng-model="preferences.isToBeCateredOnBankHolidays" />
+                                <input name="isToBeCateredOnBankHolidaysString"
+                                    type="radio"
+                                    value="false"
+                                    required
+                                    aria-required="true"
+                                    ng-model="preferences.isToBeCateredOnBankHolidaysString" />
                                 No
                             </label>
                         </fieldset>
@@ -179,6 +181,13 @@
                     <div class="cp-form-group">
                         <fieldset class="cp-meal-plan-setup-cuisine-types">
                             <legend>Cuisine</legend>
+
+                            <p>
+                                None is equivalent to all. If none are selected, new cuisine types
+                                added to the site will automatically be added to the customer's
+                                meal plan preferences.
+                            </p>
+
                             <div class="row">
                                 <div class="cp-checkbox col-md-6 col-lg-4" ng-repeat="cuisineType in cuisineTypes">
                                     <label>
@@ -199,17 +208,17 @@
                     <legend>Packaging options</legend>
 
                     <div class="cp-form-group">
-                        <label class="cp-form-label" for="packaging_type">How would you like it to arrive?</label>
+                        <label class="cp-form-label" for="packaging_type_choice">How would you like it to arrive?</label>
                         <select class="cp-form-control"
-                                id="packaging_type"
-                                name="packagingType"
-                                ng-model="preferences.packagingType"
+                                id="packaging_type_choice"
+                                name="packagingTypeChoice"
+                                ng-model="preferences.packagingTypeChoice"
                                 ng-options="type.value as type.label for type in packagingTypeOptions"></select>
                     </div>
 
                     <div class="cp-checkbox cp-meal-plan-setup-cutlery-and-serviettes">
                         <label>
-                            <input type="checkbox" ng-model="preferences.isCutleryAndServiettesRequired" />
+                            <input type="checkbox" ng-model="preferences.requestCutleryAndServiettes" />
                             Include cutlery and serviettes
                         </label>
                     </div>
@@ -226,8 +235,8 @@
                             <div class="col-md-2">
                                 <select class="cp-form-control"
                                         id="is_vendor_required_to_set_up"
-                                        name="isVendorRequiredToSetUp"
-                                        ng-model="preferences.isVendorRequiredToSetUp">
+                                        name="requestVendorSetUpAfterDelivery"
+                                        ng-model="preferences.requestVendorSetUpAfterDelivery">
                                     <option value="false">No</option>
                                     <option value="true">Yes</option>
                                 </select>
@@ -243,8 +252,8 @@
                             <div class="col-md-2">
                                 <select class="cp-form-control"
                                         id="is_vendor_required_to_clean_up"
-                                        name="isVendorRequiredToCleanUp"
-                                        ng-model="preferences.isVendorRequiredToCleanUp">
+                                        name="requestVendorCleanUpAfterDelivery"
+                                        ng-model="preferences.requestVendorCleanUpAfterDelivery">
                                     <option value="false">No</option>
                                     <option value="true">Yes</option>
                                 </select>

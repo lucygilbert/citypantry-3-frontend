@@ -1,8 +1,7 @@
 var gridTestUtils = require('../lib/gridTestUtils.spec.js');
 var notificationModal = require('../NotificationModal.js');
 
-// @todo - fix these tests.
-xdescribe('Admin - Meal plan setup', function() {
+describe('Admin - Meal plan setup', function() {
     var now = new Date();
     var oneWeekFromNow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7);
 
@@ -14,8 +13,8 @@ xdescribe('Admin - Meal plan setup', function() {
                 loginAsUser('alice@bunnies.test');
                 browser.get('/admin/meal-plan');
                 gridTestUtils.enterFilterInColumn('meal-plan-table', 2, 'Requested callback');
-                element.all(by.css('#meal-plan-table a[href^="/admin/meal-plan/customer/"]')).first().click();
-                expect(browser.getCurrentUrl()).toMatch(/\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/setup$/);
+                element.all(by.css('#meal-plan-table .edit-meal-plan-preferences')).first().click();
+                expect(browser.getCurrentUrl()).toMatch(/\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/setup\/preferences$/);
                 isFirst = false;
             }
         });
@@ -52,8 +51,8 @@ xdescribe('Admin - Meal plan setup', function() {
             element.all(by.css('.cp-meal-plan-setup-day-of-the-week')).first().click();
             element.all(by.css('input[name="duration"]')).first().click();
             element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toISOString());
-            element.all(by.css('input[name="isToBeCateredOnBankHolidays"]')).first().click();
-            element(by.model('preferences.eventType')).sendKeys('Lunch');
+            element.all(by.css('input[name="isToBeCateredOnBankHolidaysString"]')).first().click();
+            element(by.model('preferences.eventTypeId')).sendKeys('Lunch');
             element(by.model('preferences.time')).sendKeys(1330);
             element(by.model('preferences.headCount')).sendKeys(30);
             element(by.css('#dietary_requirement0_head_count')).sendKeys(5);
@@ -98,10 +97,20 @@ xdescribe('Admin - Meal plan setup', function() {
             element(by.model('billingAddress.postcode')).sendKeys('W12 8LB');
         });
 
-        it('should be able to proceed to the "meal plan dashboard" page', function() {
-            element.all(by.css('input[name="paymentTerms"]')).first().click();
+        it('should be able to choose a pay-on-card payment term', function() {
+            var payOnAccountsOptions = element.all(by.css('input[name="isPayOnAccount"]'));
+            expect(payOnAccountsOptions.count()).toBe(2);
+            payOnAccountsOptions.first().click();
 
-            element(by.css('.cp-meal-plan-setup-form input[type="submit"]')).click();
+            var payOnCardTermOptions = element.all(by.css('input[name="paymentTerms"]'));
+            expect(payOnCardTermOptions.count()).toBe(2);
+            payOnCardTermOptions.first().click();
+        });
+
+        it('should be able to proceed to the "meal plan dashboard" page', function() {
+            var submit = element(by.css('.cp-meal-plan-setup-form input[type="submit"]'));
+            expect(submit.getAttribute('value')).toBe('Generate meal plan');
+            submit.click();
 
             expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan$/);
         });
@@ -114,9 +123,9 @@ xdescribe('Admin - Meal plan setup', function() {
             if (isFirst) {
                 loginAsUser('alice@bunnies.test');
                 browser.get('/admin/meal-plan');
-                gridTestUtils.enterFilterInColumn('meal-plan-table', 2, 'Requested callback');
-                element.all(by.css('#meal-plan-table a[href^="/admin/meal-plan/customer/"]')).first().click();
-                expect(browser.getCurrentUrl()).toMatch(/\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/setup$/);
+                gridTestUtils.enterFilterInColumn('meal-plan-table', 2, 'Pending first generation');
+                element.all(by.css('#meal-plan-table .edit-meal-plan-preferences')).first().click();
+                expect(browser.getCurrentUrl()).toMatch(/\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/setup\/preferences$/);
                 isFirst = false;
             }
         });
@@ -125,8 +134,8 @@ xdescribe('Admin - Meal plan setup', function() {
             element.all(by.css('.cp-meal-plan-setup-day-of-the-week')).first().click();
             element.all(by.css('input[name="duration"]')).first().click();
             element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toISOString());
-            element.all(by.css('input[name="isToBeCateredOnBankHolidays"]')).first().click();
-            element(by.model('preferences.eventType')).sendKeys('Lunch');
+            element.all(by.css('input[name="isToBeCateredOnBankHolidaysString"]')).first().click();
+            element(by.model('preferences.eventTypeId')).sendKeys('Lunch');
             element(by.model('preferences.time')).sendKeys(1330);
             element(by.model('preferences.headCount')).sendKeys(30);
 
@@ -161,10 +170,20 @@ xdescribe('Admin - Meal plan setup', function() {
             element(by.model('billingAddress.postcode')).sendKeys('W12 8LB');
         });
 
-        it('should be able to proceed to the "meal plan dashboard" page', function() {
-            element.all(by.css('input[name="paymentTerms"]')).first().click();
+        it('should be able to choose a pay-on-card payment term', function() {
+            var payOnAccountsOptions = element.all(by.css('input[name="isPayOnAccount"]'));
+            expect(payOnAccountsOptions.count()).toBe(2);
+            payOnAccountsOptions.first().click();
 
-            element(by.css('.cp-meal-plan-setup-form input[type="submit"]')).click();
+            var payOnCardTermOptions = element.all(by.css('input[name="paymentTerms"]'));
+            expect(payOnCardTermOptions.count()).toBe(2);
+            payOnCardTermOptions.first().click();
+        });
+
+        it('should be able to proceed to the "meal plan dashboard" page', function() {
+            var submit = element(by.css('.cp-meal-plan-setup-form input[type="submit"]'));
+            expect(submit.getAttribute('value')).toBe('Generate meal plan');
+            submit.click();
 
             expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan$/);
         });
@@ -177,9 +196,9 @@ xdescribe('Admin - Meal plan setup', function() {
             if (isFirst) {
                 loginAsUser('alice@bunnies.test');
                 browser.get('/admin/meal-plan');
-                gridTestUtils.enterFilterInColumn('meal-plan-table', 2, 'Requested callback');
-                element.all(by.css('#meal-plan-table a[href^="/admin/meal-plan/customer/"]')).first().click();
-                expect(browser.getCurrentUrl()).toMatch(/\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/setup$/);
+                gridTestUtils.enterFilterInColumn('meal-plan-table', 2, 'Pending first generation');
+                element.all(by.css('#meal-plan-table .edit-meal-plan-preferences')).first().click();
+                expect(browser.getCurrentUrl()).toMatch(/\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/setup\/preferences$/);
                 isFirst = false;
             }
         });
@@ -188,8 +207,8 @@ xdescribe('Admin - Meal plan setup', function() {
             element.all(by.css('.cp-meal-plan-setup-day-of-the-week')).first().click();
             element.all(by.css('input[name="duration"]')).first().click();
             element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toISOString());
-            element.all(by.css('input[name="isToBeCateredOnBankHolidays"]')).first().click();
-            element(by.model('preferences.eventType')).sendKeys('Lunch');
+            element.all(by.css('input[name="isToBeCateredOnBankHolidaysString"]')).first().click();
+            element(by.model('preferences.eventTypeId')).sendKeys('Lunch');
             element(by.model('preferences.time')).sendKeys(1330);
             element(by.model('preferences.headCount')).sendKeys(30);
 
@@ -206,9 +225,17 @@ xdescribe('Admin - Meal plan setup', function() {
             expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan\/customer\/[0-9a-f]{24}\/setup\/payment$/);
         });
 
-        it('should be able to fill in the "pay on account" form', function() {
-            element.all(by.css('input[name="isPayOnAccount"]')).get(1).click();
+        it('should be able to choose to pay-on-account', function() {
+            var payOnAccountsOptions = element.all(by.css('input[name="isPayOnAccount"]'));
+            expect(payOnAccountsOptions.count()).toBe(2);
+            payOnAccountsOptions.get(1).click();
 
+            // The pay-on-card options should disappear.
+            var payOnCardTermOptions = element.all(by.css('input[name="paymentTerms"]'));
+            expect(payOnCardTermOptions.count()).toBe(0);
+        });
+
+        it('should be able to fill in the "pay on account" form', function() {
             element(by.model('preferences.accountsContactName')).sendKeys('Accounts Department');
             element(by.model('preferences.accountsEmail')).sendKeys('accounts@citypantry.com');
             element(by.model('preferences.accountsTelephoneNumber')).sendKeys('020 3397 8376');
@@ -226,7 +253,9 @@ xdescribe('Admin - Meal plan setup', function() {
         });
 
         it('should be able to proceed to the "meal plan dashboard" page', function() {
-            element(by.css('.cp-meal-plan-setup-form input[type="submit"]')).click();
+            var submit = element(by.css('.cp-meal-plan-setup-form input[type="submit"]'));
+            expect(submit.getAttribute('value')).toBe('Generate meal plan');
+            submit.click();
 
             expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/meal-plan$/);
         });

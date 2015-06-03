@@ -294,7 +294,7 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'AdminMealPlanDashboardController',
             templateUrl: getTemplateUrl('admin/meal-plan-dashboard.html')
         }).
-        when('/admin/meal-plan/customer/:customerId/setup', {
+        when('/admin/meal-plan/customer/:customerId/setup/preferences', {
             controller: 'AdminMealPlanSetupMealPreferencesController',
             templateUrl: getTemplateUrl('admin/meal-plan-setup-meal-preferences.html')
         }).
@@ -303,18 +303,6 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             templateUrl: getTemplateUrl('admin/meal-plan-setup-delivery-details.html')
         }).
         when('/admin/meal-plan/customer/:customerId/setup/payment', {
-            controller: 'AdminMealPlanSetupPaymentController',
-            templateUrl: getTemplateUrl('admin/meal-plan-setup-payment.html')
-        }).
-        when('/admin/meal-plan/customer/:customerId/edit', {
-            controller: 'AdminMealPlanSetupMealPreferencesController',
-            templateUrl: getTemplateUrl('admin/meal-plan-setup-meal-preferences.html')
-        }).
-        when('/admin/meal-plan/customer/:customerId/edit/delivery-details', {
-            controller: 'AdminMealPlanSetupDeliveryDetailsController',
-            templateUrl: getTemplateUrl('admin/meal-plan-setup-delivery-details.html')
-        }).
-        when('/admin/meal-plan/customer/:customerId/edit/payment', {
             controller: 'AdminMealPlanSetupPaymentController',
             templateUrl: getTemplateUrl('admin/meal-plan-setup-payment.html')
         }).
