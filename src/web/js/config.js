@@ -104,6 +104,14 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'CustomerOrderLeaveAReviewController',
             templateUrl: getTemplateUrl('customer/order-leave-a-review.html')
         }).
+        when('/customer/meal-plans', {
+            controller: 'CustomerMealPlansController',
+            templateUrl: getTemplateUrl('customer/meal-plan/list.html')
+        }).
+        when('/customer/meal-plans/:mealPlanId', {
+            controller: 'CustomerMealPlanReviewController',
+            templateUrl: getTemplateUrl('customer/meal-plan/review.html')
+        }).
         when('/reset-password/:userId/:token', {
             controller: 'AuthResetPasswordController',
             templateUrl: getTemplateUrl('auth/reset-password.html')

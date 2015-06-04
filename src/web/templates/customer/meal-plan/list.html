@@ -1,0 +1,30 @@
+<div class="container">
+    <h1 class="cp-heading">Your meal plans</h1>
+
+    <p ng-if="mealPlans.length === 0">
+        You don't have any meal plans available to view at the moment.
+    </p>
+
+    <ol>
+        <li ng-repeat="mealPlan in mealPlans">
+            Start date: {{ mealPlan.startDate | date:'d MMM yyyy HH:mm' }}
+            <br />
+
+            End date: {{ mealPlan.endDate | date:'d MMM yyyy HH:mm' }}
+            <br />
+
+            <span ng-if="mealPlan.statusText === 'pending_customer_approval'">
+                This meal plan is awaiting your approval.
+            </span>
+            <span ng-if="mealPlan.statusText === 'active'">
+                You have approved this meal plan and your orders have been sent to our vendors.
+            </span>
+            <br />
+
+            <a ng-href="/customer/meal-plans/{{ mealPlan.id }}">View meal plan</a>
+            <br />
+
+            If you need to contact our support about this meal plan, please quote the reference "MP{{ mealPlan.humanId }}".
+        </li>
+    </ol>
+</div>

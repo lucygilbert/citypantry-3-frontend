@@ -11,9 +11,13 @@ angular.module('cp.controllers.general').controller('HeaderController', function
     $scope.togglePresentNavMenu = () => $scope.navMenuPresented = !$scope.navMenuPresented;
 
     $scope.showPayOnAccountMenuItem = false;
+    $scope.showMealPlansMenuItem = false;
     if (SecurityService.customerIsLoggedIn()) {
         SecurityService.getCustomer()
-            .then((customer) => $scope.showPayOnAccountMenuItem = customer.paidOnAccountStatus !== 0);
+            .then((customer) => {
+                $scope.showPayOnAccountMenuItem = customer.paidOnAccountStatus !== 0;
+                $scope.showMealPlansMenuItem = customer.mealPlanStatusText === 'active';
+            });
     }
 
     $rootScope.$on('$routeChangeStart', () => $scope.navMenuCollapsed = true);

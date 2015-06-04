@@ -15,6 +15,7 @@ describe('Navigation Menu', function() {
         expect(navMenu.getText()).toContain('Dashboard');
         expect(navMenu.getText()).toContain('Vendors');
         expect(navMenu.getText()).toContain('My account');
+        expect(navMenu.getText()).not.toContain('Meal plans');
         expect(navMenu.getText()).toContain('020');
         expect(navMenuLinks.count()).toBe(4);
 
@@ -39,6 +40,11 @@ describe('Navigation Menu', function() {
         loginAsUser('customer@apple.test');
         myAccountButton.click();
         expect(myAccountMenu.getText()).toContain('Pay on account');
+    });
+
+    it('should present customers who are on meal plan with that menu item', function() {
+        loginAsUser('customer@apple.test');
+        expect(navMenu.getText()).toContain('Meal plans');
     });
 
     it('should present vendors with the appropriate navigation options', function() {

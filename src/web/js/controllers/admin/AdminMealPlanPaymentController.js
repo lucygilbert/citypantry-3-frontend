@@ -1,3 +1,5 @@
+// @todo - find out what this controller does. It doesn't seem to be related to a design.
+
 angular.module('cp.controllers.admin').controller('AdminMealPlanPaymentController',
         function($scope, $q, $routeParams, DocumentTitleService, LoadingService, SecurityService, NotificationService,
         CustomersFactory, UsersFactory, getCardNumberMaskFilter) {

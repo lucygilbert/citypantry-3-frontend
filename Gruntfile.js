@@ -103,6 +103,13 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
+                        src: ['src/web/templates/customer/meal-plan/*'],
+                        dest: 'web/dist/templates/customer/meal-plan',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
                         src: ['src/web/templates/user/*'],
                         dest: 'web/dist/templates/user',
                         filter: 'isFile'

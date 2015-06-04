@@ -1,13 +1,15 @@
 <div class="container">
     <cp-review-meal-plan
-        ng-if="mealPlan"
+        ng-if="mealPlan && customer"
         cp-meal-plan="mealPlan"
         cp-customer-id="customer.id"
         ></cp-review-meal-plan>
 
     <button class="cp-btn cp-btn-primary cp-btn-lg"
-            ng-click="send()"
-            ng-disabled="!isSendToCustomerButtonEnabled">
-        Send to customer
+            ng-click="confirm()"
+            ng-disabled="!isConfirmButtonEnabled">
+        Confirm
     </button>
+
+    <a class="cp-btn cp-btn-link" href="/customer/dashboard">Save for later</a>
 </div>
