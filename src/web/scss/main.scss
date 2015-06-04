@@ -960,12 +960,14 @@ body {
     padding: 0 15px 15px;
     text-align: center;
     width: 50%;
+    height: 198px;
 }
 
 @media only screen and (min-width: $screen-sm-min) {
     .vendors .vendor {
         padding-bottom: 30px;
         width: 25%;
+        height: 213px;
     }
 }
 
