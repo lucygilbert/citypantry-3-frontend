@@ -7,4 +7,6 @@
     Delivery: {{ review.deliveryRating.value }}/5<br />
     Overall: {{ review.overallRating.value }}/5<br />
     Recommend to friend: {{ review.recommendToFriendRating.value }}/10<br />
+    Public? {{ review.isPublic ? 'Yes' : 'No' }}<br />
+    <a ng-click="toggleIsPublic()">Toggle whether this is public</a>
 </div>

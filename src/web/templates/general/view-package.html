@@ -137,8 +137,15 @@
 
                 <article class="cp-package-review" ng-repeat="review in reviews | limitTo:reviewsLimit">
                     <div class="cp-package-review-review">
+                        <b ng-if="review.isPublic === false">
+                            This review is not public. You can see this review because you are
+                            logged in as a City Pantry staff member.
+                        </b>
+
                         <p>{{ review.review }}</p>
+
                         <span class="cp-package-review-name">{{ review.reviewerName | firstName }}</span>
+
                         <footer>
                             <p class="cp-package-review-date"><time datetime="{{ review.date | date:'yyyy-mm-dd' }}">{{ review.date | date:'d MMMM yyyy' }}</time></p>
                         </footer>
