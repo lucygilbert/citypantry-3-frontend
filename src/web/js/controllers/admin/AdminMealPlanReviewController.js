@@ -10,11 +10,10 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanReviewController
     $scope.mealPlan = {};
     $scope.proposedOrdersPackageIsNotAvailable = [];
     $scope.reviewsSummary = {};
-    $scope.selectedOrder = {};
+    $scope.selectedProposedOrder = {};
 
-    MealPlanFactory.getMealPlan($routeParams.customerId, $routeParams.mealPlanId)
+    MealPlanFactory.getCustomerMealPlan($routeParams.customerId, $routeParams.mealPlanId)
         .success(response => {
-            console.log('getMealPlan', response);
             $scope.mealPlan = response.mealPlan;
 
             $scope.mealPlan.requirementsAtGeneration.durationTextTranslation = getCustomerMealPlanDurationTextFilter($scope.mealPlan.requirementsAtGeneration.duration);
@@ -100,9 +99,9 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanReviewController
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 
-    $scope.selected = (order) => {
-        $scope.selectedOrder = order;
-        loadReviews($scope.selectedOrder.package.id);
+    $scope.selected = (proposedOrder) => {
+        $scope.selectedProposedOrder = proposedOrder;
+        loadReviews($scope.selectedProposedOrder.package.id);
     };
 
     $scope.moved = ($index) => {
@@ -114,13 +113,17 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanReviewController
     };
 
     $scope.replace = () => {
-        if (!$scope.selectedOrder) {
+        if (!$scope.selectedProposedOrder) {
             return;
         }
 
         LoadingService.show();
 
-        MealPlanFactory.replacePackage($routeParams.customerId, $routeParams.mealPlanId, $scope.selectedOrder.requestedDeliveryDate)
+        MealPlanFactory.replaceWithUnusedAlternativePackage(
+                $routeParams.customerId,
+                $routeParams.mealPlanId,
+                {date: $scope.selectedProposedOrder.requestedDeliveryDate}
+            )
             .success(response => {
                 $scope.mealPlan.proposedOrders = response.mealPlan.proposedOrders;
 
