@@ -1,23 +1,8 @@
-<div class="cp-meal-plan-review-header">
-    <h1 class="cp-heading">
-        {{ mealPlan.requirementsAtGeneration.durationText | getCustomerMealPlanDurationText }} meal plan
-
-        <span class="meals-count"><ng-pluralize
-            count="mealPlan.proposedOrders.length"
-            when="{
-                'one': '1 meal',
-                'other': '{} meals'
-            }">
-        </ng-pluralize></span>
-
-        <span class="total-amount">{{ mealPlan.totalCost | currency:'£':2 }}</span>
-    </h1>
-
-    <p class="cp-meal-plan-review-delivery-address">
-        <b>Delivery address</b>:
-        {{ mealPlan.requirementsAtGeneration.deliveryAddress | addressSingleLineFormatter }}
-    </p>
-</div>
+<cp-meal-plan-header cp-number-of-orders="mealPlan.proposedOrders.length"
+    cp-total-cost="mealPlan.totalCost"
+    cp-duration="mealPlan.requirementsAtGeneration.durationText"
+    cp-delivery-address="mealPlan.requirementsAtGeneration.deliveryAddress"
+    ></cp-meal-plan-header>
 
 <div class="cp-meal-plan-review">
     <div class="cp-meal-plan-review-main">
@@ -27,7 +12,7 @@
                 dnd-draggable="proposedOrder"
                 dnd-moved="$parent.moved($index)"
                 dnd-effect-allowed="move"
-                dnd-selected="$parent.selected(proposedOrder)"
+                dnd-selected="$parent.selectOrder(proposedOrder)"
                 ng-class="{
                     'selected': $parent.selectedProposedOrder === proposedOrder,
                     'unavailable': proposedOrder.isAvailable === false

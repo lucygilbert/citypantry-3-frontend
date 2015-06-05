@@ -14,6 +14,11 @@ angular.module('cp.controllers.customer').controller('CustomerMealPlanReviewCont
 
     MealPlanFactory.getCustomerMealPlan('me', $routeParams.mealPlanId)
         .success(response => {
+            if (response.mealPlan.statusText === 'active') {
+                $location.path(`/customer/meal-plans/${$routeParams.mealPlanId}/edit-orders`);
+                return;
+            }
+
             $scope.mealPlan = response.mealPlan;
             LoadingService.hide();
         })
