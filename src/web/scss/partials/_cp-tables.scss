@@ -1,13 +1,15 @@
 $table-bg-accent: #d9e7f5;
 
 .cp-table {
-    > thead > tr > th {
+    > thead > tr > th,
+    > tfoot > tr > td {
         font-size: 1.1em;
         font-weight: bold;
         border-bottom: 4px solid #efefef;
     }
 
-    > thead:first-child > tr:first-child > th {
+    > thead:first-child > tr:first-child > th,
+    > tfoot > tr:first-child > td {
         // Need this overly-specific rule to override a Bootstrap style.
         border-top: 4px solid #efefef;
     }
@@ -18,7 +20,8 @@ $table-bg-accent: #d9e7f5;
     }
 
     > thead > tr > th,
-    > tbody > tr > td {
+    > tbody > tr > td,
+    > tfoot > tr > td {
         padding: 12px;
     }
 

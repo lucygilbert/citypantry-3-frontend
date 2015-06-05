@@ -1,6 +1,6 @@
 angular.module('cp.controllers.customer').controller('CustomerMealPlanReviewController',
         function($scope, $routeParams, DocumentTitleService, SecurityService, LoadingService,
-        NotificationService, MealPlanFactory) {
+        NotificationService, MealPlanFactory, $location) {
     DocumentTitleService('Your meal plan');
     SecurityService.requireCustomer();
 
@@ -24,6 +24,6 @@ angular.module('cp.controllers.customer').controller('CustomerMealPlanReviewCont
             return;
         }
 
-        // @todo
+        $location.path(`/customer/meal-plans/${$routeParams.mealPlanId}/confirm`);
     };
 });
