@@ -252,7 +252,8 @@
                                    id="package_disposition{{ $index }}_package"
                                    name="packageId{{ $index }}"
                                    placeholder="Package ID (human or MongoDB)"
-                                   ng-model="packageDisposition.packageId" />
+                                   ng-model="packageDisposition.packageId"
+                                   ng-change="packageDisposition.packageName = null" />
 
                             <select class="cp-form-control cp-meal-plan-setup-package-disposition-disposition"
                                     id="package_disposition{{ $index }}_disposition"
@@ -261,6 +262,14 @@
                                     ng-options="disposition.value as disposition.label for disposition in packageDispositionOptions">
                                 <option value="" selected disabled>Select</option>
                             </select>
+
+                            <br />
+
+                            <a ng-click="getPackageName(packageDisposition)">Get package name</a>
+
+                            <p ng-if="packageDisposition.packageName">
+                                {{ packageDisposition.packageName }}
+                            </p>
                         </div>
 
                         <a class="cp-meal-plan-setup-package-dispositions-add" ng-click="addDisposition()">Add more</a>

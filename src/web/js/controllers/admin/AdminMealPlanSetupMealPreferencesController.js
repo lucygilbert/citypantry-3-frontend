@@ -175,4 +175,10 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupMealPrefere
                 .catch(response => NotificationService.notifyError(response.data.errorTranslation));
         });
     };
+
+    $scope.getPackageName = (packageDisposition) => {
+        PackagesFactory.getPackageName(packageDisposition.packageId)
+            .then(packageName => packageDisposition.packageName = packageName)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
 });
