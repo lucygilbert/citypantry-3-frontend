@@ -1,3 +1,5 @@
 #! /usr/bin/env sh
 
-vagrant ssh -c "/home/citypantry/project/api/app/console doctrine:mongodb:fixtures:load -n";
+vagrant ssh -c "sudo chmod -R 0777 /home/citypantry/project/uploads /tmp/cp-* && \
+    /home/citypantry/project/api/app/console doctrine:mongodb:fixtures:load -n && \
+    sudo chmod -R 0777 /home/citypantry/project/uploads /tmp/cp-*";
