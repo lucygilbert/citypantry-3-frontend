@@ -28,21 +28,30 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="ClearType" content="true" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="//ajax.googleapis.com/" rel="dns-prefetch" />
-        <link href="//www.google-analytics.com/" rel="dns-prefetch" />
+
+        {% if app.environment == 'prod' %}
+            <link href="//ajax.googleapis.com/" rel="dns-prefetch" />
+            <link href="//www.google-analytics.com/" rel="dns-prefetch" />
+        {% endif %}
+
         <title>{% block title %}Office Catering in London from City Pantry{% endblock %}</title>
         <meta name="description" content="{% block metaDescription %}{% endblock %}" />
         <link href="/favicon.ico" rel="icon" />
 
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+        {% if app.environment == 'prod' %}
+            <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+        {% endif %}
+
         <link href="/dist/css/main.min.css?cacheBuster={{ cacheBusterValue }}" rel="stylesheet" />
 
-        <!--[if lt IE 9]>
-        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+        {% if app.environment == 'prod' %}
+            <!--[if lt IE 9]>
+            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
 
-        <script src="//use.typekit.net/qsr0jnc.js"></script>
-        <script>try{Typekit.load();}catch(e){}</script>
+            <script src="//use.typekit.net/qsr0jnc.js"></script>
+            <script>try{Typekit.load();}catch(e){}</script>
+        {% endif %}
 
         <script src="//use.fonticons.com/1518eb00.js"></script>
 
