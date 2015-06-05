@@ -7,7 +7,9 @@
         <fieldset>
             <div class="form-group">
                 <label for="company_name">Company name</label>
-                <input class="form-control input-lg" id="company_name" type="text" readonly ng-model="order.customer.company" />
+                <p>
+                    <a ng-href="/admin/customer/{{ order.customer.id }}">{{ order.customer.company }}</a>
+                </p>
             </div>
 
             <div class="form-group">
@@ -55,28 +57,62 @@
             </div>
 
             <div class="form-group">
-                <label for="subtotal_amount">Subtotal</label>
-                <input class="form-control input-lg" id="subtotal_amount" type="text" readonly ng-model="order.subTotalExcludingVat" cp-format-currency />
+                <label for="subtotal_amount">Subtotal excluding VAT</label>
+                <input class="form-control input-lg" id="subtotal_amount" type="text"
+                    readonly ng-model="order.subTotalExcludingVat" cp-format-currency />
             </div>
 
             <div class="form-group">
-                <label for="delivery_amount">Delivery</label>
-                <input class="form-control input-lg" id="delivery_amount" type="text" readonly ng-model="order.shippingTotalExcludingVatAmount" cp-format-currency />
+                <label for="subtotal_amount">Subtotal including VAT</label>
+                <input class="form-control input-lg" id="subtotal_amount" type="text"
+                    readonly ng-model="order.subTotalIncludingVat" cp-format-currency />
+            </div>
+
+            <div class="form-group">
+                <label for="delivery_amount_excluding_vat">Delivery excluding VAT</label>
+                <input class="form-control input-lg" id="delivery_amount_excluding_vat" type="text"
+                    readonly ng-model="order.shippingExcludingVatAmount" cp-format-currency />
+            </div>
+
+            <div class="form-group">
+                <label for="delivery_amount_including_vat">Delivery including VAT</label>
+                <input class="form-control input-lg" id="delivery_amount_including_vat" type="text"
+                    readonly ng-model="order.shippingIncludingVatAmount" cp-format-currency />
             </div>
 
             <div class="form-group">
                 <label for="discount_amount">Discount</label>
-                <input class="form-control input-lg" id="discount_amount" type="text" readonly ng-model="order.voucherAmount" cp-format-currency />
+                <p ng-if="order.voucherName">
+                    {{ order.voucherName }}: {{ order.voucherAmount | currency:'£' }}
+                </p>
+                <p ng-if="!order.voucherName">
+                    None
+                </p>
             </div>
 
             <div class="form-group">
                 <label for="vat_amount"><abbr title="value added tax">VAT</abbr></label>
-                <input class="form-control input-lg" id="vat_amount" type="text" readonly ng-model="order.taxAmount" cp-format-currency />
+                <input class="form-control input-lg" id="vat_amount" type="text"
+                    readonly ng-model="order.totalTaxAmount" cp-format-currency />
             </div>
 
             <div class="form-group">
-                <label for="total_amount">Grand total</label>
-                <input class="form-control input-lg" id="total_amount" type="text" readonly ng-model="order.totalAmount" cp-format-currency />
+                <label for="total_amount_before_voucher">Grand total before voucher</label>
+                <input class="form-control input-lg" id="total_amount_before_voucher" type="text"
+                    readonly ng-model="order.totalAmountBeforeVoucher" cp-format-currency />
+            </div>
+
+            <div class="form-group">
+                <label for="total_amount_after_voucher">Grand total after voucher</label>
+                <input class="form-control input-lg" id="total_amount_after_voucher" type="text"
+                    readonly ng-model="order.totalAmountAfterVoucher" cp-format-currency />
+            </div>
+
+            <div class="form-group">
+                <label for="total_amount_after_voucher">Is meal plan order?</label>
+                <p>
+                    {{ order.isMealPlan ? 'Yes' : 'No' }}
+                </p>
             </div>
         </fieldset>
     </form>

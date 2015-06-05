@@ -17,7 +17,7 @@ describe('Admin - package page - Carrots', function() {
 
     it('should show the "package" page', function() {
         expect(browser.getCurrentUrl()).toMatch(/\/admin\/package\/[\da-f]+$/);
-        expect(element(by.css('h1')).getText()).toMatch(/^Package \d+$/);
+        expect(element(by.css('h1')).getText()).toMatch(/^Package \d+:/);
     });
 
     it('should load the package details', function() {

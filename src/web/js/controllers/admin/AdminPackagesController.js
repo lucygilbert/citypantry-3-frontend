@@ -30,7 +30,7 @@ angular.module('cp.controllers.admin').controller('AdminPackagesController',
             },
             {
                 cellFilter: 'currency:\'£\':2',
-                displayName: 'Cost',
+                displayName: 'Cost (inc. VAT)',
                 field: 'costIncludingVat'
             },
             {

@@ -1,5 +1,11 @@
 <div class="wrapper">
-    <h1>Package {{ vendorPackage.humanId }}</h1>
+    <h1>Package {{ vendorPackage.humanId }}: {{ vendorPackage.name }}</h1>
+
+    <p>
+        <a ng-href="/package/{{ vendorPackage.humanId }}">View in frontend</a>
+        <br />
+        <a ng-href="/admin/global-id-lookup/{{ vendorPackage.id }}">View in global ID lookup</a>
+    </p>
 
     <h2>Visibility</h2>
 
