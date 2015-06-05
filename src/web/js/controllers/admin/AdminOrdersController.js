@@ -83,11 +83,16 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             },
             {
                 displayName: 'Package',
-                field: 'package.name'
+                field: 'package.name',
+                cellTemplate: `
+                    <div class="ui-grid-cell-contents">
+                        <a href="/admin/package/{{row.entity.package.id}}">{{ row.entity.package.name }}</a>
+                    </div>
+                `
             },
             {
                 cellFilter: 'currency:\'£\':2',
-                displayName: 'Cost',
+                displayName: 'Cost (inc. VAT)',
                 field: 'totalAmountAfterVoucher'
             },
             {

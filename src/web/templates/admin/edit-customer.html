@@ -1,6 +1,10 @@
 <div class="wrapper">
     <h1>Customer {{ customer.humanId }}: {{ customer.user.name }}, {{ customer.company }}</h1>
 
+    <p>
+        <a ng-href="/admin/global-id-lookup/{{ customer.id }}">View in global ID lookup</a>
+    </p>
+
     <h2>History</h2>
 
     <cp-history-table document-id="customer.id" document-type="CityPantry\CustomerBundle\Document\Customer"></cp-history-table>
