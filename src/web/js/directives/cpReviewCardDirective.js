@@ -5,16 +5,19 @@ angular.module('cp').directive('cpReviewCard', function(getTemplateUrl) {
             'review': '='
         },
         templateUrl: getTemplateUrl('directives/cp-review-card.html'),
-        controller: function($scope, OrdersFactory, NotificationService, ReviewFactory) {
-            OrdersFactory.getOrder($scope.review.orderId)
-                .success(response => $scope.order = response)
-                .error(response => NotificationService.notifyError(response.data.errorTranslation));
+        controller: 'cpReviewCardController'
+    };
+});
 
-            $scope.toggleIsPublic = () => {
-                ReviewFactory.setReviewAsPublic(!$scope.review.isPublic, $scope.review.id)
-                    .success(response => $scope.review = response.review)
-                    .error(response => NotificationService.notifyError(response.data.errorTranslation));
-            };
-        }
+angular.module('cp').controller('cpReviewCardController',
+        function($scope, OrdersFactory, NotificationService, ReviewFactory) {
+    OrdersFactory.getOrder($scope.review.orderId)
+        .success(response => $scope.order = response)
+        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+
+    $scope.toggleIsPublic = () => {
+        ReviewFactory.setReviewAsPublic(!$scope.review.isPublic, $scope.review.id)
+            .success(response => $scope.review = response.review)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 });
