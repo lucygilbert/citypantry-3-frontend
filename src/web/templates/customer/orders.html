@@ -8,6 +8,7 @@
             <tr>
                 <th></th>
                 <th>Delivery</th>
+                <th><!-- Is meal plan? --></th>
                 <th>Item</th>
                 <th>Purchased</th>
                 <th>Amount</th>
@@ -20,6 +21,13 @@
             <tr ng-repeat="order in orders">
                 <td ng-click="showReceipt(order)">{{ order.requestedDeliveryDate | date:'HH:mm' }}</td>
                 <td ng-click="showReceipt(order)">{{ order.requestedDeliveryDate | date:'d MMM yyyy' }}</td>
+                <td>
+                    <img ng-if="order.isMealPlan"
+                        src="/dist/images/icons/meal-plan-order.svg"
+                        title="Meal plan order"
+                        alt="Meal plan order"
+                        width="30" height="30" />
+                </td>
                 <td>
                     <a ng-href="/package/{{ order.package.humanId }}-{{ order.package.name | slugify }}" class="package-name">{{ order.package.name }}</a>
                 </td>

@@ -1,6 +1,6 @@
 angular.module('cp.controllers.customer').controller('CustomerMealPlanReviewController',
         function($scope, $routeParams, DocumentTitleService, SecurityService, LoadingService,
-        NotificationService, MealPlanFactory) {
+        NotificationService, MealPlanFactory, $location) {
     DocumentTitleService('Your meal plan');
     SecurityService.requireCustomer();
 
@@ -14,6 +14,11 @@ angular.module('cp.controllers.customer').controller('CustomerMealPlanReviewCont
 
     MealPlanFactory.getCustomerMealPlan('me', $routeParams.mealPlanId)
         .success(response => {
+            if (response.mealPlan.statusText === 'active') {
+                $location.path(`/customer/meal-plans/${$routeParams.mealPlanId}/edit-orders`);
+                return;
+            }
+
             $scope.mealPlan = response.mealPlan;
             LoadingService.hide();
         })
@@ -24,6 +29,6 @@ angular.module('cp.controllers.customer').controller('CustomerMealPlanReviewCont
             return;
         }
 
-        // @todo
+        $location.path(`/customer/meal-plans/${$routeParams.mealPlanId}/confirm`);
     };
 });

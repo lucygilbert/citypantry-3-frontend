@@ -68,17 +68,15 @@ angular.module('cp').controller('cpReviewMealPlanController',
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 
-    const loadReviews = (id) => {
-        PackagesFactory.getPackageReviews(id)
-            .success(response => {
-                $scope.reviewsSummary = response.summary;
-            })
+    const loadReviews = (pkg) => {
+        PackagesFactory.getPackageReviews(pkg.id)
+            .success(response => $scope.reviewsSummary = response.summary)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 
-    $scope.selected = (proposedOrder) => {
+    $scope.selectOrder = (proposedOrder) => {
         $scope.selectedProposedOrder = proposedOrder;
-        loadReviews($scope.selectedProposedOrder.package.id);
+        loadReviews($scope.selectedProposedOrder.package);
     };
 
     $scope.moved = ($index) => {

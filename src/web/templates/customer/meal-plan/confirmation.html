@@ -1,0 +1,204 @@
+<div class="thin-container" id="cp-meal-plan-confirmation">
+    <div class="cp-meal-plan-payment">
+        <h1 class="cp-heading">Meal plan summary</h1>
+
+        <table class="cp-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Delivery</th>
+                    <th>Item</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        Total: {{ mealPlan.totalCost | currency:'£' }}
+                    </td>
+                </tr>
+            </tfoot>
+
+            <tbody>
+                <tr ng-repeat="proposedOrder in mealPlan.proposedOrders">
+                    <td>{{ proposedOrder.realOrderFacade.requestedDeliveryDate | date:'HH:mm' }}</td>
+                    <td>{{ proposedOrder.realOrderFacade.requestedDeliveryDate | date:'d MMM yyyy' }}</td>
+                    <td>
+                        <a ng-href="/package/{{ proposedOrder.package.humanId }}-{{ proposedOrder.package.name | slugify }}">
+                            {{ proposedOrder.package.name }}
+                        </a>
+                    </td>
+                    <td>{{ proposedOrder.realOrderFacade.totalAmountAfterVoucher | currency:'£' }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="cp-heading">Payment details</h2>
+
+        <form class="cp-form cp-meal-plan-payment-form" novalidate role="form" ng-submit="confirm()">
+            <fieldset ng-if="paymentOptions.canPayOnAccount">
+                <label class="cp-radio-inline">
+                    <input type="radio"
+                        ng-model="paymentOptions.isToBePaidOnAccount"
+                        ng-value="false" />
+                    Pay on Credit Card
+                </label>
+                <label class="cp-radio-inline">
+                    <input type="radio"
+                        ng-model="paymentOptions.isToBePaidOnAccount"
+                        ng-value="true" />
+                    Pay on Account
+                </label>
+            </fieldset>
+
+            <hr ng-if="paymentOptions.canPayOnAccount" />
+
+            <p ng-if="mealPlan.requirementsAtGeneration.paymentTerm === 2">
+                Your meal plan will be charged when you click "Order now" at the bottom of this page.
+            </p>
+
+            <p ng-if="mealPlan.requirementsAtGeneration.paymentTerm === 3">
+                Your meal plan orders will be charged individually at the time of delivery.
+            </p>
+
+            <!--
+            Pay on account customers who choose to pay by card will be charged at the time of
+            delivery.
+            -->
+            <p ng-if="!paymentOptions.isToBePaidOnAccount && mealPlan.requirementsAtGeneration.paymentTerm === 1">
+                Your meal plan orders will be charged individually at the time of delivery.
+            </p>
+
+            <fieldset class="cp-payment-method" ng-if="!paymentOptions.isToBePaidOnAccount">
+                <div class="cp-form-group col-md-6 row">
+                    <label class="cp-form-label" for="payment_method">Payment method</label>
+                    <select class="cp-form-control"
+                        id="payment_method"
+                        ng-model="paymentOptions.chosenCard"
+                        ng-options="card as card.numberMasked for card in cards">
+                            <option value="">Add new card</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <ul class="payment-methods">
+                        <li class="visa" ng-show="isVisaVisible">Visa</li>
+                        <li class="amex" ng-show="isAmericanExpressVisible">American Express</li>
+                        <li class="mastercard" ng-show="isMastercardVisible">MasterCard</li>
+                        <li class="maestro" ng-show="isMaestroVisible">Maestro</li>
+                        <li class="payment-method-info" ng-show="paymentOptions.chosenCard.expiryDate">
+                            Expires: <strong>{{ paymentOptions.chosenCard.expiryDate }}</strong>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <p class="cp-form-error" ng-show="cardInformationRequiredError">
+                Card number, expiry month and year and CVC are required.
+            </p>
+
+            <fieldset class="cp-payment-card" ng-if="!paymentOptions.isToBePaidOnAccount && !paymentOptions.chosenCard">
+                <div class="row">
+                    <div class="cp-form-group col-md-6">
+                        <label class="cp-form-label" for="card_number">Card number</label>
+                        <input class="cp-form-control"
+                            id="card_number"
+                            type="number"
+                            autocomplete="off"
+                            required
+                            aria-required="true"
+                            ng-maxlength="16"
+                            ng-minlength="13"
+                            ng-model="paymentOptions.newCard.number"
+                            data-braintree-name="number" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="cp-form-group cp-card-expiry-date">
+                        <div class="col-md-3">
+                            <label class="cp-form-label" for="card_expiry_month">Expiry month</label>
+
+                            <select class="cp-form-control"
+                                id="card_expiry_month"
+                                required
+                                aria-required="true"
+                                ng-model="paymentOptions.newCard.expirationMonth"
+                                ng-options="month.value as month.label for month in monthOptions"
+                                data-braintree-name="expiration_month">
+                                    <option value="">MM</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="cp-form-label" for="card_expiry_year">Expiry year</label>
+
+                            <select class="cp-form-control"
+                                id="card_expiry_year"
+                                required
+                                aria-required="true"
+                                ng-model="paymentOptions.newCard.expirationYear"
+                                ng-options="year.value as year.label for year in yearOptions"
+                                data-braintree-name="expiration_year">
+                                    <option value="">YYYY</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="cp-form-label" for="card_cvc">
+                                <abbr title="card verification code">CVC</abbr>
+                            </label>
+                            <input class="cp-form-control"
+                                id="card_cvc"
+                                type="text"
+                                autocomplete="off"
+                                required
+                                aria-required="true"
+                                ng-maxlength="4"
+                                ng-minlength="3"
+                                ng-model="paymentOptions.newCard.cvc"
+                                ng-pattern="/\d\d\d/"
+                                data-braintree-name="cvc" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset ng-if="paymentOptions.isToBePaidOnAccount">
+                <div class="cp-form-group">
+                    <label class="cp-form-label" for="purchase_order_number">
+                        <abbr title="purchase order">PO</abbr> number
+                    </label>
+
+                    <input class="cp-form-control"
+                        id="purchase_order_number"
+                        type="text"
+                        ng-model="paymentOptions.purchaseOrderNumber" />
+                </div>
+
+                <div class="cp-form-group">
+                    <label class="cp-form-label" for="department_reference">Additional ref</label>
+                    <input class="cp-form-control"
+                        id="department_reference"
+                        type="text"
+                        ng-model="paymentOptions.departmentReference" />
+                </div>
+            </fieldset>
+
+            <hr />
+
+            <h2 class="cp-heading">Billing address</h2>
+
+            <p class="cp-meal-plan-payment-address"
+                ng-bind-html="mealPlan.requirementsAtGeneration.billingAddress | addressSingleLineFormatter:'<br />'"
+                ></p>
+
+            <hr />
+
+            <input class="cp-btn cp-btn-primary cp-btn-lg"
+                type="submit"
+                value="Order now ({{ mealPlan.totalCost | currency:'£':2 }})" />
+        </form>
+    </div>
+</div>

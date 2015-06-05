@@ -1,0 +1,20 @@
+<div class="cp-meal-plan-review-header">
+    <h1 class="cp-heading">
+        {{ duration | getCustomerMealPlanDurationText }} meal plan
+
+        <span class="meals-count"><ng-pluralize
+            count="numberOfOrders"
+            when="{
+                'one': '1 meal',
+                'other': '{} meals'
+            }">
+        </ng-pluralize></span>
+
+        <span class="total-amount">{{ totalCost | currency:'£':2 }}</span>
+    </h1>
+
+    <p class="cp-meal-plan-review-delivery-address">
+        <b>Delivery address</b>:
+        {{ deliveryAddress | addressSingleLineFormatter }}
+    </p>
+</div>
