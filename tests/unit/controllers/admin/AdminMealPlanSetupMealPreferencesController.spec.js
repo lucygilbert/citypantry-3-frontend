@@ -131,7 +131,7 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
 
         scope.nextStep();
 
-        $httpBackend.expectGET('http://api.localhost:9876/packages/1').respond(
+        $httpBackend.expectGET('api.mock.dev/packages/1').respond(
             404,
             {errorTranslation: 'No package for this human ID exists'}
         );
@@ -168,7 +168,7 @@ describe('AdminMealPlanSetupMealPreferencesController', function() {
 
         scope.nextStep();
 
-        $httpBackend.expectGET('http://api.localhost:9876/packages/1').respond(
+        $httpBackend.expectGET('api.mock.dev/packages/1').respond(
             200,
             {id: '22443ab98798de987987ad98', humanId: 1}
         );

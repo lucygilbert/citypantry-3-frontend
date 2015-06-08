@@ -185,6 +185,7 @@ module.exports = function (grunt) {
                     'web/dist/js/built-citypantry-es6.js': [
                         'src/web/js/cpLibIntegration.js',
                         'src/web/js/app.module.js',
+                        'src/web/js/angulartics-citypantry.js',
                         'src/web/js/config.js',
                         'src/web/js/controllers/**/*.js',
                         'src/web/js/services/**/*.js',

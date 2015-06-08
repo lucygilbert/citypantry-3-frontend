@@ -94,9 +94,10 @@ describe('Navigation Menu', function() {
         expect(myAccountMenu.getText()).toContain('SMS centre');
         expect(myAccountMenu.getText()).toContain('Orders stats');
         expect(myAccountMenu.getText()).toContain('Supplier agreements');
+        expect(myAccountMenu.getText()).toContain('Database query');
         expect(myAccountMenu.getText()).toContain('Global ID lookup');
         expect(myAccountMenu.getText()).toContain('Log out');
-        expect(myAccountMenuLinks.count()).toBe(9);
+        expect(myAccountMenuLinks.count()).toBe(10);
     });
 
     it('should present the default navigation options to people who aren\'t logged in', function() {

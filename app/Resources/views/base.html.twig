@@ -81,6 +81,11 @@
         {% endif %}
 
         <script>
+            {% if user %}
+                window.userId = '{{ user.user.id }}';
+            {% endif %}
+            window.frontendBase = '{{ frontendBase }}';
+            window.apiBase = '{{ apiBase }}';
             window.hubspotBase = '{{ hubspotBase }}';
             window.googleMapsJavascriptApiV3Key = '{{ googleMapsJavascriptApiV3Key }}';
             window.cacheBusterValue = '{{ cacheBusterValue }}';

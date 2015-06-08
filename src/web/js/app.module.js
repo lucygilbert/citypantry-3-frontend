@@ -3,7 +3,8 @@ if (window.includeAnalyticsJs && !window.isStaff) {
     angularticsDependencies = [
         'angulartics.google.analytics',
         'angulartics.hubspot',
-        'angulartics.kissmetrics'
+        'angulartics.kissmetrics',
+        'angulartics.citypantry'
     ];
 } else {
     angularticsDependencies = [
@@ -37,10 +38,9 @@ angular.module('cp', [
     'dndLists'
 ].concat(angularticsDependencies));
 
-const baseHost = window.location.host.replace('order.', '');
 angular.module('cp')
-    .constant('FRONTEND_BASE', window.location.protocol + '//order.' + baseHost)
-    .constant('API_BASE', window.location.protocol + '//api.' + baseHost)
+    .constant('FRONTEND_BASE', window.frontendBase)
+    .constant('API_BASE', window.apiBase)
     .constant('HUBSPOT_BASE', window.hubspotBase)
     .constant('MAP_CENTER', {
         latitude: 51.527787,
