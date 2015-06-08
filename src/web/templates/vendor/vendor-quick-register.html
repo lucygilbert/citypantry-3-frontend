@@ -1,0 +1,87 @@
+<div class="vendor-signup-wrapper">
+    <div class="vendor-signup-header">
+    </div>
+
+    <div class="vendor-signup-sub-header">
+        <h4>
+            Here at City Pantry, we are looking for vendors that are
+            <em>flexible</em>,
+            <em>reliable</em> and offer
+            <em>exceptional food</em>.
+        </h4>
+    </div>
+
+    <div class="vendor-signup-container">
+        <div class="vendor-signup-why-work-box">
+            <h3 class="cp-heading">Why work with City Pantry?</h3>
+            <ul>
+                <li>
+                    <i class="glyphicon glyphicon-ok"></i>
+                    <h4>Reach more customers through our website and dedicated sales team.</h4>
+                </li>
+
+                <li>
+                    <i class="glyphicon glyphicon-ok"></i>
+                    <h4>Retain control. You decided what you want to sell, when, and to which postcodes.</h4>
+                </li>
+
+                <li>
+                    <i class="glyphicon glyphicon-ok"></i>
+                    <h4>Large, regular orders with plenty of lead time.</h4>
+                </li>
+
+                <li>
+                    <i class="glyphicon glyphicon-ok"></i>
+                    <h4>We deal with invoicing and pay you the same day each month.</h4>
+                </li>
+
+                <li>
+                    <i class="glyphicon glyphicon-ok"></i>
+                    <h4>We handle orders and customer service, meaning you can focus on the food!</h4>
+                </li>
+            </ul>
+        </div>
+
+        <div class="vendor-signup-form-box">
+            <h4 class="cp-heading">Interested in becoming a City Pantry partner?
+            <br />Complete the form below and...</h4>
+
+            <form name="vendorSignupForm" ng-submit="submitSignupForm()" novalidate>
+                <div class="cp-form-group">
+                    <input type="checkbox" id="does_delivery" ng-model="signupDetails.doesDelivery" />
+                    <label class="cp-form-label delivery-label" for="does_delivery">Do you currently deliver?</label>
+                </div>
+
+                <div class="cp-form-group">
+                    <label class="cp-form-label" for="signature_dish">What's your signature dish?</label>
+                    <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted &&
+                        vendorSignupForm.signatureDish.$error.required">Signature dish is required.</span>
+                    <input class="cp-form-control" type="text" id="signature_dish" name="signatureDish"
+                        ng-model="signupDetails.signatureDish" required/>
+                </div>
+
+                <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted &&
+                    vendorSignupForm.kitchenPostcode.$error.required">Kitchen postcode is required.<br /></span>
+                <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted &&
+                    vendorSignupForm.businessName.$error.required">Business name is required.<br /></span>
+                <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted &&
+                    vendorSignupForm.name.$error.required">Name is required.<br /></span>
+                <span class="form-element-invalid" ng-show="vendorSignupForm.$submitted &&
+                    vendorSignupForm.email.$error.required">Email is required.<br /></span>
+
+                <div class="cp-form-group four-inputs">
+                    <input class="cp-form-control" placeholder="Kitchen postcode" type="text" name="kitchenPostcode"
+                        id="kitchen_postcode" ng-model="signupDetails.kitchenPostcode" required/>
+                    <input class="cp-form-control" placeholder="Business name" type="text" name="businessName"
+                        id="business_name" ng-model="signupDetails.businessName" required/>
+                    <input class="cp-form-control" placeholder="Name" type="text" name="name"
+                        id="name" ng-model="signupDetails.name" required/>
+                    <input class="cp-form-control" placeholder="Email" type="email" name="email"
+                        id="email" ng-model="signupDetails.email" required/>
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="Get in touch"/>
+            </form>
+        </div>
+    </div>
+</div>
