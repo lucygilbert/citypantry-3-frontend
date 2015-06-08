@@ -38,7 +38,7 @@ describe('ViewPackageController', function() {
     it('should not display empty reviews', function() {
         makeCtrl();
 
-        $httpBackend.expectGET('http://api.localhost:9876/packages/123').respond(
+        $httpBackend.expectGET('api.mock.dev/packages/123').respond(
             200,
             {
                 id: 'abc123',
@@ -57,7 +57,7 @@ describe('ViewPackageController', function() {
             }
         );
 
-        $httpBackend.expectGET('http://api.localhost:9876/reviews/package/abc123').respond(
+        $httpBackend.expectGET('api.mock.dev/reviews/package/abc123').respond(
             200,
             {
                 reviews: [

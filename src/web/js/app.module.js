@@ -8,8 +8,7 @@ if (window.includeAnalyticsJs && !window.isStaff) {
     ];
 } else {
     angularticsDependencies = [
-        'angulartics.console',
-        'angulartics.citypantry'
+        'angulartics.console'
     ];
 }
 
@@ -39,7 +38,6 @@ angular.module('cp', [
     'dndLists'
 ].concat(angularticsDependencies));
 
-const baseHost = window.location.host.replace('order.', '');
 angular.module('cp')
     .constant('FRONTEND_BASE', window.frontendBase)
     .constant('API_BASE', window.apiBase)
