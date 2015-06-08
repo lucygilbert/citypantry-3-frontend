@@ -172,6 +172,14 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'VendorPortalDeliveryRadiusesController',
             templateUrl: getTemplateUrl('vendor/vendor-portal-delivery-radiuses.html')
         }).
+        when('/vendor/quick-register', {
+            controller: 'VendorQuickRegisterController',
+            templateUrl: getTemplateUrl('vendor/vendor-quick-register.html')
+        }).
+        when('/vendor/quick-register/thank-you', {
+            controller: 'VendorQuickRegisterThankYouController',
+            templateUrl: getTemplateUrl('vendor/vendor-quick-register-thank-you.html')
+        }).
         when('/vendor/signup', {
             controller: 'VendorSignupController',
             templateUrl: getTemplateUrl('vendor/vendor-signup.html')

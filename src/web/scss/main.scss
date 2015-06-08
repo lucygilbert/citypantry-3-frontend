@@ -63,21 +63,12 @@ body {
     cursor: default;
 }
 
-.quote-header,
-.vendor-signup-header {
+.quote-header {
     background-position: 50% 60%;
     background-size: cover;
     height: 220px;
-}
-
-.quote-header {
     background-image: url(/dist/images/street_food2.jpg);
     background-position: 50% 50%;
-}
-
-.vendor-signup-header {
-    background-image: url(/dist/images/street_food10.jpg);
-    background-position: 50% 45%;
 }
 
 /**
@@ -1019,6 +1010,7 @@ hr {
 @import 'vendor/delivery-radiuses.scss';
 @import 'vendor/orders.scss';
 @import 'vendor/packages.scss';
+@import 'vendor/signup.scss';
 @import 'footer.scss';
 @import 'form.scss';
 @import 'links.scss';
