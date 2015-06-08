@@ -22,7 +22,8 @@ angular.module('angulartics.citypantry', ['angulartics'])
             'userId': window.userId,
             'sessionId': sessionId,
             'properties': {
-                'path': path
+                'path': path,
+                'cpEventType': 'webAppPageView'
             }
         };
         $http.post(window.apiBase + '/reporting/event', data);
@@ -33,6 +34,7 @@ angular.module('angulartics.citypantry', ['angulartics'])
             'userId': window.userId,
             'sessionId': sessionId,
             'properties': angular.extend({
+                'cpEventType': 'webAppClickEvent',
                 'action': action
             }, properties)
         };
