@@ -5,8 +5,6 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
     DocumentTitleService('Orders');
     SecurityService.requireStaff();
 
-    var vm = this;
-
     const setFiltersToSpanAllOfToday = filters => {
         const today = new Date();
 
@@ -19,7 +17,9 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         filters[1].term = today.toISOString();
     };
 
-    vm.gridOptions = {
+    let gridApi;
+
+    $scope.gridOptions = {
         columnDefs: [
             {
                 displayName: 'Order No',
@@ -116,10 +116,16 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         enableFiltering: true,
         enableSorting: true,
         paginationPageSizes: [100, 200, 300],
-        paginationPageSize: 100
+        paginationPageSize: 100,
+        onRegisterApi(gridApi) {
+            $scope.gridApi = gridApi;
+            ClearAllButtonService.addToScopeUsingGridApi($scope, gridApi);
+        }
     };
 
-    ClearAllButtonService.addToScope($scope, vm.gridOptions);
+    $scope.getOrderNumbers = () => {
+        $scope.visibleOrderNumbers = $scope.gridApi.core.getVisibleRows().map(order => order.entity.humanId);
+    };
 
     function loadOrders() {
         OrdersFactory.getAllOrders().success(response => {
@@ -129,7 +135,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
                 row.customerUserAndCompanyName = row.customerUser.name + ', ' + row.customer.company;
             });
 
-            vm.gridOptions.data = response.orders;
+            $scope.gridOptions.data = response.orders;
 
             LoadingService.hide();
         }).error(() => NotificationService.notifyError());
@@ -137,7 +143,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
 
     loadOrders();
 
-    $scope.showOrdersPlacedToday = () => setFiltersToSpanAllOfToday(this.gridOptions.columnDefs[1].filters);
+    $scope.showOrdersPlacedToday = () => setFiltersToSpanAllOfToday($scope.gridOptions.columnDefs[1].filters);
 
-    $scope.showOrdersDeliveredToday = () => setFiltersToSpanAllOfToday(this.gridOptions.columnDefs[2].filters);
+    $scope.showOrdersDeliveredToday = () => setFiltersToSpanAllOfToday($scope.gridOptions.columnDefs[2].filters);
 });
