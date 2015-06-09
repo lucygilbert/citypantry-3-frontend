@@ -204,6 +204,10 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'VendorHolidaysController',
             templateUrl: getTemplateUrl('vendor/holidays.html')
         }).
+        when('/vendor/holidays/:id', {
+            controller: 'VendorEditHolidayController',
+            templateUrl: getTemplateUrl('vendor/edit-holiday.html')
+        }).
         when('/vendor/supplier-agreement', {
             controller: 'VendorSupplierAgreementController',
             templateUrl: getTemplateUrl('vendor/supplier-agreement.html')
