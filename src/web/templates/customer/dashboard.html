@@ -9,30 +9,6 @@
             <form class="cp-form cp-dashboard-form" name="dashboardForm" novalidate role="form" ng-submit="submit()">
                 <fieldset>
                     <div class="row">
-                        <div class="cp-form-group col-md-5">
-                            <label class="cp-form-label" for="search_event_type">Event type</label>
-                            <select class="cp-form-control" id="search_event_type" name="searchEventType" ng-model="search.eventType" ng-options="eventType.id as eventType.name for eventType in eventTypeOptions"></select>
-                        </div>
-
-                        <div class="cp-form-group col-md-2">
-                            <label class="cp-form-label" for="search_time">Time</label>
-                            <select class="cp-form-control" id="search_time" name="searchTime" ng-init="search.time" ng-model="search.time" ng-options="time.value as time.label for time in timeOptions"></select>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="cp-form-group col-md-3">
-                            <label class="cp-form-label" for="search_date">Delivery date</label>
-                            <input class="cp-form-control" id="search_date" name="searchDate" type="text" datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}" datepicker-popup="dd/MM/yyyy" is-open="isDatePickerOpen" min-date="minDate" year-range="2" ng-click="openDatePicker($event)" ng-model="pickedDate" />
-                        </div>
-
-                        <div class="cp-form-group col-md-3">
-                            <label class="cp-form-label" for="search_head_count">No. of people?</label>
-                            <select class="cp-form-control" id="search_head_count" name="searchHeadCount" ng-model="search.headCount" ng-options="headCount for headCount in headCountOptions"></select>
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="cp-form-group col-md-5" ng-if="addresses.length > 0">
                             <label class="cp-form-label" for="search_postcode">
                                 Deliver to saved location
@@ -65,6 +41,32 @@
                                 ng-model="search.newPostcode"
                                 ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/"
                                 ng-required="addresses.length === 0" />
+                        </div>
+                    </div>
+
+                    <h4 class="cp-heading">To refine your search fill in the additional fields below...</h4>
+
+                    <div class="row">
+                        <div class="cp-form-group col-md-5">
+                            <label class="cp-form-label" for="search_event_type">Event type</label>
+                            <select class="cp-form-control" id="search_event_type" name="searchEventType" ng-model="search.eventType" ng-options="eventType.id as eventType.name for eventType in eventTypeOptions"></select>
+                        </div>
+
+                        <div class="cp-form-group col-md-2">
+                            <label class="cp-form-label" for="search_time">Time</label>
+                            <select class="cp-form-control" id="search_time" name="searchTime" ng-init="search.time" ng-model="search.time" ng-options="time.value as time.label for time in timeOptions"></select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="cp-form-group col-md-3">
+                            <label class="cp-form-label" for="search_date">Delivery date</label>
+                            <input class="cp-form-control" id="search_date" name="searchDate" type="text" datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}" datepicker-popup="dd/MM/yyyy" is-open="isDatePickerOpen" min-date="minDate" year-range="2" ng-click="openDatePicker($event)" ng-model="pickedDate" />
+                        </div>
+
+                        <div class="cp-form-group col-md-3">
+                            <label class="cp-form-label" for="search_head_count">No. of people?</label>
+                            <select class="cp-form-control" id="search_head_count" name="searchHeadCount" ng-model="search.headCount" ng-options="headCount for headCount in headCountOptions"></select>
                         </div>
                     </div>
                 </fieldset>
