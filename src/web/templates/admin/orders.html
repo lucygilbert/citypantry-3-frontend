@@ -11,6 +11,8 @@
         <button ng-click="getOrderNumbers()" class="btn btn-primary">Get visible order numbers</button>
     </p>
 
+    <p>Total value of currently filtered orders: {{ ordersTotal | currency:'£':2 }}</p>
+
     <p ng-if="visibleOrderNumbers !== undefined">
         Visible order numbers:
         {{ visibleOrderNumbers.join(', ') }}
