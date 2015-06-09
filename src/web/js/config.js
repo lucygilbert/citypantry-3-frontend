@@ -294,7 +294,6 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
         }).
         when('/admin/orders', {
             controller: 'AdminOrdersController',
-            controllerAs: 'orders',
             templateUrl: getTemplateUrl('admin/orders.html')
         }).
         when('/admin/order/:orderId', {
