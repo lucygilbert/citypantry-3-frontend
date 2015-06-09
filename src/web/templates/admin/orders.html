@@ -7,6 +7,15 @@
         <button ng-click="showOrdersDeliveredToday()" class="show-orders-delivered-today btn btn-primary">Show orders delivered today</button>
         &nbsp;
         <button ng-click="clearAllFilters()" class="btn btn-primary">Clear all filters</button>
+        &nbsp;
+        <button ng-click="getOrderNumbers()" class="btn btn-primary">Get visible order numbers</button>
+    </p>
+
+    <p ng-if="visibleOrderNumbers !== undefined">
+        Visible order numbers:
+        {{ visibleOrderNumbers.join(', ') }}
+        <br />
+        (not auto updated when filters change)
     </p>
 
     <div ui-grid="gridOptions" ui-grid-pagination id="orders-table" style="height: 780px;"></div>

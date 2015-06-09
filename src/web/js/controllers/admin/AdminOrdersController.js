@@ -116,10 +116,16 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         enableFiltering: true,
         enableSorting: true,
         paginationPageSizes: [100, 200, 300],
-        paginationPageSize: 100
+        paginationPageSize: 100,
+        onRegisterApi(gridApi) {
+            $scope.gridApi = gridApi;
+            ClearAllButtonService.addToScopeUsingGridApi($scope, gridApi);
+        }
     };
 
-    ClearAllButtonService.addToScope($scope, vm.gridOptions);
+    $scope.getOrderNumbers = () => {
+        $scope.visibleOrderNumbers = $scope.gridApi.core.getVisibleRows().map(order => order.entity.humanId);
+    };
 
     function loadOrders() {
         OrdersFactory.getAllOrders().success(response => {

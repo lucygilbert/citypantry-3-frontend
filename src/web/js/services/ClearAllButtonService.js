@@ -4,6 +4,10 @@ angular.module('cp.services').service('ClearAllButtonService', function() {
             gridOptions.onRegisterApi = (gridApi) => {
                 scope.clearAllFilters = () => gridApi.grid.clearAllFilters();
             };
+        },
+
+        addToScopeUsingGridApi(scope, gridApi) {
+            scope.clearAllFilters = () => gridApi.grid.clearAllFilters();
         }
     };
 });
