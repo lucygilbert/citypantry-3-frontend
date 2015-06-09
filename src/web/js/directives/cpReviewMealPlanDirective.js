@@ -30,7 +30,7 @@ angular.module('cp').controller('cpReviewMealPlanController',
         return proposedOrders;
     };
 
-    const checkProposedOrdersAvailability = () => {
+    const checkProposedOrdersAvailability = (update = true) => {
         const proposedOrders = getStructuredProposedOrdersForApiCall();
 
         LoadingService.show();
@@ -38,13 +38,18 @@ angular.module('cp').controller('cpReviewMealPlanController',
         MealPlanFactory.checkProposedOrdersAvailability($scope.customerId, $scope.mealPlan.id, proposedOrders)
             .success(proposedOrdersAvailability => {
                 if (proposedOrdersAvailability.allAreAvailable) {
-                    MealPlanFactory.setPackageOnDate($scope.customerId, $scope.mealPlan.id, proposedOrders)
-                        .success(response => {
-                            $scope.mealPlan.proposedOrders = response.mealPlan.proposedOrders;
-                            $scope.$emit('mealPlan.review.proposedOrdersValid');
-                            LoadingService.hide();
-                        })
-                        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+                    if (update) {
+                        MealPlanFactory.setPackagesOnDates($scope.customerId, $scope.mealPlan.id, proposedOrders)
+                            .success(response => {
+                                $scope.mealPlan.proposedOrders = response.mealPlan.proposedOrders;
+                                $scope.$emit('mealPlan.review.proposedOrdersValid');
+                                LoadingService.hide();
+                            })
+                            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+                    } else {
+                        $scope.$emit('mealPlan.review.proposedOrdersValid');
+                        LoadingService.hide();
+                    }
 
                     return;
                 }
@@ -131,6 +136,8 @@ angular.module('cp').controller('cpReviewMealPlanController',
             $scope.datesToDeliverOn.push(iso8601DateString);
         });
 
-        $scope.selected($scope.mealPlan.proposedOrders[0]);
+        $scope.selectOrder($scope.mealPlan.proposedOrders[0]);
+
+        checkProposedOrdersAvailability(false);
     }
 });
