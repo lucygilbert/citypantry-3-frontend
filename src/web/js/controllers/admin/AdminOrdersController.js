@@ -1,9 +1,11 @@
 angular.module('cp.controllers.admin').controller('AdminOrdersController',
         function($scope, OrdersFactory, uiGridConstants, getOrderStatusTextFilter,
         getDeliveryStatusTextFilter, NotificationService, $window, DocumentTitleService,
-        SecurityService, LoadingService, ClearAllButtonService) {
+        SecurityService, LoadingService, ClearAllButtonService, $timeout) {
     DocumentTitleService('Orders');
     SecurityService.requireStaff();
+
+    $scope.ordersTotal = 0;
 
     const setFiltersToSpanAllOfToday = filters => {
         const today = new Date();
@@ -120,8 +122,18 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         onRegisterApi(gridApi) {
             $scope.gridApi = gridApi;
             ClearAllButtonService.addToScopeUsingGridApi($scope, gridApi);
+            gridApi.core.on.filterChanged($scope, calculateTotalOrdersCost);
         }
     };
+
+    function calculateTotalOrdersCost() {
+        $timeout(function() {
+            $scope.ordersTotal = 0;
+            $scope.gridApi.core.getVisibleRows().forEach(row => {
+                $scope.ordersTotal += row.entity.totalAmountAfterVoucher;
+            });
+        }, 0);
+    }
 
     $scope.getOrderNumbers = () => {
         $scope.visibleOrderNumbers = $scope.gridApi.core.getVisibleRows().map(order => order.entity.humanId);
@@ -136,6 +148,8 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             });
 
             $scope.gridOptions.data = response.orders;
+
+            calculateTotalOrdersCost();
 
             LoadingService.hide();
         }).error(() => NotificationService.notifyError());
