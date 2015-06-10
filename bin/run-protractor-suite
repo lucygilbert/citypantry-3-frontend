@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -o nounset
+set -o errexit
+
+SUITE=$1
+
+echo "Running suite: $SUITE"
+node_modules/protractor/bin/protractor etc/protractor.js --suite $SUITE

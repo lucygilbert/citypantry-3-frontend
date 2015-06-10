@@ -4,15 +4,12 @@
 # length of the test suite. Running each suite individually and restarting Selenium between each
 # reduces the change of Selenium crashing.
 
-echo 'Running admin suite'
-node_modules/protractor/bin/protractor etc/protractor.js --suite admin
-echo 'Running authentication suite'
-node_modules/protractor/bin/protractor etc/protractor.js --suite authentication
-echo 'Running customer suite'
-node_modules/protractor/bin/protractor etc/protractor.js --suite customer
-echo 'Running general suite'
-node_modules/protractor/bin/protractor etc/protractor.js --suite general
-echo 'Running user suite'
-node_modules/protractor/bin/protractor etc/protractor.js --suite user
-echo 'Running vendor suite'
-node_modules/protractor/bin/protractor etc/protractor.js --suite vendor
+set -o nounset
+set -o errexit
+
+bin/run-protractor-suite admin
+bin/run-protractor-suite authentication
+bin/run-protractor-suite customer
+bin/run-protractor-suite general
+bin/run-protractor-suite user
+bin/run-protractor-suite vendor
