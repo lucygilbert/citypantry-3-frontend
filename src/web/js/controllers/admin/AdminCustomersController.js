@@ -15,6 +15,10 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
                 field: 'user.name'
             },
             {
+                displayName: 'Company',
+                field: 'company'
+            },
+            {
                 displayName: 'Email',
                 field: 'user.email'
             },
