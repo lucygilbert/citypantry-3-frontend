@@ -1,29 +1,19 @@
 <div class="wrapper" id="vendor-holidays">
-    <h2 class="cp-heading">Your holidays</h2>
+    <h2 class="cp-heading">Edit your holiday</h2>
 
     <p>
         Customers will not be able to place orders for your packages to be delivered on dates you
         are on holiday.
     </p>
 
-    <ol ng-if="holidays.length > 0">
-        <li ng-repeat="holiday in holidays">
-            From {{ holiday.start | limitTo:10 | date:'d MMM yyyy' }}
-            until {{ holiday.end | limitTo:10 | date:'d MMM yyyy' }}.
-            <br />
-            <a ng-href="/vendor/holidays/{{ holiday.id }}">Edit</a>
-        </li>
-    </ol>
-
-    <h3 class="cp-heading">Add a holiday</h3>
-
-    <form ng-submit="create()" role="form">
+    <form ng-submit="edit()" role="form">
         <div class="cp-form-group">
             <label class="cp-form-label">Start date</label>
             <input class="cp-form-control" type="text" ng-model="start" size="20"
                 datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}"
                 datepicker-popup="dd/MM/yyyy" is-open="isStartDatePickerOpen" year-range="2"
-                ng-click="openStartDatePicker($event)" />
+                ng-click="openStartDatePicker($event)"
+                ng-change="start.hasChanged = true" />
         </div>
 
         <div class="cp-form-group">
@@ -31,9 +21,10 @@
             <input class="cp-form-control" type="text" ng-model="end" size="20"
                 datepicker-options="{showButtonBar: false, showWeeks: false, startingDay: 1}"
                 datepicker-popup="dd/MM/yyyy" is-open="isEndDatePickerOpen" year-range="2"
-                ng-click="openEndDatePicker($event)" />
+                ng-click="openEndDatePicker($event)"
+                ng-change="end.hasChanged = true" />
         </div>
 
-        <input type="submit" class="cp-btn cp-btn-primary" value="Add holiday" />
+        <input type="submit" class="cp-btn cp-btn-primary" value="Save changes" />
     </form>
 </div>
