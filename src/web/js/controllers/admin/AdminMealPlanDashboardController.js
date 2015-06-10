@@ -69,7 +69,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanDashboardControl
         enableSorting: true,
         paginationPageSizes: [25, 50, 75],
         paginationPageSize: 25,
-        rowHeight: 100
+        rowHeight: 70
     };
 
     function loadMealPlanCustomers() {
