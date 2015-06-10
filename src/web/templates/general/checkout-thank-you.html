@@ -3,14 +3,8 @@
         <h1 class="cp-checkout-thank-you-heading">
             Success!
             <span>
-                You just ordered for
-                <strong>
-                    <ng-pluralize count="order.headCount"
-                    when="{'one': '1 person',
-                        'other': '{} people'}">
-                    </ng-pluralize>
-                </strong>
-                <span ng-if="order.checkoutDurationInMinutes < 10">
+                You just completed your checkout process
+                <span ng-if="order.checkoutDurationInMinutes <= 10">
                     in
                     <ng-pluralize count="order.checkoutDurationInMinutes"
                         when="{'0': 'less than 1 minute',
