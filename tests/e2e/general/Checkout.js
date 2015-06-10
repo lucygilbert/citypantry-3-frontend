@@ -169,6 +169,8 @@ describe('Checkout', function() {
             element(by.css('.cp-checkout-payment-form input[type="submit"]')).click();
 
             expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/thank-you/);
+
+            expect(element('.cp-checkout-thank-you').getText()).toContain('You just completed your checkout process');
         });
     });
 
@@ -251,6 +253,8 @@ describe('Checkout', function() {
             element(by.css('.cp-checkout-payment-form input[type="submit"]')).click();
 
             expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/thank-you/);
+
+            expect(element('.cp-checkout-thank-you').getText()).toContain('You just completed your checkout process');
         });
     });
 });
