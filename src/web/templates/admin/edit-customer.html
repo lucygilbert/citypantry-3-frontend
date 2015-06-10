@@ -27,6 +27,13 @@
 
     <p>User group: {{ customer.user.group.description }}</p>
 
+    <p>
+        Meal plan status: {{ customer.mealPlanStatus | getCustomerMealPlanStatusText }}.
+        <a ng-if="customer.mealPlanStatusText === 'none'"
+            ng-click="addToMealPlan()"
+            class="cp-add-to-meal-plan">Add to meal plan</a>
+    </p>
+
     <section ng-if="customer.paidOnAccountStatus === 1">
         <h2>Pay on account details</h2>
 

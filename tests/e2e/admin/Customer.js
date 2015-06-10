@@ -2,6 +2,7 @@ describe('Admin - customer page', function() {
     var notificationModal = require('../NotificationModal.js');
     var gridTestUtils = require('../lib/gridTestUtils.spec.js');
     var isFirst = true;
+    var EMAIL_COLUMN_IN_CUSTOMERS_PAGE = 3;
 
     beforeEach(function() {
         if (isFirst) {
@@ -25,7 +26,8 @@ describe('Admin - customer page', function() {
 
     function goToEditCustomerPage(email) {
         browser.get('/admin/customers');
-        gridTestUtils.enterFilterInColumn('customers-table', 2, email);
+
+        gridTestUtils.enterFilterInColumn('customers-table', EMAIL_COLUMN_IN_CUSTOMERS_PAGE, email);
         element.all(by.css('#customers-table a[href^="/admin/customer/"]')).first().click();
         expect(element(by.css('main')).getText()).toContain('Email: ' + email);
     }
@@ -82,6 +84,34 @@ describe('Admin - customer page', function() {
             expect(element(by.model('customer.accountsTelephoneNumber')).isPresent()).toBe(false);
             expect(element(by.model('customer.invoicePaymentTerms')).isPresent()).toBe(false);
             expect(element(by.model('customer.maxSpendPerMonth')).isPresent()).toBe(false);
+        });
+    });
+
+    describe('with a customer who is not on meal plan', function() {
+        it('should be able to navigate to their page', function() {
+            goToEditCustomerPage('alice@bunnies.test');
+        });
+
+        it('should show that the customer is not on meal plan', function() {
+            expect(element(by.css('main')).getText()).toContain('Meal plan status: None.');
+        });
+
+        it('should have a link to add the customer to meal plan', function() {
+            expect(element(by.css('.cp-add-to-meal-plan')).isPresent()).toBe(true);
+        });
+    });
+
+    describe('with a customer who is on meal plan', function() {
+        it('should be able to navigate to their page', function() {
+            goToEditCustomerPage('customer@apple.test');
+        });
+
+        it('should show that the customer is on meal plan', function() {
+            expect(element(by.css('main')).getText()).toContain('Meal plan status: Active.');
+        });
+
+        it('should not have a link to add the customer to meal plan', function() {
+            expect(element(by.css('.cp-add-to-meal-plan')).isPresent()).toBe(false);
         });
     });
 });
