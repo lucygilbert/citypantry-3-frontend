@@ -26,6 +26,13 @@ describe('Checkout', function() {
         element.all(by.repeater('package in packages')).get(0).all(by.css('a')).get(0).click();
     }
 
+    function expectAbleToPlaceOrderSuccessfully() {
+        element(by.css('.cp-checkout-payment-form input[type="submit"]')).click();
+        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/thank-you/);
+        expect(element(by.css('.cp-checkout-thank-you')).getText())
+            .toContain('YOU JUST COMPLETED YOUR CHECKOUT PROCESS');
+    }
+
     describe('Address and card saved', function() {
         var isFirst = true;
 
@@ -165,13 +172,7 @@ describe('Checkout', function() {
             expect(element(by.css('.cp-checkout-payment-form input[type="submit"]')).getAttribute('value')).toContain('594.78');
         });
 
-        it('should be able to proceed to the "thank you" page', function() {
-            element(by.css('.cp-checkout-payment-form input[type="submit"]')).click();
-
-            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/thank-you/);
-
-            expect(element('.cp-checkout-thank-you').getText()).toContain('You just completed your checkout process');
-        });
+        it('should be able to proceed to the "thank you" page', expectAbleToPlaceOrderSuccessfully);
     });
 
     describe('New address and card', function() {
@@ -249,12 +250,6 @@ describe('Checkout', function() {
             element(by.model('card.cvc')).sendKeys('123');
         });
 
-        it('should be able to proceed to the "thank you" page', function() {
-            element(by.css('.cp-checkout-payment-form input[type="submit"]')).click();
-
-            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/thank-you/);
-
-            expect(element('.cp-checkout-thank-you').getText()).toContain('You just completed your checkout process');
-        });
+        it('should be able to proceed to the "thank you" page', expectAbleToPlaceOrderSuccessfully);
     });
 });

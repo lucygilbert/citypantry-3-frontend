@@ -41,7 +41,7 @@ describe('Admin - packages page', function() {
     it('should have the column name "Cost"', function() {
         // `expectHeaderCellValueMatch` takes a regex for the expected value, so we need to
         // escape the brackets and dot.
-        gridTestUtils.expectHeaderCellValueMatch('packages-table', 4, 'Cost \(inc\. VAT\)');
+        gridTestUtils.expectHeaderCellValueMatch('packages-table', 4, /Cost \(inc\. VAT\)/);
     });
 
     it('should have the column name "Min People"', function() {
