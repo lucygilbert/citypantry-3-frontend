@@ -1,6 +1,5 @@
 describe('Search', function() {
     var first = true;
-    var advancedSearch;
 
     beforeEach(function() {
         if (first) {
@@ -9,7 +8,6 @@ describe('Search', function() {
             browser.get('/search');
         }
 
-        advancedSearch = element(by.css('.cp-search-advanced-search'));
     });
 
     function expectSearchResultCount(count) {
@@ -18,6 +16,21 @@ describe('Search', function() {
 
     it('should show all packages if there are no search parameters', function() {
         expectSearchResultCount(7);
+    });
+
+    it('should toggle the advanced search open and closed when the toggle button is clicked', function() {
+        var advancedSearchToggle = element(by.css('.cp-search-advanced-search'));
+        var advancedSearchForm = element(by.css('.cp-search-form-advanced'));
+
+        expect(advancedSearchForm.isDisplayed()).toBe(false);
+        advancedSearchToggle.click();
+        expect(advancedSearchForm.isDisplayed()).toBe(true);
+        advancedSearchToggle.click();
+        expect(advancedSearchForm.isDisplayed()).toBe(false);
+
+        // Leave advanced search open so later tests can use the advanced search filters.
+        advancedSearchToggle.click();
+        expect(advancedSearchForm.isDisplayed()).toBe(true);
     });
 
     it('should be able to filter by delivery date', function() {
@@ -30,6 +43,24 @@ describe('Search', function() {
 
         dateFilter.clear();
         expectSearchResultCount(7);
+    });
+
+    it('should be able to filter by package name', function() {
+        var nameFilter = element(by.model('search.name'));
+
+        nameFilter.sendKeys('Carrots');
+        expectSearchResultCount(1);
+
+        nameFilter.clear();
+    });
+
+    it('should be able to filter by vendor name', function() {
+        var nameFilter = element(by.model('search.name'));
+
+        nameFilter.sendKeys('Oriental Kitchen Express');
+        expectSearchResultCount(1);
+
+        nameFilter.clear();
     });
 
     it('should be able to filter by delivery time', function() {
@@ -96,8 +127,6 @@ describe('Search', function() {
     });
 
     it('should be able to filter by cuisine type', function() {
-        advancedSearch.click();
-
         var cuisineTypes = element.all(by.repeater('cuisineType in cuisineTypes'));
         expect(cuisineTypes.get(0).getText()).toBe('British');
         expect(cuisineTypes.get(1).getText()).toBe('Japanese');
@@ -126,16 +155,6 @@ describe('Search', function() {
 
         dietaryRequirements.get(0).click();
         dietaryRequirements.get(1).click();
-        expectSearchResultCount(7);
-    });
-
-    it('should be able to filter by packaging type', function() {
-        var packagingTypes = element.all(by.repeater('packagingType in packagingTypeOptions'));
-
-        packagingTypes.get(0).click();
-        expectSearchResultCount(4);
-
-        packagingTypes.get(2).click();
         expectSearchResultCount(7);
     });
 });

@@ -1,4 +1,5 @@
 angular.module('cp.services').service('SearchService', function() {
+    let name;
     var cuisineTypes = [];
     var deliveryDate;
     var deliveryTime;
@@ -12,6 +13,14 @@ angular.module('cp.services').service('SearchService', function() {
     var postcode;
 
     return {
+        getName: function() {
+            return name;
+        },
+
+        setName: function(value) {
+            name = value;
+        },
+
         getCuisineTypes: function() {
             return cuisineTypes;
         },
@@ -101,6 +110,7 @@ angular.module('cp.services').service('SearchService', function() {
         },
 
         reset: function() {
+            name = undefined;
             cuisineTypes = [];
             deliveryDate = undefined;
             deliveryTime = undefined;

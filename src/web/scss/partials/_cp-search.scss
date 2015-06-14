@@ -16,28 +16,18 @@
     }
 }
 
-.cp-search-form-advanced {
+.cp-form.cp-search-form-advanced {
+    padding: 18px 15px;
     border: 3px solid $gray-lighter;
+    @extend .clearfix;
 
     > fieldset {
         background-color: transparent !important;
-
-        > .row {
-            margin-right: (-$grid-gutter-width / 2);
-            margin-left: (-$grid-gutter-width / 2);
-
-            > div[class^='col-'],
-            > div[class*=' col-'] {
-                padding-right: ($grid-gutter-width / 2);
-                padding-left: ($grid-gutter-width / 2);
-            }
-        }
+        padding: 0;
     }
 
-    .cp-checkbox > label {
+    label.cp-checkbox {
         border-bottom: 1px solid $gray-light;
-        display: block;
-        margin-bottom: 0;
         padding-top: $padding-small-vertical;
         padding-bottom: $padding-small-vertical;
     }
@@ -193,4 +183,18 @@
     position: absolute;
     top: 0;
     right: ($grid-gutter-width / 2);
+}
+
+.cp-search-name,
+.cp-search-dietary-requirements {
+    width: 49.5%;
+}
+
+.cp-search-name input {
+    max-width: 340px;
+}
+
+.cp-search-cuisine-types {
+    float: right;
+    width: 49.5%;
 }
