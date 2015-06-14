@@ -129,8 +129,12 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
     function calculateTotalOrdersCost() {
         $timeout(function() {
             $scope.ordersTotal = 0;
-            $scope.gridApi.core.getVisibleRows().forEach(row => {
-                $scope.ordersTotal += row.entity.totalAmountAfterVoucher;
+            // This gets every row that will be visible for the current filters
+            // whether it is on the current page or not.
+            $scope.gridApi.grid.rows.forEach(row => {
+                if (row.visible) {
+                    $scope.ordersTotal += row.entity.totalAmountAfterVoucher;
+                }
             });
         }, 0);
     }
