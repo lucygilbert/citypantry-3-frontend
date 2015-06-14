@@ -15,7 +15,9 @@
                 dnd-selected="$parent.selectOrder(proposedOrder)"
                 ng-class="{
                     'selected': $parent.selectedProposedOrder === proposedOrder,
-                    'unavailable': proposedOrder.isAvailable === false
+                    'unavailable': proposedOrder.isAvailable === false,
+                    'cp-end-of-week': areOrdersInSameWeek(mealPlan.proposedOrders[$index + 1], proposedOrder) === false,
+                    'cp-start-of-week': areOrdersInSameWeek(proposedOrder, mealPlan.proposedOrders[$index - 1]) === false,
                 }">
 
                 <div class="cp-meal-plan-review-order-date">
