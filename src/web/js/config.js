@@ -305,6 +305,10 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controllerAs: 'order',
             templateUrl: getTemplateUrl('admin/edit-order.html')
         }).
+        when('/admin/order/:orderId/delivery-status', {
+            controller: 'AdminEditOrderDeliveryStatusController',
+            templateUrl: getTemplateUrl('admin/edit-order-delivery-status.html')
+        }).
         when('/admin/orders/courier', {
             controller: 'AdminCourierOrdersController',
             templateUrl: getTemplateUrl('admin/courier-orders.html')

@@ -1,0 +1,55 @@
+<div class="wrapper">
+    <h1>Edit delivery status for order {{ order.humanId }}</h1>
+
+    <p class="cp-current-delivery-status">Current delivery status: {{ order.deliveryStatus | getDeliveryStatusText }}</p>
+
+    <p>All fields are required.</p>
+
+    <form class="admin-form" name="updateForm" ng-submit="save()">
+        <fieldset>
+            <div class="form-group">
+                <label>New delivery status</label>
+                <select class="form-control input-lg"
+                    required
+                    name="orderDeliveryStatus"
+                    ng-model="update.deliveryStatus"
+                    ng-options="option.value as option.label for option in options"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Why didn't the vendor use the SMS system?</label>
+                <textarea class="form-control input-lg"
+                    required
+                    name="orderReasonForNotUsingTheSmsSystem"
+                    ng-model="update.reasonForNotUsingTheSmsSystem"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Why didn't the vendor use the mobile app? (E.g. they have an iPhone or other non-Android phone.)</label>
+                <textarea class="form-control input-lg"
+                    required
+                    name="orderReasonForNotUsingTheMobileApp"
+                    ng-model="update.reasonForNotUsingTheMobileApp"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Why didn't the vendor use the mobile website?</label>
+                <textarea class="form-control input-lg"
+                    required
+                    name="orderReasonForNotUsingTheMobileWebsite"
+                    ng-model="update.reasonForNotUsingTheMobileWebsite"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="city_pantry_commission">Number of minutes spent chasing the delivery status</label>
+                <input class="form-control input-lg"
+                    type="number"
+                    required
+                    name="orderMinutesSpent"
+                    ng-model="update.minutesSpent" />
+            </div>
+
+            <input class="btn btn-primary btn-lg" type="submit" value="Save change (and notify customer depending on status)" />
+        </fieldset>
+    </form>
+</div>
