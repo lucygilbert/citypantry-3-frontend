@@ -52,8 +52,10 @@
             </div>
 
             <div class="form-group">
-                <label for="order_status">Delivery status</label>
-                <input class="form-control input-lg" id="order_status" type="text" readonly value="{{ order.deliveryStatus | getDeliveryStatusText }}" />
+                <label for="order_delivery_status">Delivery status</label>
+                <input class="form-control input-lg" id="order_delivery_status" type="text" readonly value="{{ order.deliveryStatus | getDeliveryStatusText }}" />
+                <a ng-href="/admin/order/{{ order.id }}/delivery-status"
+                    class="cp-edit-delivery-status">Edit delivery status</a>
             </div>
 
             <div class="form-group">
