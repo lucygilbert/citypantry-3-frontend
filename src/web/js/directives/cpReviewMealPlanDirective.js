@@ -92,6 +92,40 @@ angular.module('cp').controller('cpReviewMealPlanController',
         checkProposedOrdersAvailability();
     };
 
+    /**
+     * Get whether the two given orders are to be delivered in the same week.
+     *
+     * @param  {Object} currentOrder
+     * @param  {Object} previousOrder
+     * @return {mixed}                Null if no current or previous order.
+     *                                True if the requested delivery dates are in the same week.
+     *                                False if the requested delivery dates are in different weeks.
+     */
+    $scope.areOrdersInSameWeek = (currentOrder, previousOrder) => {
+        if (!previousOrder) {
+            return null;
+        }
+        if (!currentOrder) {
+            return null;
+        }
+
+        const previousOrderDay = (new Date(previousOrder.requestedDeliveryDate)).getDay();
+        const previousOrderTime = (new Date(previousOrder.requestedDeliveryDate)).getTime();
+        const currentOrderDay = (new Date(currentOrder.requestedDeliveryDate)).getDay();
+        const currentOrderTime = (new Date(currentOrder.requestedDeliveryDate)).getTime();
+
+        if (currentOrderDay === 0) {
+            return currentOrderTime > previousOrderTime &&
+                (currentOrderTime - previousOrderTime) / 1000 < (86400 * 6);
+        }
+
+        if (currentOrderDay < previousOrderDay) {
+            return false;
+        }
+
+        return (currentOrderTime - previousOrderTime) / 1000 < (86400 * 6);
+    };
+
     $scope.replace = () => {
         if (!$scope.selectedProposedOrder) {
             return;

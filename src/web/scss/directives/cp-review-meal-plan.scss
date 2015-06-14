@@ -1,3 +1,12 @@
 cp-review-meal-plan {
     display: block;
 }
+
+li.cp-meal-plan-review-order {
+    &.cp-end-of-week {
+        border-bottom: none;
+    }
+    &.cp-start-of-week {
+        margin-top: 30px;
+    }
+}
