@@ -64,14 +64,13 @@ select.cp-form-control {
     height: $input-height-large;
 }
 
-.cp-checkbox {
-    > label {
-        font-size: 16px;
-        font-weight: 400;
+label.cp-checkbox,
+.cp-checkbox > label {
+    font-size: 16px;
+    font-weight: 400;
 
-        > input[type='checkbox'] {
-            margin: 1px 2px 0 0;
-        }
+    > input[type='checkbox'] {
+        margin: 1px 2px 0 0;
     }
 }
 

@@ -83,58 +83,45 @@
     </form>
 
     <form class="cp-form cp-search-form cp-search-form-advanced" novalidate role="form" ng-show="isAdvancedSearchVisible">
-        <fieldset>
-            <div class="row">
-                <div class="col-md-6">
-                    <fieldset>
-                        <legend class="cp-search-advanced-search-label" ng-show="cuisineTypes.length > 0">Cuisine</legend>
-                        <div class="row">
-                            <div class="cp-checkbox col-md-6 col-lg-4" ng-repeat="cuisineType in cuisineTypes">
-                                <label>
-                                    <input type="checkbox"
-                                        checklist-model="search.cuisineTypes"
-                                        checklist-value="cuisineType.id" />
-                                    {{ cuisineType.name }}
-                                </label>
-                            </div>
-                        </div>
-                        <button class="cp-btn cp-btn-link cp-search-cuisine-type-uncheck-all"
-                                type="button"
-                                ng-click="search.cuisineTypes = []"
-                                ng-show="search.cuisineTypes.length > 0"
-                            >Uncheck all</button>
-                    </fieldset>
-                </div>
+        <fieldset class="cp-search-cuisine-types">
+            <legend class="cp-search-advanced-search-label" ng-show="cuisineTypes.length > 0">Cuisine</legend>
 
-                <div class="col-md-6">
-                    <fieldset>
-                        <legend class="cp-search-advanced-search-label" ng-show="dietaryRequirements.length > 0">Specific dietary requirements</legend>
-                        <div class="row">
-                            <div class="cp-checkbox col-md-6 col-lg-4" ng-repeat="dietaryRequirement in dietaryRequirements">
-                                <label>
-                                    <input type="checkbox"
-                                        checklist-model="search.dietaryRequirements"
-                                        checklist-value="dietaryRequirement.id" />
-                                    {{ dietaryRequirement.name }}
-                                </label>
-                            </div>
-                        </div>
-                    </fieldset>
+            <label class="cp-checkbox col-md-6 col-lg-4" ng-repeat="cuisineType in cuisineTypes">
+                <input type="checkbox"
+                    checklist-model="search.cuisineTypes"
+                    checklist-value="cuisineType.id" />
+                {{ cuisineType.name }}
+            </label>
 
-                    <fieldset>
-                        <legend class="cp-search-advanced-search-label cp-search-packaging-options-label" ng-show="packagingTypeOptions.length > 0">Packaging options</legend>
-                        <label class="cp-radio-inline" ng-repeat="packagingType in packagingTypeOptions">
-                            <input type="radio"
-                                ng-model="search.packagingType"
-                                ng-value="{{ packagingType.value }}" />
-                            {{ packagingType.label }}
-                        </label>
-                    </fieldset>
-                </div>
-            </div>
+            <button class="cp-btn cp-btn-link cp-search-cuisine-type-uncheck-all"
+                    type="button"
+                    ng-click="search.cuisineTypes = []"
+                    ng-show="search.cuisineTypes.length > 0"
+                >Uncheck all</button>
         </fieldset>
 
-        <button class="cp-btn cp-btn-link cp-search-advanced-search-close" type="button" ng-click="isAdvancedSearchVisible = false">Close</button>
+        <fieldset class="cp-search-name">
+            <label class="cp-form-label" for="search_name">Package or vendor name</label>
+            <input class="cp-form-control" id="search_name" ng-model="search.name" />
+        </fieldset>
+
+        <fieldset class="cp-search-dietary-requirements">
+            <legend class="cp-search-advanced-search-label"
+                    ng-show="dietaryRequirements.length > 0">
+                Specific dietary requirements
+            </legend>
+
+            <label class="cp-checkbox col-md-6 col-lg-4" ng-repeat="dietaryRequirement in dietaryRequirements">
+                <input type="checkbox"
+                    checklist-model="search.dietaryRequirements"
+                    checklist-value="dietaryRequirement.id" />
+                {{ dietaryRequirement.name }}
+            </label>
+        </fieldset>
+
+        <button class="cp-btn cp-btn-link cp-search-advanced-search-close"
+            type="button"
+            ng-click="isAdvancedSearchVisible = false">Close</button>
     </form>
 
     <div class="row">

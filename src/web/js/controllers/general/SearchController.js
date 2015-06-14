@@ -8,6 +8,7 @@ angular.module('cp.controllers.general').controller('SearchController',
     const PAGINATION_LENGTH = 20;
 
     $scope.search = {
+        name: SearchService.getName(),
         postcode: SearchService.getPostcode(),
         maxBudget: SearchService.getMaxBudget(),
         headCount: SearchService.getHeadCount(),
@@ -15,8 +16,7 @@ angular.module('cp.controllers.general').controller('SearchController',
         date: SearchService.getDeliveryDate(),
         eventTypes: SearchService.getEventTypes(),
         cuisineTypes: SearchService.getCuisineTypes(),
-        dietaryRequirements: SearchService.getDietaryRequirements(),
-        packagingType: SearchService.getPackagingType()
+        dietaryRequirements: SearchService.getDietaryRequirements()
     };
 
     $scope.isSearching = true;
@@ -30,7 +30,6 @@ angular.module('cp.controllers.general').controller('SearchController',
     $scope.isAdvancedSearchVisible = false;
     $scope.cuisineTypes = [];
     $scope.dietaryRequirements = [];
-    $scope.packagingTypeOptions = PackagesFactory.getPackagingTypeChoiceOptions();
 
     // This limit is not fixed - it increases when the user clicks 'show more' (triggering
     // `$scope.showMore`).
@@ -63,12 +62,6 @@ angular.module('cp.controllers.general').controller('SearchController',
         $q.all([promise1, promise2, promise3]).then(() => {
             if ($scope.search.date) {
                 $scope.pickedDate = $filter('date')($scope.search.date, 'dd/MM/yyyy');
-            }
-
-            if ($scope.search.packagingType) {
-                $scope.search.packagingType = $scope.packagingTypeOptions[$scope.search.packagingType - 1].value;
-            } else {
-                $scope.search.packagingType = $scope.packagingTypeOptions[2].value; // "Don't care".
             }
 
             search();
@@ -178,11 +171,11 @@ angular.module('cp.controllers.general').controller('SearchController',
         search();
     });
 
-    $scope.$watch('search.packagingType', (newValue, oldValue) => {
+    $scope.$watch('search.name', (newValue, oldValue) => {
         if (newValue === oldValue) {
             return;
         }
-        SearchService.setPackagingType(newValue);
+        SearchService.setName(newValue);
         search();
     });
 
@@ -215,7 +208,9 @@ angular.module('cp.controllers.general').controller('SearchController',
 
         deferredSearchAbort = $q.defer();
 
-        PackagesFactory.searchPackages(undefined, $scope.search.postcode,
+        PackagesFactory.searchPackages(
+                $scope.search.name,
+                $scope.search.postcode,
                 $scope.search.maxBudget, $scope.search.headCount, $scope.search.time,
                 $scope.search.date,
                 // If all event types are selected, don't send any (same effect, but shorter URL).
@@ -224,7 +219,7 @@ angular.module('cp.controllers.general').controller('SearchController',
                 ($scope.search.cuisineTypes.length !== $scope.cuisineTypes.length ? $scope.search.cuisineTypes : []),
                 // If all dietary requirements are selected, don't send any (same effect, but shorter URL).
                 ($scope.search.dietaryRequirements.length !== $scope.dietaryRequirements.length ? $scope.search.dietaryRequirements : []),
-                $scope.search.packagingType,
+                undefined,
                 deferredSearchAbort.promise)
             .success(response => {
                 $scope.packages = response.packages;
