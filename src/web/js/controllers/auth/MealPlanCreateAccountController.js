@@ -1,6 +1,11 @@
 angular.module('cp.controllers.authentication').controller('MealPlanCreateAccountController',
         function($scope, $cookies, $routeParams, $window, SecurityService, DocumentTitleService,
-        LoadingService, NotificationService, UsersFactory) {
+        LoadingService, NotificationService, UsersFactory, INCLUDE_ANALYTICS_JS) {
+    if (INCLUDE_ANALYTICS_JS) {
+        window._fbq = window._fbq || [];
+        window._fbq.push(['track', '6030910679946', {'value':'0.00','currency':'GBP'}]);
+    }
+
     DocumentTitleService('Create account');
 
     $scope.userHasPassword = false;
