@@ -34,6 +34,8 @@
             class="cp-add-to-meal-plan">Add to meal plan</a>
     </p>
 
+    <p>Persona: {{ customer.persona | getCustomerPersonaText }}</p>
+
     <section ng-if="customer.paidOnAccountStatus === 1">
         <h2>Pay on account details</h2>
 

@@ -1,6 +1,6 @@
 angular.module('cp.controllers.admin').controller('AdminCustomersController',
         function($scope, CustomersFactory, uiGridConstants, NotificationService, DocumentTitleService,
-        SecurityService, LoadingService, getPaidOnAccountStatusTextFilter) {
+        SecurityService, LoadingService, getPaidOnAccountStatusTextFilter, getCustomerPersonaTextFilter) {
     DocumentTitleService('Customers');
     SecurityService.requireStaff();
 
@@ -8,7 +8,8 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
         columnDefs: [
             {
                 displayName: 'ID',
-                field: 'humanId'
+                field: 'humanId',
+                maxWidth: 70
             },
             {
                 displayName: 'Name',
@@ -25,6 +26,10 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
             {
                 displayName: 'Pay on Account?',
                 field: 'paidOnAccountStatusText',
+            },
+            {
+                displayName: 'Persona',
+                field: 'personaText',
             },
             {
                 cellFilter: 'date:\'dd/MM/yyyy\'',
@@ -50,7 +55,8 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
                 displayName: 'Action',
                 field: 'id',
                 name: ' ',
-                enableFiltering: false
+                enableFiltering: false,
+                maxWidth: 85
             }
         ],
         enableFiltering: true,
@@ -63,6 +69,7 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
         CustomersFactory.getAllCustomers().success(response => {
             angular.forEach(response.customers, row => {
                 row.paidOnAccountStatusText = getPaidOnAccountStatusTextFilter(row.paidOnAccountStatus);
+                row.personaText = getCustomerPersonaTextFilter(row.persona);
             });
             $scope.gridOptions.data = response.customers.sort((a, b) => a.humanId < b.humanId);
             LoadingService.hide();

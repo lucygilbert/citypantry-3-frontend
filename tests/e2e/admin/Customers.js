@@ -15,15 +15,16 @@ describe('Admin - customers page', function() {
         expect(element(by.css('h1')).getText()).toBe('Customers');
     });
 
-    it('should have 7 columns', function() {
+    it('should have 8 columns', function() {
         gridTestUtils.expectHeaderColumnCount('customers-table', 7);
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 0, 'ID');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 1, 'Name');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 2, 'Company');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 3, 'Email');
         gridTestUtils.expectHeaderCellValueMatch('customers-table', 4, 'Pay on Account?');
-        gridTestUtils.expectHeaderCellValueMatch('customers-table', 5, 'Customer Since');
-        gridTestUtils.expectHeaderCellValueMatch('customers-table', 6, 'Action');
+        gridTestUtils.expectHeaderCellValueMatch('customers-table', 5, 'Persona');
+        gridTestUtils.expectHeaderCellValueMatch('customers-table', 6, 'Customer Since');
+        gridTestUtils.expectHeaderCellValueMatch('customers-table', 7, 'Action');
     });
 
     it('should have 3 rows', function() {
