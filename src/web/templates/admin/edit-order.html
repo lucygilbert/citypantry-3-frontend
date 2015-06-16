@@ -116,6 +116,13 @@
                     {{ order.isMealPlan ? 'Yes' : 'No' }}
                 </p>
             </div>
+
+            <div class="form-group">
+                <label>Payment method/term</label>
+                <p>
+                    {{ order.paymentTerm ? (order.paymentTerm | getPaymentTermText) : 'Unknown' }}
+                </p>
+            </div>
         </fieldset>
     </form>
 
