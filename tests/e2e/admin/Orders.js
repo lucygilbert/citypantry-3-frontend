@@ -1,12 +1,14 @@
 describe('Admin - orders page', function() {
-    var gridTestUtils = require('../lib/gridTestUtils.spec.js');
+    var GridObjectTest = require('../lib/gridObjectTestUtils.spec.js');
     var isFirst = true;
+    var gridObject;
 
     beforeEach(function() {
         if (isFirst) {
             loginAsUser('alice@bunnies.test');
             browser.get('/admin/orders');
             isFirst = false;
+            gridObject = new GridObjectTest('orders-table');
         }
     });
 
@@ -15,64 +17,64 @@ describe('Admin - orders page', function() {
     });
 
     it('should have 10 columns', function() {
-        gridTestUtils.expectHeaderColumnCount('orders-table', 10);
+        gridObject.expectHeaderColumnCount(10);
     });
 
     it('should have 4 rows', function() {
-        gridTestUtils.expectRowCount('orders-table', 4);
+        gridObject.expectRowCount(4);
     });
 
     it('should have the column name "Order No"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 0, 'Order No');
+        gridObject.expectHeaderCellValueMatch(0, 'Order No');
     });
 
     it('should have the column name "Order Date"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 1, 'Order Date');
+        gridObject.expectHeaderCellValueMatch(1, 'Order Date');
     });
 
     it('should have the column name "Delivery Date"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 2, 'Delivery Date');
+        gridObject.expectHeaderCellValueMatch(2, 'Delivery Date');
     });
 
     it('should have the column name "Customer"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 3, 'Customer');
+        gridObject.expectHeaderCellValueMatch(3, 'Customer');
     });
 
     it('should have the column name "Vendor"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 4, 'Vendor');
+        gridObject.expectHeaderCellValueMatch(4, 'Vendor');
     });
 
     it('should have the column name "Package"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 5, 'Package');
+        gridObject.expectHeaderCellValueMatch(5, 'Package');
     });
 
     it('should have the column name "Cost"', function() {
         // `expectHeaderCellValueMatch` takes a regex for the expected value, so we need to
         // escape the brackets and dot.
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 6, /Cost \(inc\. VAT\)/);
+        gridObject.expectHeaderCellValueMatch(6, /Cost \(inc\. VAT\)/);
     });
 
     it('should have the column name "Status"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 7, 'Order Status');
+        gridObject.expectHeaderCellValueMatch(7, 'Order Status');
     });
 
     it('should have the column name "Delivery Status"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 8, 'Delivery Status');
+        gridObject.expectHeaderCellValueMatch(8, 'Delivery Status');
     });
 
     it('should have the column name "View"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('orders-table', 9, 'View');
+        gridObject.expectHeaderCellValueMatch(9, 'View');
     });
 
     it('should find 1 order when filtered by "Carrots"', function() {
-        gridTestUtils.enterFilterInColumn('orders-table', 5, 'Car');
-        gridTestUtils.expectRowCount('orders-table', 1);
-        gridTestUtils.expectCellValueMatch('orders-table', 0, 5, 'Carrots');
+        gridObject.enterFilterInColumn(5, 'Car');
+        gridObject.expectRowCount(1);
+        gridObject.expectCellValueMatch(0, 5, 'Carrots');
     });
 
     it('should find 4 orders when filter is cancelled', function() {
-        gridTestUtils.cancelFilterInColumn('orders-table', 5);
-        gridTestUtils.expectRowCount('orders-table', 4);
+        gridObject.cancelFilterInColumn(5);
+        gridObject.expectRowCount(4);
     });
 
     it('should find some orders when the "show orders delivered today" button is clicked', function() {

@@ -1,12 +1,14 @@
 describe('Admin - courier orders page', function() {
-    var gridTestUtils = require('../lib/gridTestUtils.spec.js');
+    var GridObjectTest = require('../lib/gridObjectTestUtils.spec.js');
     var isFirst = true;
+    var gridObject;
 
     beforeEach(function() {
         if (isFirst) {
             loginAsUser('alice@bunnies.test');
             browser.get('/admin/orders/courier');
             isFirst = false;
+            gridObject = new GridObjectTest('courier-orders-table');
         }
     });
 
@@ -15,20 +17,21 @@ describe('Admin - courier orders page', function() {
     });
 
     it('should have 1 row', function() {
-        gridTestUtils.expectRowCount('courier-orders-table', 1);
+        gridObject.expectRowCount(1);
     });
 
     it('should have 10 columns', function() {
-        gridTestUtils.expectHeaderColumnCount('courier-orders-table', 10);
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 0, 'Order No.');
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 1, 'Delivery Date');
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 2, 'Pickup Time');
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 3, 'Food Left Kitchen');
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 4, 'Collected');
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 5, 'Delivered');
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 6, 'Courier Ref');
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 7, 'Order Status');
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 8, 'Delivery Status');
-        gridTestUtils.expectHeaderCellValueMatch('courier-orders-table', 9, 'Action');
+        gridObject.expectHeaderColumns([
+            'Order No.',
+            'Delivery Date',
+            'Pickup Time',
+            'Food Left Kitchen',
+            'Collected',
+            'Delivered',
+            'Courier Ref No',
+            'Order Status',
+            'Delivery Status',
+            'Action',
+        ]);
     });
 });

@@ -1,12 +1,14 @@
 describe('Admin - vendors page', function() {
-    var gridTestUtils = require('../lib/gridTestUtils.spec.js');
+    var GridObjectTest = require('../lib/gridObjectTestUtils.spec.js');
     var isFirst = true;
+    var gridObject;
 
     beforeEach(function() {
         if (isFirst) {
             loginAsUser('alice@bunnies.test');
             browser.get('/admin/vendors');
             isFirst = false;
+            gridObject = new GridObjectTest('vendors-table');
         }
     });
 
@@ -15,45 +17,28 @@ describe('Admin - vendors page', function() {
     });
 
     it('should have 6 columns', function() {
-        gridTestUtils.expectHeaderColumnCount('vendors-table', 6);
+        gridObject.expectHeaderColumns([
+            'ID',
+            'Name',
+            'Email',
+            'Business Type',
+            'Status',
+            'Action',
+        ]);
     });
 
     it('should have 6 rows', function() {
-        gridTestUtils.expectRowCount('vendors-table', 6);
-    });
-
-    it('should have the column name "ID"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 0, 'ID');
-    });
-
-    it('should have the column name "Name"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 1, 'Name');
-    });
-
-    it('should have the column name "Email"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 2, 'Email');
-    });
-
-    it('should have the column name "Business Type"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 3, 'Business Type');
-    });
-
-    it('should have the column name "Status"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 4, 'Status');
-    });
-
-    it('should have the column name "Action"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('vendors-table', 5, 'Action');
+        gridObject.expectRowCount(6);
     });
 
     it('should find 3 vendors when filtered by "Chef"', function() {
-        gridTestUtils.enterFilterInColumn('vendors-table', 3, 'Chef');
-        gridTestUtils.expectRowCount('vendors-table', 3);
-        gridTestUtils.expectCellValueMatch('vendors-table', 0, 3, 'Chef');
+        gridObject.enterFilterInColumn(3, 'Chef');
+        gridObject.expectRowCount(3);
+        gridObject.expectCellValueMatch(0, 3, 'Chef');
     });
 
     it('should find 6 vendors when filter is cancelled', function() {
-        gridTestUtils.cancelFilterInColumn('vendors-table', 3);
-        gridTestUtils.expectRowCount('vendors-table', 6);
+        gridObject.cancelFilterInColumn(3);
+        gridObject.expectRowCount(6);
     });
 });
