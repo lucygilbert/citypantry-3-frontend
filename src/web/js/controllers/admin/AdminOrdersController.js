@@ -139,6 +139,28 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         }, 0);
     }
 
+    $scope.createOrdersCsv = () => {
+        const selectedOrdersIds = [];
+
+        $scope.gridApi.grid.rows.forEach(row => {
+            // The visible property marks the row as one of the filtered rows.
+            // When using pagination, the row may not necessarily be visible.
+            if (row.visible) {
+                selectedOrdersIds.push(row.entity.id);
+            }
+        });
+
+        if (selectedOrdersIds.length === 0) {
+            NotificationService.notifyError('You must have at least one order to create a CSV file.');
+        }
+
+        OrdersFactory.createOrdersCsvFile(selectedOrdersIds)
+            .success(response => {
+                $window.location.href = response.url;
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
     $scope.getOrderNumbers = () => {
         $scope.visibleOrderNumbers = $scope.gridApi.core.getVisibleRows().map(order => order.entity.humanId);
     };
