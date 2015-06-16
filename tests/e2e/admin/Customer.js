@@ -24,6 +24,16 @@ describe('Admin - customer page', function() {
         expect(element(by.css('main')).getText()).toMatch(/User group: [a-zA-Z ]+/);
     });
 
+    it('should be able to edit the customer persona', function() {
+        element(by.cssContainingText('option', 'The Big Dog')).click();
+        element(by.css('input[type="submit"]')).click();
+
+        notificationModal.expectIsOpen();
+        notificationModal.expectSuccessHeader();
+        notificationModal.expectMessage('The customer has been edited.');
+        notificationModal.dismiss();
+    });
+
     function goToEditCustomerPage(email) {
         browser.get('/admin/customers');
 

@@ -36,6 +36,23 @@
 
     <p>Persona: {{ customer.persona | getCustomerPersonaText }}</p>
 
+    <h2>Edit</h2>
+
+    <form class="admin-form" name="updateForm" ng-submit="save()">
+        <fieldset>
+            <div class="form-group">
+                <label>Persona</label>
+                <select class="form-control input-lg"
+                    required
+                    name="customerPersona"
+                    ng-model="customerForEditing.persona"
+                    ng-options="option.value as option.label for option in personaOptions"></select>
+            </div>
+
+            <input class="btn btn-primary btn-lg" type="submit" value="Save" />
+        </fieldset>
+    </form>
+
     <section ng-if="customer.paidOnAccountStatus === 1">
         <h2>Pay on account details</h2>
 
