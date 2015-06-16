@@ -1,12 +1,14 @@
 describe('Admin - packages page', function() {
-    var gridTestUtils = require('../lib/gridTestUtils.spec.js');
+    var GridObjectTest = require('../lib/gridObjectTestUtils.spec.js');
     var isFirst = true;
+    var gridObject = true;
 
     beforeEach(function() {
         if (isFirst) {
             loginAsUser('alice@bunnies.test');
             browser.get('/admin/packages');
             isFirst = false;
+            gridObject = new GridObjectTest('packages-table');
         }
     });
 
@@ -15,66 +17,66 @@ describe('Admin - packages page', function() {
     });
 
     it('should have 9 columns', function() {
-        gridTestUtils.expectHeaderColumnCount('packages-table', 9);
+        gridObject.expectHeaderColumnCount(9);
     });
 
     it('should have 10 rows', function() {
-        gridTestUtils.expectRowCount('packages-table', 10);
+        gridObject.expectRowCount(10);
     });
 
     it('should have the column name "ID"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('packages-table', 0, 'ID');
+        gridObject.expectHeaderCellValueMatch(0, 'ID');
     });
 
     it('should have the column name "Name"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('packages-table', 1, 'Name');
+        gridObject.expectHeaderCellValueMatch(1, 'Name');
     });
 
     it('should have the column name "Food Type"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('packages-table', 2, 'Food Type');
+        gridObject.expectHeaderCellValueMatch(2, 'Food Type');
     });
 
     it('should have the column name "Vendor"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('packages-table', 3, 'Vendor');
+        gridObject.expectHeaderCellValueMatch(3, 'Vendor');
     });
 
     it('should have the column name "Cost"', function() {
         // `expectHeaderCellValueMatch` takes a regex for the expected value, so we need to
         // escape the brackets and dot.
-        gridTestUtils.expectHeaderCellValueMatch('packages-table', 4, /Cost \(inc\. VAT\)/);
+        gridObject.expectHeaderCellValueMatch(4, /Cost \(inc\. VAT\)/);
     });
 
     it('should have the column name "Min People"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('packages-table', 5, 'Min People');
+        gridObject.expectHeaderCellValueMatch(5, 'Min People');
     });
 
     it('should have the column name "Max People"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('packages-table', 6, 'Max People');
+        gridObject.expectHeaderCellValueMatch(6, 'Max People');
     });
 
     it('should have the column name "Status"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('packages-table', 7, 'Status');
+        gridObject.expectHeaderCellValueMatch(7, 'Status');
     });
 
     it('should have the column name "Action"', function() {
-        gridTestUtils.expectHeaderCellValueMatch('packages-table', 8, 'Action');
+        gridObject.expectHeaderCellValueMatch(8, 'Action');
     });
 
     it('should find 2 packages when filtered by "Hong Tin"', function() {
-        gridTestUtils.enterFilterInColumn('packages-table', 3, 'Hong');
-        gridTestUtils.expectRowCount('packages-table', 2);
-        gridTestUtils.expectCellValueMatch('packages-table', 0, 3, 'Hong Tin');
+        gridObject.enterFilterInColumn(3, 'Hong');
+        gridObject.expectRowCount(2);
+        gridObject.expectCellValueMatch(0, 3, 'Hong Tin');
     });
 
     it('should find 10 packages when filter is cancelled', function() {
-        gridTestUtils.cancelFilterInColumn('packages-table', 3);
-        gridTestUtils.expectRowCount('packages-table', 10);
+        gridObject.cancelFilterInColumn(3);
+        gridObject.expectRowCount(10);
     });
 
     it('should be able to approve unapproved packages', function() {
-        gridTestUtils.enterFilterInColumn('packages-table', 7, 'Awaiting approval');
-        gridTestUtils.expectRowCount('packages-table', 1);
+        gridObject.enterFilterInColumn(7, 'Awaiting approval');
+        gridObject.expectRowCount(1);
         element(by.css('#packages-table a.approve-package')).click();
-        gridTestUtils.expectRowCount('packages-table', 0);
+        gridObject.expectRowCount(0);
     });
 });
