@@ -1,7 +1,7 @@
 <div class="wide-wrapper">
     <h1>Orders</h1>
 
-    <p>
+    <p class="orders-buttons">
         <button ng-click="showOrdersPlacedToday()" class="show-orders-placed-today btn btn-primary">Show orders placed today</button>
         &nbsp;
         <button ng-click="showOrdersDeliveredToday()" class="show-orders-delivered-today btn btn-primary">Show orders delivered today</button>
@@ -9,6 +9,8 @@
         <button ng-click="clearAllFilters()" class="btn btn-primary">Clear all filters</button>
         &nbsp;
         <button ng-click="getOrderNumbers()" class="btn btn-primary">Get visible order numbers</button>
+        &nbsp;
+        <button ng-click="createOrdersCsv()" class="btn btn-primary">Create CSV from filtered orders</button>
     </p>
 
     <p>Total value of currently filtered orders: {{ ordersTotal | currency:'£':2 }}</p>
