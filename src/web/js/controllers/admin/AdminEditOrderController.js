@@ -88,7 +88,10 @@ angular.module('cp.controllers.admin').controller('AdminEditOrderController',
             return;
         }
 
-        const reason = $window.prompt('Enter a reason for deleting the order');
+        let reason = '';
+        while (reason === '') {
+            reason = $window.prompt('Enter a reason for deleting the order (required)');
+        }
 
         LoadingService.show();
 
