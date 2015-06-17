@@ -2,7 +2,7 @@ angular.module('cp.controllers.customer', []);
 
 angular.module('cp.controllers.customer').controller('CustomerAccountDetailsController', function($scope, $q,
         DocumentTitleService, LoadingService, SecurityService, AddressFactory, CustomersFactory, UsersFactory,
-        NotificationService) {
+        NotificationService, $window) {
     DocumentTitleService('Account details');
     SecurityService.requireLoggedIn();
     $scope.showEditDetailsForm = false;
@@ -27,18 +27,26 @@ angular.module('cp.controllers.customer').controller('CustomerAccountDetailsCont
     $scope.save = () => {
         LoadingService.show();
 
-        var updateDetails = {
+        const updateDetails = {
             name: $scope.inputs.user.name,
             email: $scope.inputs.user.email,
             company: $scope.inputs.customer.company
         };
 
+        const hasEmailChanged = $scope.inputs.user.email !== $scope.authUser.user.email;
+
         CustomersFactory.updateSelf(updateDetails).success(() => {
             UsersFactory.getLoggedInUser().success(response => {
-                $scope.authUser = response;
-                // See comment above about why we are using angular.copy() here.
-                $scope.inputs = angular.copy(response);
-                LoadingService.hide();
+                if (hasEmailChanged) {
+                    // Refresh the page so that the user's new email address is used for analytics
+                    // and event tracking.
+                    $window.location.reload();
+                } else {
+                    $scope.authUser = response;
+                    // See comment above about why we are using angular.copy() here.
+                    $scope.inputs = angular.copy(response);
+                    LoadingService.hide();
+                }
             });
             $scope.showEditDetailsForm = false;
         })
