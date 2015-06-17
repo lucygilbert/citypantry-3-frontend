@@ -11,6 +11,8 @@ angular.module('cp.controllers.customer').controller('CustomerOrderLeaveAReviewC
         return;
     }
 
+    $scope.isPublicString = '1';
+
     $scope.review = {
         review: '',
         isDeliveredOnTime: null,
@@ -18,7 +20,8 @@ angular.module('cp.controllers.customer').controller('CustomerOrderLeaveAReviewC
         presentationRating: 0,
         deliveryRating: 0,
         overallRating: 0,
-        recommendToFriendRating: 0
+        recommendToFriendRating: 0,
+        isPublic: true
     };
 
     // An array of the numbers 1 to 10, used for creating the 'recommend to friend' rating view.
@@ -65,6 +68,8 @@ angular.module('cp.controllers.customer').controller('CustomerOrderLeaveAReviewC
             NotificationService.notifyError('There are some errors - please see above.');
             return;
         }
+
+        $scope.review.isPublic = !!parseInt($scope.isPublicString, 10);
 
         LoadingService.show();
 
