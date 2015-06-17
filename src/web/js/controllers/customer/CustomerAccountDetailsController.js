@@ -1,7 +1,8 @@
 angular.module('cp.controllers.customer', []);
 
 angular.module('cp.controllers.customer').controller('CustomerAccountDetailsController', function($scope, $q,
-        DocumentTitleService, LoadingService, SecurityService, AddressFactory, CustomersFactory, UsersFactory) {
+        DocumentTitleService, LoadingService, SecurityService, AddressFactory, CustomersFactory, UsersFactory,
+        NotificationService) {
     DocumentTitleService('Account details');
     SecurityService.requireLoggedIn();
     $scope.showEditDetailsForm = false;
@@ -14,10 +15,12 @@ angular.module('cp.controllers.customer').controller('CustomerAccountDetailsCont
         });
 
     const loadingPromise2 = AddressFactory.getAddresses()
-        .success(response => $scope.addresses = response.addresses);
+        .success(response => $scope.addresses = response.addresses)
+        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
     const loadingPromise3 = UsersFactory.getPaymentCards()
-        .success(response => $scope.paymentCards = response.cards);
+        .success(response => $scope.paymentCards = response.cards)
+        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
     $q.all([loadingPromise1, loadingPromise2, loadingPromise3]).then(() => LoadingService.hide());
 
@@ -38,7 +41,8 @@ angular.module('cp.controllers.customer').controller('CustomerAccountDetailsCont
                 LoadingService.hide();
             });
             $scope.showEditDetailsForm = false;
-        });
+        })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 
     $scope.cancel = () => {
