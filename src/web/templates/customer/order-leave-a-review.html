@@ -96,8 +96,7 @@
 
             <div class="cp-form-group cp-recommend-to-friend-rating">
                 <label class="cp-form-label">
-                    Based on today’s experience, how likely are you to recommend<br />
-                    City Pantry to a friend?
+                    Based on today’s experience, how likely are you to recommend City Pantry to a friend?
                 </label>
 
                 <span class="form-element-invalid" ng-if="errors.recommendToFriendRatingRequiredError">
@@ -112,13 +111,27 @@
                         {{ number }}
                     </div>
 
-                    <div class="clearfix"></div>
-
                     <span class="least">Least</span>
                     <span class="most">Most</span>
                 </div>
+            </div>
 
-                <div class="clearfix"></div>
+            <div class="clearfix"></div>
+
+            <div class="cp-form-group">
+                <label class="cp-form-label">
+                    Do you want this review to be public on citypantry.com?
+                </label>
+
+                <label class="cp-checkbox-inline">
+                    <input type="radio" ng-model="isPublicString" value="1" />
+                    Yes
+                </label>
+
+                <label class="cp-checkbox-inline">
+                    <input type="radio" ng-model="isPublicString" value="0" />
+                    No
+                </label>
             </div>
 
             <input class="cp-btn cp-btn-primary" type="submit" value="Submit" />
