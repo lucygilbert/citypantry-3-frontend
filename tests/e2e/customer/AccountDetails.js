@@ -11,7 +11,7 @@ describe('Customer delivery addresses', function() {
 
     it('should show the page and the correct details', function() {
         expect(element.all(by.css('h2')).first().getText()).toBe('ACCOUNT DETAILS');
-        var firstParagraphText = element.all(by.css('p')).first().getText();
+        var firstParagraphText = element(by.css('.account-details-summary')).getText();
         expect(firstParagraphText).toContain('Aperture Science');
         expect(firstParagraphText).toContain('Customer');
         expect(firstParagraphText).toContain('customer@bunnies.test');
@@ -32,16 +32,16 @@ describe('Customer delivery addresses', function() {
         element.all(by.css('.link-account')).first().click();
         element.all(by.css('input')).first().clear();
         element.all(by.css('input')).get(1).clear();
-        element.all(by.css('input')).get(2).clear();
         element.all(by.css('input')).first().sendKeys('Zorg Industries');
         element.all(by.css('input')).get(1).sendKeys('Jean-Baptiste Zorg');
-        element.all(by.css('input')).get(2).sendKeys('jbzorg@z.org');
-        element.all(by.css('input')).last().click();
 
-        var firstParagraphText = element.all(by.css('p')).first().getText();
+        var save = element(by.css('input[type="submit"]'));
+        expect(save.getAttribute('value')).toBe('Save changes');
+        save.click();
+
+        var firstParagraphText = element(by.css('.account-details-summary')).getText();
         expect(firstParagraphText).toContain('Zorg Industries');
         expect(firstParagraphText).toContain('Jean-Baptiste Zorg');
-        expect(firstParagraphText).toContain('jbzorg@z.org');
     });
 
     it('should redirect to the Edit Address page', function() {
@@ -72,15 +72,12 @@ describe('Customer delivery addresses', function() {
         element.all(by.css('.link-account')).first().click();
         element.all(by.css('input')).first().clear();
         element.all(by.css('input')).get(1).clear();
-        element.all(by.css('input')).get(2).clear();
         element.all(by.css('input')).first().sendKeys('Aperture Science');
         element.all(by.css('input')).get(1).sendKeys('Customer');
-        element.all(by.css('input')).get(2).sendKeys('customer@bunnies.test');
         element.all(by.css('input')).last().click();
 
-        var firstParagraphText = element.all(by.css('p')).first().getText();
+        var firstParagraphText = element(by.css('.account-details-summary')).getText();
         expect(firstParagraphText).toContain('Aperture Science');
         expect(firstParagraphText).toContain('Customer');
-        expect(firstParagraphText).toContain('customer@bunnies.test');
     });
 });

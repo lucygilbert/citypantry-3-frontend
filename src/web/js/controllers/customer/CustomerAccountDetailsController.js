@@ -1,7 +1,8 @@
 angular.module('cp.controllers.customer', []);
 
 angular.module('cp.controllers.customer').controller('CustomerAccountDetailsController', function($scope, $q,
-        DocumentTitleService, LoadingService, SecurityService, AddressFactory, CustomersFactory, UsersFactory) {
+        DocumentTitleService, LoadingService, SecurityService, AddressFactory, CustomersFactory, UsersFactory,
+        NotificationService, $window) {
     DocumentTitleService('Account details');
     SecurityService.requireLoggedIn();
     $scope.showEditDetailsForm = false;
@@ -14,31 +15,42 @@ angular.module('cp.controllers.customer').controller('CustomerAccountDetailsCont
         });
 
     const loadingPromise2 = AddressFactory.getAddresses()
-        .success(response => $scope.addresses = response.addresses);
+        .success(response => $scope.addresses = response.addresses)
+        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
     const loadingPromise3 = UsersFactory.getPaymentCards()
-        .success(response => $scope.paymentCards = response.cards);
+        .success(response => $scope.paymentCards = response.cards)
+        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
     $q.all([loadingPromise1, loadingPromise2, loadingPromise3]).then(() => LoadingService.hide());
 
     $scope.save = () => {
         LoadingService.show();
 
-        var updateDetails = {
+        const updateDetails = {
             name: $scope.inputs.user.name,
             email: $scope.inputs.user.email,
             company: $scope.inputs.customer.company
         };
 
+        const hasEmailChanged = $scope.inputs.user.email !== $scope.authUser.user.email;
+
         CustomersFactory.updateSelf(updateDetails).success(() => {
             UsersFactory.getLoggedInUser().success(response => {
-                $scope.authUser = response;
-                // See comment above about why we are using angular.copy() here.
-                $scope.inputs = angular.copy(response);
-                LoadingService.hide();
+                if (hasEmailChanged) {
+                    // Refresh the page so that the user's new email address is used for analytics
+                    // and event tracking.
+                    $window.location.reload();
+                } else {
+                    $scope.authUser = response;
+                    // See comment above about why we are using angular.copy() here.
+                    $scope.inputs = angular.copy(response);
+                    LoadingService.hide();
+                }
             });
             $scope.showEditDetailsForm = false;
-        });
+        })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 
     $scope.cancel = () => {
