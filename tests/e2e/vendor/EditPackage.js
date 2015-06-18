@@ -132,7 +132,7 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
         element(by.model('newAddress.city')).sendKeys('London');
         element(by.model('newAddress.postcode')).sendKeys('SW1P 1DE');
         element(by.model('newAddress.landlineNumber')).sendKeys('020 3397 8376');
-        element(by.model('newAddress.orderNotificationMobileNumber')).sendKeys('07861795252');
+        element(by.model('newAddress.orderNotificationMobileNumbersCommaSeperated')).sendKeys('07861795252');
         element(by.model('newAddress.contactName')).sendKeys('Stu');
 
         element(by.css('button[ng-click="addAddress()"]')).click();
@@ -160,18 +160,6 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
         var invalidPostcodeError = element.all(by.css('label[for="address_postcode"] > .form-element-invalid')).get(1);
         expect(invalidPostcodeError.getText()).toBe('(Postcode is invalid.)');
         expect(invalidPostcodeError.isDisplayed()).toBe(true);
-
-        element(by.css('.modal .close')).click();
-    });
-
-    it('should show an error if an invalid mobile number is entered', function() {
-        element(by.css('button[ng-click="addAnotherAddress()"]')).click();
-        element(by.model('newAddress.orderNotificationMobileNumber')).sendKeys('020 3397 8376');
-        element(by.css('button[ng-click="addAddress()"]')).click();
-
-        var invalidMobileNumberError = element.all(by.css('label[for="address_order_notification_mobile_number"] > .form-element-invalid')).get(1);
-        expect(invalidMobileNumberError.getText()).toBe('(Order notification mobile number is invalid.)');
-        expect(invalidMobileNumberError.isDisplayed()).toBe(true);
 
         element(by.css('.modal .close')).click();
     });

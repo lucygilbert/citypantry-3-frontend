@@ -8,7 +8,7 @@ angular.module('cp.controllers.general').controller('VendorPortalAddressControll
             LoadingService.hide();
         });
     } else {
-        $scope.address = {countryName: 'United Kingdom'};
+        $scope.address = {countryName: 'United Kingdom', orderNotificationMobileNumbers: []};
         LoadingService.hide();
     }
 });
