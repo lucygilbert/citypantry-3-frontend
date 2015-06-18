@@ -82,6 +82,7 @@
                 <header>
                     <h2 class="cp-dashboard-aside-heading">Next order</h2>
                     <span class="cp-dashboard-aside-order-date">{{ nextOrder.requestedDeliveryDate | date:'dd MMM yy' }}</span>
+                    <span class="cp-dashboard-aside-order-status" ng-show="nextOrder.statusText === 'pending_vendor_approval'">Awaiting vendor acceptance</span>
                 </header>
 
                 <cp-package-card package="nextOrder.package"></cp-package-card>
