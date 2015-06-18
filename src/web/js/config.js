@@ -296,6 +296,14 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'AdminViewInvoiceController',
             templateUrl: getTemplateUrl('admin/view-invoice.html')
         }).
+        when('/admin/reviews', {
+            controller: 'AdminReviewsController',
+            templateUrl: getTemplateUrl('admin/reviews.html')
+        }).
+        when('/admin/review/:reviewId', {
+            controller: 'AdminEditReviewController',
+            templateUrl: getTemplateUrl('admin/edit-review.html')
+        }).
         when('/admin/orders', {
             controller: 'AdminOrdersController',
             templateUrl: getTemplateUrl('admin/orders.html')
