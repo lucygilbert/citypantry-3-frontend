@@ -33,7 +33,7 @@ describe('Vendor portal - your addresses', function() {
         element(by.model('address.city')).sendKeys('London');
         element(by.model('address.postcode')).sendKeys('HP19 0GH');
         element(by.model('address.landlineNumber')).sendKeys('020 123 123');
-        element(by.model('address.orderNotificationMobileNumber')).sendKeys('07111222333');
+        element(by.model('address.orderNotificationMobileNumbersCommaSeperated')).sendKeys('07111222333');
         element(by.model('address.contactName')).sendKeys('Bob');
 
         element(by.css('main input.btn-primary')).click();
@@ -59,7 +59,7 @@ describe('Vendor portal - your addresses', function() {
         expect(element(by.model('address.city')).getAttribute('value')).toBe('London');
 
         element(by.model('address.city')).clear().sendKeys('Albuquerque');
-        element(by.model('address.orderNotificationMobileNumber')).clear().sendKeys('07123456789');
+        element(by.model('address.orderNotificationMobileNumbersCommaSeperated')).clear().sendKeys('07123456789, 07321654987');
         element(by.model('address.postcode')).clear().sendKeys('W6 7ZZ');
 
         element(by.css('main input.btn-primary')).click();

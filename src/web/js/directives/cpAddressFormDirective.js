@@ -10,9 +10,18 @@ angular.module('cp').directive('cpAddressForm', function(SecurityService, getTem
             userType: '=',
         },
         templateUrl: template,
-        controller: function($scope, $location, AddressFactory, NotificationService, LoadingService, SecurityService) {
+        controller: 'cpAddressFormController'
+    };
+});
+
+angular.module('cp').controller('cpAddressFormController',
+    function($scope, $location, AddressFactory, NotificationService, LoadingService, SecurityService) {
             if ($scope.userType !== 'vendor' && $scope.userType !== 'customer') {
                 throw new Error('userType must be vendor or customer');
+            }
+
+            if ($scope.userType === 'vendor') {
+                $scope.address.orderNotificationMobileNumbersCommaSeperated = $scope.address.orderNotificationMobileNumbers.join(', ');
             }
 
             function setLabel() {
@@ -28,6 +37,10 @@ angular.module('cp').directive('cpAddressForm', function(SecurityService, getTem
                 if ($scope.form.$invalid) {
                     $scope.form.$submitted = true;
                     return;
+                }
+
+                if ($scope.userType === 'vendor') {
+                    $scope.address.orderNotificationMobileNumbers = $scope.address.orderNotificationMobileNumbersCommaSeperated.split(/\s+,\s+/);
                 }
 
                 LoadingService.show();
@@ -58,6 +71,4 @@ angular.module('cp').directive('cpAddressForm', function(SecurityService, getTem
                     throw new Error('Unexpected user type.');
                 }
             };
-        }
-    };
 });

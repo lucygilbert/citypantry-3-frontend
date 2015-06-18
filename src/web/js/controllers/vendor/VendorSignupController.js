@@ -40,7 +40,7 @@ angular.module('cp.controllers.vendor').controller('VendorSignupController',
                 postcode: $scope.address.postcode,
                 countryName: $scope.address.countryName,
                 landlineNumber: $scope.address.landlineNumber,
-                orderNotificationMobileNumber: $scope.address.mobileNumber,
+                orderNotificationMobileNumbers: [$scope.address.mobileNumber],
                 contactName: $scope.name
             },
             name: $scope.name,

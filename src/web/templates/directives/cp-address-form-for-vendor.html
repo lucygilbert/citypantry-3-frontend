@@ -81,13 +81,20 @@
     </div>
 
     <div class="cp-form-group">
-        <label class="cp-form-label" for="order_notification_mobile_number">
-            Order notification mobile number
-            <span class="form-element-invalid" ng-show="form.$submitted && form.orderNotificationMobileNumber.$error.required">(Order notification mobile number is required.)</span>
-            <span class="form-element-invalid" ng-show="form.$submitted && form.orderNotificationMobileNumber.$error.pattern">(Order notification mobile number is invalid.)</span>
+        <label class="cp-form-label" for="order_notification_mobile_numbers">
+            Order notification mobile numbers (multiple allowed, seperated by commas)
+            <span class="form-element-invalid"
+                    ng-show="form.$submitted && form.orderNotificationMobileNumbers.$error.required">
+                (At least one order notification mobile number is required.)
+            </span>
         </label>
 
-        <input class="cp-form-control" id="order_notification_mobile_number" name="orderNotificationMobileNumber" type="tel" required aria-required="true" ng-model="address.orderNotificationMobileNumber" ng-pattern="/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/" />
+        <input class="cp-form-control"
+            id="order_notification_mobile_numbers"
+            name="orderNotificationMobileNumbers"
+            required
+            aria-required="true"
+            ng-model="address.orderNotificationMobileNumbersCommaSeperated" />
     </div>
 
     <hr />
