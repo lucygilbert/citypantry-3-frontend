@@ -95,6 +95,14 @@
     width: 40%;
 }
 
+.cp-dashboard-aside-order-status {
+    @include cp-font-title($font-size-h4);
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1;
+    width: 100%;
+}
+
 .cp-dashboard-aside-package-description {
     font-size: 16px;
     margin-bottom: $cp-margin-base-vertical;
