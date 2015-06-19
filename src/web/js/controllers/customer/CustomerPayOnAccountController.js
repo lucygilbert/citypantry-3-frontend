@@ -29,7 +29,7 @@ angular.module('cp.controllers.customer').controller('CustomerPayOnAccountContro
 
         var originalStatus = $scope.status;
 
-        CustomersFactory.updatePayOnAccountDetails(payOnAccountDetails)
+        CustomersFactory.updatePayOnAccountDetails($scope.user.customer.id, payOnAccountDetails)
             .success(response => {
                 $scope.user = response;
                 setScopeStatus();
