@@ -87,7 +87,7 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $anc
             postcode: $scope.newAddress.postcode,
             countryName: $scope.newAddress.countryName,
             landlineNumber: $scope.newAddress.landlineNumber,
-            orderNotificationMobileNumbers: $scope.newAddress.orderNotificationMobileNumbersCommaSeperated.split(/\s+,\s+/),
+            orderNotificationMobileNumbers: $scope.newAddress.orderNotificationMobileNumbersCommaSeperated.split(/\s*,\s*/),
             contactName: $scope.newAddress.contactName
         };
 
