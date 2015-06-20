@@ -46,6 +46,43 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 
+    $scope.updatePayOnAccountDetails = function() {
+        LoadingService.show();
+
+        const payOnAccountDetails = {
+            accountsEmail: $scope.customer.accountsEmail,
+            accountsContactName: $scope.customer.accountsContactName,
+            accountsTelephoneNumber: $scope.customer.accountsTelephoneNumber,
+            maxSpendPerMonth: $scope.customer.maxSpendPerMonth,
+            invoicePaymentTerms: $scope.customer.invoicePaymentTerms
+        };
+
+        CustomersFactory.updatePayOnAccountDetails($routeParams.customerId, payOnAccountDetails)
+            .success(response => {
+                $scope.customer = response.customer;
+                NotificationService.notifySuccess('The details have been updated.');
+                LoadingService.hide();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
+    $scope.setUpRequestToPayOnAccount = function() {
+        LoadingService.show();
+
+        const payOnAccountDetails = {
+            maxSpendPerMonth: $scope.customer.maxSpendPerMonth,
+            invoicePaymentTerms: $scope.customer.invoicePaymentTerms
+        };
+
+        CustomersFactory.setUpRequestToPayOnAccount($routeParams.customerId, payOnAccountDetails)
+            .success(response => {
+                $scope.customer = response.customer;
+                NotificationService.notifySuccess('The request to pay on account has been set up.');
+                LoadingService.hide();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
     $scope.save = function() {
         LoadingService.show();
 

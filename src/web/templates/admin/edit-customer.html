@@ -53,6 +53,34 @@
         </fieldset>
     </form>
 
+    <section ng-if="customer.paidOnAccountStatus === 0">
+        <h2>Pay on account setup</h2>
+
+        <p>
+            The customer is not set up to pay on account. Fill in the form below to begin the set up process.<br />
+            This will enable the 'activate pay on account' page for the customer, email the customer a link to the page. From there, the customer can fill in their accounts department's details and enable payment on account.
+        </p>
+
+        <form class="admin-form" role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label for="invoice_payment_terms">Payment terms</label>
+                    <input class="form-control input-lg" id="invoice_payment_terms" type="text" ng-model="customer.invoicePaymentTerms" />
+                </div>
+
+                <div class="form-group">
+                    <label for="max_spend_per_month">Account limit per month</label>
+                    <div class="input-group input-group-lg input-group-readonly">
+                        <div class="input-group-addon">£</div>
+                        <input class="form-control input-lg" id="max_spend_per_month" type="number" min="1" step="0.01" ng-model="customer.maxSpendPerMonth" />
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" type="button" id="save_setup_details" ng-click="setUpRequestToPayOnAccount()">Set up</button>
+            </fieldset>
+        </form>
+    </section>
+
     <section ng-if="customer.paidOnAccountStatus === 1">
         <h2>Pay on account details</h2>
 
@@ -62,16 +90,18 @@
             <fieldset>
                 <div class="form-group">
                     <label for="invoice_payment_terms">Payment terms</label>
-                    <input class="form-control input-lg" id="invoice_payment_terms" type="text" readonly ng-model="customer.invoicePaymentTerms" />
+                    <input class="form-control input-lg" id="invoice_payment_terms" type="text" ng-model="customer.invoicePaymentTerms" />
                 </div>
 
                 <div class="form-group">
                     <label for="max_spend_per_month">Account limit per month</label>
                     <div class="input-group input-group-lg input-group-readonly">
                         <div class="input-group-addon">£</div>
-                        <input class="form-control input-lg" id="max_spend_per_month" type="number" min="1" step="0.01" readonly ng-model="customer.maxSpendPerMonth" />
+                        <input class="form-control input-lg" id="max_spend_per_month" type="number" min="1" step="0.01" ng-model="customer.maxSpendPerMonth" />
                     </div>
                 </div>
+
+                <button class="btn btn-primary" type="button" id="save_request_account_details" ng-click="updatePayOnAccountDetails()">Save</button>
             </fieldset>
         </form>
     </section>
@@ -83,36 +113,36 @@
             <fieldset>
                 <div class="form-group">
                     <label for="accounts_contact_name">Accounts contact name</label>
-                    <input class="form-control input-lg" id="accounts_contact_name" type="text" readonly ng-model="customer.accountsContactName" />
+                    <input class="form-control input-lg" id="accounts_contact_name" type="text" ng-model="customer.accountsContactName" />
                 </div>
 
                 <div class="form-group">
                     <label for="accounts_email">Accounts email</label>
-                    <input class="form-control input-lg" id="accounts_email" type="email" readonly ng-model="customer.accountsEmail" />
+                    <input class="form-control input-lg" id="accounts_email" type="email" ng-model="customer.accountsEmail" />
                 </div>
 
                 <div class="form-group">
                     <label for="accounts_telephone_number">Accounts telephone number</label>
-                    <input class="form-control input-lg" id="accounts_telephone_number" type="tel" readonly ng-model="customer.accountsTelephoneNumber" />
+                    <input class="form-control input-lg" id="accounts_telephone_number" type="tel" ng-model="customer.accountsTelephoneNumber" />
                 </div>
 
                 <div class="form-group">
                     <label for="invoice_payment_terms">Payment terms</label>
-                    <input class="form-control input-lg" id="invoice_payment_terms" type="text" readonly ng-model="customer.invoicePaymentTerms" />
+                    <input class="form-control input-lg" id="invoice_payment_terms" type="text" ng-model="customer.invoicePaymentTerms" />
                 </div>
 
                 <div class="form-group">
                     <label for="max_spend_per_month">Account limit per month</label>
                     <div class="input-group input-group-lg input-group-readonly">
                         <div class="input-group-addon">£</div>
-                        <input class="form-control input-lg" id="max_spend_per_month" type="number" min="1" step="0.01" readonly ng-model="customer.maxSpendPerMonth" />
+                        <input class="form-control input-lg" id="max_spend_per_month" type="number" min="1" step="0.01" ng-model="customer.maxSpendPerMonth" />
                     </div>
                 </div>
 
-                <div ng-if="customer.isPaidOnAccount">
-                    <button class="btn btn-primary" type="button" ng-click="revokePaymentOnAccount()">Revoke</button>
-                    <p class="help-block">If you click revoke, the customer should be called to let them know. No automatic email is sent.</p>
-                </div>
+                <button class="btn btn-primary" type="button" id="save_enabled_account_details" ng-click="updatePayOnAccountDetails()">Save</button><br /><br />
+
+                <button class="btn btn-primary" id="revoke_account" type="button" ng-click="revokePaymentOnAccount()">Revoke</button>
+                <p class="help-block">If you click revoke, the customer should be called to let them know. No automatic email is sent.</p>
             </fieldset>
         </form>
     </section>
