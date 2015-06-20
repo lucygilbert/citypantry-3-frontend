@@ -50,6 +50,20 @@ describe('Admin - customer page', function() {
         it('should show that the customer is not able to pay on account', function() {
             expect(element(by.css('main')).getText()).toContain('Pay on account? Disabled');
         });
+
+        it('should allow staff to set up a request to pay on account', function() {
+            element(by.css('#invoice_payment_terms')).clear();
+            element(by.css('#max_spend_per_month')).clear();
+
+            element(by.css('#invoice_payment_terms')).sendKeys('Net 30');
+            element(by.css('#max_spend_per_month')).sendKeys('3000');
+            element(by.css('#save_setup_details')).click();
+
+            notificationModal.expectIsOpen();
+            notificationModal.expectSuccessHeader();
+            notificationModal.expectMessage('The request to pay on account has been set up.');
+            notificationModal.dismiss();
+        });
     });
 
     describe('with a customer whose pay-on-account status is awaiting additional information', function() {
@@ -64,6 +78,20 @@ describe('Admin - customer page', function() {
         it('should show their payment terms and limit', function() {
             expect(element(by.model('customer.invoicePaymentTerms')).isPresent()).toBe(true);
             expect(element(by.model('customer.maxSpendPerMonth')).isPresent()).toBe(true);
+        });
+
+        it('should allow staff to change the customer\'s max monthly spend and payment terms', function() {
+            element(by.css('#invoice_payment_terms')).clear();
+            element(by.css('#max_spend_per_month')).clear();
+
+            element(by.css('#invoice_payment_terms')).sendKeys('Net 30');
+            element(by.css('#max_spend_per_month')).sendKeys('3000');
+            element(by.css('#save_request_account_details')).click();
+
+            notificationModal.expectIsOpen();
+            notificationModal.expectSuccessHeader();
+            notificationModal.expectMessage('The details have been updated.');
+            notificationModal.dismiss();
         });
     });
 
@@ -81,6 +109,26 @@ describe('Admin - customer page', function() {
             expect(element(by.model('customer.maxSpendPerMonth')).isPresent()).toBe(true);
         });
 
+        it('should allow staff to change the customer\'s pay on account details', function() {
+            element(by.css('#accounts_contact_name')).clear();
+            element(by.css('#accounts_email')).clear();
+            element(by.css('#accounts_telephone_number')).clear();
+            element(by.css('#invoice_payment_terms')).clear();
+            element(by.css('#max_spend_per_month')).clear();
+
+            element(by.css('#accounts_contact_name')).sendKeys('Walter White');
+            element(by.css('#accounts_email')).sendKeys('wwhite@meth.org');
+            element(by.css('#accounts_telephone_number')).sendKeys('02012345678');
+            element(by.css('#invoice_payment_terms')).sendKeys('Net 30');
+            element(by.css('#max_spend_per_month')).sendKeys('3000');
+            element(by.css('#save_enabled_account_details')).click();
+
+            notificationModal.expectIsOpen();
+            notificationModal.expectSuccessHeader();
+            notificationModal.expectMessage('The details have been updated.');
+            notificationModal.dismiss();
+        });
+
         it('should be able to revoke payment on account', function() {
             element(by.css('button[ng-click="revokePaymentOnAccount()"]')).click();
 
@@ -92,8 +140,6 @@ describe('Admin - customer page', function() {
             expect(element(by.model('customer.accountsContactName')).isPresent()).toBe(false);
             expect(element(by.model('customer.accountsEmail')).isPresent()).toBe(false);
             expect(element(by.model('customer.accountsTelephoneNumber')).isPresent()).toBe(false);
-            expect(element(by.model('customer.invoicePaymentTerms')).isPresent()).toBe(false);
-            expect(element(by.model('customer.maxSpendPerMonth')).isPresent()).toBe(false);
         });
     });
 
