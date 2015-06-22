@@ -113,12 +113,14 @@ describe('Admin - customer page', function() {
             element(by.css('#accounts_contact_name')).clear();
             element(by.css('#accounts_email')).clear();
             element(by.css('#accounts_telephone_number')).clear();
+            element(by.css('#days_until_invoice_overdue')).clear();
             element(by.css('#invoice_payment_terms')).clear();
             element(by.css('#max_spend_per_month')).clear();
 
             element(by.css('#accounts_contact_name')).sendKeys('Walter White');
             element(by.css('#accounts_email')).sendKeys('wwhite@meth.org');
             element(by.css('#accounts_telephone_number')).sendKeys('02012345678');
+            element(by.css('#days_until_invoice_overdue')).sendKeys('15');
             element(by.css('#invoice_payment_terms')).sendKeys('Net 30');
             element(by.css('#max_spend_per_month')).sendKeys('3000');
             element(by.css('#save_enabled_account_details')).click();

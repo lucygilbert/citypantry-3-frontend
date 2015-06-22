@@ -53,6 +53,7 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
             accountsEmail: $scope.customer.accountsEmail,
             accountsContactName: $scope.customer.accountsContactName,
             accountsTelephoneNumber: $scope.customer.accountsTelephoneNumber,
+            daysUntilInvoiceOverdue: $scope.customer.daysUntilInvoiceOverdue,
             maxSpendPerMonth: $scope.customer.maxSpendPerMonth,
             invoicePaymentTerms: $scope.customer.invoicePaymentTerms
         };
