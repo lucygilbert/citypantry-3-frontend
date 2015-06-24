@@ -1,5 +1,5 @@
-#! /usr/bin/env sh
+#!/bin/bash
 
-vagrant ssh -c "sudo chmod -R 0777 /home/citypantry/project/uploads /tmp/cp-* && \
-    /home/citypantry/project/api/app/console doctrine:mongodb:fixtures:load -n && \
-    sudo chmod -R 0777 /home/citypantry/project/uploads /tmp/cp-*";
+id=$( vagrant global-status | grep running | grep -i citypantry | awk '{ print $1 }' )
+
+vagrant ssh $id -c "sudo su citypantry -c '/home/citypantry/project/api/app/console doctrine:mongodb:fixtures:load -n'";
