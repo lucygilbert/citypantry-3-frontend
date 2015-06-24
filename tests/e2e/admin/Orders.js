@@ -20,8 +20,8 @@ describe('Admin - orders page', function() {
         gridObject.expectHeaderColumnCount(10);
     });
 
-    it('should have 4 rows', function() {
-        gridObject.expectRowCount(4);
+    it('should have 5 rows', function() {
+        gridObject.expectRowCount(5);
     });
 
     it('should have the column name "Order No"', function() {
@@ -72,9 +72,9 @@ describe('Admin - orders page', function() {
         gridObject.expectCellValueMatch(0, 5, 'Carrots');
     });
 
-    it('should find 4 orders when filter is cancelled', function() {
+    it('should find 5 orders when filter is cancelled', function() {
         gridObject.cancelFilterInColumn(5);
-        gridObject.expectRowCount(4);
+        gridObject.expectRowCount(5);
     });
 
     it('should find some orders when the "show orders delivered today" button is clicked', function() {
