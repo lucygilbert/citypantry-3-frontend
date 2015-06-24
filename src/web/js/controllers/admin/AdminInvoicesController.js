@@ -77,6 +77,10 @@ angular.module('cp.controllers.admin').controller('AdminInvoicesController',
                 field: 'totalAmountAfterVoucher'
             },
             {
+                displayName: 'Overdue?',
+                field: 'isOverdueText'
+            },
+            {
                 cellTemplate: `
                     <div class="ui-grid-cell-contents">
                         <a href="/admin/invoice/{{row.entity[col.field]}}">View</a>
@@ -98,10 +102,20 @@ angular.module('cp.controllers.admin').controller('AdminInvoicesController',
     };
 
     function loadInvoices() {
+        let nowEpochTime = new Date().getTime();
+
         OrdersFactory.getAllCustomerInvoices().success(response => {
             angular.forEach(response.invoices, row => {
                 row.invoiceStatusTexts = getInvoiceStatusTextFilter(row.statusText);
                 row.isPaidOnAccountStatusText = getPayOnAccountStatusTextFilter(row.order.isPaidOnAccount);
+
+                if (row.order.isPaidOnAccount && row.statusText === 'awaiting_payment') {
+                    let overdueEpochTime = new Date(row.dateIssued).getTime() +
+                        (row.order.customer.daysUntilInvoiceOverdue * 86400000);
+                    row.isOverdueText = overdueEpochTime < nowEpochTime ? 'Yes' : 'No';
+                } else {
+                    row.isOverdueText = 'N/A';
+                }
             });
 
             $scope.gridOptions.data = response.invoices;

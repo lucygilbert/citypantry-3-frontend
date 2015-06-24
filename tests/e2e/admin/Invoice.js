@@ -7,7 +7,10 @@ describe('Admin - invoice page', function() {
         if (isFirst) {
             loginAsUser('alice@bunnies.test');
             browser.get('/admin/invoices');
+            // Filter to an order that is paid on account, awaiting payment, and not overdue.
+            gridTestUtils.enterFilterInColumn('invoices-table', 4, 'Yes');
             gridTestUtils.enterFilterInColumn('invoices-table', 6, 'Awaiting');
+            gridTestUtils.enterFilterInColumn('invoices-table', 8, 'No');
             element.all(by.css('#invoices-table a[href^="/admin/invoice/"]')).first().click();
             isFirst = false;
         }
@@ -29,5 +32,6 @@ describe('Admin - invoice page', function() {
         expect(invoice).toContain('Subtotal £150.00');
         expect(invoice).toContain('VAT £0.00');
         expect(invoice).toContain('Grand Total £127.50');
+        expect(invoice).toContain('Paid on account. Payment is due 10 days from the invoice date.');
     });
 });
