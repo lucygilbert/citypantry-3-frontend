@@ -40,4 +40,5 @@ twig:
         twitterHandle: %templates.twitter_handle%
         googleMapsJavascriptApiV3Key: %templates.google_maps_javascript_api_v3_key%
         hubspotBase: %templates.hubspot_base%
+        segmentWriteKey: %templates.segment_write_key%
         cacheBusterValue: %cache_buster_value%
