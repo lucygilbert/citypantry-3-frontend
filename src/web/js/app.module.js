@@ -4,6 +4,7 @@ if (window.includeAnalyticsJs && !window.isStaff) {
         'angulartics.google.analytics',
         'angulartics.hubspot',
         'angulartics.kissmetrics',
+        'angulartics.segment.io',
         'angulartics.citypantry'
     ];
 } else {
