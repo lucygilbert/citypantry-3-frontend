@@ -30,30 +30,4 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
-
-    public function getCacheDir()
-    {
-        if ($this->isVagrant()) {
-            return '/tmp/cp-frontend-cache-' . $this->environment;
-        }
-
-        return parent::getCacheDir();
-    }
-
-    public function getLogDir()
-    {
-        if ($this->isVagrant()) {
-            return '/tmp/cp-frontend-logs-' . $this->environment;
-        }
-
-        return parent::getLogDir();
-    }
-
-    private function isVagrant()
-    {
-        // The most reliable way to get the FQDN is reverting to the shell `hostname` command.
-        // gethostname() does not return the FQDN. gethostbyaddr('127.0.0.1') is not  consistent
-        // between virtual machines and native machines.
-        return strpos(`hostname -f`, 'citypantry.dev') !== false;
-    }
 }
