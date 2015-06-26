@@ -75,7 +75,9 @@ describe('Vendor portal - create package', function() {
     });
 
     it('should be able to add an address', function() {
-        element(by.css('button[ng-click="addAnotherAddress()"]')).click();
+        var addAddressButton = element(by.css('button.cp-add-vendor-address'));
+        expect(addAddressButton.getText()).toBe('ADD ANOTHER ADDRESS');
+        addAddressButton.click();
 
         element(by.model('newAddress.addressLine1')).sendKeys('Francis House');
         element(by.model('newAddress.addressLine2')).sendKeys('11 Francis Street');
@@ -102,7 +104,7 @@ describe('Vendor portal - create package', function() {
     });
 
     it('should show an error if an invalid postcode is entered', function() {
-        element(by.css('button[ng-click="addAnotherAddress()"]')).click();
+        element(by.css('button.cp-add-vendor-address')).click();
         element(by.model('newAddress.postcode')).sendKeys('QWERTY');
         element(by.css('button[ng-click="addAddress()"]')).click();
 

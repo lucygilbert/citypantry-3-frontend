@@ -173,7 +173,11 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary" type="button" ng-click="addAnotherAddress()">Add another address</button>
+                <button class="btn btn-primary cp-add-vendor-address"
+                        type="button"
+                        ng-click="addAnotherAddress()">
+                    {{ vendor.addresses.length > 0 ? 'Add another address' : 'Add your first address' }}
+                </button>
             </fieldset>
         </div>
 
