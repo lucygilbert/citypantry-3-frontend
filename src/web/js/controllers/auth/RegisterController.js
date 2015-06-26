@@ -1,5 +1,5 @@
 angular.module('cp.controllers.authentication').controller('RegisterController',
-        function($scope, $cookies, $window, AuthenticationFactory, LoadingService,
+        function($scope, $cookies, $window, $location, AuthenticationFactory, LoadingService,
         DocumentTitleService, SecurityService, ABTestService) {
     LoadingService.hide();
     SecurityService.requireLoggedOut();
@@ -26,8 +26,15 @@ angular.module('cp.controllers.authentication').controller('RegisterController',
             .success(function(response) {
                 $cookies.userId = response.apiAuth.userId;
                 $cookies.salt = response.apiAuth.salt;
+                let includeCode = 'includeRegistrationTrackingCode=1';
                 $window.localStorage.setItem('user', JSON.stringify(response.user));
-                $window.location = '/?includeRegistrationTrackingCode=1';
+                if (SecurityService.urlToForwardToAfterLogin) {
+                    $window.location = SecurityService.urlToForwardToAfterLogin +
+                        (SecurityService.urlToForwardToAfterLogin.indexOf('?') < 0 ?
+                        '?' + includeCode : '&' + includeCode);
+                } else {
+                    $window.location = '/?' + includeCode;
+                }
             })
             .catch(function(response) {
                 $scope.registerError = response.data.errorTranslation;

@@ -8,6 +8,22 @@ describe('Package page', function() {
             oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 1);
         }
 
+        it('should show the login modal if Order Now is clicked when logged out', function() {
+            browser.get('/search');
+
+            var breakfastEventType = element.all(by.repeater('eventType in eventTypes')).get(0);
+            expect(breakfastEventType.getText()).toBe('Breakfast');
+            breakfastEventType.click();
+            expect(element.all(by.repeater('package in packages')).count()).toBe(1);
+
+            element.all(by.repeater('package in packages')).get(0).all(by.css('a')).get(0).click();
+
+            element(by.css('.cp-package-form input[type="submit"]')).click();
+
+            var loginModal = element(by.css('.cp-login'));
+            expect(loginModal.isDisplayed()).toBe(true);
+        });
+
         it('has the package', function() {
             loginAsUser('customer@bunnies.test');
             browser.get('/search');

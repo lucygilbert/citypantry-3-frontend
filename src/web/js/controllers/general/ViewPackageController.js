@@ -3,13 +3,10 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         LoadingService, SecurityService, $sce, FRONTEND_BASE, OrdersFactory, $location,
         getPackageAvailabilityErrorTextFilter, CheckoutService, $filter, SearchService,
         ABTestService, dateIsBSTInEffectFilter, $window) {
-    // If the user is not logged in, show them a login modal.
+    $scope.openLoginModal = false;
     $scope.isLoggedIn = SecurityService.isLoggedIn();
-    if (!$scope.isLoggedIn) {
-        SecurityService.urlToForwardToAfterLogin = $window.location.href;
-    }
 
-    // 'changeDeliveryLocationModalState' can be set to 'checking', 'available', 'notAvailabe'.
+    // 'changeDeliveryLocationModalState' can be set to 'checking', 'available', 'notAvailable'.
     $scope.changeDeliveryLocationModalState = undefined;
     $scope.isChangeDeliveryLocationModalOpen = false;
     $scope.isDatePickerOpen = false;
@@ -245,6 +242,12 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
                     CheckoutService.setDeliveryCost($scope.order.deliveryCost);
                     CheckoutService.setTotalAmount($scope.order.totalAmount);
                     CheckoutService.setStartTime(new Date());
+
+                    if (!$scope.isLoggedIn) {
+                        $scope.openLoginModal = true;
+                        SecurityService.urlToForwardToAfterLogin = '/checkout/catering-details';
+                        return;
+                    }
 
                     $location.path('/checkout/catering-details');
                 } else {

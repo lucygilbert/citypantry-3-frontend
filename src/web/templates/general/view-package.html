@@ -1,4 +1,4 @@
-<div class="cp-modal open" ng-show="!isLoggedIn">
+<div class="cp-modal open" ng-if="openLoginModal">
     <div class="cp-modal-dialog">
         <div class="cp-modal-content" ng-controller="LoginRegisterController" id="cp-view-package-login-modal">
             <div class="cp-login">
@@ -163,8 +163,7 @@
         <div class="cp-package-sidebar">
             <p class="cp-form-error" ng-show="packageFormError" ng-bind="packageFormError"></p>
 
-            <form class="cp-form cp-package-form" name="packageForm" novalidate role="form" ng-submit="order()"
-                    ng-show="isLoggedIn">
+            <form class="cp-form cp-package-form" name="packageForm" novalidate role="form" ng-submit="order()">
                 <fieldset>
                     <div class="cp-form-group">
                         <label class="cp-form-label" for="order_postcode">
