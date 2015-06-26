@@ -124,7 +124,9 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
     // This test will fail if the suite is run in isolation because the address added by
     // CreatePackage will not exist.
     it('should be able to add an address', function() {
-        element(by.css('button[ng-click="addAnotherAddress()"]')).click();
+        var addAddressButton = element(by.css('button.cp-add-vendor-address'));
+        expect(addAddressButton.getText()).toBe('ADD ANOTHER ADDRESS');
+        addAddressButton.click();
 
         element(by.model('newAddress.addressLine1')).sendKeys('Jeremy House');
         element(by.model('newAddress.addressLine2')).sendKeys('22 Jeremy Road');
@@ -153,7 +155,7 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
     });
 
     it('should show an error if an invalid postcode is entered', function() {
-        element(by.css('button[ng-click="addAnotherAddress()"]')).click();
+        element(by.css('button.cp-add-vendor-address')).click();
         element(by.model('newAddress.postcode')).sendKeys('QWERTY');
         element(by.css('button[ng-click="addAddress()"]')).click();
 
