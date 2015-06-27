@@ -1,31 +1,35 @@
 angular.module('cp.services').service('CheckoutService', function($window) {
-    var deliveryAddressId;
-    var deliveryCost;
-    var deliveryDate;
-    var dietaryRequirementsExtra;
-    var endTime;
-    var headCount;
-    var isCutleryAndServiettesRequired = false;
-    var isVendorRequiredToCleanUp = false;
-    var isVendorRequiredToSetUp = false;
-    var packageId;
-    var packagingType;
-    var postcode;
-    var promoCodeId;
-    var startTime;
-    var subTotalAmount;
-    var totalAmount;
-    var vegetarianHeadCount;
-    var vendorCleanupCost;
-    var vendorSetupCost;
+    let deliveryAddressId;
+    let deliveryCost;
+    let deliveryDate;
+    let dietaryRequirementsExtra;
+    let endTime;
+    let headCount;
+    let isCutleryAndServiettesRequired = false;
+    let isVendorRequiredToCleanUp = false;
+    let isVendorRequiredToSetUp = false;
+    let packageId;
+    let packagingType;
+    let postcode;
+    let promoCodeId;
+    let startTime;
+    let subTotalAmount;
+    let totalAmount;
+    let vegetarianHeadCount;
+    let vendorCleanupCost;
+    let vendorSetupCost;
     let lastCreatedOrder;
+
+    const getPersistedValue = (key) => $window.localStorage.getItem(key);
+    const setPersistedValue = (key, value) => $window.localStorage.setItem(key, value);
+    const removePersistedValue = (key) => $window.localStorage.removeItem(key);
 
     return {
         getDeliveryAddressId: function() {
             if (deliveryAddressId !== undefined) {
                 return deliveryAddressId;
-            } else if ($window.localStorage.getItem('deliveryAddressId') !== null) {
-                return $window.localStorage.getItem('deliveryAddressId');
+            } else if (getPersistedValue('deliveryAddressId') !== null) {
+                return getPersistedValue('deliveryAddressId');
             } else {
                 return undefined;
             }
@@ -34,15 +38,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setDeliveryAddressId: function(value) {
             if (value !== undefined) {
                 deliveryAddressId = value;
-                $window.localStorage.setItem('deliveryAddressId', value);
+                setPersistedValue('deliveryAddressId', value);
             }
         },
 
         getDeliveryCost: function() {
             if (deliveryCost !== undefined) {
                 return deliveryCost;
-            } else if ($window.localStorage.getItem('deliveryCost') !== null) {
-                return parseFloat($window.localStorage.getItem('deliveryCost'));
+            } else if (getPersistedValue('deliveryCost') !== null) {
+                return parseFloat(getPersistedValue('deliveryCost'));
             } else {
                 return undefined;
             }
@@ -51,15 +55,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setDeliveryCost: function(value) {
             if (value !== undefined) {
                 deliveryCost = value;
-                $window.localStorage.setItem('deliveryCost', value);
+                setPersistedValue('deliveryCost', value);
             }
         },
 
         getDeliveryDate: function() {
             if (deliveryDate !== undefined) {
                 return deliveryDate;
-            } else if ($window.localStorage.getItem('deliveryDate') !== null) {
-                return new Date($window.localStorage.getItem('deliveryDate'));
+            } else if (getPersistedValue('deliveryDate') !== null) {
+                return new Date(getPersistedValue('deliveryDate'));
             } else {
                 return undefined;
             }
@@ -68,15 +72,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setDeliveryDate: function(value) {
             if (value !== undefined) {
                 deliveryDate = value;
-                $window.localStorage.setItem('deliveryDate', value);
+                setPersistedValue('deliveryDate', value);
             }
         },
 
         getDietaryRequirementsExtra: function() {
             if (dietaryRequirementsExtra !== undefined) {
                 return dietaryRequirementsExtra;
-            } else if ($window.localStorage.getItem('dietaryRequirementsExtra') !== null) {
-                return $window.localStorage.getItem('dietaryRequirementsExtra');
+            } else if (getPersistedValue('dietaryRequirementsExtra') !== null) {
+                return getPersistedValue('dietaryRequirementsExtra');
             } else {
                 return undefined;
             }
@@ -85,15 +89,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setDietaryRequirementsExtra: function(value) {
             if (value !== undefined) {
                 dietaryRequirementsExtra = value;
-                $window.localStorage.setItem('dietaryRequirementsExtra', value);
+                setPersistedValue('dietaryRequirementsExtra', value);
             }
         },
 
         getEndTime: function() {
             if (endTime !== undefined) {
                 return endTime;
-            } else if ($window.localStorage.getItem('endTime') !== null) {
-                return new Date($window.localStorage.getItem('endTime'));
+            } else if (getPersistedValue('endTime') !== null) {
+                return new Date(getPersistedValue('endTime'));
             } else {
                 return undefined;
             }
@@ -102,15 +106,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setEndTime: function(value) {
             if (value !== undefined) {
                 endTime = value;
-                $window.localStorage.setItem('endTime', value);
+                setPersistedValue('endTime', value);
             }
         },
 
         getHeadCount: function() {
             if (headCount !== undefined) {
                 return headCount;
-            } else if ($window.localStorage.getItem('headCount') !== null) {
-                return parseInt($window.localStorage.getItem('headCount'), 10);
+            } else if (getPersistedValue('headCount') !== null) {
+                return parseInt(getPersistedValue('headCount'), 10);
             } else {
                 return undefined;
             }
@@ -119,15 +123,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setHeadCount: function(value) {
             if (value !== undefined) {
                 headCount = value;
-                $window.localStorage.setItem('headCount', value);
+                setPersistedValue('headCount', value);
             }
         },
 
         getPackageId: function() {
             if (packageId !== undefined) {
                 return packageId;
-            } else if ($window.localStorage.getItem('packageId') !== null) {
-                return $window.localStorage.getItem('packageId');
+            } else if (getPersistedValue('packageId') !== null) {
+                return getPersistedValue('packageId');
             } else {
                 return undefined;
             }
@@ -136,15 +140,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setPackageId: function(value) {
             if (value !== undefined) {
                 packageId = value;
-                $window.localStorage.setItem('packageId', value);
+                setPersistedValue('packageId', value);
             }
         },
 
         getPackagingType: function() {
             if (packagingType !== undefined) {
                 return packagingType;
-            } else if ($window.localStorage.getItem('packagingType') !== null) {
-                return parseInt($window.localStorage.getItem('packagingType'), 10);
+            } else if (getPersistedValue('packagingType') !== null) {
+                return parseInt(getPersistedValue('packagingType'), 10);
             } else {
                 return undefined;
             }
@@ -153,15 +157,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setPackagingType: function(value) {
             if (value !== undefined) {
                 packagingType = value;
-                $window.localStorage.setItem('packagingType', value);
+                setPersistedValue('packagingType', value);
             }
         },
 
         getPostcode: function() {
             if (postcode !== undefined) {
                 return postcode;
-            } else if ($window.localStorage.getItem('postcode') !== null) {
-                return $window.localStorage.getItem('postcode');
+            } else if (getPersistedValue('postcode') !== null) {
+                return getPersistedValue('postcode');
             } else {
                 return undefined;
             }
@@ -170,15 +174,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setPostcode: function(value) {
             if (value !== undefined) {
                 postcode = value;
-                $window.localStorage.setItem('postcode', value);
+                setPersistedValue('postcode', value);
             }
         },
 
         getPromoCodeId: function() {
             if (promoCodeId !== undefined) {
                 return promoCodeId;
-            } else if ($window.localStorage.getItem('promoCodeId') !== null) {
-                return $window.localStorage.getItem('promoCodeId');
+            } else if (getPersistedValue('promoCodeId') !== null) {
+                return getPersistedValue('promoCodeId');
             } else {
                 return undefined;
             }
@@ -187,15 +191,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setPromoCodeId: function(value) {
             if (value !== undefined) {
                 promoCodeId = value;
-                $window.localStorage.setItem('promoCodeId', value);
+                setPersistedValue('promoCodeId', value);
             }
         },
 
         getStartTime: function() {
             if (startTime !== undefined) {
                 return startTime;
-            } else if ($window.localStorage.getItem('startTime') !== null) {
-                return new Date($window.localStorage.getItem('startTime'));
+            } else if (getPersistedValue('startTime') !== null) {
+                return new Date(getPersistedValue('startTime'));
             } else {
                 return undefined;
             }
@@ -204,15 +208,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setStartTime: function(value) {
             if (value !== undefined) {
                 startTime = value;
-                $window.localStorage.setItem('startTime', value);
+                setPersistedValue('startTime', value);
             }
         },
 
         getSubTotalAmount: function() {
             if (subTotalAmount !== undefined) {
                 return subTotalAmount;
-            } else if ($window.localStorage.getItem('startsubTotalAmountTime') !== null) {
-                return parseFloat($window.localStorage.getItem('subTotalAmount'));
+            } else if (getPersistedValue('startsubTotalAmountTime') !== null) {
+                return parseFloat(getPersistedValue('subTotalAmount'));
             } else {
                 return undefined;
             }
@@ -221,15 +225,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setSubTotalAmount: function(value) {
             if (value !== undefined) {
                 subTotalAmount = value;
-                $window.localStorage.setItem('subTotalAmount', value);
+                setPersistedValue('subTotalAmount', value);
             }
         },
 
         getTotalAmount: function() {
             if (totalAmount !== undefined) {
                 return totalAmount;
-            } else if ($window.localStorage.getItem('totalAmount') !== null) {
-                return parseFloat($window.localStorage.getItem('totalAmount'));
+            } else if (getPersistedValue('totalAmount') !== null) {
+                return parseFloat(getPersistedValue('totalAmount'));
             } else {
                 return undefined;
             }
@@ -238,15 +242,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setTotalAmount: function(value) {
             if (value !== undefined) {
                 totalAmount = value;
-                $window.localStorage.setItem('totalAmount', value);
+                setPersistedValue('totalAmount', value);
             }
         },
 
         getVendorCleanupCost: function() {
             if (vendorCleanupCost !== undefined) {
                 return vendorCleanupCost;
-            } else if ($window.localStorage.getItem('vendorCleanupCost') !== null) {
-                return parseFloat($window.localStorage.getItem('vendorCleanupCost'));
+            } else if (getPersistedValue('vendorCleanupCost') !== null) {
+                return parseFloat(getPersistedValue('vendorCleanupCost'));
             } else {
                 return undefined;
             }
@@ -255,15 +259,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setVendorCleanupCost: function(value) {
             if (value !== undefined) {
                 vendorCleanupCost = value;
-                $window.localStorage.setItem('vendorCleanupCost', value);
+                setPersistedValue('vendorCleanupCost', value);
             }
         },
 
         getVendorSetupCost: function() {
             if (vendorSetupCost !== undefined) {
                 return vendorSetupCost;
-            } else if ($window.localStorage.getItem('vendorSetupCost') !== null) {
-                return parseFloat($window.localStorage.getItem('vendorSetupCost'));
+            } else if (getPersistedValue('vendorSetupCost') !== null) {
+                return parseFloat(getPersistedValue('vendorSetupCost'));
             } else {
                 return undefined;
             }
@@ -272,15 +276,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setVendorSetupCost: function(value) {
             if (value !== undefined) {
                 vendorSetupCost = value;
-                $window.localStorage.setItem('vendorSetupCost', value);
+                setPersistedValue('vendorSetupCost', value);
             }
         },
 
         getVegetarianHeadCount: function() {
             if (vegetarianHeadCount !== undefined) {
                 return vegetarianHeadCount;
-            } else if ($window.localStorage.getItem('vegetarianHeadCount') !== null) {
-                return parseInt($window.localStorage.getItem('vegetarianHeadCount'), 10);
+            } else if (getPersistedValue('vegetarianHeadCount') !== null) {
+                return parseInt(getPersistedValue('vegetarianHeadCount'), 10);
             } else {
                 return undefined;
             }
@@ -289,15 +293,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setVegetarianHeadCount: function(value) {
             if (value !== undefined) {
                 vegetarianHeadCount = value;
-                $window.localStorage.setItem('vegetarianHeadCount', value);
+                setPersistedValue('vegetarianHeadCount', value);
             }
         },
 
         isCutleryAndServiettesRequired: function() {
             if (isCutleryAndServiettesRequired !== undefined) {
                 return isCutleryAndServiettesRequired;
-            } else if ($window.localStorage.getItem('isCutleryAndServiettesRequired') !== null) {
-                return $window.localStorage.getItem('isCutleryAndServiettesRequired');
+            } else if (getPersistedValue('isCutleryAndServiettesRequired') !== null) {
+                return getPersistedValue('isCutleryAndServiettesRequired');
             } else {
                 return undefined;
             }
@@ -306,15 +310,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setIsCutleryAndServiettesRequired: function(value) {
             if (value !== undefined) {
                 isCutleryAndServiettesRequired = value;
-                $window.localStorage.setItem('isCutleryAndServiettesRequired', value);
+                setPersistedValue('isCutleryAndServiettesRequired', value);
             }
         },
 
         isVendorRequiredToCleanUp: function() {
             if (isVendorRequiredToCleanUp !== undefined) {
                 return isVendorRequiredToCleanUp;
-            } else if ($window.localStorage.getItem('isVendorRequiredToCleanUp') !== null) {
-                return $window.localStorage.getItem('isVendorRequiredToCleanUp');
+            } else if (getPersistedValue('isVendorRequiredToCleanUp') !== null) {
+                return getPersistedValue('isVendorRequiredToCleanUp');
             } else {
                 return undefined;
             }
@@ -323,15 +327,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setIsVendorRequiredToCleanUp: function(value) {
             if (value !== undefined) {
                 isVendorRequiredToCleanUp = value;
-                $window.localStorage.setItem('isVendorRequiredToCleanUp', value);
+                setPersistedValue('isVendorRequiredToCleanUp', value);
             }
         },
 
         isVendorRequiredToSetUp: function() {
             if (isVendorRequiredToSetUp !== undefined) {
                 return isVendorRequiredToSetUp;
-            } else if ($window.localStorage.getItem('isVendorRequiredToSetUp') !== null) {
-                return $window.localStorage.getItem('isVendorRequiredToSetUp');
+            } else if (getPersistedValue('isVendorRequiredToSetUp') !== null) {
+                return getPersistedValue('isVendorRequiredToSetUp');
             } else {
                 return undefined;
             }
@@ -340,15 +344,15 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setIsVendorRequiredToSetUp: function(value) {
             if (value !== undefined) {
                 isVendorRequiredToSetUp = value;
-                $window.localStorage.setItem('isVendorRequiredToSetUp', value);
+                setPersistedValue('isVendorRequiredToSetUp', value);
             }
         },
 
         getLastCreatedOrder: function() {
             if (lastCreatedOrder !== undefined) {
                 return lastCreatedOrder;
-            } else if ($window.localStorage.getItem('lastCreatedOrder') !== null) {
-                return JSON.parse($window.localStorage.getItem('lastCreatedOrder'));
+            } else if (getPersistedValue('lastCreatedOrder') !== null) {
+                return JSON.parse(getPersistedValue('lastCreatedOrder'));
             } else {
                 return undefined;
             }
@@ -357,7 +361,7 @@ angular.module('cp.services').service('CheckoutService', function($window) {
         setLastCreatedOrder: function(value) {
             if (value !== undefined) {
                 lastCreatedOrder = value;
-                $window.localStorage.setItem('lastCreatedOrder', JSON.stringify(lastCreatedOrder));
+                setPersistedValue('lastCreatedOrder', JSON.stringify(lastCreatedOrder));
             }
         },
 
@@ -368,15 +372,35 @@ angular.module('cp.services').service('CheckoutService', function($window) {
             isVendorRequiredToSetUp = false;
             packagingType = undefined;
             vegetarianHeadCount = undefined;
+            deliveryAddressId = undefined;
+            deliveryCost = undefined;
+            deliveryDate = undefined;
+            endTime = undefined;
+            headCount = undefined;
+            packageId = undefined;
+            postcode = undefined;
+            promoCodeId = undefined;
+            subTotalAmount = undefined;
+            totalAmount = undefined;
+            vendorCleanupCost = undefined;
+            vendorSetupCost = undefined;
 
-            $window.localStorage.removeItem('dietaryRequirementsExtra');
-            $window.localStorage.removeItem('isCutleryAndServiettesRequired');
-            $window.localStorage.removeItem('isVendorRequiredToCleanUp');
-            $window.localStorage.removeItem('isVendorRequiredToSetUp');
-            $window.localStorage.removeItem('packagingType');
-            $window.localStorage.removeItem('vegetarianHeadCount');
+            removePersistedValue('dietaryRequirementsExtra');
+            removePersistedValue('isCutleryAndServiettesRequired');
+            removePersistedValue('isVendorRequiredToCleanUp');
+            removePersistedValue('isVendorRequiredToSetUp');
+            removePersistedValue('packagingType');
+            removePersistedValue('vegetarianHeadCount');
+            removePersistedValue('postcode');
+            removePersistedValue('promoCodeId');
+            removePersistedValue('vendorSetupCost');
+            removePersistedValue('vendorCleanupCost');
+            removePersistedValue('deliveryAddressId');
+            removePersistedValue('deliveryCost');
+            removePersistedValue('deliveryDate');
 
-            // Deliberately do not reset 'lastCreatedOrder'.
+            // Deliberately do not reset 'lastCreatedOrder' or 'startTime', because they are used in
+            // the 'thank you' page.
         }
     };
 });
