@@ -20,9 +20,12 @@ angular.module('cp.services').service('CheckoutService', function($window) {
     let vendorSetupCost;
     let lastCreatedOrder;
 
-    const getPersistedValue = (key) => $window.localStorage.getItem(key);
-    const setPersistedValue = (key, value) => $window.localStorage.setItem(key, value);
-    const removePersistedValue = (key) => $window.localStorage.removeItem(key);
+    // This prefix constant is versioned so we can make changes to what is stored, without having
+    // to ask users to clear their local storage manually.
+    const LOCAL_STORAGE_PREFIX = 'CheckoutServiceV1~';
+    const getPersistedValue = (key) => $window.localStorage.getItem(LOCAL_STORAGE_PREFIX + key);
+    const setPersistedValue = (key, value) => $window.localStorage.setItem(LOCAL_STORAGE_PREFIX + key, value);
+    const removePersistedValue = (key) => $window.localStorage.removeItem(LOCAL_STORAGE_PREFIX + key);
 
     return {
         getDeliveryAddressId: function() {
