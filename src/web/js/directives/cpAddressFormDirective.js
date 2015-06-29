@@ -24,7 +24,7 @@ angular.module('cp').controller('cpAddressFormController',
                 if (!$scope.address.orderNotificationMobileNumbers) {
                     $scope.address.orderNotificationMobileNumbers = [];
                 }
-                $scope.address.orderNotificationMobileNumbersCommaSeperated = $scope.address.orderNotificationMobileNumbers.join(', ');
+                $scope.address.orderNotificationMobileNumbersCommaSeparated = $scope.address.orderNotificationMobileNumbers.join(', ');
             }
 
             function setLabel() {
@@ -43,7 +43,7 @@ angular.module('cp').controller('cpAddressFormController',
                 }
 
                 if ($scope.userType === 'vendor') {
-                    $scope.address.orderNotificationMobileNumbers = $scope.address.orderNotificationMobileNumbersCommaSeperated.split(/\s*,\s*/);
+                    $scope.address.orderNotificationMobileNumbers = $scope.address.orderNotificationMobileNumbersCommaSeparated.split(/\s*,\s*/);
                 }
 
                 LoadingService.show();

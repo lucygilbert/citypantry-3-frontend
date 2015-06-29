@@ -35,21 +35,21 @@ describe('cpAddressForm directive controller', function() {
 
             expect(scope.address.orderNotificationMobileNumbers)
                 .toEqual([]);
-            expect(scope.address.orderNotificationMobileNumbersCommaSeperated)
+            expect(scope.address.orderNotificationMobileNumbersCommaSeparated)
                 .toEqual('');
         });
 
-        it('should create a comma-seperated string of order notification mobile numbers when loading', function() {
+        it('should create a comma-separated string of order notification mobile numbers when loading', function() {
             scope.address.orderNotificationMobileNumbers = ['07123', '07456'];
             makeCtrl();
 
-            expect(scope.address.orderNotificationMobileNumbersCommaSeperated)
+            expect(scope.address.orderNotificationMobileNumbersCommaSeparated)
                 .toBe('07123, 07456');
         });
 
         it('should create an array of order notification mobile numbers when saving', function() {
             makeCtrl();
-            scope.address.orderNotificationMobileNumbersCommaSeperated = '07123, 07456  ,  07789';
+            scope.address.orderNotificationMobileNumbersCommaSeparated = '07123, 07456  ,  07789';
 
             scope.form.$invalid = false;
             scope.save();
