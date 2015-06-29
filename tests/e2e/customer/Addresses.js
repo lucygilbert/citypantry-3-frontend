@@ -37,7 +37,7 @@ describe('Customer delivery addresses', function() {
         element(by.model('address.companyName')).sendKeys('City Pantry');
 
         // The order notification mobile number, and contact name, is only for vendors.
-        expect(element(by.model('address.orderNotificationMobileNumbersCommaSeperated')).isPresent()).toBe(false);
+        expect(element(by.model('address.orderNotificationMobileNumbersCommaSeparated')).isPresent()).toBe(false);
         expect(element(by.model('address.contactName')).isPresent()).toBe(false);
     });
 
@@ -69,7 +69,7 @@ describe('Customer delivery addresses', function() {
         expect(element(by.model('address.city')).getAttribute('value')).toBe('London');
 
         // The order notification mobile number, and contact name, is only for vendors.
-        expect(element(by.model('address.orderNotificationMobileNumbersCommaSeperated')).isPresent()).toBe(false);
+        expect(element(by.model('address.orderNotificationMobileNumbersCommaSeparated')).isPresent()).toBe(false);
         expect(element(by.model('address.contactName')).isPresent()).toBe(false);
 
         element(by.model('address.city')).clear().sendKeys('Albuquerque');

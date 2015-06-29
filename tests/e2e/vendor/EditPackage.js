@@ -134,7 +134,7 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
         element(by.model('newAddress.city')).sendKeys('London');
         element(by.model('newAddress.postcode')).sendKeys('SW1P 1DE');
         element(by.model('newAddress.landlineNumber')).sendKeys('020 3397 8376');
-        element(by.model('newAddress.orderNotificationMobileNumbersCommaSeperated')).sendKeys('07861795252');
+        element(by.model('newAddress.orderNotificationMobileNumbersCommaSeparated')).sendKeys('07861795252');
         element(by.model('newAddress.contactName')).sendKeys('Stu');
 
         element(by.css('button[ng-click="addAddress()"]')).click();
