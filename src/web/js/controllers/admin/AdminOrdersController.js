@@ -158,7 +158,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
     };
 
     $scope.getOrderNumbers = () => {
-        $scope.visibleOrderNumbers = $scope.gridApi.core.getVisibleRows().map(order => order.entity.humanId);
+        $scope.visibleOrderNumbers = getAllFilteredRows().map(row => row.entity.humanId);
     };
 
     function loadOrders() {
