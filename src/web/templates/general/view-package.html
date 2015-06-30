@@ -218,7 +218,8 @@
                 </fieldset>
 
                 <input analytics-on="click" analytics-event="orderNow" analytics-category="buttonEvents"
-                        class="cp-btn cp-btn-primary cp-btn-lg cp-btn-block" type="submit"
+                        class="cp-btn cp-btn-primary cp-btn-lg cp-btn-block cp-btn-start-order"
+                        type="submit"
                         value="Order now ({{ order.totalAmount | currency:'£':2 }})" />
 
                 <p ng-if="order.deliveryCost === 0" class="cp-package-delivery-cost">You’ve qualified for <span class="text-uppercase">free</span> delivery!</p>

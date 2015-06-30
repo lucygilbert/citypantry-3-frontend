@@ -26,14 +26,22 @@ angular.module('cp.controllers.authentication').controller('RegisterController',
             .success(function(response) {
                 $cookies.userId = response.apiAuth.userId;
                 $cookies.salt = response.apiAuth.salt;
-                let includeCode = 'includeRegistrationTrackingCode=1';
                 $window.localStorage.setItem('user', JSON.stringify(response.user));
+
+                // Redirect to the next page -- this can be configured through
+                // `SecurityService.urlToForwardToAfterLogin`. Add a query string to let the Twig
+                // layout know to include the post-registration tracking code.
+                const registrationTrackingCodeQueryString = 'includeRegistrationTrackingCode=1';
                 if (SecurityService.urlToForwardToAfterLogin) {
-                    $window.location = SecurityService.urlToForwardToAfterLogin +
-                        (SecurityService.urlToForwardToAfterLogin.indexOf('?') < 0 ?
-                        '?' + includeCode : '&' + includeCode);
+                    const nextUrl = SecurityService.urlToForwardToAfterLogin +
+                        (
+                            SecurityService.urlToForwardToAfterLogin.indexOf('?') === -1 ?
+                                `?${registrationTrackingCodeQueryString}` :
+                                `&${registrationTrackingCodeQueryString}`
+                        );
+                    $window.location = nextUrl;
                 } else {
-                    $window.location = '/?' + includeCode;
+                    $window.location = '/?' + registrationTrackingCodeQueryString;
                 }
             })
             .catch(function(response) {

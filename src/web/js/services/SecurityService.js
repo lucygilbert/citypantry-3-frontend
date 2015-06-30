@@ -55,6 +55,10 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             return !!$cookies.userId;
         },
 
+        /**
+         * Setting this property will cause the user to be redirected to the given URL after the
+         * user authenticates (either via login or registration).
+         */
         urlToForwardToAfterLogin: undefined,
 
         requireLoggedIn: function() {
