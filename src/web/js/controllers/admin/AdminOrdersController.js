@@ -21,6 +21,14 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
 
     let gridApi;
 
+    /**
+     * Get all rows that are currently filtered, regardless of whether they are on the currently
+     * visible page.
+     */
+    const getAllFilteredRows = () => {
+        return $scope.gridApi.grid.rows.filter(row => row.visible);
+    };
+
     $scope.gridOptions = {
         columnDefs: [
             {
@@ -129,26 +137,14 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
     function calculateTotalOrdersCost() {
         $timeout(function() {
             $scope.ordersTotal = 0;
-            // This gets every row that will be visible for the current filters
-            // whether it is on the current page or not.
-            $scope.gridApi.grid.rows.forEach(row => {
-                if (row.visible) {
-                    $scope.ordersTotal += row.entity.totalAmountAfterVoucher;
-                }
-            });
+            getAllFilteredRows().forEach(row => $scope.ordersTotal += row.entity.totalAmountAfterVoucher);
         }, 0);
     }
 
     $scope.createOrdersCsv = () => {
         const selectedOrdersIds = [];
 
-        $scope.gridApi.grid.rows.forEach(row => {
-            // The visible property marks the row as one of the filtered rows.
-            // When using pagination, the row may not necessarily be visible.
-            if (row.visible) {
-                selectedOrdersIds.push(row.entity.id);
-            }
-        });
+        getAllFilteredRows().forEach(row => selectedOrdersIds.push(row.entity.id));
 
         if (selectedOrdersIds.length === 0) {
             NotificationService.notifyError('You must have at least one order to create a CSV file.');
