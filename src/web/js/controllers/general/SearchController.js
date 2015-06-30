@@ -1,8 +1,7 @@
 angular.module('cp.controllers.general').controller('SearchController',
-        function($scope, PackagesFactory, OrdersFactory, NotificationService,
-        $routeParams, DocumentTitleService, SecurityService, LoadingService, $q, $filter,
-        SearchService, $anchorScroll, ABTestService) {
-
+        function($scope, PackagesFactory, OrdersFactory, NotificationService, DocumentTitleService,
+        LoadingService, $q, $filter, SearchService, $anchorScroll, FacebookAnalyticsService) {
+    FacebookAnalyticsService.track('6031347907146');
     DocumentTitleService('Search catering packages');
 
     const PAGINATION_LENGTH = 20;
