@@ -842,64 +842,6 @@ body {
     width: 90px;
 }
 
-.vendor-signup-steps {
-    display: none;
-}
-
-@media only screen and (min-width: $screen-sm-min) {
-    .vendor-signup-steps {
-        border-bottom: 1px solid #dedede;
-        display: block;
-        margin-bottom: 1.5rem;
-    }
-
-    .vendor-signup-steps ul {
-        font-size: 1.125rem;
-    }
-
-    .vendor-signup-steps li {
-        display: inline-block;
-        width: 33.333%;
-    }
-
-    .vendor-signup-steps a {
-        border-bottom: 3px solid #fff;
-        color: #777;
-        display: block;
-        padding: 20px 20px 17px;
-        text-align: center;
-    }
-
-    .vendor-signup-steps a:hover,
-    .vendor-signup-steps a:focus,
-    .vendor-signup-steps a:active {
-        border-color: #efefef;
-        color: #428bca;
-        text-decoration: none;
-    }
-
-    .vendor-signup-steps .link-inactive:hover,
-    .vendor-signup-steps .link-inactive:focus,
-    .vendor-signup-steps .link-inactive:active {
-        border-color: #fff;
-        color: #777;
-    }
-
-    .vendor-signup-steps .active a,
-    .vendor-signup-steps .active a:hover,
-    .vendor-signup-steps .active a:focus,
-    .vendor-signup-steps .active a:active {
-        border-color: #2e8272;
-        color: #444;
-        font-weight: 700;
-    }
-
-    .vendor-signup-steps .wrapper {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-}
-
 /**
  * Contact
  */
@@ -1010,7 +952,6 @@ hr {
 @import 'vendor/delivery-radiuses.scss';
 @import 'vendor/orders.scss';
 @import 'vendor/packages.scss';
-@import 'vendor/signup.scss';
 @import 'footer.scss';
 @import 'form.scss';
 @import 'links.scss';
