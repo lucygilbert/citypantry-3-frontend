@@ -1,4 +1,20 @@
 describe('Package page', function() {
+    function clickOrderNowButton() {
+        var orderNowButton = element(by.css('.cp-btn-start-order'));
+        expect(orderNowButton.getAttribute('value')).toMatch(/Order now \(£[\d\.]+\)/);
+        orderNowButton.click();
+    }
+
+    function enterPostcode(postcode) {
+        element(by.css('.cp-package-change-delivery-location')).click();
+        element(by.model('$parent.newPostcode')).sendKeys(postcode);
+        element(by.css('.cp-delivery-location-modal button[type="submit"]')).click();
+    }
+
+    function closePostcodeModal() {
+        element(by.css('.cp-delivery-location-modal .close')).click();
+    }
+
     describe('Carrots package', function() {
         var now = new Date();
         var nextSunday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + (7 - now.getDay()));
@@ -7,6 +23,43 @@ describe('Package page', function() {
         if (oneWeekFromNow.getDay() === 0) {
             oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 1);
         }
+
+        it('should show the login modal if Order Now is clicked when logged out', function() {
+            logout();
+            browser.get('/search');
+
+            var breakfastEventType = element.all(by.repeater('eventType in eventTypes')).get(0);
+            expect(breakfastEventType.getText()).toBe('Breakfast');
+            breakfastEventType.click();
+            expect(element.all(by.repeater('package in packages')).count()).toBe(1);
+
+            element.all(by.repeater('package in packages')).get(0).all(by.css('a')).get(0).click();
+
+            var loginModal = element(by.css('.cp-login'));
+            var deliveryLocationError = element(by.css('label[for="order_postcode"] .form-element-invalid'));
+
+            expect(loginModal.isPresent()).toBe(false);
+            expect(deliveryLocationError.isDisplayed()).toBe(false);
+
+            clickOrderNowButton();
+
+            // The login modal should not be visible yet because the required fields have not been
+            // completed.
+            expect(loginModal.isPresent()).toBe(false);
+            expect(deliveryLocationError.isDisplayed()).toBe(true);
+
+            enterPostcode('W6 7PY');
+            closePostcodeModal();
+            element(by.model('pickedDate')).clear().sendKeys(oneWeekFromNow.toISOString());
+            element(by.cssContainingText('#order_time option', '13:30')).click();
+
+            clickOrderNowButton();
+
+            // Now the login modal should be visible yet because the required fields have been
+            // completed.
+            expect(loginModal.isDisplayed()).toBe(true);
+            expect(deliveryLocationError.isDisplayed()).toBe(false);
+        });
 
         it('has the package', function() {
             loginAsUser('customer@bunnies.test');
@@ -101,37 +154,31 @@ describe('Package page', function() {
         });
 
         it('should show an error if an invalid postcode is entered', function() {
-            element(by.css('.cp-package-change-delivery-location')).click();
-            element(by.model('$parent.newPostcode')).sendKeys('QWERTY');
-            element(by.css('.cp-modal button[type="submit"]')).click();
+            enterPostcode('QWERTY');
 
             var error = element.all(by.css('.cp-delivery-location-modal .cp-form-error')).get(1);
             expect(error.getText()).toBe('Postcode is invalid');
             expect(error.isDisplayed()).toBe(true);
 
-            element(by.css('.cp-delivery-location-modal .close')).click();
+            closePostcodeModal();
         });
 
         it('should be able to change delivery location', function() {
-            element(by.css('.cp-package-change-delivery-location')).click();
-            element(by.model('$parent.newPostcode')).sendKeys('W12 8LB');
-            element(by.css('.cp-delivery-location-modal button[type="submit"]')).click();
+            enterPostcode('W12 8LB');
 
             expect(element(by.css('.cp-modal-title')).getText()).toBe('AVAILABLE');
             expect(element(by.id('order_postcode')).getAttribute('value')).toBe('W12 8LB');
 
-            element(by.css('.cp-delivery-location-modal .close')).click();
+            closePostcodeModal();
         });
 
         it('should show an error if the meal cannot be delivered to this postcode', function() {
-            element(by.css('.cp-package-change-delivery-location')).click();
-            element(by.model('$parent.newPostcode')).sendKeys('EC1V 9NS');
-            element(by.css('.cp-delivery-location-modal button[type="submit"]')).click();
+            enterPostcode('EC1V 9NS');
 
             expect(element(by.css('.cp-modal-title')).getText()).toBe('NOT AVAILABLE');
             expect(element(by.id('order_postcode')).getAttribute('value')).toBe('W12 8LB');
 
-            element(by.css('.cp-delivery-location-modal .close')).click();
+            closePostcodeModal();
         });
 
         it('should show a date picker when delivery date is focused', function() {
@@ -154,7 +201,7 @@ describe('Package page', function() {
             element(by.model('pickedDate')).sendKeys(nextSunday.toISOString());
             element.all(by.css('#order_time > option')).get(21).click(); // 11:00.
 
-            element(by.css('.cp-package-form input[type="submit"]')).click();
+            clickOrderNowButton();
 
             expect(element(by.css('p[ng-bind="packageFormError"]')).getText()).toBe('This meal cannot be delivered on this date.');
         });
@@ -162,7 +209,7 @@ describe('Package page', function() {
         it('should show an error if the vendor needs more notice', function() {
             element(by.model('pickedDate')).clear().sendKeys(now.toISOString());
 
-            element(by.css('.cp-package-form input[type="submit"]')).click();
+            clickOrderNowButton();
 
             expect(element(by.css('p[ng-bind="packageFormError"]')).getText()).toBe('The vendor needs more notice to deliver at this time.');
         });
@@ -170,7 +217,7 @@ describe('Package page', function() {
         it('should be able to proceed to checkout', function() {
             element(by.model('pickedDate')).clear().sendKeys(oneWeekFromNow.toISOString());
 
-            element(by.css('.cp-package-form input[type="submit"]')).click();
+            clickOrderNowButton();
 
             expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/catering-details/);
         });
