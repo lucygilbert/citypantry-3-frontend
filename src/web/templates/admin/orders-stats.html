@@ -6,6 +6,12 @@
     <p>Orders included can have any status (accepted or pending). Excludes deleted orders. Sales are grouped into UTC days.</p>
 
     <div ng-if="isReady">
+        <h3 class="cp-heading">July</h3>
+
+        <p><b>Month total: {{ getTotalInMonth(july) }}</b></p>
+
+        <p ng-repeat="day in july">{{ day.start | date:'d' }}: {{ day.sales }}</p>
+
         <h3 class="cp-heading">June</h3>
 
         <p><b>Month total: {{ getTotalInMonth(june) }}</b></p>
