@@ -1,0 +1,15 @@
+#cp-team-order {
+    h1, h2 {
+        text-align: center;
+    }
+
+    [cp-rating-stars] {
+        font-size: 3em;
+        width: 242px;
+        margin: 0 auto 20px;
+    }
+
+    cp-package-detail {
+        margin-bottom: 20px;
+    }
+}

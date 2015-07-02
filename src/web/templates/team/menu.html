@@ -1,0 +1,13 @@
+<div class="thin-container">
+    <h1 class="cp-heading">Your company's menu</h1>
+
+    <div ng-repeat="order in orders">
+        <h2 class="cp-heading">{{ order.requestedDeliveryDate | date:'d MMMM yyyy, HH:mm' }}</h2>
+
+        <cp-package-detail package="order.package"
+            show-team-review-link="order.hasRequestedDeliveryDatePassed"
+            team-review-customer-id="customerId"
+            team-review-order-id="order.id"
+            ></cp-package-detail>
+    </div>
+</div>
