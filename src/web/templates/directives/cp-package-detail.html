@@ -9,5 +9,11 @@
 
     <p class="cp-package-detail-short-description" ng-if="package.shortDescription" js-clamp="'3'">{{ package.shortDescription }}</p>
 
-    <a ng-href="/package/{{ package.humanId }}-{{ package.name | slugify }}" class="link-account">View details</a>
+    <a ng-href="/package/{{ package.humanId }}-{{ package.name | slugify }}">
+        View details
+    </a>
+
+    <a ng-href="/team/{{ teamReviewCustomerId }}/order/{{ teamReviewOrderId }}" ng-if="showTeamReviewLink">
+        Write a review
+    </a>
 </div>

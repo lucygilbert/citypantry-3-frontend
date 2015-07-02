@@ -1,0 +1,45 @@
+<div class="thin-container" id="cp-team-order">
+    <h1 ng-if="canReview" class="cp-heading">
+        How was your meal?
+    </h1>
+    <h2 ng-if="canReview" class="cp-heading">
+        {{ order.requestedDeliveryDate | date:'d MMMM yyyy, HH:mm' }}
+    </h2>
+
+    <h1 ng-if="!canReview" class="cp-heading">
+        {{ order.requestedDeliveryDate | date:'d MMMM yyyy, HH:mm' }}
+    </h1>
+
+    <div cp-rating-stars="review.overallRating"
+        cp-is-editable="true"
+        ng-if="canReview"></div>
+
+    <cp-package-detail package="order.package"
+        show-team-review-link="false"
+        ></cp-package-detail>
+
+    <form name="reviewForm" role="form" ng-submit="saveReview()" novalidate
+            ng-if="canReview && hasSavedOverallRating">
+        <fieldset>
+            <div class="cp-form-group">
+                <label class="cp-form-label" for="reviewText">
+                    Additional comment (visible to your office manager)
+                </label>
+
+                <textarea class="cp-form-control" id="reviewText" ng-model="review.review"
+                    cols="80" rows="6"></textarea>
+            </div>
+
+            <div class="cp-form-group">
+                <label class="cp-form-label" for="reviewerName">
+                    Your name (leave this empty if you want to be anonymous)
+                </label>
+
+                <input class="cp-form-control" id="reviewerName" ng-model="review.reviewerName"
+                    size="30" />
+            </div>
+
+            <input class="cp-btn cp-btn-primary" type="submit" value="Send" />
+        </fieldset>
+    </form>
+</div>

@@ -208,6 +208,14 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'MealPlanCreateAccountController',
             templateUrl: getTemplateUrl('auth/meal-plan-create-account.html')
         }).
+        when('/team/:customerId/menu', {
+            controller: 'TeamMenuController',
+            templateUrl: getTemplateUrl('team/menu.html')
+        }).
+        when('/team/:customerId/order/:orderId', {
+            controller: 'TeamOrderController',
+            templateUrl: getTemplateUrl('team/order.html')
+        }).
         when('/admin/database-query', {
             controller: 'AdminDatabaseQueryController',
             templateUrl: getTemplateUrl('admin/database-query.html')

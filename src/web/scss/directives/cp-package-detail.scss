@@ -22,6 +22,12 @@ cp-package-detail {
     img {
         float:left;
     }
+
+    a {
+        display: block;
+        margin-bottom: 5px;
+        @extend .link-account;
+    }
 }
 
 .cp-package-detail-right {

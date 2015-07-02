@@ -11,5 +11,6 @@ bin/run-protractor-suite admin
 bin/run-protractor-suite authentication
 bin/run-protractor-suite customer
 bin/run-protractor-suite general
+bin/run-protractor-suite team
 bin/run-protractor-suite user
 bin/run-protractor-suite vendor
