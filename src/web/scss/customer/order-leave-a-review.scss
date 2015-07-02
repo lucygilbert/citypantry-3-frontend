@@ -6,31 +6,6 @@
         left: auto;
     }
 
-    .cp-review-package {
-        @extend .row;
-        border: 5px solid $gray-light;
-        margin: 0 -20px;
-        padding: 20px 0;
-
-        > *[class^='col-'],
-        > *[class*=' col-'] {
-            padding: 0 20px;
-        }
-
-        > .right {
-            float: left;
-            margin-left: 20px;
-        }
-
-        h3 {
-            margin: 0 0 3px;
-        }
-
-        img {
-            float:left;
-        }
-    }
-
     .cp-star-rating-group {
         @extend .clearfix;
 
@@ -99,21 +74,4 @@
             float: right;
         }
     }
-}
-
-.cp-review-package-detail {
-    padding-left: 0 !important;
-}
-
-.cp-review-package-image {
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 155px;
-}
-
-.cp-review-package-vendor-name,
-.cp-review-package-short-description {
-    font-size: 16px;
-    margin-bottom: $cp-margin-small-vertical;
 }

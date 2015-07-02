@@ -1,0 +1,13 @@
+<div class="col-md-5">
+    <div class="cp-package-detail-image" style="background-image: url('{{ package.images[0].thumbnail }}')"></div>
+</div>
+
+<div class="cp-package-detail-right col-md-7">
+    <h3 class="cp-heading">{{ package.name }}</h3>
+
+    <p class="cp-package-detail-vendor-name">{{ package.vendor.name }}</p>
+
+    <p class="cp-package-detail-short-description" ng-if="package.shortDescription" js-clamp="'3'">{{ package.shortDescription }}</p>
+
+    <a ng-href="/package/{{ package.humanId }}-{{ package.name | slugify }}" class="link-account">View details</a>
+</div>

@@ -4,20 +4,7 @@
         <span class="cp-light">{{ order.requestedDeliveryDate | date:'dd MMM yy' }}</span>
     </h2>
 
-    <div class="cp-review-package">
-        <div class="col-md-5">
-            <div class="cp-review-package-image" style="background-image: url('{{ order.package.images[0].thumbnail }}')"></div>
-        </div>
-        <div class="cp-review-package-detail col-md-7">
-            <h3 class="cp-heading">{{ order.package.name }}</h3>
-
-            <p class="cp-review-package-vendor-name">{{ order.package.vendor.name }}</p>
-
-            <p class="cp-review-package-short-description" ng-if="order.package.shortDescription" js-clamp="'3'">{{ order.package.shortDescription }}</p>
-
-            <a ng-href="/package/{{ order.package.humanId }}-{{ order.package.name | slugify }}" class="link-account">View details</a>
-        </div>
-    </div>
+    <cp-package-detail package="order.package"></cp-package-detail>
 
     <h2 class="cp-heading">Your feedback</h2>
 

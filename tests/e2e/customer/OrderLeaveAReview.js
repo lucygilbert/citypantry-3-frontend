@@ -40,8 +40,8 @@ describe('Leaving a review for an order', function() {
     });
 
     it('should display the package details', function() {
-        expect(element(by.css('.cp-review-package h3')).getText()).toBe('BEEF AND MIXED VEG CURRY');
-        expect(element(by.css('.cp-review-package-vendor-name')).getText()).toBe('Oriental Kitchen Express');
+        expect(element(by.css('cp-package-detail h3')).getText()).toBe('BEEF AND MIXED VEG CURRY');
+        expect(element(by.css('.cp-package-detail-vendor-name')).getText()).toBe('Oriental Kitchen Express');
     });
 
     function getStar(parent, number) {
