@@ -3,6 +3,13 @@
 
     <p ng-if="count === 0">No orders have been made.</p>
 
+    <p ng-if="count > 0">
+        Share this link with your team, and they will be able to see your company's upcoming
+        orders, as well as leave reviews for you to see:
+        <a ng-href="{{ FRONTEND_BASE }}/team/{{ customer.id }}/menu"
+            >{{ FRONTEND_BASE }}/team/{{ customer.id }}/menu</a>
+    </p>
+
     <table ng-if="count > 0" class="cp-table" id="orders-table" summary="Your orders">
         <thead>
             <tr>

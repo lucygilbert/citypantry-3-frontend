@@ -8,6 +8,15 @@
 
     <h2 class="cp-heading">Your feedback</h2>
 
+    <p>
+        Give feedback to find out what your team thought.
+        Share this link with your team and they will be able to review the meal too:
+        <a ng-href="{{ FRONTEND_BASE }}/team/{{ order.customer.id }}/order/{{ order.id }}"
+            >{{ FRONTEND_BASE }}/team/{{ order.customer.id }}/order/{{ order.id }}</a>
+    </p>
+
+    <br />
+
     <form name="reviewForm" role="form" ng-submit="save()" novalidate>
         <fieldset>
             <div class="cp-form-group">

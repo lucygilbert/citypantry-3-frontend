@@ -1,6 +1,15 @@
 <div class="thin-container">
     <h1 class="cp-heading">Your company's menu</h1>
 
+    <p>
+        Your company's orders for the next 24 hours, and from the past, will appear on this page.
+        Come back every day to see what's coming up, and to leave reviews for past meals.
+    </p>
+
+    <p ng-if="orders.length === 0">
+        Your company currently doesn't have any upcoming orders, or anything for you to review.
+    </p>
+
     <div ng-repeat="order in orders">
         <h2 class="cp-heading">{{ order.requestedDeliveryDate | date:'d MMMM yyyy, HH:mm' }}</h2>
 

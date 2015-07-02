@@ -115,10 +115,11 @@ angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvid
     }
 })
 .run(function($rootScope, CP_TELEPHONE_NUMBER_UK, CP_TELEPHONE_NUMBER_INTERNATIONAL, CP_SUPPORT_EMAIL_ADDRESS,
-        INCLUDE_ANALYTICS_JS, getTemplateUrl) {
+        INCLUDE_ANALYTICS_JS, FRONTEND_BASE, getTemplateUrl) {
     $rootScope.CP_TELEPHONE_NUMBER_UK = CP_TELEPHONE_NUMBER_UK;
     $rootScope.CP_TELEPHONE_NUMBER_INTERNATIONAL = CP_TELEPHONE_NUMBER_INTERNATIONAL;
     $rootScope.CP_SUPPORT_EMAIL_ADDRESS = CP_SUPPORT_EMAIL_ADDRESS;
     $rootScope.INCLUDE_ANALYTICS_JS = INCLUDE_ANALYTICS_JS;
+    $rootScope.FRONTEND_BASE = FRONTEND_BASE;
     $rootScope.getTemplateUrl = getTemplateUrl;
 });
