@@ -1,0 +1,42 @@
+cp-package-detail {
+    display: block;
+    @extend .row;
+    border: 5px solid $gray-light;
+    margin: 0 -20px;
+    padding: 20px 0;
+
+    > *[class^='col-'],
+    > *[class*=' col-'] {
+        padding: 0 20px;
+    }
+
+    > .right {
+        float: left;
+        margin-left: 20px;
+    }
+
+    h3.cp-heading {
+        margin: 0 0 3px;
+    }
+
+    img {
+        float:left;
+    }
+}
+
+.cp-package-detail-right {
+    padding-left: 0 !important;
+}
+
+.cp-package-detail-image {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 155px;
+}
+
+.cp-package-detail-vendor-name,
+.cp-package-detail-short-description {
+    font-size: 16px;
+    margin-bottom: $cp-margin-small-vertical;
+}
