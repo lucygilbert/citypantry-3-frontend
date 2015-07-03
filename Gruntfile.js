@@ -185,7 +185,6 @@ module.exports = function (grunt) {
                         'node_modules/angulartics/dist/angulartics.min.js',
                         'node_modules/angulartics/dist/angulartics-ga.min.js',
                         'node_modules/angulartics/dist/angulartics-hubspot.min.js',
-                        'node_modules/angulartics/dist/angulartics-kissmetrics.min.js',
                         'node_modules/angulartics/dist/angulartics-segmentio.min.js',
                         'src/web/lib/angulartics-console.js',
                         'node_modules/citypantry-js-lib/dist/lib-es5-without-browser-polyfill.js',
