@@ -10,7 +10,7 @@
             }">
         </ng-pluralize></span>
 
-        <span class="total-amount">{{ totalCost | currency:'£':2 }}</span>
+        <span class="total-amount" ng-bind="totalCost | currency:'£':2"></span>
     </h1>
 
     <p class="cp-meal-plan-review-delivery-address">

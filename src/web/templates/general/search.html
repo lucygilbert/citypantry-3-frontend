@@ -57,8 +57,8 @@
                         step="1"
                         ng-model="search.tempMaxBudget"
                         ng-mouseup="changeMaxBudget()" />
-                    <output class="cp-search-budget-per-person-output" for="budget_per_person">
-                        {{ search.maxBudget | currency:'£':0 }}
+                    <output class="cp-search-budget-per-person-output" for="budget_per_person"
+                        ng-bind="search.maxBudget | currency:'£':0">
                     </output>
                 </div>
             </div>
