@@ -33,6 +33,43 @@ describe('Checkout', function() {
             .toContain('YOU JUST COMPLETED YOUR CHECKOUT PROCESS');
     }
 
+    describe('without reaching the minimum order value', function() {
+        var isFirst = true;
+
+        beforeEach(function() {
+            if (isFirst) {
+                loginAsUser('customer@bunnies.test');
+                browser.get('/search');
+
+                pickPackageFromSearch();
+
+                changeDeliveryLocation('W6 7PY');
+
+                // Select delivery date and time.
+                element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toISOString());
+                element(by.cssContainingText('#order_time > option', '13:30')).click();
+            }
+
+            isFirst = false;
+        });
+
+        it('should default to a head count of 1, because that is the package\'s minimum head count', function() {
+            var selectedHeadCount = element(by.model('order.headCount'))
+                .element(by.css('option[selected="selected"]'));
+            expect(selectedHeadCount.getText()).toBe('1');
+        });
+
+        it('should show an error that the order has not reached the minimum order value', function() {
+            var submitButton = element(by.css('.cp-package-form input[type="submit"]'));
+            expect(submitButton.getAttribute('value')).toContain('£35.00');
+            submitButton.click();
+
+            var error = element(by.css('[ng-show="packageFormError"]'));
+            expect(error.isDisplayed()).toBe(true);
+            expect(error.getText()).toBe('You have not met the minimum order value of £50.');
+        });
+    });
+
     describe('Address and card saved', function() {
         var isFirst = true;
 

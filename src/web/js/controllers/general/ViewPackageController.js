@@ -231,7 +231,7 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         // Format the date as YYYY-MM-DD because that is the format expected by the availability API.
         const date = $scope.iso8601DateString.substr(0, 10);
 
-        PackagesFactory.checkIfPackageCanBeDelivered($scope.package.id, date, $scope.order.time, $scope.order.postcode)
+        PackagesFactory.checkIfPackageCanBeDelivered($scope.package.id, date, $scope.order.time, $scope.order.postcode, $scope.order.headCount)
             .success(response => {
                 if (response.isAvailable) {
                     CheckoutService.setPackageId($scope.package.id);
