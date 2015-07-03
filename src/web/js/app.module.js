@@ -3,7 +3,6 @@ if (window.includeAnalyticsJs && !window.isStaff) {
     angularticsDependencies = [
         'angulartics.google.analytics',
         'angulartics.hubspot',
-        'angulartics.kissmetrics',
         'angulartics.segment.io',
         'angulartics.citypantry'
     ];

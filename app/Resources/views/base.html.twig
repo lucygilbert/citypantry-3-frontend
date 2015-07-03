@@ -5,23 +5,6 @@
     <head>
         {% if includeAnalyticsJs and not isStaff %}
         <script>
-            // KISSmetrics
-            var _kmq = _kmq || [];
-            var _kmk = _kmk || 'fcd641ac44b5e8f918876bea305456d3b21fdda2';
-            function _kms(u){
-              setTimeout(function(){
-                var d = document, f = d.getElementsByTagName('script')[0],
-                s = d.createElement('script');
-                s.type = 'text/javascript'; s.async = true; s.src = u;
-                f.parentNode.insertBefore(s, f);
-              }, 1);
-            }
-            _kms('//i.kissmetrics.com/i.js');
-            _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
-            {% if user %}
-                _kmq.push(['identify', {{ user.user.humanId }}]);
-            {% endif %}
-
             (function() {
             var _fbq = window._fbq || (window._fbq = []);
             if (!_fbq.loaded) {
@@ -78,18 +61,6 @@
         {% endif %}
 
         <script src="//use.fonticons.com/1518eb00.js"></script>
-
-        {% if includeAnalyticsJs and not isStaff %}
-            <script>
-                // Lucky Orange.
-                window.__wtw_lucky_site_id = 21550;
-                (function() {
-                    var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
-                    wa.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://cdn') + '.luckyorange.com/w.js';
-                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
-                  })();
-            </script>
-        {% endif %}
 
         {% if includeAnalyticsJs and not isStaff %}
             <script>
