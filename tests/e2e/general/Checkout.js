@@ -164,12 +164,16 @@ describe('Checkout', function() {
         });
 
         it('should be able to redeem a promo code', function() {
-            element(by.model('order.promoCode')).sendKeys('TEST');
+            // The promo code should be case-insensitive. Type it in differently from the database
+            // to ensure case-insensitivity works.
+            element(by.model('order.promoCode')).sendKeys('tEsT2');
             element(by.css('button[ng-click="submitPromoCode()"]')).click();
 
-            expect(element(by.css('.cp-checkout-promo-code-valid')).getText()).toContain('TEST');
-            expect(element(by.css('.cp-checkout-promo-code-valid')).getText()).toContain('5.22');
-            expect(element(by.css('.cp-checkout-payment-form input[type="submit"]')).getAttribute('value')).toContain('594.78');
+            // The promo code should be displayed in all capitals, even if it was typed in the
+            // wrong case.
+            expect(element(by.css('.cp-checkout-promo-code-valid')).getText()).toContain('TEST2');
+            expect(element(by.css('.cp-checkout-promo-code-valid')).getText()).toContain('£40.00');
+            expect(element(by.css('.cp-checkout-payment-form input[type="submit"]')).getAttribute('value')).toContain('560');
         });
 
         it('should be able to proceed to the "thank you" page', expectAbleToPlaceOrderSuccessfully);
