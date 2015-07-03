@@ -4,6 +4,10 @@ describe('Team menu', function() {
     beforeEach(function() {
         if (first) {
             first = false;
+
+            // The team pages should all be visible to unauthenticated users.
+            logout();
+
             browser.get('/team/f1c57004e222222222222222/menu');
         }
     });
