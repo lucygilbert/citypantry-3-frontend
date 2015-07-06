@@ -1,0 +1,37 @@
+<div class="thin-wrapper" id="cp-team-reviews">
+    <h2 class="cp-heading">
+        {{ order.requestedDeliveryDate | date:'EEE' }},
+        <span class="cp-light">{{ order.requestedDeliveryDate | date:'dd MMM yy' }}</span>
+    </h2>
+
+    <cp-package-detail package="order.package"></cp-package-detail>
+
+    <h2 class="cp-heading">Team's rating</h2>
+
+    <p class="lead">
+        {{ order.teamReviewCount }} out of {{ order.headCount }} have rated this meal as following:
+    </p>
+
+    <div cp-rating-stars="averageOverallRating"
+        cp-is-editable="false"></div>
+
+    <section class="cp-package-reviews">
+        <article class="cp-package-review" ng-repeat="review in reviewsWithComment | limitTo:reviewsLimit">
+            <div class="cp-package-review-review">
+                <p>{{ review.review }}</p>
+
+                <span class="cp-package-review-name">
+                    {{ review.reviewerName ? review.reviewerName : 'Anonymous' }}
+                </span>
+
+                <footer>
+                    <p class="cp-package-review-date"><time datetime="{{ review.date | date:'yyyy-mm-dd' }}">{{ review.date | date:'d MMMM yyyy' }}</time></p>
+                </footer>
+            </div>
+        </article>
+
+        <p ng-if="reviews.length > reviewsLimit">
+            <a class="cp-package-reviews-more" ng-click="$parent.reviewsLimit = $parent.reviewsLimit + 20">More Reviews</a>
+        </p>
+    </section>
+</div>
