@@ -104,6 +104,10 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'CustomerOrderLeaveAReviewController',
             templateUrl: getTemplateUrl('customer/order-leave-a-review.html')
         }).
+        when('/customer/orders/:id/team-reviews', {
+            controller: 'CustomerOrderTeamReviewsController',
+            templateUrl: getTemplateUrl('customer/order-team-reviews.html')
+        }).
         when('/customer/meal-plans', {
             controller: 'CustomerMealPlansController',
             templateUrl: getTemplateUrl('customer/meal-plan/list.html')

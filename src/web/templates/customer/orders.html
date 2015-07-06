@@ -55,6 +55,11 @@
                             class="leave-a-review">
                         Write review
                     </a>
+                    <a href="/customer/orders/{{ order.id }}/team-reviews"
+                            ng-if="order.hasBeenReviewed && order.teamReviewCount > 0"
+                            class="view-team-reviews">
+                        Team reviews
+                    </a>
                 </td>
             </tr>
         </tbody>
