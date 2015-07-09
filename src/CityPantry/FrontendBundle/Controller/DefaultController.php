@@ -20,6 +20,7 @@ class DefaultController extends BaseController
         $response = new RedirectResponse('/');
         $response->headers->clearCookie('userId');
         $response->headers->clearCookie('salt');
+        $response->headers->clearCookie('staffMasqueraderId');
 
         return $response;
     }

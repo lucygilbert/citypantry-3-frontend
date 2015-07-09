@@ -1,7 +1,7 @@
 describe('Package page', function() {
     function clickOrderNowButton() {
         var orderNowButton = element(by.css('.cp-btn-start-order'));
-        expect(orderNowButton.getAttribute('value')).toMatch(/Order now \(£[\d\.]+\)/);
+        expect(orderNowButton.getAttribute('value')).toMatch(/Order now \(£[\d\.,]+\)/);
         orderNowButton.click();
     }
 
@@ -52,6 +52,9 @@ describe('Package page', function() {
             closePostcodeModal();
             element(by.model('pickedDate')).clear().sendKeys(oneWeekFromNow.toISOString());
             element(by.cssContainingText('#order_time option', '13:30')).click();
+            element(by.model('order.headCount'))
+                .element(by.cssContainingText('option', '100'))
+                .click();
 
             clickOrderNowButton();
 
