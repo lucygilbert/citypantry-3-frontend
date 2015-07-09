@@ -119,6 +119,10 @@ angular.module('cp.services').service('SecurityService', function($location, $co
 
         vendorIsLoggedIn: function() {
             return this.group() === 'vendor';
-        }
+        },
+
+        getStaffUserIdIfMasquerading: function() {
+            return $cookies.staffMasqueraderId ? $cookies.staffMasqueraderId : false;
+        },
     };
 });

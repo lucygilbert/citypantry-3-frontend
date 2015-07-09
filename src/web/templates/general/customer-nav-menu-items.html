@@ -1,3 +1,10 @@
+<li>
+    <a class="cp-btn cp-btn-primary cp-btn-sm cp-btn-block cp-back-to-admin"
+            ng-if="isStaffMasquerading"
+            ng-click="goToMasqueradeLogoutPage()">
+        Back to admin
+    </a>
+</li>
 <li><a href="/customer/dashboard">Dashboard</a></li>
 <li ng-if="showMealPlansMenuItem"><a href="/customer/meal-plans">Meal plans</a></li>
 <li><a href="/vendors">Vendors</a></li>

@@ -56,6 +56,7 @@ angular.module('cp.controllers.admin').controller('AdminUsersController',
             .success(response => {
                 $cookies.userId = response.apiAuth.userId;
                 $cookies.salt = response.apiAuth.salt;
+                $cookies.staffMasqueraderId = SecurityService.getUserId();
                 $window.localStorage.setItem('user', JSON.stringify(response.user));
                 $window.location = '/';
             })

@@ -349,6 +349,10 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'AdminMealPlansController',
             templateUrl: getTemplateUrl('admin/meal-plans.html')
         }).
+        when('/admin/masquerade-logout', {
+            controller: 'AdminMasqueradeLogoutController',
+            templateUrl: getTemplateUrl('admin/masquerade-logout.html')
+        }).
         when('/logout', {
             controller: () => window.location = '/logout',
             template: '<div class="wrapper">Logging out...</div>'
