@@ -1,6 +1,6 @@
 angular.module('cp.controllers.general').controller('HeaderController', function($scope,
       $rootScope, $window, $location, SecurityService, CP_TELEPHONE_NUMBER_UK, CP_TELEPHONE_NUMBER_INTERNATIONAL,
-      getTemplateUrl) {
+      getTemplateUrl, AuthenticationFactory, UsersFactory, NotificationService) {
     var templateUrl = (x) => getTemplateUrl('general/' + x + '-nav-menu-items.html'),
         blankToDefault = (x) => x === '' ? 'default' : x;
 
@@ -9,9 +9,10 @@ angular.module('cp.controllers.general').controller('HeaderController', function
     $scope.phoneNumberInternational = CP_TELEPHONE_NUMBER_INTERNATIONAL;
     $scope.navMenuPresented = true;
     $scope.togglePresentNavMenu = () => $scope.navMenuPresented = !$scope.navMenuPresented;
-
+    $scope.isStaffMasquerading = !!SecurityService.getStaffUserIdIfMasquerading();
     $scope.showPayOnAccountMenuItem = false;
     $scope.showMealPlansMenuItem = false;
+
     if (SecurityService.customerIsLoggedIn()) {
         SecurityService.getCustomer()
             .then((customer) => {
@@ -28,5 +29,9 @@ angular.module('cp.controllers.general').controller('HeaderController', function
         } else {
             $location.path('/');
         }
+    };
+
+    $scope.goToMasqueradeLogoutPage = () => {
+        $location.path('/admin/masquerade-logout');
     };
 });

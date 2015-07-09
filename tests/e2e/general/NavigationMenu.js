@@ -1,5 +1,6 @@
 describe('Navigation Menu', function() {
     var navMenu, navMenuLinks, myAccountButton, myAccountMenu, myAccountMenuLinks;
+    var GridObjectTest = require('../lib/gridObjectTestUtils.spec.js');
 
     beforeEach(function() {
         navMenu = element(by.css('.cp-nav-menu'));
@@ -111,5 +112,22 @@ describe('Navigation Menu', function() {
 
         expect(myAccountMenu.isPresent()).toBe(false);
         expect(myAccountButton.isPresent()).toBe(false);
+    });
+
+    it('should have a Back To Admin button when masquerading, which logs the user back in as staff', function() {
+        loginAsUser('alice@bunnies.test');
+
+        element(by.cssContainingText('a', 'Users')).click();
+
+        var gridObject = new GridObjectTest('users-table');
+        gridObject.enterFilterInColumn(1, 'Customer');
+        element(by.css('.masquerade')).click();
+
+        browser.waitForAngular();
+        element(by.css('.cp-back-to-admin')).click();
+        element(by.css('#login_password')).sendKeys('password');
+        element(by.css('#login_button')).click();
+
+        expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/admin\/users$/);
     });
 });

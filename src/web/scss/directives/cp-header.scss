@@ -66,6 +66,12 @@ cp-header {
             text-decoration: none;
         }
 
+        > li > a.cp-back-to-admin {
+            margin-top: -10px;
+            line-height: 26px;
+            color: white;
+        }
+
         > li > a.btn-login-green {
             margin-top: -10px;
             line-height: 26px;

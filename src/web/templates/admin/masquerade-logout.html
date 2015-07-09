@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="cp-login">
+        <h1 class="cp-login-heading">Log in to your account</h1>
+
+        <p>This will revert you from masquerading, back to your staff account, {{ email }}.</p>
+
+        <p class="cp-form-error" ng-show="loginError" ng-bind="loginError"></p>
+
+        <form class="cp-form cp-login-form" role="form" ng-submit="goBackToAdmin()">
+            <fieldset>
+                <div class="row">
+                    <div class="cp-form-group col-xs-8">
+                        <label class="cp-form-label" for="login_password">Password</label>
+                        <input class="cp-form-control"
+                            id="login_password"
+                            name="loginPassword"
+                            type="password"
+                            required aria-required="true"
+                            ng-model="plainPassword" />
+                    </div>
+
+                    <div class="cp-login-log-in col-xs-4">
+                        <input class="cp-btn cp-btn-primary cp-btn-sm cp-btn-block"
+                            id="login_button"
+                            type="submit"
+                            value="Log in" />
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
