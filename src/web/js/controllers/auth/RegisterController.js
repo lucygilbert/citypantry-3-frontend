@@ -26,6 +26,9 @@ angular.module('cp.controllers.authentication').controller('RegisterController',
             .success(function(response) {
                 $cookies.userId = response.apiAuth.userId;
                 $cookies.salt = response.apiAuth.salt;
+                // This is now an non-masquerade, so make sure the masquerade cookie is removed
+                // so the "back to admin" button doesn't appear.
+                $cookies.staffMasqueraderId = null;
                 $window.localStorage.setItem('user', JSON.stringify(response.user));
 
                 // Redirect to the next page -- this can be configured through
