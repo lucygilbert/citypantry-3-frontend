@@ -75,10 +75,10 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             },
             {
                 displayName: 'Customer',
-                field: 'customerUserAndCompanyName',
+                field: 'customerCompanyAndOfficeManagerName',
                 cellTemplate: `
                     <div class="ui-grid-cell-contents">
-                        <a href="/admin/customer/{{row.entity.customer.id}}">{{row.entity.customerUserAndCompanyName}}</a>
+                        <a href="/admin/customer/{{row.entity.customer.id}}">{{row.entity.customerCompanyAndOfficeManagerName}}</a>
                     </div>
                 `
             },
@@ -166,7 +166,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             angular.forEach(response.orders, row => {
                 row.statusTextTranslation = getOrderStatusTextFilter(row.statusText);
                 row.deliveryStatusTextTranslation = getDeliveryStatusTextFilter(row.deliveryStatus);
-                row.customerUserAndCompanyName = row.customerUser.name + ', ' + row.customer.company;
+                row.customerCompanyAndOfficeManagerName = row.customer.company + ', ' + row.customerUser.name;
             });
 
             $scope.gridOptions.data = response.orders;

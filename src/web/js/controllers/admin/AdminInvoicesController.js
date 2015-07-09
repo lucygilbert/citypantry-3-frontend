@@ -61,11 +61,11 @@ angular.module('cp.controllers.admin').controller('AdminInvoicesController',
             {
                 cellTemplate: `
                     <div class="ui-grid-cell-contents">
-                        <a href="/admin/customer/{{row.entity.order.customer.id}}">{{row.entity.order.customerUser.name}}, {{row.entity.order.customer.company}}</a>
+                        <a href="/admin/customer/{{row.entity.order.customer.id}}">{{row.entity.order.customerCompanyAndOfficeManagerName}}</a>
                     </div>
                 `,
                 displayName: 'Customer',
-                field: 'order.customerUser.name'
+                field: 'order.customerCompanyAndOfficeManagerName'
             },
             {
                 displayName: 'Invoice Status',
@@ -108,6 +108,7 @@ angular.module('cp.controllers.admin').controller('AdminInvoicesController',
             angular.forEach(response.invoices, row => {
                 row.invoiceStatusTexts = getInvoiceStatusTextFilter(row.statusText);
                 row.isPaidOnAccountStatusText = getPayOnAccountStatusTextFilter(row.order.isPaidOnAccount);
+                row.order.customerCompanyAndOfficeManagerName = row.order.customer.company + ', ' + row.order.customerUser.name;
 
                 if (row.order.isPaidOnAccount && row.statusText === 'awaiting_payment') {
                     let overdueEpochTime = new Date(row.dateIssued).getTime() +
