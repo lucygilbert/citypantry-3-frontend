@@ -94,4 +94,12 @@ angular.module('cp').controller('cpVendorProfileFormController', function($scope
             });
         }
     };
+
+    $scope.deleteImage = (imageIndex) => {
+        $scope.vendor.images.splice(imageIndex, 1);
+    };
+
+    $scope.setCoverImage = (imageIndex) => {
+        $scope.vendor.images.unshift($scope.vendor.images.splice(imageIndex, 1).pop());
+    };
 });
