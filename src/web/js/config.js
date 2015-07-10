@@ -345,6 +345,10 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'AdminMealPlanReviewController',
             templateUrl: getTemplateUrl('admin/meal-plan-review.html')
         }).
+        when('/admin/meal-plan/customer/:customerId/meal-plan/:mealPlanId/replace-package/:requestedDeliveryDate', {
+            controller: 'AdminMealPlanReplacePackageController',
+            templateUrl: getTemplateUrl('admin/meal-plan-replace-package.html')
+        }).
         when('/admin/meal-plan/customer/:customerId/meal-plans', {
             controller: 'AdminMealPlansController',
             templateUrl: getTemplateUrl('admin/meal-plans.html')

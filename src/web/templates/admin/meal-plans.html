@@ -17,7 +17,8 @@
             <br />
 
             <a ng-if="mealPlan.statusText === 'pending_staff_approval'"
-                ng-href="/admin/meal-plan/customer/{{ customer.id }}/meal-plan/{{ mealPlan.id }}/review">
+                ng-href="/admin/meal-plan/customer/{{ customer.id }}/meal-plan/{{ mealPlan.id }}/review"
+                class="cp-review-and-send-to-customer">
                 Review and send to customer
             </a>
 
