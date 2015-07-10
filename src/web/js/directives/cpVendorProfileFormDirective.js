@@ -77,7 +77,7 @@ angular.module('cp').controller('cpVendorProfileFormController', function($scope
             $upload.upload({
                 url: API_BASE + '/vendors/upload-image' + ($scope.vendor.id ? '?id=' + $scope.vendor.id : ''),
                 file: file,
-                headers: ApiService.getAuthHeaders()
+                headers: ApiService.getAllHeaders()
             }).success(response => {
                 if ($scope.vendor.images === undefined) {
                     $scope.vendor.images = [];
