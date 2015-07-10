@@ -12,10 +12,11 @@ angular.module('cp').directive('cpReviewMealPlan', function(getTemplateUrl) {
 
 angular.module('cp').controller('cpReviewMealPlanController',
         function($scope, dateIsBSTInEffectFilter, MealPlanFactory, PackagesFactory,
-        NotificationService, LoadingService) {
+        NotificationService, LoadingService, SecurityService, $location) {
     $scope.datesToDeliverOn = [];
     $scope.reviewsSummary = {};
     $scope.selectedProposedOrder = {};
+    $scope.isStaff = SecurityService.staffIsLoggedIn();
 
     const getStructuredProposedOrdersForApiCall = () => {
         const proposedOrders = [];
@@ -148,6 +149,12 @@ angular.module('cp').controller('cpReviewMealPlanController',
                 }
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
+    $scope.replaceWithSpecificPackage = () => {
+        const requestedDeliveryDate = $scope.selectedProposedOrder.requestedDeliveryDate;
+        $location.path(`/admin/meal-plan/customer/${$scope.customerId}` +
+            `/meal-plan/${$scope.mealPlan.id}/replace-package/${requestedDeliveryDate}`);
     };
 
     if ($scope.mealPlan.proposedOrders.length > 0) {

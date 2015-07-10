@@ -71,6 +71,10 @@
             <button class="cp-btn cp-btn-link cp-btn-block cp-replace-package" ng-click="replaceWithRandomUnusedPackage()">
                 Replace with random unused package
             </button>
+
+            <button class="cp-btn cp-btn-link cp-btn-block cp-replace-package" ng-click="replaceWithSpecificPackage()" ng-if="isStaff">
+                Replace with specific package
+            </button>
         </aside>
     </div>
 </div>

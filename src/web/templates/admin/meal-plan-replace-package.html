@@ -1,0 +1,22 @@
+<div class="container" id="cp-meal-plan-replace-package">
+    <h1 class="cp-heading">Replace package</h1>
+
+    <p>
+        Delivery date: {{ requestedDeliveryDate | date:'d MMM yyyy HH:mm' }}
+    </p>
+
+    <h2 class="cp-heading">Alternatives</h2>
+
+    <p ng-if="possiblePackages.length === 0">There are no alternatives available for this date.</p>
+
+    <p ng-if="possiblePackages.length > 0">
+        This is a list of packages that met the meal plan requirements, and that can be delivered on
+        this date and time.
+    </p>
+
+    <div ng-repeat="package in possiblePackages" class="cp-possible-package clearfix">
+        <cp-package-detail package="package"></cp-package-detail>
+
+        <button class="cp-btn cp-btn-primary" ng-click="replaceWithPackage(package)">Use this package</button>
+    </div>
+</div>
