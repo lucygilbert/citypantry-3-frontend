@@ -68,8 +68,8 @@
                 ng-href="/package/{{ selectedProposedOrder.package.humanId }}-{{ selectedProposedOrder.package.name | slugify }}"
                 >View details</a>
 
-            <button class="cp-btn cp-btn-link cp-btn-block cp-replace-package" ng-click="replace()">
-                Replace with new package
+            <button class="cp-btn cp-btn-link cp-btn-block cp-replace-package" ng-click="replaceWithRandomUnusedPackage()">
+                Replace with random unused package
             </button>
         </aside>
     </div>

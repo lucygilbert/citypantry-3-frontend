@@ -126,7 +126,7 @@ angular.module('cp').controller('cpReviewMealPlanController',
         return (currentOrderTime - previousOrderTime) / 1000 < (86400 * 6);
     };
 
-    $scope.replace = () => {
+    $scope.replaceWithRandomUnusedPackage = () => {
         if (!$scope.selectedProposedOrder) {
             return;
         }

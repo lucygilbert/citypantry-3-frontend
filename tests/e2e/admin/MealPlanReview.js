@@ -71,7 +71,7 @@ xdescribe('Admin - meal plan review', function() {
         mealPlanOrders.get(0).click();
     });
 
-    it('should be able to replace a package', function() {
+    it('should be able to replace a package with a random unused alternative', function() {
         var replacePackageButton = element(by.css('button[ng-click="replace()"]'));
         replacePackageButton.click();
 
