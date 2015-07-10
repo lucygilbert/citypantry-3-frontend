@@ -300,7 +300,7 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $anc
             $upload.upload({
                 url: API_BASE + '/packages/upload-image' + ($scope.package.id ? '?id=' + $scope.package.id : ''),
                 file: file,
-                headers: ApiService.getAuthHeaders()
+                headers: ApiService.getAllHeaders()
             }).success(response => {
                 if ($scope.package.images === undefined) {
                     $scope.package.images = [];
