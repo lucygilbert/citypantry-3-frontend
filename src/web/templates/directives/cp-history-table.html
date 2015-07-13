@@ -8,14 +8,23 @@
         <th>Event</th>
         <th>Details</th>
         <th title="Only available since 18 June 2015">User</th>
+        <th title="Only available since 14 July 2015">Masquerader</th>
     </thead>
     <tbody>
         <tr ng-repeat="event in history">
             <td>{{ event.date | date:'dd/MM/yyyy HH:mm' }}</td>
             <td>{{ event.title }}</td>
             <td>{{ event.info }}</td>
-            <td><a ng-if="event.user" ng-href="/admin/global-id-lookup/{{ event.user.id }}"
-                >{{ event.user.name }}</a></td>
+            <td>
+                <a ng-if="event.user"
+                    ng-href="/admin/global-id-lookup/{{ event.user.id }}"
+                    >{{ event.user.name }}</a>
+            </td>
+            <td>
+                <a ng-if="event.masqueradingUser"
+                    ng-href="/admin/global-id-lookup/{{ event.masqueradingUser.id }}"
+                    >{{ event.masqueradingUser.name }}</a>
+            </td>
         </tr>
     </tbody>
 </table>
