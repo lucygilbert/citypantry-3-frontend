@@ -103,7 +103,7 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
         expect(element.all(by.css('input[name="packageDietaryTypeNotes[]"]')).get(0).isDisplayed()).toBe(true);
     });
 
-    it('should have notice options up to 14 days because this is not a meal plan package', function() {
+    it('should have notice options up to 14 days', function() {
         var noticeOptions = element(by.model('package.notice')).all(by.css('option'));
         expect(noticeOptions.last().getText()).toBe('14 days');
     });
@@ -266,23 +266,5 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
         deliveryCost.clear().sendKeys(15);
         freeDeliveryThreshold.clear().sendKeys(100);
         element(by.css('main input.btn.btn-primary')).click();
-    });
-});
-
-describe('Vendor portal - edit a meal-plan package', function() {
-    var isFirst = true;
-
-    beforeEach(function() {
-        if (isFirst) {
-            loginAsUser('vendor@kebab-centre.test');
-            browser.get('/vendor/packages');
-            element.all(by.css('#table_packages a.edit-package')).get(0).click();
-            isFirst = false;
-        }
-    });
-
-    it('should have notice options up to 24 hours because is a meal plan package', function() {
-        var noticeOptions = element(by.model('package.notice')).all(by.css('option'));
-        expect(noticeOptions.last().getText()).toBe('24 hours');
     });
 });
