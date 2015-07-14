@@ -26,7 +26,7 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $anc
     $scope.eventTypeOptions = [];
     $scope.isAddAddressFormOpen = false;
     $scope.map = {};
-    $scope.noticeOptions = PackagesFactory.getNoticeOptions($scope.package.isMealPlan);
+    $scope.noticeOptions = PackagesFactory.getNoticeOptions();
     $scope.quantityOptions = PackagesFactory.getQuantityOptions();
     $scope.radiusOptions = PackagesFactory.getRadiusOptions();
     $scope.packagingTypeOptions = PackagesFactory.getPackagingTypeOptions();

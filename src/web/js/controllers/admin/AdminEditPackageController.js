@@ -16,6 +16,7 @@ angular.module('cp.controllers.admin').controller('AdminEditPackageController',
     }
 
     $scope.packagingTypes = PackagesFactory.getPackagingTypeOptions();
+    $scope.noticeOptions = PackagesFactory.getNoticeOptions();
 
     PackagesFactory.getPackageReviews($routeParams.packageId)
         .success(response => $scope.reviews = response.reviews)
@@ -29,6 +30,7 @@ angular.module('cp.controllers.admin').controller('AdminEditPackageController',
             shortDescription: $scope.vendorPackage.shortDescription,
             description: $scope.vendorPackage.description,
             isMealPlan: $scope.vendorPackage.isMealPlan,
+            notice: $scope.vendorPackage.notice,
             packagingType: $scope.vendorPackage.packagingType
         };
 

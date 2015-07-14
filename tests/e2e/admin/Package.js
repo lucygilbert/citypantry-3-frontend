@@ -31,6 +31,11 @@ describe('Admin - package page - Carrots', function() {
         expect(element(by.css('.visiblity-description')).getText()).toBe('This package is visible to all customers.');
     });
 
+    it('should have notice options up to 14 days', function() {
+        var noticeOptions = element(by.model('vendorPackage.notice')).all(by.css('option'));
+        expect(noticeOptions.last().getText()).toBe('14 days');
+    });
+
     it('should be able to save changes', function() {
         element(by.model('vendorPackage.name')).sendKeys(' (orange)');
         element(by.css('main form .btn.btn-primary')).click();
