@@ -68,6 +68,13 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
+                        src: ['src/web/templates/admin/promo-codes/*'],
+                        dest: 'web/dist/templates/admin/promo-codes',
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        flatten: true,
                         src: ['src/web/templates/general/*'],
                         dest: 'web/dist/templates/general',
                         filter: 'isFile'
