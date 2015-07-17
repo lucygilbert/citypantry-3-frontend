@@ -357,6 +357,10 @@ angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemp
             controller: 'AdminPromoCodesController',
             templateUrl: getTemplateUrl('admin/promo-codes/list.html')
         }).
+        when('/admin/promo-codes/create', {
+            controller: 'AdminCreatePromoCodeController',
+            templateUrl: getTemplateUrl('admin/promo-codes/create.html')
+        }).
         when('/admin/masquerade-logout', {
             controller: 'AdminMasqueradeLogoutController',
             templateUrl: getTemplateUrl('admin/masquerade-logout.html')

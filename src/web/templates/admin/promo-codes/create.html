@@ -1,0 +1,71 @@
+<div class="thin-container">
+    <h1>Create a promo code</h1>
+
+    <form class="admin-form" name="createForm" ng-submit="create()">
+        <fieldset>
+            <div class="form-group">
+                <label>Code (required)</label>
+                <input class="form-control input-lg"
+                    required
+                    name="promoCodeCode"
+                    ng-model="promoCode.code" />
+            </div>
+
+            <div class="form-group">
+                <label>Use type (required)</label>
+                <select class="form-control input-lg"
+                    required
+                    name="promoCodeUseType"
+                    ng-model="promoCode.useType"
+                    ng-options="option.value as option.label for option in useTypes"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Discount type (required)</label>
+                <select class="form-control input-lg"
+                    required
+                    name="promoCodeType"
+                    ng-model="promoCode.type"
+                    ng-options="option.value as option.label for option in types"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Discount amount, as a fixed amount or percentage (required)</label>
+                <input class="form-control input-lg"
+                    type="number"
+                    required
+                    name="promoCodeDiscount"
+                    ng-model="promoCode.discount" />
+            </div>
+
+            <div class="form-group">
+                <label>Customer allowed to use this (optional)</label>
+                <select class="form-control input-lg"
+                    name="promoCodeCustomer"
+                    ng-model="promoCode.customer"
+                    ng-options="option.id as option.company for option in customers"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Vendor this can be used for (optional)</label>
+                <select class="form-control input-lg"
+                    name="promoCodeVendor"
+                    ng-model="promoCode.vendor"
+                    ng-options="option.id as option.name for option in vendors"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Referrer to reward if this is used (optional)</label>
+                <select class="form-control input-lg"
+                    name="promoCodeReferringCustomer"
+                    ng-model="promoCode.referringCustomer"
+                    ng-options="option.id as option.company for option in customers"></select>
+            </div>
+
+            <input class="btn btn-primary btn-lg cp-create-promo-code"
+                type="submit"
+                value="Create promo code"
+                ng-if="!isFinished" />
+        </fieldset>
+    </form>
+</div>
