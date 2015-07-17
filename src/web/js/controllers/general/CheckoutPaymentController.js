@@ -126,6 +126,11 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
         CheckoutService.setTotalAmount($scope.order.totalAmount);
     }
 
+    function showPromoCodeError(errorMessage) {
+        $scope.promoCodeError = errorMessage;
+        LoadingService.hide();
+    }
+
     $scope.submitPromoCode = function() {
         if (!$scope.order.promoCode) {
             return;
@@ -137,22 +142,19 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
 
         PromoCodeFactory.getPromoCodeByCode($scope.order.promoCode)
             .success(response => {
-                if (response.isValid) {
-                    $scope.order.promoCode = response.promoCode;
-                    recalculateCostAmounts();
-                    $scope.isPromoCodeValid = true;
-                    $scope.isPromoCodeVisible = false;
-                    CheckoutService.setPromoCodeId($scope.order.promoCode.id);
-                } else {
-                    $scope.promoCodeError = getPromoCodeErrorTextFilter($scope.order.promoCode);
+                if (!response.isValid) {
+                    showPromoCodeError(getPromoCodeErrorTextFilter($scope.order.promoCode));
+                    return;
                 }
 
+                $scope.order.promoCode = response.promoCode;
+                recalculateCostAmounts();
+                $scope.isPromoCodeValid = true;
+                $scope.isPromoCodeVisible = false;
+                CheckoutService.setPromoCodeId($scope.order.promoCode.id);
                 LoadingService.hide();
             })
-            .catch(response => {
-                $scope.promoCodeError = response.data.errorTranslation;
-                LoadingService.hide();
-            });
+            .catch(response => showPromoCodeError(response.data.errorTranslation));
     };
 
     $scope.finish = function() {
