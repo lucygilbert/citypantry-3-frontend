@@ -66,6 +66,10 @@ angular.module('cp')
     .constant('CP_BANK_SORT_CODE', '60-30-20')
     .constant('INVOICE_STATUS_AWAITING_PAYMENT', 1)
     .constant('INVOICE_STATUS_PAID', 2)
+    .constant('CP_PROMO_CODE_USE_TYPE_REFERRAL', 1)
+    .constant('CP_PROMO_CODE_USE_TYPE_REWARD', 2)
+    .constant('CP_PROMO_CODE_USE_TYPE_DISCOUNT', 3)
+    .constant('CP_PROMO_CODE_USE_TYPE_VENDOR_PENALTY', 4)
     .constant('getTemplateUrl', (path) => '/dist/templates/' + path + '?cacheBuster=' + window.cacheBusterValue)
     .constant('CP_PAY_ON_ACCOUNT', 1);
 
