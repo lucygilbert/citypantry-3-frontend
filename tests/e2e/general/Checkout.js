@@ -6,6 +6,9 @@ describe('Checkout', function() {
         oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 1);
     }
 
+    /**
+     * Check the delivery postcode on the "view package" page.
+     */
     function changeDeliveryLocation(postcode) {
         element(by.css('.cp-package-change-delivery-location')).click();
         element(by.model('$parent.newPostcode')).sendKeys(postcode);
@@ -17,13 +20,24 @@ describe('Checkout', function() {
         element(by.css('.cp-modal .close')).click();
     }
 
-    function pickPackageFromSearch() {
+    /**
+     * Click on the 'Breakfast' event type on the search page.
+     */
+    function pickBreakfastEventType() {
         var breakfastEventType = element.all(by.repeater('eventType in eventTypes')).get(0);
         expect(breakfastEventType.getText()).toBe('Breakfast');
         breakfastEventType.click();
-        expect(element.all(by.repeater('package in packages')).count()).toBe(1);
+    }
 
-        element.all(by.repeater('package in packages')).get(0).all(by.css('a')).get(0).click();
+    /**
+     * Assert that there is just one package result on the search page, and click on that package to
+     * go to it's package page.
+     */
+    function pickSinglePackageResult() {
+        var packages = element.all(by.repeater('package in packages'));
+        expect(packages.count()).toBe(1);
+
+        packages.get(0).all(by.css('a')).get(0).click();
     }
 
     function expectAbleToPlaceOrderSuccessfully() {
@@ -31,6 +45,12 @@ describe('Checkout', function() {
         expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/thank-you/);
         expect(element(by.css('.cp-checkout-thank-you')).getText())
             .toContain('YOU JUST COMPLETED YOUR CHECKOUT PROCESS');
+    }
+
+    function openPromoCodeField() {
+        var promoCodeButton = element(by.cssContainingText('button', 'Promo code?'));
+        promoCodeButton.click();
+        expect(element(by.id('promo_code')).isDisplayed()).toBe(true);
     }
 
     describe('without reaching the minimum order value', function() {
@@ -41,7 +61,8 @@ describe('Checkout', function() {
                 loginAsUser('customer@bunnies.test');
                 browser.get('/search');
 
-                pickPackageFromSearch();
+                pickBreakfastEventType();
+                pickSinglePackageResult();
 
                 changeDeliveryLocation('W6 7PY');
 
@@ -78,7 +99,8 @@ describe('Checkout', function() {
                 loginAsUser('customer@bunnies.test');
                 browser.get('/search');
 
-                pickPackageFromSearch();
+                pickBreakfastEventType();
+                pickSinglePackageResult();
 
                 changeDeliveryLocation('W6 7PY');
 
@@ -173,9 +195,7 @@ describe('Checkout', function() {
         });
 
         it('should show an error if promo code does not exist', function() {
-            var promoCodeButton = element(by.cssContainingText('button', 'Promo code?'));
-            promoCodeButton.click();
-            expect(element(by.id('promo_code')).isPresent()).toBe(true);
+            openPromoCodeField();
 
             element(by.model('order.promoCode')).sendKeys('NOT_A_REAL_CODE');
             element(by.css('button[ng-click="submitPromoCode()"]')).click();
@@ -223,7 +243,8 @@ describe('Checkout', function() {
             if (isFirst) {
                 browser.get('/search');
 
-                pickPackageFromSearch();
+                pickBreakfastEventType();
+                pickSinglePackageResult();
 
                 changeDeliveryLocation('W12 8LB');
 
@@ -289,6 +310,87 @@ describe('Checkout', function() {
             element.all(by.css('#card_expiry_month > option')).get(1).click();
             element.all(by.css('#card_expiry_year > option')).get(2).click();
             element(by.model('card.cvc')).sendKeys('123');
+        });
+
+        it('should be able to proceed to the "thank you" page', expectAbleToPlaceOrderSuccessfully);
+    });
+
+    describe('As a premium customer', function() {
+        var isFirst = true;
+
+        beforeEach(function() {
+            if (isFirst) {
+                loginAsUser('customer@apple.test');
+                browser.get('/search');
+
+                // 'Golden Apples' is a package only visible to this customer. It should be
+                // visibile in the search results.
+                element(by.css('.cp-search-advanced-search')).click();
+                element(by.model('search.name')).sendKeys('golden apples');
+
+                pickSinglePackageResult();
+
+                changeDeliveryLocation('W1B 2EL');
+
+                // Select delivery date and time and head count.
+                element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toISOString());
+                element(by.cssContainingText('#order_time option', '12:00')).click();
+                element(by.model('order.headCount')).sendKeys(30);
+
+                element(by.css('.cp-package-form input[type="submit"]')).click();
+
+                isFirst = false;
+            }
+        });
+
+        it('should be able to proceed to the "delivery details" step', function() {
+            element(by.model('order.vegetarianHeadCount')).sendKeys('5');
+            element(by.model('order.dietaryRequirementsExtra')).sendKeys('No bananas in food.');
+
+            element(by.css('.cp-checkout-form input[type="submit"]')).click();
+
+            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/delivery-details/);
+        });
+
+        it('should load the customer\'s saved address', function() {
+            expect(element(by.css('.cp-checkout-address')).getText()).toContain('Regent St');
+            expect(element(by.model('address.officeManagerName')).getAttribute('value')).toBe('Steve Jobs');
+            expect(element(by.model('address.parkingSuggestion')).getAttribute('value')).toBe('It\'s Oxford Stret, good luck.');
+
+            // The phone number is required but not set in the fixtures.
+            element(by.model('address.landlineNumber')).sendKeys('123');
+        });
+
+        it('should be able to proceed to the "payment" step', function() {
+            element(by.css('button[ng-click="nextStep()"]')).click();
+            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/payment/);
+        });
+
+        it('should default to paying on account for premium customers', function() {
+            var paymentMethods = element.all(by.model('order.isPayOnAccount'));
+            expect(paymentMethods.count()).toBe(2);
+
+            var payOnAccountOptions = element(by.css('[ng-if="order.isPayOnAccount"]'));
+            expect(payOnAccountOptions.isDisplayed()).toBe(true);
+        });
+
+        it('should be able to redeem a referral promo code', function() {
+            openPromoCodeField();
+
+            // The promo code should be case-insensitive. Type it in differently from the database
+            // to ensure case-insensitivity works.
+            element(by.model('order.promoCode')).sendKeys('refer-cuSTOMERATBUNNIES');
+            element(by.css('button[ng-click="submitPromoCode()"]')).click();
+
+            var promoCodeText = element(by.css('.cp-checkout-promo-code-valid')).getText();
+            // The promo code should be displayed in all capitals, even if it was typed in the
+            // wrong case.
+            expect(promoCodeText).toContain('REFER-CUSTOMERATBUNNIES');
+            expect(promoCodeText).toContain('10%');
+            expect(promoCodeText).toContain('Save £12.30');
+
+            expect(element(by.css('.cp-checkout-payment-form input[type="submit"]')).getAttribute('value'))
+                .toContain('Pay now (£110.70)');
         });
 
         it('should be able to proceed to the "thank you" page', expectAbleToPlaceOrderSuccessfully);
