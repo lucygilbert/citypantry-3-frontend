@@ -53,6 +53,24 @@ describe('Checkout', function() {
         expect(element(by.id('promo_code')).isDisplayed()).toBe(true);
     }
 
+    function attemptToUsePromoCode(code)  {
+        var codeField = element(by.model('order.promoCodeCode'));
+        expect(codeField.isDisplayed()).toBe(true);
+
+        codeField.clear();
+        codeField.sendKeys(code);
+
+        var submitButton = element(by.css('button[ng-click="submitPromoCode()"]'));
+        expect(submitButton.getText()).toBe('Submit');
+        submitButton.click();
+    }
+
+    function expectPromoCodeError(expectedErrorMessage) {
+        var error = element(by.css('label[for="promo_code"] > .form-element-invalid'));
+        expect(error.isDisplayed()).toBe(true);
+        expect(error.getText()).toBe(expectedErrorMessage);
+    }
+
     describe('without reaching the minimum order value', function() {
         var isFirst = true;
 
@@ -197,34 +215,27 @@ describe('Checkout', function() {
         it('should show an error if promo code does not exist', function() {
             openPromoCodeField();
 
-            element(by.model('order.promoCode')).sendKeys('NOT_A_REAL_CODE');
-            element(by.css('button[ng-click="submitPromoCode()"]')).click();
+            attemptToUsePromoCode('NOT_A_REAL_CODE');
 
-            var error = element(by.css('label[for="promo_code"] > .form-element-invalid'));
-            expect(error.isDisplayed()).toBe(true);
-            expect(error.getText()).toBe('No promo code exists with the code NOT_A_REAL_CODE');
-
-            // Revert the changes so other tests will pass.
-            element(by.model('order.promoCode')).clear();
+            expectPromoCodeError('No promo code exists with the code NOT_A_REAL_CODE');
         });
 
         it('should show an error if promo code has expired', function() {
-            element(by.model('order.promoCode')).sendKeys('EXPIRED');
-            element(by.css('button[ng-click="submitPromoCode()"]')).click();
+            attemptToUsePromoCode('EXPIRED');
 
-            var error = element(by.css('label[for="promo_code"] > .form-element-invalid'));
-            expect(error.isDisplayed()).toBe(true);
-            expect(error.getText()).toBe('Promo code EXPIRED has expired');
+            expectPromoCodeError('Promo code EXPIRED has expired');
+        });
 
-            // Revert the changes so other tests will pass.
-            element(by.model('order.promoCode')).clear();
+        it('should show an error if the given promo code has already been used by this customer', function() {
+            attemptToUsePromoCode('test');
+
+            expectPromoCodeError('Promo code TEST has expired');
         });
 
         it('should be able to redeem a promo code', function() {
             // The promo code should be case-insensitive. Type it in differently from the database
             // to ensure case-insensitivity works.
-            element(by.model('order.promoCode')).sendKeys('tEsT2');
-            element(by.css('button[ng-click="submitPromoCode()"]')).click();
+            attemptToUsePromoCode('tEsT2')
 
             // The promo code should be displayed in all capitals, even if it was typed in the
             // wrong case.
@@ -379,8 +390,7 @@ describe('Checkout', function() {
 
             // The promo code should be case-insensitive. Type it in differently from the database
             // to ensure case-insensitivity works.
-            element(by.model('order.promoCode')).sendKeys('refer-cuSTOMERATBUNNIES');
-            element(by.css('button[ng-click="submitPromoCode()"]')).click();
+            attemptToUsePromoCode('refer-cuSTOMERATBUNNIES');
 
             var promoCodeText = element(by.css('.cp-checkout-promo-code-valid')).getText();
             // The promo code should be displayed in all capitals, even if it was typed in the

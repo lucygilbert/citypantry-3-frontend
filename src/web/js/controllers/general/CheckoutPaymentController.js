@@ -132,7 +132,7 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
     }
 
     $scope.submitPromoCode = function() {
-        if (!$scope.order.promoCode) {
+        if (!$scope.order.promoCodeCode) {
             return;
         }
 
@@ -140,10 +140,10 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
 
         $scope.promoCodeError = null;
 
-        PromoCodeFactory.getPromoCodeByCode($scope.order.promoCode)
+        PromoCodeFactory.getPromoCodeByCode($scope.order.promoCodeCode)
             .success(response => {
                 if (!response.isValid) {
-                    showPromoCodeError(getPromoCodeErrorTextFilter($scope.order.promoCode));
+                    showPromoCodeError(getPromoCodeErrorTextFilter($scope.order.promoCodeCode.toUpperCase()));
                     return;
                 }
 
