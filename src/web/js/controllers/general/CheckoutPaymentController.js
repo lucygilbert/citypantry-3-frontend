@@ -1,8 +1,8 @@
 angular.module('cp.controllers.general').controller('CheckoutPaymentController',
         function($scope, DocumentTitleService, SecurityService, LoadingService, PackagesFactory,
         CheckoutService, $location, UsersFactory, $q, NotificationService, OrdersFactory,
-        getCardNumberMaskFilter, PromoCodeFactory, getPromoCodeErrorTextFilter,
-        GoogleAnalyticsService) {
+        getCardNumberMaskFilter, PromoCodeFactory, getPromoCodeErrorTextFilter, QuestionFactory,
+        GoogleAnalyticsService, CP_PROMO_CODE_USE_TYPE_REFERRAL, CP_QUESTION_TYPE_FIRST_REFERRAL) {
     DocumentTitleService('Checkout: Payment');
     SecurityService.requireLoggedIn();
 
@@ -21,6 +21,7 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
     $scope.isVisaVisible = true;
     $scope.package = {};
     $scope.user = {};
+    $scope.checkoutQuestionnaireAnswers = {};
 
     const thisYear = (new Date()).getFullYear();
     $scope.yearOptions = [];
@@ -132,6 +133,22 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
         LoadingService.hide();
     }
 
+    /**
+     * Get and show the questions to ask the user if they have used a referral promo code.
+     */
+    function loadReferralQuestions() {
+        QuestionFactory.getQuestionsByType(CP_QUESTION_TYPE_FIRST_REFERRAL)
+            .success(response => {
+                $scope.questions = response.questions;
+                LoadingService.hide();
+            })
+            .catch(() => {
+                // If the questions failed to load, we still want the customer to be able to place
+                // an order, so just hide the loading animation and don't show an error message.
+                LoadingService.hide();
+            });
+    }
+
     $scope.submitPromoCode = function() {
         if (!$scope.order.promoCodeCode) {
             return;
@@ -140,6 +157,8 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
         LoadingService.show();
 
         $scope.promoCodeError = null;
+        $scope.isReferralPromoCode = false;
+        $scope.questions = [];
 
         PromoCodeFactory.getPromoCodeByCode($scope.order.promoCodeCode)
             .success(response => {
@@ -152,19 +171,48 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
                 recalculateCostAmounts();
                 $scope.isPromoCodeValid = true;
                 $scope.isPromoCodeVisible = false;
+                $scope.isReferralPromoCode = response.promoCode.useType === CP_PROMO_CODE_USE_TYPE_REFERRAL;
                 CheckoutService.setPromoCodeId($scope.order.promoCode.id);
-                LoadingService.hide();
+
+                if ($scope.isReferralPromoCode) {
+                    loadReferralQuestions();
+                } else {
+                    LoadingService.hide();
+                }
             })
             .catch(response => showPromoCodeError(response.data.errorTranslation));
     };
 
-    $scope.finish = function() {
-        if ($scope.checkoutForm.$invalid) {
-            $scope.checkoutForm.$submitted = true;
-            return;
+    /**
+     * Get the checkout questionniare answers in the format expected by the API.
+     *
+     * @return {Array}
+     */
+    function getQuestionnaireAnswers() {
+        if (!$scope.checkoutQuestionnaireAnswers ||
+                !Object.keys($scope.checkoutQuestionnaireAnswers).length) {
+            return [];
         }
 
-        LoadingService.show();
+        const answersInFormatExpectedByApi = [];
+
+        angular.forEach($scope.checkoutQuestionnaireAnswers, (answer, id) => {
+            answersInFormatExpectedByApi.push({
+                questionId: id,
+                answerValue: answer
+            });
+        });
+
+        return answersInFormatExpectedByApi;
+    }
+
+    /**
+     * Get the order in the format expected by the API.
+     *
+     * @return {Promise} Resolves to an object.
+     */
+    function getOrderStructureForApi() {
+        const deferred = $q.defer();
 
         const orderDetails = {
             deliveryAddress: CheckoutService.getDeliveryAddressId(),
@@ -181,29 +229,39 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
             },
             willVendorDeliverCutleryAndServiettes: CheckoutService.isCutleryAndServiettesRequired(),
             willVendorCleanUpAfterDelivery: CheckoutService.isVendorRequiredToCleanUp(),
-            willVendorSetUpAfterDelivery: CheckoutService.isVendorRequiredToSetUp()
+            willVendorSetUpAfterDelivery: CheckoutService.isVendorRequiredToSetUp(),
+            checkoutQuestionnaireAnswers: getQuestionnaireAnswers()
         };
-
-        const promises = [];
 
         if ($scope.order.isPayOnAccount) {
             orderDetails.payOnAccount = true;
             orderDetails.purchaseOrderNumber = $scope.order.purchaseOrderNumber;
             orderDetails.departmentReference = $scope.order.departmentReference;
+            deferred.resolve(orderDetails);
+        } else if (!$scope.order.paymentMethod) {
+            UsersFactory.addPaymentCard($scope.card)
+                .success(response => {
+                    orderDetails.payOnCard = response.card.id;
+                    deferred.resolve(orderDetails);
+                })
+                .catch(response => NotificationService.notifyError(response.data.errorTranslation));
         } else {
-            if (!$scope.order.paymentMethod) {
-                const promise1 = UsersFactory.addPaymentCard($scope.card)
-                    .success(response => {
-                        orderDetails.payOnCard = response.card.id;
-                    })
-                    .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-                promises.push(promise1);
-            } else {
-                orderDetails.payOnCard = $scope.order.paymentMethod.id;
-            }
+            orderDetails.payOnCard = $scope.order.paymentMethod.id;
+            deferred.resolve(orderDetails);
         }
 
-        $q.all(promises).then(() => {
+        return deferred.promise;
+    }
+
+    $scope.finish = function() {
+        if ($scope.checkoutForm.$invalid) {
+            $scope.checkoutForm.$submitted = true;
+            return;
+        }
+
+        LoadingService.show();
+
+        getOrderStructureForApi().then(orderDetails => {
             OrdersFactory.createOrder(orderDetails)
                 .success(response => {
                     CheckoutService.setEndTime(new Date());
@@ -215,6 +273,7 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
                     $location.path('/checkout/thank-you');
                 })
                 .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-        });
+        })
+        .catch(() => NotificationService.notifyError());
     };
 });

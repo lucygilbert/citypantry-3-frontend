@@ -157,6 +157,17 @@
                         </span>
                         Discount (Save {{ order.promoCodeValue | currency:'£':2 }})
                     </p>
+
+                    <fieldset ng-if="questions.length > 0" ng-repeat="question in questions">
+                        <p>{{ question.question }}</p>
+
+                        <label class="cp-radio-inline" ng-repeat="answer in question.answerValues">
+                            <input type="radio"
+                                ng-model="checkoutQuestionnaireAnswers[question.id]"
+                                ng-value="$index" />
+                            {{ answer }}
+                        </label>
+                    </fieldset>
                 </div>
 
                 <hr />
