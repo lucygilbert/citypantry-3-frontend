@@ -1,8 +1,9 @@
 /**
  * Service for tracking via Angulartics, which pushes events to Segment, HubSpot, and more.
  */
-angular.module('cp.services').service('AngularticsAnalyticsService', function($analytics) {
-    return {
+angular.module('cp.services').service('AngularticsAnalyticsService', function($analytics,
+        ENABLE_ANGULARTICS) {
+    const service = {
         trackPackageView(pkg) {
             $analytics.eventTrack('packageView', {
                 id: pkg.id,
@@ -50,4 +51,14 @@ angular.module('cp.services').service('AngularticsAnalyticsService', function($a
             });
         }
     };
+
+    if (!ENABLE_ANGULARTICS) {
+        // Replace all service methods with a no-op, so Jasmine unit tests can still run without
+        // actually calling Angulartics.
+        angular.forEach(service, (original, methodName) => {
+            service[methodName] = angular.noop;
+        });
+    }
+
+    return service;
 });

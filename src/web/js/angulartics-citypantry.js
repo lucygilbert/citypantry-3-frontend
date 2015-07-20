@@ -12,12 +12,16 @@ angular.module('angulartics.citypantry', ['angulartics'])
 
     var initInjector = angular.injector(['ng']);
     var $http = initInjector.get('$http');
-
+    const enableAngulartics = typeof window.enableAngulartics === 'boolean' ? window.enableAngulartics : true;
     const sessionId = createSessionId();
 
     $analyticsProvider.settings.trackRelativePath = true;
 
     $analyticsProvider.registerPageTrack(function (path) {
+        if (!enableAngulartics) {
+            return;
+        }
+
         const data = {
             'userId': window.userId,
             'sessionId': sessionId,
@@ -30,6 +34,10 @@ angular.module('angulartics.citypantry', ['angulartics'])
     });
 
     $analyticsProvider.registerEventTrack(function (action, properties) {
+        if (!enableAngulartics) {
+            return;
+        }
+
         const data = {
             'userId': window.userId,
             'sessionId': sessionId,
