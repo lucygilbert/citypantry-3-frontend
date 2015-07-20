@@ -30,6 +30,12 @@ angular.module('cp.services').service('AngularticsAnalyticsService', function($a
             $analytics.eventTrack('showMoreFood', {
                 pageNumber: newPageNumber
             });
+        },
+
+        trackPackageImageCarouselChange(newImageIndex) {
+            $analytics.eventTrack('packageImageCarouselChange', {
+                newImageIndex: newImageIndex
+            });
         }
     };
 });

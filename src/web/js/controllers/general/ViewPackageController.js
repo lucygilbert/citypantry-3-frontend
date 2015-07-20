@@ -18,6 +18,10 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
 
     $scope.order = {};
 
+    $scope.$on('ui.carousel.slideChanged', function(event, eventData) {
+        AngularticsAnalyticsService.trackPackageImageCarouselChange(eventData.newSlideIndex);
+    });
+
     const humanId = Number($routeParams.humanIdAndSlug.split('-')[0]);
 
     const loadReviews = (id) => {
