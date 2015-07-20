@@ -235,7 +235,7 @@ describe('Checkout', function() {
         it('should be able to redeem a promo code', function() {
             // The promo code should be case-insensitive. Type it in differently from the database
             // to ensure case-insensitivity works.
-            attemptToUsePromoCode('tEsT2')
+            attemptToUsePromoCode('tEsT2');
 
             // The promo code should be displayed in all capitals, even if it was typed in the
             // wrong case.

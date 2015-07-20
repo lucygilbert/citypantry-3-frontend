@@ -10,8 +10,8 @@ angular.module('cpLibIntegration', ['ngCookies'])
             },
 
             getExtraHeaders() {
-                if ($cookies.staffMasqueraderId && typeof $cookies.staffMasqueraderId === 'string'
-                        && $cookies.staffMasqueraderId.length === 24) {
+                if ($cookies.staffMasqueraderId && typeof $cookies.staffMasqueraderId === 'string' &&
+                        $cookies.staffMasqueraderId.length === 24) {
                     return {
                         'X-CityPantry-StaffMasqueraderId': $cookies.staffMasqueraderId
                     };
