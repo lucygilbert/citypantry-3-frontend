@@ -191,6 +191,7 @@ angular.module('cp.controllers.general').controller('SearchController',
     $scope.showMore = function() {
         $scope.packagesLimit += PAGINATION_LENGTH;
         SearchService.setDisplayedPackagesCount($scope.packagesLimit);
+        AngularticsAnalyticsService.trackIncreasingSearchResultsPagination($scope.packagesLimit / PAGINATION_LENGTH);
     };
 
     // The promise assigned to this is ultimately passed to the $http service as its `timeout`

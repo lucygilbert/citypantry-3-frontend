@@ -24,6 +24,12 @@ angular.module('cp.services').service('AngularticsAnalyticsService', function($a
                 dietaryRequirements: searchCriteria.dietaryRequirements,
                 numberOfResults: packageResults.length
             });
+        },
+
+        trackIncreasingSearchResultsPagination(newPageNumber) {
+            $analytics.eventTrack('showMoreFood', {
+                pageNumber: newPageNumber
+            });
         }
     };
 });
