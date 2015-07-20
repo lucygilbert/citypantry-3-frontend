@@ -1,6 +1,7 @@
 angular.module('cp.controllers.general').controller('SearchController',
         function($scope, PackagesFactory, OrdersFactory, NotificationService, DocumentTitleService,
-        LoadingService, $q, $filter, SearchService, $anchorScroll, FacebookAnalyticsService) {
+        LoadingService, $q, $filter, SearchService, $anchorScroll, FacebookAnalyticsService,
+        AngularticsAnalyticsService) {
     FacebookAnalyticsService.track('6031347907146');
     DocumentTitleService('Search catering packages');
 
@@ -224,6 +225,7 @@ angular.module('cp.controllers.general').controller('SearchController',
                 $scope.packages = response.packages;
                 $scope.isSearching = false;
                 LoadingService.hide();
+                trackSearchAndResults();
             })
             .catch(response => {
                 if (response.status === 0) {
@@ -233,6 +235,10 @@ angular.module('cp.controllers.general').controller('SearchController',
                 }
                 NotificationService.notifyError(response.data.errorTranslation);
             });
+    }
+
+    function trackSearchAndResults() {
+        AngularticsAnalyticsService.trackSearchAndResults($scope.packages, $scope.search);
     }
 
     $scope.searchAndBlurIfEnterKey = function(keyEvent) {

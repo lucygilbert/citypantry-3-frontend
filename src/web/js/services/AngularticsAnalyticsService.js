@@ -10,6 +10,20 @@ angular.module('cp.services').service('AngularticsAnalyticsService', function($a
                 cuisineType: pkg.cuisineType.name,
                 vendor: pkg.vendor.name
             });
+        },
+
+        trackSearchAndResults(packageResults, searchCriteria) {
+            $analytics.eventTrack('searchAndResults', {
+                date: searchCriteria.date,
+                time: searchCriteria.time,
+                headCount: searchCriteria.headCount,
+                deliveryPostcode: searchCriteria.postcode,
+                budget: searchCriteria.maxBudget,
+                eventType: searchCriteria.eventTypes,
+                cuisineTypes: searchCriteria.cuisineTypes,
+                dietaryRequirements: searchCriteria.dietaryRequirements,
+                numberOfResults: packageResults.length
+            });
         }
     };
 });
