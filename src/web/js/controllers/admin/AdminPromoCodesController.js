@@ -69,8 +69,8 @@ angular.module('cp.controllers.admin').controller('AdminPromoCodesController',
             $scope.gridOptions.data = response.promoCodes;
 
             $scope.gridOptions.data.map(promoCode => {
-                promoCode.typeText = promoCodeTypeTextFilter(promoCode.type)
-                promoCode.useTypeText = promoCodeUseTypeTextFilter(promoCode.useType)
+                promoCode.typeText = promoCodeTypeTextFilter(promoCode.type);
+                promoCode.useTypeText = promoCodeUseTypeTextFilter(promoCode.useType);
             });
 
             LoadingService.hide();

@@ -128,8 +128,8 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             // The value in 'staffMasqueraderId' will be a Mongo ID if the user is a masquerading
             // staff user. If it's anything else -- null, string 'null' (to delete the cookie via
             // Angular's $cookies) -- return false.
-            if (typeof $cookies.staffMasqueraderId === 'string'
-                    && $cookies.staffMasqueraderId.length === 24) {
+            if (typeof $cookies.staffMasqueraderId === 'string' &&
+                    $cookies.staffMasqueraderId.length === 24) {
                 return $cookies.staffMasqueraderId;
             }
 
