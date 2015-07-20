@@ -42,6 +42,12 @@ angular.module('cp.services').service('AngularticsAnalyticsService', function($a
             $analytics.eventTrack('advancedSearchToggle', {
                 newState: isNowOpen ? 'opened' : 'closed'
             });
+        },
+
+        trackOpeningCheckoutPromoCodeField() {
+            $analytics.eventTrack('checkoutPromoCodeFieldOpen', {
+                newState: 'opened'
+            });
         }
     };
 });

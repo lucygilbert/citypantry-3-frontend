@@ -126,9 +126,9 @@
                     </div>
                 </fieldset>
 
-                <hr ng-if="isPromoCodeVisible || isPromoCodeValid" />
+                <hr ng-if="isPromoCodeFieldVisible || isPromoCodeValid" />
 
-                <fieldset class="row cp-checkout-promo-code" ng-if="isPromoCodeVisible">
+                <fieldset class="row cp-checkout-promo-code" ng-if="isPromoCodeFieldVisible">
                     <div class="cp-form-group col-md-6">
                         <label class="cp-form-label" for="promo_code">
                             Promo code
@@ -176,7 +176,9 @@
                         class="cp-btn cp-btn-primary cp-btn-lg" type="submit"
                         value="Pay now ({{ order.totalAmount | currency:'£':2 }})" />
 
-                <button class="cp-btn cp-btn-link" type="button" ng-click="$parent.isPromoCodeVisible = true" ng-if="!isPromoCodeVisible && !isPromoCodeValid">Promo code?</button>
+                <button class="cp-btn cp-btn-link" type="button"
+                    ng-click="showPromoCodeField()"
+                    ng-if="!isPromoCodeFieldVisible && !isPromoCodeValid">Promo code?</button>
             </form>
         </div>
 
