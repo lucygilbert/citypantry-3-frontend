@@ -36,6 +36,12 @@ angular.module('cp.services').service('AngularticsAnalyticsService', function($a
             $analytics.eventTrack('packageImageCarouselChange', {
                 newImageIndex: newImageIndex
             });
+        },
+
+        trackAdvancedSearchToggle(isNowOpen) {
+            $analytics.eventTrack('advancedSearchToggle', {
+                newState: isNowOpen ? 'opened' : 'closed'
+            });
         }
     };
 });

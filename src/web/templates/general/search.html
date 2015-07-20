@@ -78,8 +78,11 @@
             </div>
         </fieldset>
 
-        <button class="cp-btn cp-btn-link cp-search-clear-all" ng-click="clearAllFilters()">Clear all</button>
-        <button class="cp-btn cp-btn-link cp-search-advanced-search" type="button" ng-click="isAdvancedSearchVisible = !isAdvancedSearchVisible">Advanced search</button>
+        <button class="cp-btn cp-btn-link cp-search-clear-all"
+            ng-click="clearAllFilters()">Clear all</button>
+
+        <button class="cp-btn cp-btn-link cp-search-advanced-search"
+            ng-click="toggleAdvancedSearch()">Advanced search</button>
     </form>
 
     <form class="cp-form cp-search-form cp-search-form-advanced" novalidate role="form" ng-show="isAdvancedSearchVisible">

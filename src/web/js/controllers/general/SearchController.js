@@ -246,4 +246,9 @@ angular.module('cp.controllers.general').controller('SearchController',
             keyEvent.target.blur();
         }
     };
+
+    $scope.toggleAdvancedSearch = function() {
+        $scope.isAdvancedSearchVisible = !$scope.isAdvancedSearchVisible;
+        AngularticsAnalyticsService.trackAdvancedSearchToggle($scope.isAdvancedSearchVisible);
+    };
 });
