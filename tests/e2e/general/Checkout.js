@@ -71,6 +71,11 @@ describe('Checkout', function() {
         expect(error.getText()).toBe(expectedErrorMessage);
     }
 
+    function expectNumberOfQuestions(expectedCount) {
+        var questions = element.all(by.repeater('question in questions'));
+        expect(questions.count()).toBe(expectedCount);
+    }
+
     describe('without reaching the minimum order value', function() {
         var isFirst = true;
 
@@ -326,6 +331,82 @@ describe('Checkout', function() {
         it('should be able to proceed to the "thank you" page', expectAbleToPlaceOrderSuccessfully);
     });
 
+    describe('with a new address and 100% discount so no payment details are needed', function() {
+        var isFirst = true;
+
+        beforeEach(function() {
+            if (isFirst) {
+                loginAsUser('james@mi6.test');
+                browser.get('/search');
+
+                pickBreakfastEventType();
+                pickSinglePackageResult();
+
+                changeDeliveryLocation('SE1 7TP');
+
+                // Select delivery date and time and head count.
+                element(by.model('pickedDate')).sendKeys(oneWeekFromNow.toISOString());
+                element(by.cssContainingText('#order_time option', '13:30')).click();
+                element(by.model('order.headCount')).sendKeys(30);
+
+                element(by.css('.cp-package-form input[type="submit"]')).click();
+
+                isFirst = false;
+            }
+        });
+
+        it('should be able to proceed to the "delivery details" step', function() {
+            element(by.model('order.vegetarianHeadCount')).sendKeys('5');
+            element(by.model('order.dietaryRequirementsExtra')).sendKeys('No poison in food.');
+
+            element(by.css('.cp-checkout-form input[type="submit"]')).click();
+
+            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/delivery-details/);
+        });
+
+        it('should prefill the postcode in the "delivery address" form', function() {
+            expect(element(by.model('address.postcode')).getAttribute('value')).toBe('SE1 7TP');
+        });
+
+        it('should be able to fill in the "delivery address" form', function() {
+            element(by.model('address.companyName')).sendKeys('The Secret Service');
+            element(by.model('address.addressLine1')).sendKeys('85 Albert Embankment');
+            element(by.model('address.city')).sendKeys('London');
+            element(by.model('address.officeManagerName')).sendKeys('M');
+            element(by.model('address.landlineNumber')).sendKeys('999');
+        });
+
+        it('should be able to proceed to the "payment" step', function() {
+            element(by.css('button[ng-click="nextStep()"]')).click();
+
+            expect(browser.getCurrentUrl()).toMatch(/citypantry\.dev\/checkout\/payment/);
+        });
+
+        it('should be able to redeem a 100% referral promo code', function() {
+            openPromoCodeField();
+
+            attemptToUsePromoCode('ONUS');
+
+            var promoCodeText = element(by.css('.cp-checkout-promo-code-valid')).getText();
+            expect(promoCodeText).toContain('ONUS');
+            expect(promoCodeText).toContain('100%');
+
+            // Non-referral promo codes should not show questions.
+            expectNumberOfQuestions(0);
+
+            expect(element(by.css('.cp-checkout-payment-form input[type="submit"]')).getAttribute('value'))
+                .toContain('Pay now (£0.00)');
+        });
+
+        it('should hide the payment details form fields', function() {
+            expect(element(by.css('.cp-order-payment-type-choice')).isPresent()).toBe(false);
+            expect(element(by.css('.cp-checkout-payment-card')).isPresent()).toBe(false);
+            expect(element(by.css('.cp-order-pay-on-account-details')).isPresent()).toBe(false);
+        });
+
+        it('should be able to proceed to the "thank you" page', expectAbleToPlaceOrderSuccessfully);
+    });
+
     describe('As a premium customer', function() {
         var isFirst = true;
 
@@ -381,7 +462,7 @@ describe('Checkout', function() {
             var paymentMethods = element.all(by.model('order.isPayOnAccount'));
             expect(paymentMethods.count()).toBe(2);
 
-            var payOnAccountOptions = element(by.css('[ng-if="order.isPayOnAccount"]'));
+            var payOnAccountOptions = element(by.css('.cp-order-pay-on-account-details'));
             expect(payOnAccountOptions.isDisplayed()).toBe(true);
         });
 
@@ -400,8 +481,7 @@ describe('Checkout', function() {
             expect(promoCodeText).toContain('Save £12.30');
 
             // Referral promo codes should show questions.
-            var questions = element.all(by.repeater('question in questions'));
-            expect(questions.count()).toBe(2);
+            expectNumberOfQuestions(2);
 
             expect(element(by.css('.cp-checkout-payment-form input[type="submit"]')).getAttribute('value'))
                 .toContain('Pay now (£110.70)');

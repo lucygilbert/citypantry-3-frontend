@@ -23,6 +23,7 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
     $scope.package = {};
     $scope.user = {};
     $scope.checkoutQuestionnaireAnswers = {};
+    $scope.requirePaymentDetails = true;
 
     const thisYear = (new Date()).getFullYear();
     $scope.yearOptions = [];
@@ -127,6 +128,8 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
         }
 
         CheckoutService.setTotalAmount($scope.order.totalAmount);
+
+        $scope.requirePaymentDetails = ($scope.order.totalAmount > 0);
     }
 
     function showPromoCodeError(errorMessage) {
@@ -231,10 +234,15 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
             willVendorDeliverCutleryAndServiettes: CheckoutService.isCutleryAndServiettesRequired(),
             willVendorCleanUpAfterDelivery: CheckoutService.isVendorRequiredToCleanUp(),
             willVendorSetUpAfterDelivery: CheckoutService.isVendorRequiredToSetUp(),
-            checkoutQuestionnaireAnswers: getQuestionnaireAnswers()
+            checkoutQuestionnaireAnswers: getQuestionnaireAnswers(),
+            // Add the 'isExpectedToBeFree' boolean to the order details so the API
+            // can log any errors around payment with as much detail as possible.
+            isExpectedToBeFree: !$scope.requirePaymentDetails
         };
 
-        if ($scope.order.isPayOnAccount) {
+        if (!$scope.requirePaymentDetails) {
+            deferred.resolve(orderDetails);
+        } else if ($scope.order.isPayOnAccount) {
             orderDetails.payOnAccount = true;
             orderDetails.purchaseOrderNumber = $scope.order.purchaseOrderNumber;
             orderDetails.departmentReference = $scope.order.departmentReference;
