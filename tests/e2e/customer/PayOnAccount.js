@@ -47,7 +47,7 @@ describe('Pay on account page', function() {
 
             var topText = textIfAdditionalInformationNeeded.getText();
             expect(topText).toContain('Please supply the following information');
-            expect(topText).toContain('Your maximum monthly spend will be £100.00');
+            expect(topText).toContain('Your maximum monthly spend will be £505.00');
             expect(topText).toContain('your payment terms will be Net 30');
         });
 

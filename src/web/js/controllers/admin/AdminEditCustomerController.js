@@ -59,13 +59,7 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
             invoicePaymentTerms: $scope.customer.invoicePaymentTerms
         };
 
-        CustomersFactory.updatePayOnAccountDetails($routeParams.customerId, payOnAccountDetails)
-            .success(response => {
-                $scope.customer = response.customer;
-                NotificationService.notifySuccess('The details have been updated.');
-                LoadingService.hide();
-            })
-            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+        createOrUpdatePayOnAccountDetails('The details have been updated.', payOnAccountDetails);
     };
 
     $scope.setUpRequestToPayOnAccount = function() {
@@ -76,14 +70,18 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
             invoicePaymentTerms: $scope.customer.invoicePaymentTerms
         };
 
-        CustomersFactory.setUpRequestToPayOnAccount($routeParams.customerId, payOnAccountDetails)
+        createOrUpdatePayOnAccountDetails('The request to pay on account has been set up.', payOnAccountDetails);
+    };
+
+    function createOrUpdatePayOnAccountDetails(successMessage, details) {
+        CustomersFactory.createOrUpdatePayOnAccountDetails($routeParams.customerId, details)
             .success(response => {
                 $scope.customer = response.customer;
-                NotificationService.notifySuccess('The request to pay on account has been set up.');
+                NotificationService.notifySuccess(successMessage);
                 LoadingService.hide();
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-    };
+    }
 
     $scope.save = function() {
         LoadingService.show();
