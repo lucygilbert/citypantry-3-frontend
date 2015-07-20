@@ -70,6 +70,7 @@ angular.module('cp')
     .constant('CP_PROMO_CODE_USE_TYPE_REWARD', 2)
     .constant('CP_PROMO_CODE_USE_TYPE_DISCOUNT', 3)
     .constant('CP_PROMO_CODE_USE_TYPE_VENDOR_PENALTY', 4)
+    .constant('CP_QUESTION_TYPE_FIRST_REFERRAL', 0)
     .constant('getTemplateUrl', (path) => '/dist/templates/' + path + '?cacheBuster=' + window.cacheBusterValue)
     .constant('CP_PAY_ON_ACCOUNT', 1);
 

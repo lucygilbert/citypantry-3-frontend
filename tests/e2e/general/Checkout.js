@@ -399,6 +399,10 @@ describe('Checkout', function() {
             expect(promoCodeText).toContain('10%');
             expect(promoCodeText).toContain('Save £12.30');
 
+            // Referral promo codes should show questions.
+            var questions = element.all(by.repeater('question in questions'));
+            expect(questions.count()).toBe(2);
+
             expect(element(by.css('.cp-checkout-payment-form input[type="submit"]')).getAttribute('value'))
                 .toContain('Pay now (£110.70)');
         });

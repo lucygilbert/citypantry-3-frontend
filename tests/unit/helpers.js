@@ -38,3 +38,7 @@ var newValidForm = function() {
         $valid: true,
     };
 };
+
+var mockLoggedIn = function(SecurityService) {
+    spyOn(SecurityService, 'requireLoggedIn');
+};
