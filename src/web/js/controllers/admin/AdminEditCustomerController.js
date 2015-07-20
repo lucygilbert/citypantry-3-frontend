@@ -7,6 +7,7 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
     const copyCustomerForEditing = () => $scope.customerForEditing = angular.copy($scope.customer);
 
     $scope.personaOptions = CustomersFactory.getPersonaOptions();
+    $scope.salesStaffTypeOptions = CustomersFactory.getSalesStaffTypeOptions();
 
     CustomersFactory.getCustomer($routeParams.customerId)
         .success(customer => {
@@ -88,7 +89,8 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
         LoadingService.show();
 
         const updatedCustomer = {
-            persona: $scope.customerForEditing.persona
+            persona: $scope.customerForEditing.persona,
+            salesStaffType: $scope.customerForEditing.salesStaffType
         };
 
         CustomersFactory.updateCustomer($routeParams.customerId, updatedCustomer)
