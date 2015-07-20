@@ -61,7 +61,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupPaymentCont
                 maxSpendPerMonth: $scope.preferences.maxSpendPerMonth
             };
 
-            const setUpRequestToPayOnAccountPromise = CustomersFactory.setUpRequestToPayOnAccount($scope.customer.id, payOnAccountDetails)
+            const setUpRequestToPayOnAccountPromise = CustomersFactory.createOrUpdatePayOnAccountDetails($scope.customer.id, payOnAccountDetails)
                 .success(response => $scope.customer = response.customer)
                 .catch(response => NotificationService.notifyError(response.data.errorTranslation));
             promises.push(setUpRequestToPayOnAccountPromise);

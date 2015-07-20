@@ -27,9 +27,9 @@ angular.module('cp.controllers.customer').controller('CustomerPayOnAccountContro
             accountsTelephoneNumber: $scope.user.customer.accountsTelephoneNumber
         };
 
-        var originalStatus = $scope.status;
+        const originalStatus = $scope.status;
 
-        CustomersFactory.updatePayOnAccountDetails($scope.user.customer.id, payOnAccountDetails)
+        CustomersFactory.createOrUpdatePayOnAccountDetails($scope.user.customer.id, payOnAccountDetails)
             .success(response => {
                 $scope.user = response;
                 setScopeStatus();
