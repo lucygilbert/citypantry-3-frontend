@@ -1,15 +1,27 @@
-let angularticsDependencies;
-if (window.includeAnalyticsJs && !window.isStaff) {
-    angularticsDependencies = [
-        'angulartics.google.analytics',
-        'angulartics.hubspot',
-        'angulartics.segment.io',
-        'angulartics.citypantry'
-    ];
-} else {
-    angularticsDependencies = [
-        'angulartics.console'
-    ];
+function getAngularticsDependencies() {
+    const isNonStaffOnProd = window.includeAnalyticsJs && !window.isStaff;
+    const isStaffOnDev = !window.includeAnalyticsJs && window.isStaff;
+    const isNonStaffOnDev = !window.includeAnalyticsJs && !window.isStaff;
+
+    if (isNonStaffOnProd) {
+        return [
+            'angulartics.google.analytics',
+            'angulartics.hubspot',
+            'angulartics.segment.io',
+            'angulartics.citypantry'
+        ];
+    } else if (isStaffOnDev) {
+        return [
+            'angulartics.console'
+        ];
+    } else if (isNonStaffOnDev) {
+        return [
+            'angulartics.citypantry',
+            'angulartics.console'
+        ];
+    } else {
+        return [];
+    }
 }
 
 angular.module('cp', [
@@ -37,7 +49,7 @@ angular.module('cp', [
     'js.clamp',
     'angulartics',
     'dndLists'
-].concat(angularticsDependencies));
+].concat(getAngularticsDependencies()));
 
 angular.module('cp')
     .constant('FRONTEND_BASE', window.frontendBase)
