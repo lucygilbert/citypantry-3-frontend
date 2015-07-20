@@ -25,13 +25,27 @@ describe('Admin - customer page', function() {
     });
 
     it('should be able to edit the customer persona', function() {
-        element(by.cssContainingText('option', 'The Big Dog')).click();
+        element(by.cssContainingText('select[name="customerPersona"] option', 'The Big Dog')).click();
+    });
+
+    it('should be able to edit the customer sales staff type', function() {
+        element(by.cssContainingText('select[name="customerSalesStaffType"] option', 'Non-premium')).click();
+    });
+
+    it('should be able to save the edited customer', function() {
         element(by.css('input[type="submit"]')).click();
 
         notificationModal.expectIsOpen();
         notificationModal.expectSuccessHeader();
         notificationModal.expectMessage('The customer has been edited.');
         notificationModal.dismiss();
+    });
+
+    it('should show the new customer values', function() {
+        var displayedDetails = element(by.id('cp-customer-details')).getText();
+
+        expect(displayedDetails).toContain('Persona: The Big Dog');
+        expect(displayedDetails).toContain('Sales staff type: Non-premium');
     });
 
     function goToEditCustomerPage(email) {
