@@ -2,7 +2,8 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
         function($scope, $routeParams, PackagesFactory, NotificationService, DocumentTitleService,
         LoadingService, SecurityService, $sce, FRONTEND_BASE, OrdersFactory, $location,
         getPackageAvailabilityErrorTextFilter, CheckoutService, $filter, SearchService,
-        ABTestService, dateIsBSTInEffectFilter, $window, GoogleAnalyticsService) {
+        ABTestService, dateIsBSTInEffectFilter, $window, GoogleAnalyticsService,
+        AngularticsAnalyticsService) {
     $scope.openLoginModal = false;
     $scope.isLoggedIn = SecurityService.isLoggedIn();
 
@@ -16,6 +17,10 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
     $scope.reviewsLimit = 3;
 
     $scope.order = {};
+
+    $scope.$on('ui.carousel.slideChanged', function(event, eventData) {
+        AngularticsAnalyticsService.trackPackageImageCarouselChange(eventData.newSlideIndex);
+    });
 
     const humanId = Number($routeParams.humanIdAndSlug.split('-')[0]);
 
@@ -102,6 +107,7 @@ angular.module('cp.controllers.general').controller('ViewPackageController',
             recalculateCostAmounts();
 
             GoogleAnalyticsService.trackPackageView($scope.package);
+            AngularticsAnalyticsService.trackPackageView($scope.package);
         })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 

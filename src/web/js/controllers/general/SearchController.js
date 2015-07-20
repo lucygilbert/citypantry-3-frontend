@@ -1,6 +1,7 @@
 angular.module('cp.controllers.general').controller('SearchController',
         function($scope, PackagesFactory, OrdersFactory, NotificationService, DocumentTitleService,
-        LoadingService, $q, $filter, SearchService, $anchorScroll, FacebookAnalyticsService) {
+        LoadingService, $q, $filter, SearchService, $anchorScroll, FacebookAnalyticsService,
+        AngularticsAnalyticsService) {
     FacebookAnalyticsService.track('6031347907146');
     DocumentTitleService('Search catering packages');
 
@@ -20,8 +21,6 @@ angular.module('cp.controllers.general').controller('SearchController',
 
     $scope.isSearching = true;
 
-    $scope.minPackageCost = 1;
-    $scope.maxPackageCost = 20;
     $scope.headCountOptions = OrdersFactory.getHeadCountOptions(500, 1);
     $scope.timeOptions = PackagesFactory.getPackageDeliveryTimeOptions(700, 2400, 30);
     $scope.minDate = new Date();
@@ -190,6 +189,7 @@ angular.module('cp.controllers.general').controller('SearchController',
     $scope.showMore = function() {
         $scope.packagesLimit += PAGINATION_LENGTH;
         SearchService.setDisplayedPackagesCount($scope.packagesLimit);
+        AngularticsAnalyticsService.trackIncreasingSearchResultsPagination($scope.packagesLimit / PAGINATION_LENGTH);
     };
 
     // The promise assigned to this is ultimately passed to the $http service as its `timeout`
@@ -224,6 +224,7 @@ angular.module('cp.controllers.general').controller('SearchController',
                 $scope.packages = response.packages;
                 $scope.isSearching = false;
                 LoadingService.hide();
+                trackSearchAndResults();
             })
             .catch(response => {
                 if (response.status === 0) {
@@ -235,10 +236,19 @@ angular.module('cp.controllers.general').controller('SearchController',
             });
     }
 
+    function trackSearchAndResults() {
+        AngularticsAnalyticsService.trackSearchAndResults($scope.packages, $scope.search);
+    }
+
     $scope.searchAndBlurIfEnterKey = function(keyEvent) {
         if (keyEvent.which === 13) {
             search();
             keyEvent.target.blur();
         }
+    };
+
+    $scope.toggleAdvancedSearch = function() {
+        $scope.isAdvancedSearchVisible = !$scope.isAdvancedSearchVisible;
+        AngularticsAnalyticsService.trackAdvancedSearchToggle($scope.isAdvancedSearchVisible);
     };
 });

@@ -1,3 +1,7 @@
+/**
+ * Service for tracking via Google Analytics. This is separate from AngularticsAnalyticsService
+ * because Google Analytics needs custom e-commerce plugin integration that Angulartics does not do.
+ */
 angular.module('cp.services').service('GoogleAnalyticsService', function(INCLUDE_ANALYTICS_JS) {
     function isEnabled() {
         return INCLUDE_ANALYTICS_JS && typeof window.ga === 'function';

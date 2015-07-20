@@ -1,4 +1,4 @@
-angular.module('cp').config(function($routeProvider, $analyticsProvider, getTemplateUrl) {
+angular.module('cp').config(function($routeProvider, getTemplateUrl) {
     $routeProvider.
         when('/', {
             controller: (SecurityService, $location, SupplierAgreementService) => {

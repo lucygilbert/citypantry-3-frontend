@@ -1,15 +1,27 @@
-let angularticsDependencies;
-if (window.includeAnalyticsJs && !window.isStaff) {
-    angularticsDependencies = [
-        'angulartics.google.analytics',
-        'angulartics.hubspot',
-        'angulartics.segment.io',
-        'angulartics.citypantry'
-    ];
-} else {
-    angularticsDependencies = [
-        'angulartics.console'
-    ];
+function getAngularticsDependencies() {
+    const isNonStaffOnProd = window.includeAnalyticsJs && !window.isStaff;
+    const isStaffOnDev = !window.includeAnalyticsJs && window.isStaff;
+    const isNonStaffOnDev = !window.includeAnalyticsJs && !window.isStaff;
+
+    if (isNonStaffOnProd) {
+        return [
+            'angulartics.google.analytics',
+            'angulartics.hubspot',
+            'angulartics.segment.io',
+            'angulartics.citypantry'
+        ];
+    } else if (isStaffOnDev) {
+        return [
+            'angulartics.console'
+        ];
+    } else if (isNonStaffOnDev) {
+        return [
+            'angulartics.citypantry',
+            'angulartics.console'
+        ];
+    } else {
+        return [];
+    }
 }
 
 angular.module('cp', [
@@ -37,7 +49,7 @@ angular.module('cp', [
     'js.clamp',
     'angulartics',
     'dndLists'
-].concat(angularticsDependencies));
+].concat(getAngularticsDependencies()));
 
 angular.module('cp')
     .constant('FRONTEND_BASE', window.frontendBase)
@@ -49,6 +61,7 @@ angular.module('cp')
     })
     .constant('GOOGLE_MAPS_JAVASCRIPT_API_V3_KEY', window.googleMapsJavascriptApiV3Key)
     .constant('INCLUDE_ANALYTICS_JS', window.includeAnalyticsJs)
+    .constant('ENABLE_ANGULARTICS', typeof window.enableAngulartics === 'boolean' ? window.enableAngulartics : true)
     .constant('CP_TELEPHONE_NUMBER_UK', '020 3397 8376')
     .constant('CP_TELEPHONE_NUMBER_INTERNATIONAL', '+442033978376')
     .constant('CP_TWILIO_ORDER_DELIVERY_NUMBER', '+441223750398')

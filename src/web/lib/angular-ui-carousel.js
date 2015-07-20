@@ -20,6 +20,14 @@ angular.module('ui.bootstrap.carousel', ['ui.bootstrap.transition'])
   /* direction: "prev" or "next" */
   self.select = $scope.select = function(nextSlide, direction) {
     var nextIndex = slides.indexOf(nextSlide);
+
+    if (direction !== undefined && self.currentSlide !== null) {
+        // The slide is changing (but not just rendering for the first time).
+        $scope.$emit('ui.carousel.slideChanged', {
+            newSlideIndex: nextIndex
+        });
+    }
+
     //Decide direction if it's not given
     if (direction === undefined) {
       direction = nextIndex > currentIndex ? 'next' : 'prev';

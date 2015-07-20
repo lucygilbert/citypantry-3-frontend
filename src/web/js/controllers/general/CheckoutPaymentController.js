@@ -2,7 +2,8 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
         function($scope, DocumentTitleService, SecurityService, LoadingService, PackagesFactory,
         CheckoutService, $location, UsersFactory, $q, NotificationService, OrdersFactory,
         getCardNumberMaskFilter, PromoCodeFactory, getPromoCodeErrorTextFilter, QuestionFactory,
-        GoogleAnalyticsService, CP_PROMO_CODE_USE_TYPE_REFERRAL, CP_QUESTION_TYPE_FIRST_REFERRAL) {
+        GoogleAnalyticsService, CP_PROMO_CODE_USE_TYPE_REFERRAL, CP_QUESTION_TYPE_FIRST_REFERRAL,
+        AngularticsAnalyticsService) {
     DocumentTitleService('Checkout: Payment');
     SecurityService.requireLoggedIn();
 
@@ -170,7 +171,7 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
                 $scope.order.promoCode = response.promoCode;
                 recalculateCostAmounts();
                 $scope.isPromoCodeValid = true;
-                $scope.isPromoCodeVisible = false;
+                $scope.isPromoCodeFieldVisible = false;
                 $scope.isReferralPromoCode = response.promoCode.useType === CP_PROMO_CODE_USE_TYPE_REFERRAL;
                 CheckoutService.setPromoCodeId($scope.order.promoCode.id);
 
@@ -275,5 +276,10 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
                 .catch(response => NotificationService.notifyError(response.data.errorTranslation));
         })
         .catch(() => NotificationService.notifyError());
+    };
+
+    $scope.showPromoCodeField = function() {
+        $scope.isPromoCodeFieldVisible = true;
+        AngularticsAnalyticsService.trackOpeningCheckoutPromoCodeField();
     };
 });
