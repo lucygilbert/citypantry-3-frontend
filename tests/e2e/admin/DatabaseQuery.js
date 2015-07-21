@@ -19,6 +19,6 @@ describe('Admin - mass edit vendors page', function() {
     it('should query the database', function() {
         queryInput.sendKeys('db.User.find().count()');
         sendButton.click();
-        expect(output.getAttribute('innerHTML')).toContain('6');
+        expect(output.getAttribute('innerHTML')).toContain('7');
     });
 });

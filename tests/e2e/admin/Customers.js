@@ -3,6 +3,8 @@ describe('Admin - customers page', function() {
     var notificationModal = require('../NotificationModal.js');
     var isFirst = true;
     var gridObject;
+    var NUMBER_OF_FIXTURE_CUSTOMERS = 4;
+    var EMAIL_COLUMN_IN_CUSTOMERS_PAGE = 3;
 
     beforeEach(function() {
         if (isFirst) {
@@ -30,19 +32,19 @@ describe('Admin - customers page', function() {
         ]);
     });
 
-    it('should have 3 rows', function() {
-        gridObject.expectRowCount(3);
+    it('should have ' + NUMBER_OF_FIXTURE_CUSTOMERS + ' rows', function() {
+        gridObject.expectRowCount(NUMBER_OF_FIXTURE_CUSTOMERS);
     });
 
     it('should find 1 customer when filtered by "alice@bunnies.test"',
             function() {
-        gridObject.enterFilterInColumn(3, 'alice@');
+        gridObject.enterFilterInColumn(EMAIL_COLUMN_IN_CUSTOMERS_PAGE, 'alice@');
         gridObject.expectRowCount(1);
-        gridObject.expectCellValueMatch(0, 3, 'alice@bunnies.test');
+        gridObject.expectCellValueMatch(0, EMAIL_COLUMN_IN_CUSTOMERS_PAGE, 'alice@bunnies.test');
     });
 
-    it('should find 3 customers when filter is cancelled', function() {
-        gridObject.cancelFilterInColumn(3);
-        gridObject.expectRowCount(3);
+    it('should find ' + NUMBER_OF_FIXTURE_CUSTOMERS + ' customers when filter is cancelled', function() {
+        gridObject.cancelFilterInColumn(EMAIL_COLUMN_IN_CUSTOMERS_PAGE);
+        gridObject.expectRowCount(NUMBER_OF_FIXTURE_CUSTOMERS);
     });
 });
