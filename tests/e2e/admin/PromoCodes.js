@@ -29,10 +29,10 @@ describe('Admin - promo codes page', function() {
         ]);
     });
 
-    it('should have 13 rows', function() {
-        // 13 are expected, because 12 promo codes are created in the fixtures, and 1 is created in
+    it('should have 14 rows', function() {
+        // 14 are expected, because 13 promo codes are created in the fixtures, and 1 is created in
         // the 'CreatePromoCode' test.
-        gridObject.expectRowCount(13);
+        gridObject.expectRowCount(14);
     });
 
     it('should find 1 promo code when filtered by "TEST2"', function() {

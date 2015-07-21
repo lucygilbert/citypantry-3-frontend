@@ -2,6 +2,7 @@ describe('Admin - users page', function() {
     var GridObjectTest = require('../lib/gridObjectTestUtils.spec.js');
     var isFirst = true;
     var gridObject;
+    var NUMBER_OF_FIXTURE_USERS = 7;
 
     beforeEach(function() {
         if (isFirst) {
@@ -16,8 +17,8 @@ describe('Admin - users page', function() {
         expect(element(by.css('h1')).getText()).toBe('Users');
     });
 
-    it('should have 6 rows', function() {
-        gridObject.expectRowCount(6);
+    it('should have ' + NUMBER_OF_FIXTURE_USERS + ' rows', function() {
+        gridObject.expectRowCount(NUMBER_OF_FIXTURE_USERS);
     });
 
     it('should have 6 columns', function() {
@@ -37,9 +38,9 @@ describe('Admin - users page', function() {
         gridObject.expectCellValueMatch(0, 1, 'Vendor');
     });
 
-    it('should find 6 users when filter is cancelled', function() {
+    it('should find ' + NUMBER_OF_FIXTURE_USERS + ' users when filter is cancelled', function() {
         gridObject.cancelFilterInColumn(1);
-        gridObject.expectRowCount(6);
+        gridObject.expectRowCount(NUMBER_OF_FIXTURE_USERS);
     });
 
     it('should allow the admin to masquerade as another user', function() {
