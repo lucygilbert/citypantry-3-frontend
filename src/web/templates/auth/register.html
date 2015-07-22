@@ -33,6 +33,22 @@
                     ng-model="plainPassword" />
             </div>
 
+            <div class="cp-form-group">
+                <label class="cp-form-label" for="registerSelfIdentifiedPersona">
+                    How would you describe yourself? (Optional.)
+                </label>
+                <select class="cp-form-control"
+                        id="registerSelfIdentifiedPersona"
+                        name="registerSelfIdentifiedPersona"
+                        ng-model="selfIdentifiedPersona">
+                    <option>I regularly order food for lots of people and value ease</option>
+                    <option>I regularly order food and value variety and inspiration</option>
+                    <option>I regularly order food for lots of occasions and need it to impress</option>
+                    <option>I infrequently order food for events or special occasions</option>
+                    <option>Responsible for ordering food for a lot of people with specific catering requirements</option>
+                </select>
+            </div>
+
             <input analytics-on="click" analytics-event="signUp" analytics-category="buttonEvents"
                     class="cp-btn cp-btn-primary cp-btn-sm" type="submit" value="Sign up" />
         </fieldset>
