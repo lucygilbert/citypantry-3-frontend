@@ -1,6 +1,6 @@
 angular.module('cp.controllers.admin').controller('AdminEditVendorController', function($scope, $q,
         $routeParams, VendorsFactory, NotificationService, DocumentTitleService, SecurityService,
-        LoadingService, VendorUsersFactory, $window) {
+        LoadingService, VendorUsersFactory, $window, UsersFactory) {
     SecurityService.requireStaff();
 
     function loadVendor() {
@@ -27,6 +27,7 @@ angular.module('cp.controllers.admin').controller('AdminEditVendorController', f
     function load() {
         $scope.vendor = {};
         $scope.users = [];
+        $scope.newUser = {};
 
         const loadingPromise1 = loadVendor();
         const loadingPromise2 = loadReviews();
@@ -68,5 +69,21 @@ angular.module('cp.controllers.admin').controller('AdminEditVendorController', f
         VendorUsersFactory.removeUserFromVendor($scope.vendor.id, user.id)
             .success(load)
             .error(response => NotificationService.notifyError(response.errorTranslation));
+    };
+
+    $scope.addNewUser = () => {
+        UsersFactory.isEmailInUse($scope.newUser.email).then(isInUse => {
+            if (isInUse) {
+                VendorUsersFactory.addExistingUserToVendor($scope.vendor.id, $scope.newUser.email)
+                    .success(load)
+                    .error(response => NotificationService.notifyError(response.errorTranslation));
+            } else  {
+                const name = $window.prompt('What is the new user\'s real name?');
+                const password = $window.prompt('What do you want to set the new user\'s password to?');
+                VendorUsersFactory.addNewUserToVendor($scope.vendor.id, name, $scope.newUser.email, password)
+                    .success(load)
+                    .error(response => NotificationService.notifyError(response.errorTranslation));
+            }
+        });
     };
 });
