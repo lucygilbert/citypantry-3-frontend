@@ -19,7 +19,8 @@ angular.module('cp.controllers.authentication').controller('RegisterController',
             name: $scope.name,
             email: $scope.email,
             plainPassword: $scope.plainPassword,
-            company: $scope.company
+            company: $scope.company,
+            selfIdentifiedPersona: $scope.selfIdentifiedPersona
         };
 
         AuthenticationFactory.registerCustomer(registerDetails)

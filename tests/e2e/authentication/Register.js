@@ -3,6 +3,7 @@ describe('Register as a customer', function() {
     var name;
     var email;
     var password;
+    var selfIdentifiedPersonas;
     var registerButton;
 
     beforeEach(function() {
@@ -13,7 +14,14 @@ describe('Register as a customer', function() {
         name = element(by.id('registerName'));
         email = element(by.id('registerEmail'));
         password = element(by.id('registerPassword'));
+        selfIdentifiedPersonas = element(by.model('selfIdentifiedPersona'));
         registerButton = element(by.css('form.cp-login-form .cp-btn-primary'));
+    });
+
+    it('should have several self-identitied persona options', function() {
+        // There should be 5 persona options and 1 empty default option.
+        expect(selfIdentifiedPersonas.all(by.css('option')).count())
+            .toBe(6);
     });
 
     it('should show an error if an email is entered that is already registered', function() {
