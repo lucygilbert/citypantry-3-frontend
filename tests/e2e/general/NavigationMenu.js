@@ -82,7 +82,8 @@ describe('Navigation Menu', function() {
         expect(navMenu.getText()).toContain('Vendors');
         expect(navMenu.getText()).toContain('Customers');
         expect(navMenu.getText()).toContain('Users');
-        expect(navMenuLinks.count()).toBe(7);
+        expect(navMenu.getText()).toContain('Search');
+        expect(navMenuLinks.count()).toBe(8);
 
         expect(myAccountMenu.isDisplayed()).toBe(false);
         myAccountButton.click();
