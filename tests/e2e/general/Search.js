@@ -81,24 +81,22 @@ describe('Search', function() {
 
     it('should be able to filter by head count', function() {
         var headCountFilter = element(by.model('search.headCount'));
-        var options = headCountFilter.all(by.css('option'));
-        var firstOption = options.get(0);
+        headCountFilter.sendKeys('4');
 
-        options.get(4).click();
         expectSearchResultCount(6);
-        firstOption.click();
+        headCountFilter.clear();
 
-        options.get(5).click();
+        headCountFilter.sendKeys('5');
         expectSearchResultCount(7);
-        firstOption.click();
+        headCountFilter.clear();
 
-        options.get(10).click();
+        headCountFilter.sendKeys('10');
         expectSearchResultCount(7);
-        firstOption.click();
+        headCountFilter.clear();
 
-        options.get(11).click();
+        headCountFilter.sendKeys('11');
         expectSearchResultCount(6);
-        firstOption.click();
+        headCountFilter.clear();
 
         expectSearchResultCount(7);
     });
