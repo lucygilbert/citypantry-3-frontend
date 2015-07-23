@@ -1,0 +1,19 @@
+<div class="wrapper">
+    <h1>User {{ user.humanId }}: {{ user.name }}, {{ user.email }}</h1>
+
+    <h2>History</h2>
+
+    <cp-history-table document-id="user.id" document-type="CityPantry\UserBundle\Document\User"></cp-history-table>
+
+    <h2>Details</h2>
+
+    <div id="cp-user-details">
+        <p>Name: {{ user.name }}</p>
+
+        <p>Email: {{ user.email }}</p>
+
+        <p>User group: {{ user.group.description }}</p>
+
+        <p>Last login: {{ user.lastLogin | date:'dd/MM/yyyy' }}</p>
+    </div>
+</div>
