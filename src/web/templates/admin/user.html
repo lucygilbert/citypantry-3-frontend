@@ -12,8 +12,34 @@
 
         <p>Email: {{ user.email }}</p>
 
-        <p>User group: {{ user.group.description }}</p>
-
         <p>Last login: {{ user.lastLogin | date:'dd/MM/yyyy' }}</p>
+    </div>
+
+    <div ng-if="isVendor && vendor">
+        <h2>Vendor user actions</h2>
+
+        <p><a ng-href="/admin/vendor/{{ vendor.id }}">View vendor in staff page</a></p>
+
+        <p><a ng-href="/vendor/{{ vendor.id }}">View vendor in frontend</a></p>
+
+        <button class="btn btn-primary" ng-click="removeUserFromVendor()">Remove user from vendor</button>
+    </div>
+
+    <div ng-if="isVendor && !vendor">
+        <h2>Vendor user actions</h2>
+
+        <p>This user was removed from a vendor, and can no longer login to the vendor's account.</p>
+    </div>
+
+    <div ng-if="isCustomer">
+        <h2>Customer user actions</h2>
+
+        <p><a ng-href="/admin/customer/{{ customer.id }}">View customer in staff page</a></p>
+    </div>
+
+    <div ng-if="isStaff">
+        <h2>Staff user actions</h2>
+
+        <p>There aren't any actions to take on staff users, at the moment.</p>
     </div>
 </div>
