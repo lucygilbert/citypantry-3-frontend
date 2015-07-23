@@ -65,4 +65,20 @@
     </ul>
 
     <p ng-if="vendor.addresses.length === 0">This vendor has no addresses.</p>
+
+    <h2>Users</h2>
+
+    <p ng-if="users.length === 0">There are no users for this vendor at the moment.</p>
+
+    <p ng-if="users.length > 0">Current users:</p>
+
+    <ul ng-if="users.length > 0">
+        <li ng-repeat="user in users">
+            {{ user.name }}, {{ user.email }}
+            <br />
+            <a ng-href="/admin/user/{{ user.id }}">View/edit user</a>
+            <br />
+            <a ng-click="removeUserFromVendor(user)">Remove user from vendor</a>
+        </li>
+    </ul>
 </div>

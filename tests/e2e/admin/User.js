@@ -23,7 +23,14 @@ describe('Admin - "view and edit" user page', function() {
             .toMatch(/^User \d+\: Jackie Chan, oke@bunnies\.test$/);
     });
 
-    it('should have the the user\'s name and email in the title', function() {
+    it('should load the user\'s history', function() {
         historyTable.expectHasSomeEvents();
+    });
+
+    it('should describe the user\'s group as a vendor and show revelant actions', function() {
+        expect(element(by.css('.wrapper')).getText()).toContain('Vendor user actions');
+
+        var removeUserFromVendorButton = element(by.cssContainingText('button', 'Remove user from vendor'));
+        expect(removeUserFromVendorButton.isPresent()).toBe(true);
     });
 });

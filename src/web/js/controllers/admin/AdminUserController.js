@@ -1,15 +1,31 @@
 angular.module('cp.controllers.admin').controller('AdminUserController', function ($scope,
         $routeParams, UsersFactory, NotificationService, DocumentTitleService, SecurityService,
-        LoadingService) {
+        LoadingService, VendorUsersFactory) {
     SecurityService.requireStaff();
 
-    const id = $routeParams.userId;
+    function loadUser() {
+        UsersFactory.getUser($routeParams.userId)
+            .success(response => {
+                $scope.user = response.user;
+                $scope.customer = response.customer;
+                $scope.isCustomer = response.isCustomer;
+                $scope.vendor = response.vendor;
+                $scope.isVendor = response.isVendor;
+                $scope.isStaff = response.isStaff;
 
-    UsersFactory.getUser(id)
-        .success(response => {
-            $scope.user = response.user;
-            DocumentTitleService(`User: ${response.user.email}`);
-            LoadingService.hide();
-        })
-        .error(response => NotificationService.notifyError(response.errorTranslation));
+                DocumentTitleService(`User: ${response.user.email}`);
+                LoadingService.hide();
+            })
+            .error(response => NotificationService.notifyError(response.errorTranslation));
+    }
+
+    loadUser();
+
+    $scope.removeUserFromVendor = () => {
+        LoadingService.show();
+
+        VendorUsersFactory.removeUserFromVendor($scope.vendor.id, $scope.user.id)
+            .success(loadUser)
+            .error(response => NotificationService.notifyError(response.errorTranslation));
+    };
 });
