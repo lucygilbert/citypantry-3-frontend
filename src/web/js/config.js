@@ -260,6 +260,10 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
             controller: 'AdminUsersController',
             templateUrl: getTemplateUrl('admin/users.html')
         }).
+        when('/admin/user/:userId', {
+            controller: 'AdminUserController',
+            templateUrl: getTemplateUrl('admin/user.html')
+        }).
         when('/admin/sms-centre', {
             controller: 'AdminSmsCentreController',
             templateUrl: getTemplateUrl('admin/sms-centre.html')

@@ -29,7 +29,9 @@ angular.module('cp.controllers.admin').controller('AdminUsersController',
             },
             {
                 cellTemplate: `<div class="ui-grid-cell-contents">
-                    <a class="masquerade" ng-click="grid.appScope.masquerade(row.entity[col.field])">Masquerade</a>
+                    <a class="view-and-edit" ng-href="/admin/user/{{ row.entity.humanId }}">View and edit</a>
+                    <br />
+                    <a class="masquerade" ng-click="grid.appScope.masquerade(row.entity.id)">Masquerade</a>
                     </div>
                     `,
                 displayName: 'Action',
@@ -40,8 +42,9 @@ angular.module('cp.controllers.admin').controller('AdminUsersController',
         ],
         enableFiltering: true,
         enableSorting: true,
-        paginationPageSizes: [25, 50, 75],
-        paginationPageSize: 25
+        paginationPageSizes: [100, 200, 300],
+        paginationPageSize: 100,
+        rowHeight: 50
     };
 
     UsersFactory.getAllUsers().success(response => {
