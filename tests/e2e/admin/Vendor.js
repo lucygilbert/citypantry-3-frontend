@@ -34,6 +34,12 @@ describe('Admin - edit vendor page - Hong Tin', function() {
         var formGroup = getCityPantryCommissionFormGroup();
         expect(formGroup.isPresent()).toBe(true);
     });
+
+    it('should list the vendor\'s users', function() {
+        var users = element.all(by.repeater('user in users'));
+        expect(users.count()).toBe(1);
+        expect(users.get(0).getText()).toContain('Vendor, vendor@bunnies.test');
+    });
 });
 
 describe('Admin - edit vendor page - Sam\'s', function() {
