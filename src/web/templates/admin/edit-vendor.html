@@ -81,4 +81,18 @@
             <a ng-click="removeUserFromVendor(user)">Remove user from vendor</a>
         </li>
     </ul>
+
+    <h2>Add user</h2>
+
+    <form role="form" ng-submit="addNewUser()" class="cp-add-vendor-user">
+        <div class="form-group">
+            <label for="city_pantry_new_vendor_user_email">Enter the user's email address:</label>
+            <input type="email"
+                id="city_pantry_new_vendor_user_email"
+                required
+                ng-model="newUser.email" />
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Continue">
+    </form>
 </div>
