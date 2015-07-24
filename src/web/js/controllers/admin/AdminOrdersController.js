@@ -159,11 +159,13 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         const selectedOrdersIds = getAllFilteredRows().map(row => row.entity.id);
         if (selectedOrdersIds.length === 0) {
             NotificationService.notifyError('You must have at least one order to create a CSV file.');
+            return;
         }
 
         const enabledFields = $scope.csvFields.filter(field => field.isEnabled).map(field => field.field);
         if (enabledFields.length === 0) {
             NotificationService.notifyError('You must have at least one field to create a CSV file.');
+            return;
         }
 
         OrdersFactory.createOrdersCsvFile(selectedOrdersIds, enabledFields)
