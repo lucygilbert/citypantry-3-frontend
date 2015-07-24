@@ -1,6 +1,6 @@
 angular.module('cp.controllers.admin').controller('AdminUserController', function ($scope,
         $routeParams, UsersFactory, NotificationService, DocumentTitleService, SecurityService,
-        LoadingService, VendorUsersFactory) {
+        LoadingService, VendorUsersFactory, $location) {
     SecurityService.requireStaff();
 
     function loadUser() {
@@ -28,4 +28,6 @@ angular.module('cp.controllers.admin').controller('AdminUserController', functio
             .success(loadUser)
             .error(response => NotificationService.notifyError(response.errorTranslation));
     };
+
+    $scope.changeUserPassword = () => $location.path(`/admin/user/${$routeParams.userId}/password`);
 });
