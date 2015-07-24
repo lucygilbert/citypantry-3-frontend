@@ -1,7 +1,7 @@
 angular.module('cp.controllers.admin').controller('AdminSmsCentreController',
         function ($scope, ApiService, LoadingService, DocumentTitleService,
         NotificationService, SmsFactory, CP_TWILIO_SMS_CENTRE_NUMBER, CP_TWILIO_ORDER_DELIVERY_NUMBER) {
-    DocumentTitleService('SMS Centre');
+    DocumentTitleService('SMS centre');
     $scope.mainPage = 'inbox';
     $scope.inboxPage = 'list';
     $scope.sentboxPage = 'list';

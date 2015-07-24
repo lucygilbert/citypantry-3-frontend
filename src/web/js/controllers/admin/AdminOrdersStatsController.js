@@ -1,7 +1,7 @@
 angular.module('cp.controllers.admin').controller('AdminOrdersStatsController',
         function($scope, ApiService, DocumentTitleService, SecurityService, LoadingService,
         NotificationService, $q) {
-    DocumentTitleService('Orders Stats');
+    DocumentTitleService('Orders stats');
     SecurityService.requireStaff();
 
     $scope.isReady = false;

@@ -3,7 +3,7 @@ angular.module('cp.controllers.admin', []);
 angular.module('cp.controllers.admin').controller('AdminCourierOrdersController',
         function($scope, OrdersFactory, DocumentTitleService, SecurityService, LoadingService,
         getOrderStatusTextFilter, getDeliveryStatusTextFilter) {
-    DocumentTitleService('Courier Orders');
+    DocumentTitleService('Courier orders');
     SecurityService.requireStaff();
 
     $scope.gridOptions = {
