@@ -1,4 +1,5 @@
 describe('Admin - orders page', function() {
+    var notificationModal = require('../NotificationModal.js');
     var GridObjectTest = require('../lib/gridObjectTestUtils.spec.js');
     var isFirst = true;
     var gridObject;
@@ -88,5 +89,15 @@ describe('Admin - orders page', function() {
         // there should be at least 1 order regardless of those factors.
         var rows = element(by.id('orders-table')).all(by.repeater('(rowRenderIndex, row) in rowContainer.renderedRows track by $index'));
         expect(rows.count()).toBeGreaterThan(0);
+    });
+
+    it('should be able to download orders as a CSV', function() {
+        var downloadButton = element(by.css('button.cp-download-csv'));
+        expect(downloadButton.getText()).toBe('DOWNLOAD');
+        downloadButton.click();
+
+        // If there was an error, a notification modal would display. If there was not an error,
+        // the download will have happened.
+        notificationModal.expectIsClosed();
     });
 });

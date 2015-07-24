@@ -7,6 +7,20 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
 
     $scope.ordersTotal = 0;
 
+    $scope.csvFields = [
+        {field: 'humanId', label: 'Order no.', isEnabled: true},
+        {field: 'date', label: 'Order date', isEnabled: true},
+        {field: 'requestedDeliveryDate', label: 'Delivery date', isEnabled: true},
+        {field: 'customer', label: 'Customer', isEnabled: true},
+        {field: 'vendor', label: 'Vendor', isEnabled: true},
+        {field: 'package', label: 'Package', isEnabled: true},
+        {field: 'totalAmountAfterVoucher', label: 'Cost (inc. VAT)', isEnabled: true},
+        {field: 'status', label: 'Order status', isEnabled: true},
+        {field: 'deliveryStatus', label: 'Delivery status', isEnabled: true},
+        {field: 'customerPersona', label: 'Customer persona', isEnabled: false},
+        {field: 'customerSalesStaffType', label: 'Customer sales staff type', isEnabled: false}
+    ];
+
     const setFiltersToSpanAllOfToday = filters => {
         const today = new Date();
 
@@ -142,15 +156,17 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
     }
 
     $scope.createOrdersCsv = () => {
-        const selectedOrdersIds = [];
-
-        getAllFilteredRows().forEach(row => selectedOrdersIds.push(row.entity.id));
-
+        const selectedOrdersIds = getAllFilteredRows().map(row => row.entity.id);
         if (selectedOrdersIds.length === 0) {
             NotificationService.notifyError('You must have at least one order to create a CSV file.');
         }
 
-        OrdersFactory.createOrdersCsvFile(selectedOrdersIds)
+        const enabledFields = $scope.csvFields.filter(field => field.isEnabled).map(field => field.field);
+        if (enabledFields.length === 0) {
+            NotificationService.notifyError('You must have at least one field to create a CSV file.');
+        }
+
+        OrdersFactory.createOrdersCsvFile(selectedOrdersIds, enabledFields)
             .success(response => {
                 $window.location.href = response.url;
             })
