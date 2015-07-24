@@ -9,8 +9,6 @@
         <button ng-click="clearAllFilters()" class="btn btn-primary">Clear all filters</button>
         &nbsp;
         <button ng-click="getOrderNumbers()" class="btn btn-primary">Get visible order numbers</button>
-        &nbsp;
-        <button ng-click="createOrdersCsv()" class="btn btn-primary">Create CSV from filtered orders</button>
     </p>
 
     <p>Total value of currently filtered orders: {{ ordersTotal | currency:'£':2 }}</p>
@@ -23,4 +21,23 @@
     </p>
 
     <div ui-grid="gridOptions" ui-grid-pagination id="orders-table" style="height: 780px;"></div>
+
+    <h2>Download CSV</h2>
+
+    <p>This will create a CSV of the filtered orders.</p>
+
+    <p>
+        Select the fields you want to include:
+    </p>
+
+    <p ng-repeat="field in csvFields">
+        <label for="cp-csv-field-{{ field.field }}">{{ field.label }}</label>
+        <input type="checkbox"
+            id="cp-csv-field-{{ field.field }}"
+            ng-model="field.isEnabled" />
+    </p>
+
+    <p>
+        <button ng-click="createOrdersCsv()" class="btn btn-primary cp-download-csv">Download</button>
+    </p>
 </div>
