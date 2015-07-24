@@ -22,19 +22,25 @@
 
         <p><a ng-href="/vendor/{{ vendor.id }}">View vendor in frontend</a></p>
 
-        <button class="btn btn-primary" ng-click="removeUserFromVendor()">Remove user from vendor</button>
+        <p><button class="btn btn-primary" ng-click="removeUserFromVendor()">Remove user from vendor</button></p>
+
+        <p><button class="btn btn-primary" ng-click="changeUserPassword()">Change password</button></p>
     </div>
 
     <div ng-if="isVendor && !vendor">
         <h2>Vendor user actions</h2>
 
         <p>This user was removed from a vendor, and can no longer login to the vendor's account.</p>
+
+        <p><button class="btn btn-primary" ng-click="changeUserPassword()">Change password</button></p>
     </div>
 
     <div ng-if="isCustomer">
         <h2>Customer user actions</h2>
 
         <p><a ng-href="/admin/customer/{{ customer.id }}">View customer in staff page</a></p>
+
+        <p><button class="btn btn-primary" ng-click="changeUserPassword()">Change password</button></p>
     </div>
 
     <div ng-if="isStaff">
