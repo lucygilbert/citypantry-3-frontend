@@ -6,13 +6,27 @@ angular.module('cp.controllers.admin').controller('AdminRandomToolsController',
     LoadingService.hide();
 
     $scope.inputs = {
-        getCoordinatesFromPostcode: {}
+        getCoordinatesFromPostcode: {},
+        researchPostcodeForAVendor: {},
+        getOrderValueStatsBetweenDates: {}
     };
 
     $scope.getCoordinatesFromPostcode = function() {
         const postcode = $scope.inputs.getCoordinatesFromPostcode.postcode;
         LocationFactory.getCoordinatesFromPostcode(postcode)
             .success(response => NotificationService.notifySuccess(`Longitude: ${response.longitude}, latitude: ${response.latitude}`))
+            .catch(NotificationService.notifyError);
+    };
+
+    $scope.researchPostcodeForAVendor = function() {
+        ReportingFactory.runPresetDatabaseQuery('research-postcode-for-a-vendor', $scope.inputs.researchPostcodeForAVendor)
+            .success(response => NotificationService.notifySuccess(response))
+            .catch(NotificationService.notifyError);
+    };
+
+    $scope.getOrderValueStatsBetweenDates = function() {
+        ReportingFactory.runPresetDatabaseQuery('get-order-value-stats-between-dates', $scope.inputs.getOrderValueStatsBetweenDates)
+            .success(response => NotificationService.notifySuccess(response))
             .catch(NotificationService.notifyError);
     };
 });

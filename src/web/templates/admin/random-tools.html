@@ -12,4 +12,36 @@
         <br />
         <button ng-click="getCoordinatesFromPostcode()">Get coordinates</button>
     </div>
+
+    <h2>Research postcode for a vendor</h2>
+
+    <div>
+        <input ng-model="inputs.researchPostcodeForAVendor.postcode"
+            placeholder="Enter a postcode"
+            size="30" />
+        <br />
+        <input ng-model="inputs.researchPostcodeForAVendor.radiusInMiles"
+            placeholder="Enter a radius in miles"
+            size="30" />
+        <br />
+        <input ng-model="inputs.researchPostcodeForAVendor.ordersSince"
+            placeholder="Enter a date to research orders since (ISO-8601)"
+            size="30" />
+        <br />
+        <button ng-click="researchPostcodeForAVendor()">Go</button>
+    </div>
+
+    <h2>Get order value stats between dates</h2>
+
+    <div>
+        <input ng-model="inputs.getOrderValueStatsBetweenDates.start"
+            placeholder="Enter a start date (ISO-8601)"
+            size="30" />
+        <br />
+        <input ng-model="inputs.getOrderValueStatsBetweenDates.end"
+            placeholder="Enter an end date (ISO-8601)"
+            size="30" />
+        <br />
+        <button ng-click="getOrderValueStatsBetweenDates()">Go</button>
+    </div>
 </div>
