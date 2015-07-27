@@ -32,6 +32,10 @@ describe('Admin - customer page', function() {
         element(by.cssContainingText('select[name="customerSalesStaffType"] option', 'Non-premium')).click();
     });
 
+    it('should be able to edit the pay-on-account invoice recipient', function() {
+        element(by.cssContainingText('select[name="customerPayOnAccountInvoiceRecipient"] option', 'Customer and City Pantry')).click();
+    });
+
     it('should be able to save the edited customer', function() {
         element(by.css('input[type="submit"]')).click();
 
@@ -46,6 +50,7 @@ describe('Admin - customer page', function() {
 
         expect(displayedDetails).toContain('Persona: The Big Dog');
         expect(displayedDetails).toContain('Sales staff type: Non-premium');
+        expect(displayedDetails).toContain('Send auto-generated pay-on-account invoices to: Customer and City Pantry');
     });
 
     function goToEditCustomerPage(email) {
