@@ -1,18 +1,19 @@
 angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
         function($scope, $routeParams, CustomersFactory, NotificationService, DocumentTitleService,
         SecurityService, LoadingService, MealPlanFactory) {
-    DocumentTitleService('Edit Customer');
     SecurityService.requireStaff();
 
     const copyCustomerForEditing = () => $scope.customerForEditing = angular.copy($scope.customer);
 
     $scope.personaOptions = CustomersFactory.getPersonaOptions();
     $scope.salesStaffTypeOptions = CustomersFactory.getSalesStaffTypeOptions();
+    $scope.payOnAccountInvoiceRecipientOptions = CustomersFactory.getPayOnAccountInvoiceRecipientOptions();
 
     CustomersFactory.getCustomer($routeParams.customerId)
         .success(customer => {
             $scope.customer = customer;
             copyCustomerForEditing();
+            DocumentTitleService(`Edit customer: ${customer.company}`);
             LoadingService.hide();
         })
         .error(response => NotificationService.notifyError(response.data.errorTranslation));
@@ -88,7 +89,8 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
 
         const updatedCustomer = {
             persona: $scope.customerForEditing.persona,
-            salesStaffType: $scope.customerForEditing.salesStaffType
+            salesStaffType: $scope.customerForEditing.salesStaffType,
+            payOnAccountInvoiceRecipient: $scope.customerForEditing.payOnAccountInvoiceRecipient
         };
 
         CustomersFactory.updateCustomer($routeParams.customerId, updatedCustomer)
