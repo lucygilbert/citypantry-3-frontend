@@ -61,8 +61,10 @@
         <p class="payment-card">{{ card.type }}<br />
         XXXX XXXX XXXX {{ card.last4 }}<br />
         {{ card.expiryDate }}</p>
+
+        <a ng-click="deletePaymentCard(card)" class="link-account cp-delete-payment-card">Delete</a>
     </div>
 
-    <a href="/user/payment-cards/new" class="link-account clear">Add a card</a>
+    <a href="/user/payment-cards/new" class="link-account clear cp-add-payment-card">Add a card</a>
 
 </div>

@@ -4,10 +4,22 @@ angular.module('cp.controllers.user').controller('UserPaymentCardsController',
     DocumentTitleService('Payment cards');
     SecurityService.requireLoggedIn();
 
-    UsersFactory.getPaymentCards()
-        .success(function(response) {
-            $scope.cards = response.cards;
-            LoadingService.hide();
-        })
-        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    function loadPaymentCards() {
+        UsersFactory.getPaymentCards()
+            .success(function(response) {
+                $scope.cards = response.cards;
+                LoadingService.hide();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    }
+
+    loadPaymentCards();
+
+    $scope.deletePaymentCard = (card) => {
+        LoadingService.show();
+
+        UsersFactory.deletePaymentCard(card.id)
+            .then(loadPaymentCards)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
 });

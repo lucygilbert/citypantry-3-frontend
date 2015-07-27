@@ -16,6 +16,7 @@
                 <th>Type</th>
                 <th>Number</th>
                 <th>Expiry date</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                 <td>{{ card.type }}</td>
                 <td>xxxx xxxx xxxx {{ card.last4 }}</td>
                 <td>{{ card.expiryDate }}</td>
+                <td><a ng-click="deletePaymentCard(card)">Delete</a></td>
             </tr>
         </tbody>
     </table>
