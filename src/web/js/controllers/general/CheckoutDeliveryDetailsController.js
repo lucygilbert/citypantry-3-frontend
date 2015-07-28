@@ -9,8 +9,8 @@ angular.module('cp.controllers.general').controller('CheckoutDeliveryDetailsCont
         postcode: CheckoutService.getPostcode()
     };
 
-    $scope.addresses = [];
-    $scope.address = {countryName: 'United Kingdom'};
+    $scope.deliveryAddresses = [];
+    $scope.deliveryAddress = {countryName: 'United Kingdom'};
     $scope.forms = {};
     $scope.isNewDeliveryAddress = true;
     $scope.package = {};
@@ -23,22 +23,20 @@ angular.module('cp.controllers.general').controller('CheckoutDeliveryDetailsCont
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         const promise2 = AddressFactory.getAddresses()
-            .success(response => {
-                $scope.addresses = response.addresses;
-            })
+            .success(response => $scope.deliveryAddresses = response.deliveryAddresses)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         $q.all([promise1, promise2]).then(() => {
-            $scope.addresses.forEach(address => {
-                if (postcodeComparison($scope.order.postcode, address.postcode)) {
-                    $scope.address = address;
+            $scope.deliveryAddresses.forEach(deliveryAddress => {
+                if (arePostcodesEqual($scope.order.postcode, deliveryAddress.postcode)) {
+                    $scope.deliveryAddress = deliveryAddress;
                     $scope.isNewDeliveryAddress = false;
                     return false;
                 }
             });
 
             if ($scope.isNewDeliveryAddress) {
-                $scope.address.postcode = $scope.order.postcode;
+                $scope.deliveryAddress.postcode = $scope.order.postcode;
             }
 
             LoadingService.hide();
@@ -47,12 +45,12 @@ angular.module('cp.controllers.general').controller('CheckoutDeliveryDetailsCont
 
     init();
 
-    function postcodeComparison(postcode1, postcode2) {
+    function arePostcodesEqual(postcode1, postcode2) {
         return (postcode1.replace(/\s+/g, '').toUpperCase() === postcode2.replace(/\s+/g, '').toUpperCase());
     }
 
     function setLabel() {
-        $scope.address.label = ($scope.address.label ? $scope.address.label : $scope.address.addressLine1);
+        $scope.deliveryAddress.label = ($scope.deliveryAddress.label ? $scope.deliveryAddress.label : $scope.deliveryAddress.addressLine1);
     }
 
     $scope.nextStep = function() {
@@ -68,14 +66,14 @@ angular.module('cp.controllers.general').controller('CheckoutDeliveryDetailsCont
         let promise;
 
         if ($scope.isNewDeliveryAddress) {
-            promise = AddressFactory.createAddress($scope.address);
+            promise = AddressFactory.createAddress($scope.deliveryAddress);
         } else {
-            promise = AddressFactory.updateAddress($scope.address.id, $scope.address);
+            promise = AddressFactory.updateAddress($scope.deliveryAddress.id, $scope.deliveryAddress);
         }
 
         promise.then(response => {
-            $scope.address = $scope.isNewDeliveryAddress ? response.data.newAddress : response.data.updatedAddress;
-            CheckoutService.setDeliveryAddressId($scope.address.id);
+            $scope.deliveryAddress = $scope.isNewDeliveryAddress ? response.data.newAddress : response.data.updatedAddress;
+            CheckoutService.setDeliveryAddressId($scope.deliveryAddress.id);
             $location.path('/checkout/payment');
         }).catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };

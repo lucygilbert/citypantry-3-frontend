@@ -3,7 +3,7 @@ angular.module('cp.controllers.customer').controller('CustomerAddressController'
     DocumentTitleService('Delivery address');
 
     if ($routeParams.id) {
-        CustomersFactory.getAddressById($routeParams.id).then(function(address) {
+        CustomersFactory.getDeliveryAddressById($routeParams.id).then(function(address) {
             $scope.address = address;
             $scope.isNew = false;
             LoadingService.hide();

@@ -184,10 +184,10 @@ describe('Checkout', function() {
 
         it('should load the customer\'s saved address', function() {
             expect(element(by.css('.cp-checkout-address')).getText()).toContain('25 Lena Gardens');
-            expect(element(by.model('address.officeManagerName')).getAttribute('value')).toBe('Bunny Rabbit');
-            expect(element(by.model('address.landlineNumber')).getAttribute('value')).toBe('02012345678');
-            expect(element(by.model('address.deliveryInstruction')).getAttribute('value')).toBe('Ask for someone');
-            expect(element(by.model('address.parkingSuggestion')).getAttribute('value')).toBe('Paint your car invisible so traffic wardens can\'t see it');
+            expect(element(by.model('deliveryAddress.officeManagerName')).getAttribute('value')).toBe('Bunny Rabbit');
+            expect(element(by.model('deliveryAddress.landlineNumber')).getAttribute('value')).toBe('02012345678');
+            expect(element(by.model('deliveryAddress.deliveryInstruction')).getAttribute('value')).toBe('Ask for someone');
+            expect(element(by.model('deliveryAddress.parkingSuggestion')).getAttribute('value')).toBe('Paint your car invisible so traffic wardens can\'t see it');
         });
 
         it('should be able to proceed to the "payment" step', function() {
@@ -446,11 +446,11 @@ describe('Checkout', function() {
 
         it('should load the customer\'s saved address', function() {
             expect(element(by.css('.cp-checkout-address')).getText()).toContain('Regent St');
-            expect(element(by.model('address.officeManagerName')).getAttribute('value')).toBe('Steve Jobs');
-            expect(element(by.model('address.parkingSuggestion')).getAttribute('value')).toBe('It\'s Oxford Stret, good luck.');
+            expect(element(by.model('deliveryAddress.officeManagerName')).getAttribute('value')).toBe('Steve Jobs');
+            expect(element(by.model('deliveryAddress.parkingSuggestion')).getAttribute('value')).toBe('It\'s Oxford Stret, good luck.');
 
             // The phone number is required but not set in the fixtures.
-            element(by.model('address.landlineNumber')).sendKeys('123');
+            element(by.model('deliveryAddress.landlineNumber')).sendKeys('123');
         });
 
         it('should be able to proceed to the "payment" step', function() {

@@ -21,7 +21,7 @@ angular.module('cp.controllers.customer').controller('CustomerAccountDetailsCont
         });
 
     const loadingPromise2 = AddressFactory.getAddresses()
-        .success(response => $scope.addresses = response.addresses)
+        .success(response => $scope.deliveryAddresses = response.deliveryAddresses)
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
     const loadingPromise3 = loadPaymentCards();

@@ -1,6 +1,6 @@
 angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
         function($scope, $routeParams, CustomersFactory, NotificationService, DocumentTitleService,
-        SecurityService, LoadingService, MealPlanFactory) {
+        SecurityService, LoadingService, MealPlanFactory, AddressFactory) {
     SecurityService.requireStaff();
 
     const copyCustomerForEditing = () => $scope.customerForEditing = angular.copy($scope.customer);
@@ -15,6 +15,13 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
             copyCustomerForEditing();
             DocumentTitleService(`Edit customer: ${customer.company}`);
             LoadingService.hide();
+        })
+        .error(response => NotificationService.notifyError(response.data.errorTranslation));
+
+    AddressFactory.getAddressesByCustomerId($routeParams.customerId)
+        .success(response => {
+            $scope.deliveryAddresses = response.deliveryAddresses;
+            $scope.billingAddresses = response.billingAddresses;
         })
         .error(response => NotificationService.notifyError(response.data.errorTranslation));
 

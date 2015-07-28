@@ -10,7 +10,7 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
 
     DocumentTitleService('Dashboard');
 
-    $scope.addresses = [];
+    $scope.deliveryAddresses = [];
     $scope.customer = {};
     $scope.headCountOptions = OrdersFactory.getHeadCountOptions(500, 1);
     $scope.isDatePickerOpen = false;
@@ -44,7 +44,7 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         const promise2 = CustomersFactory.getAddresses()
-            .success(response => $scope.addresses = response.addresses)
+            .success(response => $scope.deliveryAddresses = response.deliveryAddresses)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
         const promise3 = SecurityService.getCustomer()
@@ -63,7 +63,7 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
             const postcode = SearchService.getPostcode();
             if (postcode) {
                 let isNewPostcode = true;
-                $scope.addresses.forEach(address => {
+                $scope.deliveryAddresses.forEach(address => {
                     if (postcodeComparison(postcode, address.postcode)) {
                         $scope.search.postcode = postcode;
                         isNewPostcode = false;
@@ -74,8 +74,8 @@ angular.module('cp.controllers.customer').controller('CustomerDashboardControlle
                     $scope.search.newPostcode = postcode;
                 }
             } else {
-                if ($scope.addresses.length > 0) {
-                    $scope.search.postcode = $scope.addresses[0].postcode;
+                if ($scope.deliveryAddresses.length > 0) {
+                    $scope.search.postcode = $scope.deliveryAddresses[0].postcode;
                 }
             }
 

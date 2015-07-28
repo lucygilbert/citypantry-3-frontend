@@ -187,7 +187,7 @@
     <h2>Delivery addresses</h2>
 
     <ul>
-        <li ng-repeat="address in customer.addresses">
+        <li ng-repeat="address in deliveryAddresses">
             Label: {{ address.label }}<br />
             {{ address | addressSingleLineFormatter }}<br />
             Office manager: {{ address.officeManagerName }}<br />
@@ -195,5 +195,15 @@
         </li>
     </ul>
 
-    <p ng-if="customer.addresses.length === 0">This customer has no delivery addresses.</p>
+    <p ng-if="deliveryAddresses.length === 0">This customer has no delivery addresses.</p>
+
+    <h2>Billing addresses</h2>
+
+    <ul>
+        <li ng-repeat="address in billingAddresses">
+            {{ address | addressSingleLineFormatter }}
+        </li>
+    </ul>
+
+    <p ng-if="billingAddresses.length === 0">This customer has no billing addresses.</p>
 </div>

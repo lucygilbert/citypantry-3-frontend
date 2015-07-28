@@ -15,7 +15,7 @@ describe('Customer delivery addresses', function() {
     });
 
     it('should have one address', function() {
-        var addresses = element.all(by.repeater('address in addresses'));
+        var addresses = element.all(by.repeater('deliveryAddress in deliveryAddresses'));
         expect(addresses.count()).toBe(1);
         expect(addresses.get(0).getText()).toContain('25 Lena Gardens, London, W6 7PY, United Kingdom');
     });
@@ -51,7 +51,7 @@ describe('Customer delivery addresses', function() {
     });
 
     it('should list the new address in the address list', function() {
-        var addresses = element.all(by.repeater('address in addresses'));
+        var addresses = element.all(by.repeater('deliveryAddress in deliveryAddresses'));
         expect(addresses.count()).toBe(2);
         expect(addresses.get(1).getText()).toContain('11 Francis Street, London, SW1P 1AA, United Kingdom');
     });
@@ -86,7 +86,7 @@ describe('Customer delivery addresses', function() {
     });
 
     it('should show the edited address details in the address list', function() {
-        var addresses = element.all(by.repeater('address in addresses'));
+        var addresses = element.all(by.repeater('deliveryAddress in deliveryAddresses'));
         expect(addresses.get(0).getText()).toContain('25 Lena Gardens, Albuquerque, W6 7PY, United Kingdom');
     });
 
@@ -98,7 +98,7 @@ describe('Customer delivery addresses', function() {
 
         element(by.css('main input.btn-primary')).click();
 
-        var addresses = element.all(by.repeater('address in addresses'));
+        var addresses = element.all(by.repeater('deliveryAddress in deliveryAddresses'));
         expect(addresses.get(0).getText()).toContain('25 Lena Gardens, London, W6 7PY, United Kingdom');
     });
 });
