@@ -4,7 +4,7 @@ angular.module('cp.controllers.customer').controller('CustomerAddressesControlle
     SecurityService.requireLoggedIn();
 
     CustomersFactory.getAddresses().success(function(response) {
-        $scope.addresses = response.addresses;
+        $scope.deliveryAddresses = response.deliveryAddresses;
         LoadingService.hide();
     });
 });

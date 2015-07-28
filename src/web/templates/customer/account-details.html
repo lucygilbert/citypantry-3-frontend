@@ -38,7 +38,7 @@
 
     <h2 class="cp-heading">Delivery details</h2>
 
-    <div ng-repeat="address in addresses">
+    <div ng-repeat="address in deliveryAddresses">
         <p class="address-label">{{address.label}}</p>
         <p class="address-lines" ng-bind-html="address | addressSingleLineFormatter:'<br />'"></p>
         <p class="address-office-manager-and-telephone">

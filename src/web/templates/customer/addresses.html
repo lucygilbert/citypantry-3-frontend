@@ -9,7 +9,7 @@
         You have no delivery addresses stored. <a href="/customer/addresses/new">Why not add one?</a>
     </p>
 
-    <table class="table" id="table_addresses" ng-if="addresses.length > 0">
+    <table class="table" id="table_addresses" ng-if="deliveryAddresses.length > 0">
         <thead>
             <tr>
                 <th>Address</th>
@@ -20,12 +20,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="address in addresses">
-                <td>{{ address | addressSingleLineFormatter }}</td>
-                <td>{{ address.companyName }}</td>
-                <td>{{ address.officeManagerName }}</td>
-                <td>{{ address.landlineNumber }}</td>
-                <td><a class="btn btn-primary cp-edit-address" ng-href="/customer/addresses/{{ address.id }}">Edit</a></td>
+            <tr ng-repeat="deliveryAddress in deliveryAddresses">
+                <td>{{ deliveryAddress | addressSingleLineFormatter }}</td>
+                <td>{{ deliveryAddress.companyName }}</td>
+                <td>{{ deliveryAddress.officeManagerName }}</td>
+                <td>{{ deliveryAddress.landlineNumber }}</td>
+                <td><a class="btn btn-primary cp-edit-address" ng-href="/customer/addresses/{{ deliveryAddress.id }}">Edit</a></td>
             </tr>
         </tbody>
     </table>

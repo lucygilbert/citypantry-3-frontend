@@ -9,7 +9,7 @@
             <form class="cp-form cp-dashboard-form" name="dashboardForm" novalidate role="form" ng-submit="submit()">
                 <fieldset>
                     <div class="row">
-                        <div class="cp-form-group col-md-5" ng-if="addresses.length > 0">
+                        <div class="cp-form-group col-md-5" ng-if="deliveryAddresses.length > 0">
                             <label class="cp-form-label" for="search_postcode">
                                 Deliver to saved location
                                 <span class="form-element-invalid" ng-show="dashboardForm.$submitted && dashboardForm.searchPostcode.$error.required">Delivery location is required</span>
@@ -18,12 +18,12 @@
                                 id="search_postcode"
                                 name="searchPostcode"
                                 ng-model="search.postcode"
-                                ng-options="address.postcode as address.label for address in addresses"
+                                ng-options="address.postcode as address.label for address in deliveryAddresses"
                                 ng-required="!search.newPostcode">
                             </select>
                         </div>
 
-                        <div class="col-md-1" ng-if="addresses.length > 0">
+                        <div class="col-md-1" ng-if="deliveryAddresses.length > 0">
                             <span class="cp-form-separator">or</span>
                         </div>
 
@@ -40,7 +40,7 @@
                                 placeholder="POSTCODE"
                                 ng-model="search.newPostcode"
                                 ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/"
-                                ng-required="addresses.length === 0" />
+                                ng-required="deliveryAddresses.length === 0" />
                         </div>
                     </div>
 

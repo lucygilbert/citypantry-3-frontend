@@ -63,7 +63,7 @@ describe('Admin - Meal plan setup', function() {
             expect(element(by.css('.cp-meal-plan-setup-steps > .active')).getText()).toBe('Delivery details');
         });
 
-        it('should load the customer\'s saved addresses', function() {
+        it('should load the customer\'s saved delivery addresses', function() {
             var addresses = element.all(by.css('#existing_addresses > option'));
             expect(addresses.count()).toBe(2); // 2 because 1 option + "not selected" option = 2.
             expect(addresses.get(1).getText()).toBe('Lena Gardens');

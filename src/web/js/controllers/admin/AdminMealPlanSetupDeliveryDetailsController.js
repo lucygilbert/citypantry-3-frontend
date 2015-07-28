@@ -13,7 +13,7 @@ angular.module('cp.controllers.admin').controller('AdminMealPlanSetupDeliveryDet
     const initPromises = [];
 
     initPromises[0] = AddressFactory.getAddressesByCustomerId($routeParams.customerId)
-        .success(response => $scope.existingAddresses = response.addresses)
+        .success(response => $scope.existingAddresses = response.deliveryAddresses)
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
     initPromises[1] = MealPlanFactory.getCustomerMealPlanRequirements($routeParams.customerId)
