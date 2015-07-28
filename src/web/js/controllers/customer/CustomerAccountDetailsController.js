@@ -7,6 +7,12 @@ angular.module('cp.controllers.customer').controller('CustomerAccountDetailsCont
     SecurityService.requireLoggedIn();
     $scope.showEditDetailsForm = false;
 
+    function loadPaymentCards() {
+        return UsersFactory.getPaymentCards()
+            .then(response => $scope.paymentCards = response.data.cards)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    }
+
     const loadingPromise1 = UsersFactory.getLoggedInUser()
         .success(response => {
             $scope.authUser = response;
@@ -18,9 +24,7 @@ angular.module('cp.controllers.customer').controller('CustomerAccountDetailsCont
         .success(response => $scope.addresses = response.addresses)
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
-    const loadingPromise3 = UsersFactory.getPaymentCards()
-        .success(response => $scope.paymentCards = response.cards)
-        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    const loadingPromise3 = loadPaymentCards();
 
     $q.all([loadingPromise1, loadingPromise2, loadingPromise3]).then(() => LoadingService.hide());
 
@@ -57,5 +61,13 @@ angular.module('cp.controllers.customer').controller('CustomerAccountDetailsCont
         $scope.showEditDetailsForm = false;
         // See comment above about why we are using angular.copy() here.
         $scope.inputs = angular.copy($scope.authUser);
+    };
+
+    $scope.deletePaymentCard = (card) => {
+        LoadingService.show();
+
+        UsersFactory.deletePaymentCard(card.id)
+            .then(() => loadPaymentCards().then(LoadingService.hide))
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
 });
