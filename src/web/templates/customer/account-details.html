@@ -46,10 +46,25 @@
             {{address.landlineNumber}}
         </p>
 
-        <a href="/customer/addresses/{{address.id}}" class="link-account">View/edit</a>
+        <a ng-href="/customer/addresses/delivery/{{ address.id }}" class="link-account cp-edit-delivery-address">View/edit</a>
     </div>
 
-    <a href="/customer/addresses/new" class="link-account clear">Add an address</a>
+    <a href="/customer/addresses/delivery/new" class="link-account cp-add-delivery-address clear">Add an address</a>
+
+    <hr />
+
+    <h2 class="cp-heading">Billing addresses</h2>
+
+    <div ng-repeat="address in billingAddresses">
+        <p class="address-lines" ng-bind-html="address | addressSingleLineFormatter:'<br />'"></p>
+        <p class="address-office-manager-and-telephone">
+            {{ address.landlineNumber }}
+        </p>
+
+        <a ng-href="/customer/addresses/billing/{{ address.id }}" class="link-account cp-edit-billing-address">View/edit</a>
+    </div>
+
+    <a href="/customer/addresses/billing/new" class="link-account cp-add-billing-address clear">Add an address</a>
 
     <hr />
 

@@ -21,12 +21,15 @@ angular.module('cp.controllers.customer').controller('CustomerAccountDetailsCont
         });
 
     const loadingPromise2 = AddressFactory.getAddresses()
-        .success(response => $scope.deliveryAddresses = response.deliveryAddresses)
+        .success(response => {
+            $scope.deliveryAddresses = response.deliveryAddresses;
+            $scope.billingAddresses = response.billingAddresses;
+        })
         .catch(response => NotificationService.notifyError(response.data.errorTranslation));
 
     const loadingPromise3 = loadPaymentCards();
 
-    $q.all([loadingPromise1, loadingPromise2, loadingPromise3]).then(() => LoadingService.hide());
+    $q.all([loadingPromise1, loadingPromise2, loadingPromise3]).then(LoadingService.hide);
 
     $scope.save = () => {
         LoadingService.show();

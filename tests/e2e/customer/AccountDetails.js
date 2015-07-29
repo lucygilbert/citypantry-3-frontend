@@ -23,7 +23,7 @@ describe('Customer delivery addresses', function() {
         expect(element.all(by.css('p.address-lines')).get(0).getText()).toContain('25 Lena Gardens');
         expect(element.all(by.css('p.address-office-manager-and-telephone')).get(0).getText()).toContain("Bunny Rabbit\n02012345678");
 
-        expect(element.all(by.css('h2')).get(2).getText()).toBe('PAYMENT DETAILS');
+        expect(element.all(by.css('h2')).get(3).getText()).toBe('PAYMENT DETAILS');
         var paymentCardText = element.all(by.css('p.payment-card')).get(0).getText();
         expect(paymentCardText).toContain('MasterCard');
         expect(paymentCardText).toContain('XXXX XXXX XXXX 6789');
@@ -46,18 +46,18 @@ describe('Customer delivery addresses', function() {
         expect(firstParagraphText).toContain('Jean-Baptiste Zorg');
     });
 
-    it('should redirect to the Edit Address page', function() {
-        element.all(by.css('.link-account')).get(1).click();
+    it('should redirect to the Edit Delivery Address page', function() {
+        element.all(by.css('.cp-edit-delivery-address')).get(0).click();
 
-        expect(browser.getCurrentUrl()).toMatch(/customer\/addresses/);
+        expect(browser.getCurrentUrl()).toMatch(/customer\/addresses\/delivery\/[0-9a-f]{24}$/);
 
         browser.get('/customer/account-details');
     });
 
-    it('should redirect to the Add Address page', function() {
-        element.all(by.css('.link-account')).get(2).click();
+    it('should redirect to the Add Delivery Address page', function() {
+        element(by.css('.cp-add-delivery-address')).click();
 
-        expect(browser.getCurrentUrl()).toMatch(/customer\/addresses\/new$/);
+        expect(browser.getCurrentUrl()).toMatch(/customer\/addresses\/delivery\/new$/);
 
         browser.get('/customer/account-details');
     });

@@ -1,77 +1,79 @@
 angular.module('cp').directive('cpAddressForm', function(SecurityService, getTemplateUrl) {
-    const template = getTemplateUrl('directives/cp-address-form-for-' +
-        (SecurityService.customerIsLoggedIn() ? 'customer' : 'vendor') +
-        '.html');
-
     return {
         restrict: 'E',
         scope: {
             address: '=',
-            userType: '=',
+            addressType: '=',
         },
-        templateUrl: template,
+        templateUrl: getTemplateUrl('directives/cp-address-form.html'),
         controller: 'cpAddressFormController'
     };
 });
 
-angular.module('cp').controller('cpAddressFormController',
-    function($scope, $location, AddressFactory, NotificationService, LoadingService, SecurityService) {
-            if ($scope.userType !== 'vendor' && $scope.userType !== 'customer') {
-                throw new Error('userType must be vendor or customer');
-            }
+angular.module('cp').controller('cpAddressFormController', function($scope, $location,
+        AddressFactory, NotificationService, LoadingService, SecurityService, getTemplateUrl) {
+    const validAddressTypes = ['vendor', 'delivery', 'billing'];
+    if (validAddressTypes.indexOf($scope.addressType) === -1) {
+        throw new Error('addressType must be one of: ' + validAddressTypes.join(', '));
+    }
 
-            if ($scope.userType === 'vendor') {
-                if (!$scope.address.orderNotificationMobileNumbers) {
-                    $scope.address.orderNotificationMobileNumbers = [];
-                }
-                $scope.address.orderNotificationMobileNumbersCommaSeparated = $scope.address.orderNotificationMobileNumbers.join(', ');
-            }
+    $scope.formTemplate = getTemplateUrl('directives/cp-address-form-for-' + $scope.addressType + '.html');
 
-            function setLabel() {
-                $scope.address.label = ($scope.address.label ? $scope.address.label : $scope.address.addressLine1);
-            }
+    if ($scope.addressType === 'vendor') {
+        if (!$scope.address.orderNotificationMobileNumbers) {
+            $scope.address.orderNotificationMobileNumbers = [];
+        }
+        $scope.address.orderNotificationMobileNumbersCommaSeparated = $scope.address.orderNotificationMobileNumbers.join(', ');
+    }
 
-            let isNew = !$scope.address.id;
-            $scope.isNew = isNew;
+    function setLabel() {
+        $scope.address.label = ($scope.address.label ? $scope.address.label : $scope.address.addressLine1);
+    }
 
-            setLabel();
+    function redirectToAddressesPage() {
+        if (SecurityService.customerIsLoggedIn()) {
+            $location.path('/customer/addresses');
+        } else if (SecurityService.vendorIsLoggedIn()) {
+            $location.path('/vendor/addresses');
+        } else {
+            throw new Error('Unexpected user type.');
+        }
+    }
 
-            $scope.save = function() {
-                if ($scope.form.$invalid) {
-                    $scope.form.$submitted = true;
-                    return;
-                }
+    $scope.isNew = !$scope.address.id;
 
-                if ($scope.userType === 'vendor') {
-                    $scope.address.orderNotificationMobileNumbers = $scope.address.orderNotificationMobileNumbersCommaSeparated.split(/\s*,\s*/);
-                }
+    setLabel();
 
-                LoadingService.show();
+    $scope.save = function() {
+        if ($scope.form.$invalid) {
+            $scope.form.$submitted = true;
+            return;
+        }
 
-                setLabel();
+        if ($scope.addressType === 'vendor') {
+            $scope.address.orderNotificationMobileNumbers = $scope.address.orderNotificationMobileNumbersCommaSeparated.split(/\s*,\s*/);
+        }
 
-                let promise;
-                if (isNew) {
-                    promise = AddressFactory.createAddress($scope.address);
-                    isNew = false;
+        LoadingService.show();
+
+        setLabel();
+
+        let promise;
+        if ($scope.isNew) {
+            const factoryMethod = $scope.addressType === 'billing' ? 'createBillingAddress' : 'createAddress';
+            promise = AddressFactory[factoryMethod]($scope.address)
+                .then(response => {
                     $scope.isNew = false;
-                } else {
-                    promise = AddressFactory.updateAddress($scope.address.id, $scope.address);
-                }
-
-                promise.then(function() {
-                    const redirectTo = '/' + $scope.userType + '/addresses';
-                    $location.path(redirectTo);
+                    return response;
                 });
-            };
+        } else {
+            promise = AddressFactory.updateAddress($scope.address.id, $scope.address);
+        }
 
-            $scope.cancel = function() {
-                if (SecurityService.customerIsLoggedIn()) {
-                    $location.path('/customer/addresses');
-                } else if (SecurityService.vendorIsLoggedIn()) {
-                    $location.path('/vendor/addresses');
-                } else {
-                    throw new Error('Unexpected user type.');
-                }
-            };
+        promise
+            .then(redirectToAddressesPage)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
+    $scope.cancel = () => redirectToAddressesPage();
 });
