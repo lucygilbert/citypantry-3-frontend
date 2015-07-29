@@ -65,7 +65,7 @@ describe('Admin - customer page', function() {
         it('should be able to masquerade as the customer\'s user', function() {
             goToEditCustomerPage('james@mi6.test');
 
-            element(by.css('a.cp-masquerade')).click();
+            element.all(by.css('a.cp-masquerade')).get(0).click();
 
             browser.wait(function() {
                 return browser.getCurrentUrl().then(function(url) {
@@ -106,6 +106,29 @@ describe('Admin - customer page', function() {
             notificationModal.expectSuccessHeader();
             notificationModal.expectMessage('The request to pay on account has been set up.');
             notificationModal.dismiss();
+        });
+
+        it('should list their delivery addresses', function() {
+            var addresses = element.all(by.repeater('address in deliveryAddresses'));
+            expect(addresses.count()).toBe(1);
+
+            expect(addresses.get(0).getText()).toContain('Mega Things Ltd');
+        });
+
+        it('should list their billing addresses', function() {
+            var addresses = element.all(by.repeater('address in billingAddresses'));
+            expect(addresses.count()).toBe(1);
+
+            expect(addresses.get(0).getText()).toContain('Mega Things Ltd Accounts');
+        });
+
+        it('should be able to set a billing address as for invoices and receipts', function() {
+            var address = element.all(by.repeater('address in billingAddresses')).get(0);
+
+            var link = address.element(by.css('a'));
+            link.click();
+
+            expect(address.getText()).toContain('Used for invoices and receipts');
         });
     });
 

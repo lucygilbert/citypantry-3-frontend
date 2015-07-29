@@ -18,12 +18,16 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
         })
         .error(response => NotificationService.notifyError(response.data.errorTranslation));
 
-    AddressFactory.getAddressesByCustomerId($routeParams.customerId)
-        .success(response => {
-            $scope.deliveryAddresses = response.deliveryAddresses;
-            $scope.billingAddresses = response.billingAddresses;
-        })
-        .error(response => NotificationService.notifyError(response.data.errorTranslation));
+    function loadAddresses() {
+        return AddressFactory.getAddressesByCustomerId($routeParams.customerId)
+            .success(response => {
+                $scope.deliveryAddresses = response.deliveryAddresses;
+                $scope.billingAddresses = response.billingAddresses;
+            })
+            .error(response => NotificationService.notifyError(response.data.errorTranslation));
+    }
+
+    loadAddresses();
 
     CustomersFactory.getCustomerReviews($routeParams.customerId)
         .success(response => $scope.reviews = response.reviews)
@@ -111,4 +115,16 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
     };
 
     $scope.masquerade = () => SecurityService.masqueradeAsUser($scope.customer.user.id);
+
+    $scope.useBillingAddressForInvoicesAndReceipts = (billingAddress) => {
+        LoadingService.show();
+
+        CustomersFactory.updateCustomer(
+                $scope.customer.id,
+                {billingAddressForInvoicesAndReceipts: billingAddress.id}
+            )
+            .then(loadAddresses)
+            .then(LoadingService.hide)
+            .catch(NotificationService.notifyError);
+    };
 });
