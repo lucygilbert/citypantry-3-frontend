@@ -1,5 +1,5 @@
-angular.module('cp.services').service('SecurityService', function($location, $cookies, $q,
-        UsersFactory) {
+angular.module('cp.services').service('SecurityService', function($location, $cookies, $q, $window,
+        UsersFactory, NotificationService, LoadingService) {
     return {
         getUser() {
             const userIsLoggedInAndAvailable = this.isLoggedIn() && localStorage.getItem('user');
@@ -132,6 +132,20 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             }
 
             return false;
+        },
+
+        masqueradeAsUser(userId) {
+            LoadingService.show();
+
+            return UsersFactory.masqueradeAsUser(userId)
+                .success(response => {
+                    $cookies.userId = response.apiAuth.userId;
+                    $cookies.salt = response.apiAuth.salt;
+                    $cookies.staffMasqueraderId = this.getUserId();
+                    $window.localStorage.setItem('user', JSON.stringify(response.user));
+                    $window.location = '/';
+                })
+                .catch(response => NotificationService.notifyError(response.data.errorTranslation));
         }
     };
 });
