@@ -4,11 +4,23 @@ angular.module('cp.controllers.customer').controller('CustomerAddressesControlle
     DocumentTitleService('Delivery and billing addresses');
     SecurityService.requireLoggedIn();
 
-    CustomersFactory.getAddresses()
-        .success(function(response) {
-            $scope.deliveryAddresses = response.deliveryAddresses;
-            $scope.billingAddresses = response.billingAddresses;
-            LoadingService.hide();
-        })
-        .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    function loadAddresses() {
+        CustomersFactory.getAddresses()
+            .success(function(response) {
+                $scope.deliveryAddresses = response.deliveryAddresses;
+                $scope.billingAddresses = response.billingAddresses;
+                LoadingService.hide();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    }
+
+    loadAddresses();
+
+    $scope.useForInvoicesAndReceipts = (billingAddress) => {
+        LoadingService.show();
+
+        CustomersFactory.updateSelf({billingAddressForInvoicesAndReceipts: billingAddress.id})
+            .then(loadAddresses)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
 });

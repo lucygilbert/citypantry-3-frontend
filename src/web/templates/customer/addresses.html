@@ -48,12 +48,20 @@
         <thead>
             <tr>
                 <th>Address</th>
+                <th>Used for<br />invoices and<br />receipts?</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="billingAddress in billingAddresses">
                 <td>{{ billingAddress | addressSingleLineFormatter }}</td>
+                <td>
+                    <span ng-if="billingAddress.isForInvoicesAndReceipts">Yes</span>
+                    <a ng-if="!billingAddress.isForInvoicesAndReceipts"
+                        ng-click="useForInvoicesAndReceipts(billingAddress)"
+                        class="cp-use-address-for-invoices-and-receipts"
+                        >Use</a>
+                </td>
                 <td>
                     <a class="btn btn-primary cp-edit-address"
                         ng-href="/customer/addresses/billing/{{ billingAddress.id }}">Edit</a>
