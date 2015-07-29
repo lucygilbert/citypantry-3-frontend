@@ -186,24 +186,42 @@
         </form>
     </section>
 
-    <h2>Delivery addresses</h2>
+    <h2>Addresses</h2>
+
+    <p>
+        To add or edit an address,
+        <a ng-click="masquerade()" class="cp-masquerade">masquerade as the customer</a>
+        and go to their addresses page.
+    </p>
+
+    <h3>Delivery addresses</h3>
 
     <ul>
         <li ng-repeat="address in deliveryAddresses">
             Label: {{ address.label }}<br />
             {{ address | addressSingleLineFormatter }}<br />
             Office manager: {{ address.officeManagerName }}<br />
-            Company name: {{ address.companyName }}
+            Company name: {{ address.companyName }}<br />
+            Phone number: {{ address.landlineNumber }}
         </li>
     </ul>
 
     <p ng-if="deliveryAddresses.length === 0">This customer has no delivery addresses.</p>
 
-    <h2>Billing addresses</h2>
+    <h3>Billing addresses</h3>
 
     <ul>
         <li ng-repeat="address in billingAddresses">
             {{ address | addressSingleLineFormatter }}
+
+            <br />
+
+            <span ng-if="address.isForInvoicesAndReceipts">Used for invoices and receipts</span>
+
+            <a ng-if="!address.isForInvoicesAndReceipts"
+                ng-click="useBillingAddressForInvoicesAndReceipts(address)"
+                class="cp-use-address-for-invoices-and-receipts"
+                >Use for invoices and receipts</a>
         </li>
     </ul>
 
