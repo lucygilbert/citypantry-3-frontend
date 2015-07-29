@@ -1,8 +1,42 @@
 angular.module('cp.controllers.admin').controller('AdminCustomersController',
         function($scope, CustomersFactory, uiGridConstants, NotificationService, DocumentTitleService,
-        SecurityService, LoadingService, getPaidOnAccountStatusTextFilter, getCustomerPersonaTextFilter) {
+        SecurityService, LoadingService, getPaidOnAccountStatusTextFilter, getCustomerPersonaTextFilter,
+        $window) {
     DocumentTitleService('Customers');
     SecurityService.requireStaff();
+
+    $scope.csvFields = [
+        {field: 'humanId', label: 'ID', isEnabled: true},
+        {field: 'company', label: 'Company', isEnabled: true},
+        {field: 'email', label: 'Email', isEnabled: true},
+        {field: 'paidOnAccountStatus', label: 'Paid-on-account status', isEnabled: true},
+        {field: 'isPaidOnAccount', label: 'Is paid on account?', isEnabled: true},
+        {field: 'dateAdded', label: 'Date joined', isEnabled: true},
+        {field: 'accountsEmail', label: 'Accounts email', isEnabled: false},
+        {field: 'accountsContactName', label: 'Accounts contact name', isEnabled: false},
+        {field: 'accountsTelephoneNumber', label: 'Accounts telephone number', isEnabled: false},
+        {field: 'daysUntilInvoiceOverdue', label: 'Days until invoice overdue', isEnabled: false},
+        {field: 'invoicePaymentTerms', label: 'Invoice payment terms', isEnabled: false},
+        {field: 'maxSpendPerMonth', label: 'Max spend per month', isEnabled: false},
+        {field: 'mealPlanStatus', label: 'Customer meal plan status', isEnabled: true},
+        {field: 'currentMealPlanStatus', label: 'Current meal plan\'s status', isEnabled: false},
+        {field: 'lastMealPlanEndDate', label: 'Last meal plan end date', isEnabled: false},
+        {field: 'persona', label: 'Persona', isEnabled: true},
+        {field: 'salesStaffType', label: 'Sales staff type', isEnabled: true},
+        {field: 'referralCode', label: 'Referral code', isEnabled: true},
+        {field: 'selfIdentifiedPersona', label: 'Self-identified persona', isEnabled: true},
+        {field: 'payOnAccountInvoiceRecipient', label: 'Pay on account invoice recipient', isEnabled: false}
+    ];
+
+    let gridApi;
+
+    /**
+     * Get all rows that are currently filtered, regardless of whether they are on the currently
+     * visible page.
+     */
+    const getAllFilteredRows = () => {
+        return $scope.gridApi.grid.rows.filter(row => row.visible);
+    };
 
     $scope.gridOptions = {
         columnDefs: [
@@ -62,7 +96,10 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
         enableFiltering: true,
         enableSorting: true,
         paginationPageSizes: [25, 50, 75],
-        paginationPageSize: 25
+        paginationPageSize: 25,
+        onRegisterApi(gridApi) {
+            $scope.gridApi = gridApi;
+        }
     };
 
     function loadCustomers() {
@@ -77,4 +114,22 @@ angular.module('cp.controllers.admin').controller('AdminCustomersController',
     }
 
     loadCustomers();
+
+    $scope.createCustomersCsv = () => {
+        const selectedCustomersIds = getAllFilteredRows().map(row => row.entity.id);
+        if (selectedCustomersIds.length === 0) {
+            NotificationService.notifyError('You must have at least one order to create a CSV file.');
+            return;
+        }
+
+        const enabledFields = $scope.csvFields.filter(field => field.isEnabled).map(field => field.field);
+        if (enabledFields.length === 0) {
+            NotificationService.notifyError('You must have at least one field to create a CSV file.');
+            return;
+        }
+
+        CustomersFactory.createCustomersCsvFile(selectedCustomersIds, enabledFields)
+            .success(response => $window.location.href = response.url)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
 });
