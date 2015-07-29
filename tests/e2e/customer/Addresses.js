@@ -109,4 +109,16 @@ describe('Customer delivery addresses', function() {
         var addresses = element.all(by.repeater('deliveryAddress in deliveryAddresses'));
         expect(addresses.get(0).getText()).toContain('25 Lena Gardens, London, W6 7PY, United Kingdom');
     });
+
+    it('should be able to use a billing address for invoices and receipts', function() {
+        var firstBillingAddress = element.all(by.repeater('billingAddress in billingAddresses')).get(0);
+
+        expect(firstBillingAddress.getText()).toContain('Use');
+        expect(firstBillingAddress.getText()).not.toContain('Yes');
+
+        firstBillingAddress.element(by.css('a.cp-use-address-for-invoices-and-receipts')).click();
+
+        expect(firstBillingAddress.getText()).toContain('Yes');
+        expect(firstBillingAddress.getText()).not.toContain('Use');
+    });
 });
