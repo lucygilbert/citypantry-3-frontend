@@ -1,57 +1,52 @@
-angular.module('cp.services').service('SecurityService', function($location, $cookies, $q, UsersFactory) {
+angular.module('cp.services').service('SecurityService', function($location, $cookies, $q, $window,
+        UsersFactory, NotificationService, LoadingService) {
     return {
-        getUser: function() {
-            var userIsLoggedInAndAvailable = this.isLoggedIn() && localStorage.getItem('user');
+        getUser() {
+            const userIsLoggedInAndAvailable = this.isLoggedIn() && localStorage.getItem('user');
             return userIsLoggedInAndAvailable ? JSON.parse(localStorage.getItem('user')) : false;
         },
 
-        getUserId: function() {
+        getUserId() {
             const user = this.getUser();
             if (user) {
                 return user.id;
             }
         },
 
-        getVendor: function() {
-            var deferred = $q.defer();
-
-            UsersFactory.getLoggedInUser().success(function(loggedInUser) {
-                deferred.resolve(loggedInUser.vendor);
+        getVendor() {
+            return UsersFactory.getLoggedInUser().then(function(response) {
+                return response.data.vendor;
             });
-
-            return deferred.promise;
         },
 
-        getCustomer: function() {
+        getCustomer() {
             return UsersFactory.getLoggedInUser().then(function(response) {
                 return response.data.customer;
             });
         },
 
-        inGroup: function(groups) {
-            var user = this.getUser();
+        /**
+         * Get whether the current user is in one of the given groups.
+         *
+         * @param  {String|Array} groups
+         * @return {Boolean}
+         */
+        isInGroup(groups) {
+            const user = this.getUser();
             if (!user || !user.group.name) {
                 return false;
             }
 
-            var result = false;
-            var userGroup = user.group.name;
+            const userGroup = user.group.name.toLowerCase();
 
             if (groups.constructor === Array) {
-                groups.forEach(group => {
-                    if (group.toLowerCase() === userGroup.toLowerCase()) {
-                        result = true;
-                        return false;
-                    }
-                });
+                return groups.filter(group => group.toLowerCase() === userGroup).length > 0;
             } else {
-                result = (groups.toLowerCase() === userGroup.toLowerCase());
+                return groups.toLowerCase() === userGroup;
             }
-
-            return result;
         },
 
-        isLoggedIn: function() {
+        isLoggedIn() {
             return !!$cookies.userId;
         },
 
@@ -61,20 +56,20 @@ angular.module('cp.services').service('SecurityService', function($location, $co
          */
         urlToForwardToAfterLogin: undefined,
 
-        requireLoggedIn: function() {
+        requireLoggedIn() {
             if (!this.isLoggedIn()) {
                 this.urlToForwardToAfterLogin = $location.url();
                 $location.url('/login');
             }
         },
 
-        requireLoggedOut: function() {
+        requireLoggedOut() {
             if (this.isLoggedIn()) {
                 $location.path('/');
             }
         },
 
-        requireStaff: function() {
+        requireStaff() {
             this.requireLoggedIn();
 
             if (!this.staffIsLoggedIn()) {
@@ -82,7 +77,7 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             }
         },
 
-        requireVendor: function() {
+        requireVendor() {
             this.requireLoggedIn();
 
             if (!this.vendorIsLoggedIn()) {
@@ -90,7 +85,7 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             }
         },
 
-        requireCustomer: function() {
+        requireCustomer() {
             this.requireLoggedIn();
 
             if (!this.customerIsLoggedIn()) {
@@ -98,33 +93,36 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             }
         },
 
-        group: function() {
-            var user = this.getUser(),
-                parseGroup = (x) => x === 'admin' || x === 'user' ? 'vendor' : x;
+        /**
+         * @return {String} Either 'vendor', 'customer' or 'staff', or null.
+         */
+        getGroup() {
+            const user = this.getUser(),
+                parseGroup = (group) => (group === 'admin' || group === 'user') ? 'vendor' : group;
 
             if (user && user['group'] && user['group']['name']) {
                 return parseGroup(this.getUser()['group']['name']);
             } else {
-                return '';
+                return null;
             }
         },
 
-        customerIsLoggedIn: function() {
-            return this.group() === 'customer';
+        customerIsLoggedIn() {
+            return this.getGroup() === 'customer';
         },
 
-        staffIsLoggedIn: function() {
-            return this.group() === 'staff';
+        staffIsLoggedIn() {
+            return this.getGroup() === 'staff';
         },
 
-        vendorIsLoggedIn: function() {
-            return this.group() === 'vendor';
+        vendorIsLoggedIn() {
+            return this.getGroup() === 'vendor';
         },
 
         /**
          * @return {String|false}
          */
-        getStaffUserIdIfMasquerading: function() {
+        getStaffUserIdIfMasquerading() {
             // The value in 'staffMasqueraderId' will be a Mongo ID if the user is a masquerading
             // staff user. If it's anything else -- null, string 'null' (to delete the cookie via
             // Angular's $cookies) -- return false.
@@ -135,5 +133,19 @@ angular.module('cp.services').service('SecurityService', function($location, $co
 
             return false;
         },
+
+        masqueradeAsUser(userId) {
+            LoadingService.show();
+
+            return UsersFactory.masqueradeAsUser(userId)
+                .success(response => {
+                    $cookies.userId = response.apiAuth.userId;
+                    $cookies.salt = response.apiAuth.salt;
+                    $cookies.staffMasqueraderId = this.getUserId();
+                    $window.localStorage.setItem('user', JSON.stringify(response.user));
+                    $window.location = '/';
+                })
+                .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+        }
     };
 });

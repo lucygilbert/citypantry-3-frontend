@@ -61,6 +61,30 @@ describe('Admin - customer page', function() {
         expect(element(by.css('main')).getText()).toContain('Email: ' + email);
     }
 
+    describe('masquerading', function() {
+        it('should be able to masquerade as the customer\'s user', function() {
+            goToEditCustomerPage('james@mi6.test');
+
+            element(by.css('a.cp-masquerade')).click();
+
+            browser.wait(function() {
+                return browser.getCurrentUrl().then(function(url) {
+                    return /\.dev\/customer\/dashboard$/.test(url);
+                });
+            }, 15000);
+        });
+
+        it('should have a button to return to being staff, which prompts for a password', function() {
+            element(by.css('a[ng-if="isStaffMasquerading"]')).click();
+            element(by.model('plainPassword')).sendKeys('password');
+            element(by.id('login_button')).click();
+        });
+
+        it('should be the staff user again', function() {
+            expect(browser.getCurrentUrl()).toMatch(/\/admin\/users$/);
+        });
+    });
+
     describe('with a customer who is not able to pay on account', function() {
         it('should be able to navigate to their page', function() {
             goToEditCustomerPage('customer@bunnies.test');

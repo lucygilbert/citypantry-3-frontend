@@ -52,17 +52,5 @@ angular.module('cp.controllers.admin').controller('AdminUsersController',
         LoadingService.hide();
     });
 
-    $scope.masquerade = function(id) {
-        LoadingService.show();
-
-        UsersFactory.masqueradeAsUser(id)
-            .success(response => {
-                $cookies.userId = response.apiAuth.userId;
-                $cookies.salt = response.apiAuth.salt;
-                $cookies.staffMasqueraderId = SecurityService.getUserId();
-                $window.localStorage.setItem('user', JSON.stringify(response.user));
-                $window.location = '/';
-            })
-            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
-    };
+    $scope.masquerade = (id) => SecurityService.masqueradeAsUser(id);
 });
