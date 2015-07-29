@@ -47,4 +47,14 @@ describe('Admin - customers page', function() {
         gridObject.cancelFilterInColumn(EMAIL_COLUMN_IN_CUSTOMERS_PAGE);
         gridObject.expectRowCount(NUMBER_OF_FIXTURE_CUSTOMERS);
     });
+
+    it('should be able to download orders as a CSV', function() {
+        var downloadButton = element(by.css('button.cp-download-csv'));
+        expect(downloadButton.getText()).toBe('DOWNLOAD');
+        downloadButton.click();
+
+        // If there was an error, a notification modal would display. If there was not an error,
+        // the download will have happened.
+        notificationModal.expectIsClosed();
+    });
 });
