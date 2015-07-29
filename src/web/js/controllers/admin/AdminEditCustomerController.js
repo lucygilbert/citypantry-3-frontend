@@ -109,4 +109,6 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
             })
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };
+
+    $scope.masquerade = () => SecurityService.masqueradeAsUser($scope.customer.user.id);
 });

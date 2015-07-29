@@ -86,4 +86,6 @@ angular.module('cp.controllers.admin').controller('AdminEditVendorController', f
             }
         });
     };
+
+    $scope.masquerade = (user) => SecurityService.masqueradeAsUser(user.id);
 });

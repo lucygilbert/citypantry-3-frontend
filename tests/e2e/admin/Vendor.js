@@ -56,3 +56,27 @@ describe('Admin - edit vendor page - Sam\'s', function() {
         expect(formGroup.isPresent()).toBe(false);
     });
 });
+
+describe('Admin - edit vendor page - masquerading', function() {
+    it('should be able to masquerade as the vendor\'s user', function() {
+        navigateToVendor('Hong Tin');
+
+        element(by.css('a.cp-masquerade')).click();
+
+        browser.wait(function() {
+            return browser.getCurrentUrl().then(function(url) {
+                return /\.dev\/vendor\/orders$/.test(url);
+            });
+        }, 15000);
+    });
+
+    it('should have a button to return to being staff, which prompts for a password', function() {
+        element(by.css('a[ng-if="isStaffMasquerading"]')).click();
+        element(by.model('plainPassword')).sendKeys('password');
+        element(by.id('login_button')).click();
+    });
+
+    it('should be the staff user again', function() {
+        expect(browser.getCurrentUrl()).toMatch(/\/admin\/users$/);
+    });
+});
