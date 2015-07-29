@@ -1,15 +1,4 @@
     <div class="cp-form-group">
-        <label class="cp-form-label" for="address_label">
-            {{ isNew ? 'Save address as...' : 'Saved location' }}
-        </label>
-
-        <input class="cp-form-control" id="address_label" name="addressLabel"
-            ng-model="address.label" size="30" />
-    </div>
-
-    <hr />
-
-    <div class="cp-form-group">
         <label class="cp-form-label" for="address_line1">
             Address line 1
             <span class="form-element-invalid" ng-show="form.$submitted && form.addressLine1.$error.required">(Address line 1 is required.)</span>
@@ -34,7 +23,7 @@
             ng-model="address.addressLine3" size="50" />
     </div>
 
-    <div class="cp-form-group" id="form-group-city">
+    <div class="cp-form-group" id="cp-form-group-city">
         <label class="cp-form-label" for="city">
             Town/City
             <span class="form-element-invalid" ng-show="form.$submitted && form.city.$error.required">(City is required.)</span>
@@ -44,7 +33,7 @@
             ng-model="address.city" size="20" />
     </div>
 
-    <div class="cp-form-group" id="form-group-postcode">
+    <div class="cp-form-group">
         <label class="cp-form-label" for="postcode">
             Postcode
             <span class="form-element-invalid" ng-show="form.$submitted && form.postcode.$error.required">(Postcode is required.)</span>
@@ -57,39 +46,13 @@
             ng-pattern="/[a-zA-Z]{1,2}[0-9][0-9A-Za-z]?\s?[0-9][a-zA-Z]{2}/" />
     </div>
 
-    <hr />
-
-    <div class="cp-form-group">
-        <label class="cp-form-label" for="contact_name">
-            Contact name
-            <span class="form-element-invalid" ng-show="form.$submitted && form.contactName.$error.required">(Contact name is required.)</span>
-        </label>
-
-        <input class="cp-form-control" id="contact_name" name="contactName" required aria-required="true" ng-model="address.contactName" />
-    </div>
-
     <div class="cp-form-group">
         <label class="cp-form-label" for="landline_number">
-            Landline number
-            <span class="form-element-invalid" ng-show="form.$submitted && form.landlineNumber.$error.required">(Landline number is required.)</span>
+            Contact number
+            <span class="form-element-invalid" ng-show="form.$submitted && form.landlineNumber.$error.required">(Contact number is required.)</span>
         </label>
 
-        <input class="cp-form-control" id="landline_number" name="landlineNumber" type="tel" required aria-required="true" ng-model="address.landlineNumber" />
-    </div>
-
-    <div class="cp-form-group">
-        <label class="cp-form-label" for="order_notification_mobile_numbers">
-            Order notification mobile numbers (multiple allowed, separated by commas)
-            <span class="form-element-invalid"
-                    ng-show="form.$submitted && form.orderNotificationMobileNumbers.$error.required">
-                (At least one order notification mobile number is required.)
-            </span>
-        </label>
-
-        <input class="cp-form-control"
-            id="order_notification_mobile_numbers"
-            name="orderNotificationMobileNumbers"
-            required
-            aria-required="true"
-            ng-model="address.orderNotificationMobileNumbersCommaSeparated" />
+        <input class="cp-form-control" id="landline_number" name="landlineNumber" type="tel"
+            required aria-required="true" size="30"
+            ng-model="address.landlineNumber" />
     </div>

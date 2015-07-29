@@ -146,50 +146,50 @@ body {
  */
 
 .cta {
-	border-top: 1px solid #dedede;
-	text-align: center;
+    border-top: 1px solid #dedede;
+    text-align: center;
 }
 
 @media only screen and (min-width: 992px) {
-	.cta {
-		text-align: left;
-	}
+    .cta {
+        text-align: left;
+    }
 }
 
 .cta h3 {
-	font-size: 1.777rem;
-	font-weight: 400;
-	margin: 0 0 1.5rem;
+    font-size: 1.777rem;
+    font-weight: 400;
+    margin: 0 0 1.5rem;
 }
 
 @media only screen and (min-width: 992px) {
-	.cta h3 {
-		font-size: 2.369rem;
-		margin: 0;
-		padding-top: .317rem;
-		text-align: right;
-	}
+    .cta h3 {
+        font-size: 2.369rem;
+        margin: 0;
+        padding-top: .317rem;
+        text-align: right;
+    }
 }
 
 .cta p {
-	margin-bottom: .75rem;
+    margin-bottom: .75rem;
 }
 
 @media only screen and (min-width: 992px) {
-	.cta .wrapper {
-		padding-top: 3.157rem;
-		padding-bottom: 3.157rem;
-	}
+    .cta .wrapper {
+        padding-top: 3.157rem;
+        padding-bottom: 3.157rem;
+    }
 }
 
 .cta .btn + .btn {
-	margin: .75rem 0 0;
+    margin: .75rem 0 0;
 }
 
 @media only screen and (min-width: $screen-sm-min) {
-	.cta .btn + .btn {
-		margin: 0 0 0 10px;
-	}
+    .cta .btn + .btn {
+        margin: 0 0 0 10px;
+    }
 }
 
 .package-group {
@@ -952,6 +952,7 @@ hr {
 @import 'customer/search.scss';
 @import 'customer/vendors.scss';
 @import 'customer/view-package.scss';
+@import 'customer/addresses.scss';
 @import 'vendor/delivery-radiuses.scss';
 @import 'vendor/orders.scss';
 @import 'vendor/packages.scss';

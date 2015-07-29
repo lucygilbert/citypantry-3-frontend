@@ -1,26 +1,25 @@
 angular.module('cp').directive('cpAddressForm', function(SecurityService, getTemplateUrl) {
-    const template = getTemplateUrl('directives/cp-address-form-for-' +
-        (SecurityService.customerIsLoggedIn() ? 'customer' : 'vendor') +
-        '.html');
-
     return {
         restrict: 'E',
         scope: {
             address: '=',
-            userType: '=',
+            addressType: '=',
         },
-        templateUrl: template,
+        templateUrl: getTemplateUrl('directives/cp-address-form.html'),
         controller: 'cpAddressFormController'
     };
 });
 
 angular.module('cp').controller('cpAddressFormController', function($scope, $location,
-        AddressFactory, NotificationService, LoadingService, SecurityService) {
-    if ($scope.userType !== 'vendor' && $scope.userType !== 'customer') {
-        throw new Error('userType must be vendor or customer');
+        AddressFactory, NotificationService, LoadingService, SecurityService, getTemplateUrl) {
+    const validAddressTypes = ['vendor', 'delivery', 'billing'];
+    if (validAddressTypes.indexOf($scope.addressType) === -1) {
+        throw new Error('addressType must be one of: ' + validAddressTypes.join(', '));
     }
 
-    if ($scope.userType === 'vendor') {
+    $scope.formTemplate = getTemplateUrl('directives/cp-address-form-for-' + $scope.addressType + '.html');
+
+    if ($scope.addressType === 'vendor') {
         if (!$scope.address.orderNotificationMobileNumbers) {
             $scope.address.orderNotificationMobileNumbers = [];
         }
@@ -51,7 +50,7 @@ angular.module('cp').controller('cpAddressFormController', function($scope, $loc
             return;
         }
 
-        if ($scope.userType === 'vendor') {
+        if ($scope.addressType === 'vendor') {
             $scope.address.orderNotificationMobileNumbers = $scope.address.orderNotificationMobileNumbersCommaSeparated.split(/\s*,\s*/);
         }
 
@@ -61,7 +60,8 @@ angular.module('cp').controller('cpAddressFormController', function($scope, $loc
 
         let promise;
         if ($scope.isNew) {
-            promise = AddressFactory.createAddress($scope.address)
+            const factoryMethod = $scope.addressType === 'billing' ? 'createBillingAddress' : 'createAddress';
+            promise = AddressFactory[factoryMethod]($scope.address)
                 .then(response => {
                     $scope.isNew = false;
                     return response;

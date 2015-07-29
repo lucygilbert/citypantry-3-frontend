@@ -19,14 +19,14 @@ describe('cpAddressForm directive controller', function() {
             });
         };
 
-        scope.userType = 'vendor'
+        scope.addressType = 'vendor'
         scope.address = {};
         scope.form = {};
     }));
 
     describe('for vendor addresses', function() {
         beforeEach(function() {
-            scope.userType = 'vendor';
+            scope.addressType = 'vendor';
         });
 
         it('should create a default empty array of mobile numbers if the address has none', function() {

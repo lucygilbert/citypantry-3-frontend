@@ -80,11 +80,11 @@ angular.module('cp').config(function($routeProvider, getTemplateUrl) {
             controller: 'CustomerAddressesController',
             templateUrl: getTemplateUrl('customer/addresses.html')
         }).
-        when('/customer/addresses/new', {
+        when('/customer/addresses/:type/new', {
             controller: 'CustomerAddressController',
             templateUrl: getTemplateUrl('customer/address.html')
         }).
-        when('/customer/addresses/:id', {
+        when('/customer/addresses/:type/:id', {
             controller: 'CustomerAddressController',
             templateUrl: getTemplateUrl('customer/address.html')
         }).

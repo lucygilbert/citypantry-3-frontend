@@ -1,0 +1,10 @@
+<form name="form" ng-submit="save()">
+    <p class="form-error" ng-show="error" ng-bind="error"></p>
+
+    <ng-include ng-if="formTemplate" src="formTemplate"></ng-include>
+
+    <hr />
+
+    <input type="submit" value="{{ isNew ? 'Save' : 'Save changes' }}" class="btn btn-primary" />
+    <a class="btn btn-link" ng-click="cancel()">Cancel</a>
+</form>

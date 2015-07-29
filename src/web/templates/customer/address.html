@@ -1,7 +1,7 @@
 <div class="thin-wrapper">
-    <h2 ng-if="isNew" class="cp-heading">Add a delivery address</h2>
-    <h2 ng-if="!isNew" class="cp-heading">Delivery address</h2>
+    <h2 ng-if="isNew" class="cp-heading">Add a {{ isDelivery ? 'delivery' : 'billing' }} address</h2>
+    <h2 ng-if="!isNew" class="cp-heading">{{ isDelivery ? 'Delivery' : 'Billing' }} address</h2>
 
-    <cp-address-form ng-if="address" address="address" user-type="'customer'"
+    <cp-address-form ng-if="address" address="address" address-type="type"
         ></cp-address-form>
 </div>

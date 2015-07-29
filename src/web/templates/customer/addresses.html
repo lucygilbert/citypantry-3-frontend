@@ -2,14 +2,16 @@
     <h2 class="cp-heading">Delivery addresses</h2>
 
     <p>
-        <a href="/customer/addresses/new" role="button" class="btn btn-primary">Add a new address</a>
+        <a href="/customer/addresses/delivery/new" role="button"
+            class="btn btn-primary cp-add-delivery-address">Add a new address</a>
     </p>
 
-    <p ng-if="addresses.length === 0">
-        You have no delivery addresses stored. <a href="/customer/addresses/new">Why not add one?</a>
+    <p ng-if="deliveryAddresses.length === 0">
+        You have no delivery addresses stored.
+        <a href="/customer/addresses/delivery/new" class="cp-add-delivery-address">Why not add one?</a>
     </p>
 
-    <table class="table" id="table_addresses" ng-if="deliveryAddresses.length > 0">
+    <table class="table cp-addresses-table" ng-if="deliveryAddresses.length > 0">
         <thead>
             <tr>
                 <th>Address</th>
@@ -25,7 +27,37 @@
                 <td>{{ deliveryAddress.companyName }}</td>
                 <td>{{ deliveryAddress.officeManagerName }}</td>
                 <td>{{ deliveryAddress.landlineNumber }}</td>
-                <td><a class="btn btn-primary cp-edit-address" ng-href="/customer/addresses/{{ deliveryAddress.id }}">Edit</a></td>
+                <td><a class="btn btn-primary cp-edit-address" ng-href="/customer/addresses/delivery/{{ deliveryAddress.id }}">Edit</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="cp-heading">Billing addresses</h2>
+
+    <p>
+        <a href="/customer/addresses/billing/new" role="button"
+            class="btn btn-primary cp-add-billing-address">Add a new address</a>
+    </p>
+
+    <p ng-if="billingAddresses.length === 0">
+        You have no billing addresses stored.
+        <a href="/customer/addresses/billing/new" class="cp-add-billing-address">Why not add one?</a>
+    </p>
+
+    <table class="table cp-addresses-table" ng-if="billingAddresses.length > 0">
+        <thead>
+            <tr>
+                <th>Address</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="billingAddress in billingAddresses">
+                <td>{{ billingAddress | addressSingleLineFormatter }}</td>
+                <td>
+                    <a class="btn btn-primary cp-edit-address"
+                        ng-href="/customer/addresses/billing/{{ billingAddress.id }}">Edit</a>
+                </td>
             </tr>
         </tbody>
     </table>

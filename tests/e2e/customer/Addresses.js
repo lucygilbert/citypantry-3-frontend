@@ -11,21 +11,29 @@ describe('Customer delivery addresses', function() {
     });
 
     it('should show the addresses page', function() {
-        expect(element(by.css('main  h2')).getText()).toBe('DELIVERY ADDRESSES');
+        var headers = element.all(by.css('main h2'));
+        expect(headers.get(0).getText()).toBe('DELIVERY ADDRESSES');
+        expect(headers.get(1).getText()).toBe('BILLING ADDRESSES');
     });
 
-    it('should have one address', function() {
+    it('should have one delivery address', function() {
         var addresses = element.all(by.repeater('deliveryAddress in deliveryAddresses'));
         expect(addresses.count()).toBe(1);
         expect(addresses.get(0).getText()).toContain('25 Lena Gardens, London, W6 7PY, United Kingdom');
     });
 
-    it('should be able to open the "add address" page', function() {
-        var addAddressButton = element.all(by.css('main p a')).get(0);
+    it('should have one billing address', function() {
+        var addresses = element.all(by.repeater('billingAddress in billingAddresses'));
+        expect(addresses.count()).toBe(1);
+        expect(addresses.get(0).getText()).toContain('Mega Things Ltd Accounts, 25 Lena Gardens, London, W6 7PY');
+    });
+
+    it('should be able to open the "add delivery address" page', function() {
+        var addAddressButton = element(by.css('.cp-add-delivery-address'));
         expect(addAddressButton.getText()).toBe('ADD A NEW ADDRESS');
         addAddressButton.click();
 
-        expect(browser.getCurrentUrl()).toMatch(/customer\/addresses\/new$/);
+        expect(browser.getCurrentUrl()).toMatch(/customer\/addresses\/delivery\/new$/);
     });
 
     it('should be able to fill in the "add address" form', function() {
@@ -61,7 +69,7 @@ describe('Customer delivery addresses', function() {
         expect(editAddressButton.getText()).toBe('EDIT');
         editAddressButton.click();
 
-        expect(browser.getCurrentUrl()).toMatch(/customer\/addresses\/[0-9a-f]{24}$/);
+        expect(browser.getCurrentUrl()).toMatch(/customer\/addresses\/delivery\/[0-9a-f]{24}$/);
     });
 
     it('should be able to fill in the "edit address" form', function() {
