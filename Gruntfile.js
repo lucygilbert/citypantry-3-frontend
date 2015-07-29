@@ -237,6 +237,47 @@ module.exports = function (grunt) {
             }
         },
 
+        ngAnnotate: {
+            dist: {
+                files: {
+                    'web/dist/js/built.js': 'web/dist/js/built.js',
+                }
+            }
+        },
+
+        uglify: {
+            options: {
+                preserveComments: 'some', // keep bang comments.
+                mangle: true,
+                compress: {
+                    'drop_console': true
+                }
+            },
+            dist: {
+                files: {
+                    'web/dist/js/built.js': 'web/dist/js/built.js',
+                }
+            }
+        },
+
+        htmlmin: {
+            dist: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    // Cannot remove empty elements with Angular directives.
+                    removeEmptyElements: false
+                },
+                files: [{
+                    expand: true,
+                    dot: false,
+                    cwd: 'web/dist/templates/',
+                    src: '**/*.html',
+                    dest: 'web/dist/templates/',
+                }]
+            },
+        },
+
         watch: {
             options: {
                 livereload: true,
@@ -284,7 +325,8 @@ module.exports = function (grunt) {
         'imagemin:dist',
         'sass:dist',
         'csso:dist',
-        'js',
+        'js:optimized',
+        'htmlmin',
     ]);
 
     /**
@@ -294,5 +336,11 @@ module.exports = function (grunt) {
         'concat:dist',
         'babel:dist',
         'concat:dist2',
+    ]);
+
+    grunt.registerTask('js:optimized', [
+        'js',
+        'ngAnnotate',
+        'uglify',
     ]);
 };
