@@ -13,8 +13,8 @@ angular.module('cp').directive('cpPackageForm', function(getTemplateUrl) {
     };
 });
 
-angular.module('cp').controller('cpPackageFormController', function($scope, $anchorScroll, $cookies, $location, $q,
-        $window, LoadingService, AddressFactory, PackagesFactory, VendorsFactory, uiGmapGoogleMapApi,
+angular.module('cp').controller('cpPackageFormController', function($scope, $location, $q,
+        LoadingService, AddressFactory, PackagesFactory, uiGmapGoogleMapApi,
         MAP_CENTER, NotificationService, SecurityService, ApiService, API_BASE, $upload) {
     $scope.newAddress = {countryName: 'United Kingdom'};
     $scope.allergenTypeOptions = [];
@@ -33,11 +33,11 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $anc
     $scope.vendor = {};
 
     function init() {
-        let promise0 = SecurityService.getVendor()
+        const promise0 = SecurityService.getVendor()
             .then(vendor => $scope.vendor = vendor);
-        let promise1 = PackagesFactory.getAllergenTypes()
+        const promise1 = PackagesFactory.getAllergenTypes()
             .success(response => $scope.allergenTypeOptions = response.allergenTypes);
-        let promise2 = PackagesFactory.getDietaryTypes().success(response => {
+        const promise2 = PackagesFactory.getDietaryTypes().success(response => {
             var dietaryTypes = response.dietaryRequirements;
 
             dietaryTypes.forEach(dietaryType => {
@@ -47,9 +47,9 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $anc
                 });
             });
         });
-        let promise3 = PackagesFactory.getEventTypes()
+        const promise3 = PackagesFactory.getEventTypes()
             .success(response => $scope.eventTypeOptions = response.eventTypes);
-        let promise4 = PackagesFactory.getCuisineTypes()
+        const promise4 = PackagesFactory.getCuisineTypes()
             .success(response => $scope.cuisineTypeOptions = response.cuisineTypes);
 
         $q.all([promise0, promise1, promise2, promise3, promise4]).then(() => {
@@ -215,9 +215,9 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $anc
 
         LoadingService.show();
 
-        $scope.packageFormError = null;
+        $scope.packageFormError = undefined;
 
-        let deliveryRadiuses = {};
+        const deliveryRadiuses = {};
 
         $scope.vendor.addresses.forEach(function(address) {
             if (address.isSelected) {
@@ -279,8 +279,14 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $anc
                 $location.path($scope.destination);
             })
             .catch(response => {
-                $scope.packageFormError = response.data.errorTranslation;
-                LoadingService.hide();
+                // One vendor has reported the loading animation spins forever when trying to create
+                // their page. A possible cause of this is there is an error in the 'success' block,
+                // meaning 'response' is not a response object as we have been expected.
+                // @todo - revert this debugging code once the issue has been resolved.
+                if (response && response.data && response.data.errorTranslation) {
+                    $scope.packageFormError = response.data.errorTranslation;
+                }
+                NotificationService.notifyError($scope.packageFormError);
             });
     };
 
@@ -314,7 +320,8 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $anc
                 });
 
                 LoadingService.hide();
-            });
+            })
+            .error(response => NotificationService.notifyError(response.data.errorTranslation));
         }
     };
 });
