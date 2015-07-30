@@ -9,7 +9,7 @@ angular.module('cp').directive('cpPackageForm', function(getTemplateUrl) {
             submitValue: '@cpSubmitValue'
         },
         controller: 'cpPackageFormController',
-        templateUrl: getTemplateUrl('vendor/vendor-package.html')
+        templateUrl: getTemplateUrl('directives/cp-package-form.html')
     };
 });
 
