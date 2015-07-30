@@ -49,6 +49,13 @@ angular.module('cp.services').service('AngularticsAnalyticsService', function($a
             $analytics.eventTrack('checkoutPromoCodeFieldOpen', {
                 newState: 'opened'
             });
+        },
+
+        trackNotificationModal(type, message) {
+            $analytics.eventTrack('notificationModal', {
+                type,
+                message
+            });
         }
     };
 

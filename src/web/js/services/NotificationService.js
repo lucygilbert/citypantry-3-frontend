@@ -1,16 +1,21 @@
-angular.module('cp.services').service('NotificationService', function($rootScope, LoadingService) {
+angular.module('cp.services').service('NotificationService', function($rootScope, LoadingService,
+        AngularticsAnalyticsService) {
+    function onNotify(type, message) {
+        $rootScope.$broadcast('notify', {
+            type: type,
+            message: message
+        });
+
+        AngularticsAnalyticsService.trackNotificationModal(type, message);
+    }
+
     return {
         notifySuccess: function(message) {
-            $rootScope.$broadcast('notify', {
-                type: 'success',
-                message: message
-            });
+            onNotify('success', message);
         },
+
         notifyError: function(message = 'An unknown error occurred.') {
-            $rootScope.$broadcast('notify', {
-                type: 'error',
-                message: message
-            });
+            onNotify('error', message);
             LoadingService.hide();
         }
     };
