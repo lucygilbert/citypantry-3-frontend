@@ -101,7 +101,8 @@ angular.module('cp.controllers.admin').controller('AdminEditCustomerController',
         const updatedCustomer = {
             persona: $scope.customerForEditing.persona,
             salesStaffType: $scope.customerForEditing.salesStaffType,
-            payOnAccountInvoiceRecipient: $scope.customerForEditing.payOnAccountInvoiceRecipient
+            payOnAccountInvoiceRecipient: $scope.customerForEditing.payOnAccountInvoiceRecipient,
+            accountsEmail: $scope.customerForEditing.accountsEmail
         };
 
         CustomersFactory.updateCustomer($routeParams.customerId, updatedCustomer)
