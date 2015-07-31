@@ -7,6 +7,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersStatsController',
     $scope.isReady = false;
 
     const loadingPromises = [
+        ApiService.get('/orders/sales-in-month/2015/08').success(response => $scope.august = response),
         ApiService.get('/orders/sales-in-month/2015/07').success(response => $scope.july = response),
         ApiService.get('/orders/sales-in-month/2015/06').success(response => $scope.june = response),
         ApiService.get('/orders/sales-in-month/2015/05').success(response => $scope.may = response),

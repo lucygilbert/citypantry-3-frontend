@@ -3,9 +3,20 @@
 
     <h2 class="cp-heading">Sales per day</h2>
 
-    <p>Orders included can have any status (accepted or pending). Excludes deleted orders. Sales are grouped into UTC days.</p>
+    <p>
+        Orders included can have any status (accepted or pending).
+        Excludes deleted orders.
+        Sales are grouped into UTC days.
+        Sales are after promo codes have been applied.
+    </p>
 
     <div ng-if="isReady">
+        <h3 class="cp-heading">August</h3>
+
+        <p><b>Month total: {{ getTotalInMonth(august) }}</b></p>
+
+        <p ng-repeat="day in august">{{ day.start | date:'d' }}: {{ day.sales }}</p>
+
         <h3 class="cp-heading">July</h3>
 
         <p><b>Month total: {{ getTotalInMonth(july) }}</b></p>
