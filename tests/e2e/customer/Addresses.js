@@ -64,6 +64,14 @@ describe('Customer delivery addresses', function() {
         expect(addresses.get(1).getText()).toContain('11 Francis Street, London, SW1P 1AA, United Kingdom');
     });
 
+    it('should be able to delete an address', function() {
+        var addresses = element.all(by.repeater('deliveryAddress in deliveryAddresses'));
+
+        addresses.get(1).element(by.cssContainingText('a', 'Delete')).click();
+
+        expect(addresses.count()).toBe(1);
+    });
+
     it('should be able to open the "edit address" page', function() {
         var editAddressButton = element.all(by.css('.cp-edit-address')).get(0);
         expect(editAddressButton.getText()).toBe('EDIT');

@@ -1,6 +1,6 @@
 angular.module('cp.controllers.customer').controller('CustomerAddressesController',
         function($scope, CustomersFactory, DocumentTitleService, SecurityService, LoadingService,
-        NotificationService) {
+        NotificationService, AddressFactory) {
     DocumentTitleService('Delivery and billing addresses');
     SecurityService.requireLoggedIn();
 
@@ -20,6 +20,14 @@ angular.module('cp.controllers.customer').controller('CustomerAddressesControlle
         LoadingService.show();
 
         CustomersFactory.updateSelf({billingAddressForInvoicesAndReceipts: billingAddress.id})
+            .then(loadAddresses)
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
+    $scope.delete = (address) => {
+        LoadingService.show();
+
+        AddressFactory.deleteAddress(address.id)
             .then(loadAddresses)
             .catch(response => NotificationService.notifyError(response.data.errorTranslation));
     };

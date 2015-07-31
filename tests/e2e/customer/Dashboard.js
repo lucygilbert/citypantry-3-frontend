@@ -28,9 +28,9 @@ describe('Dashboard page', function() {
     });
 
     it('should load customer\'s delivery addresses and select first by default', function() {
-        expect(element.all(by.css('#search_postcode > option')).count()).toBe(2);
-        expect(element.all(by.css('#search_postcode > option')).get(0).getText()).toBe('Lena Gardens');
-        expect(element.all(by.css('#search_postcode > option')).get(1).getText()).toBe('11 Francis Street');
+        var deliveryAddresses = element.all(by.css('#search_postcode > option'));
+        expect(deliveryAddresses.count()).toBe(1);
+        expect(deliveryAddresses.get(0).getText()).toBe('Lena Gardens');
 
         expect(element(by.css('#search_postcode')).$('option:checked').getText()).toBe('Lena Gardens');
     });

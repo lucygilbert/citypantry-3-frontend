@@ -27,7 +27,14 @@
                 <td>{{ deliveryAddress.companyName }}</td>
                 <td>{{ deliveryAddress.officeManagerName }}</td>
                 <td>{{ deliveryAddress.landlineNumber }}</td>
-                <td><a class="btn btn-primary cp-edit-address" ng-href="/customer/addresses/delivery/{{ deliveryAddress.id }}">Edit</a></td>
+                <td>
+                    <div class="cp-button-bar">
+                        <a class="btn btn-primary cp-edit-address"
+                            ng-href="/customer/addresses/delivery/{{ deliveryAddress.id }}">Edit</a>
+                        <a class="btn btn-primary cp-edit-address"
+                            ng-click="delete(deliveryAddress)">Delete</a>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -63,8 +70,12 @@
                         >Use</a>
                 </td>
                 <td>
-                    <a class="btn btn-primary cp-edit-address"
-                        ng-href="/customer/addresses/billing/{{ billingAddress.id }}">Edit</a>
+                    <div class="cp-button-bar">
+                        <a class="btn btn-primary cp-edit-address"
+                            ng-href="/customer/addresses/billing/{{ billingAddress.id }}">Edit</a>
+                        <a class="btn btn-primary cp-edit-address"
+                            ng-click="delete(billingAddress)">Delete</a>
+                    </div>
                 </td>
             </tr>
         </tbody>
