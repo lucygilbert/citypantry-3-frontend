@@ -1,5 +1,5 @@
-angular.module('cp.services').service('SecurityService', function($location, $cookies, $q, $window,
-        UsersFactory, NotificationService, LoadingService) {
+angular.module('cp.services').service('SecurityService', function($location, $cookies, $window,
+        UsersFactory, NotificationService, LoadingService, CheckoutService) {
     return {
         getUser() {
             const userIsLoggedInAndAvailable = this.isLoggedIn() && localStorage.getItem('user');
@@ -139,6 +139,8 @@ angular.module('cp.services').service('SecurityService', function($location, $co
 
             return UsersFactory.masqueradeAsUser(userId)
                 .success(response => {
+                    CheckoutService.reset();
+
                     $cookies.userId = response.apiAuth.userId;
                     $cookies.salt = response.apiAuth.salt;
                     $cookies.staffMasqueraderId = this.getUserId();

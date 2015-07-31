@@ -1,6 +1,6 @@
 angular.module('cp.controllers.admin').controller('AdminMasqueradeLogoutController', function(
         $scope, LoadingService, UsersFactory, NotificationService, AuthenticationFactory, $window,
-        $cookies, DocumentTitleService, SecurityService) {
+        $cookies, DocumentTitleService, SecurityService, CheckoutService) {
     DocumentTitleService('Masquerade logout');
 
     UsersFactory.getStaffEmailById(SecurityService.getStaffUserIdIfMasquerading())
@@ -13,6 +13,9 @@ angular.module('cp.controllers.admin').controller('AdminMasqueradeLogoutControll
     function login(email, password) {
         AuthenticationFactory.login({email: email, plainPassword: password})
             .success(response => {
+                // Reset the saved checkout details, so any unused promo code entered is forgotten.
+                CheckoutService.reset();
+
                 $cookies.userId = response.apiAuth.userId;
                 $cookies.salt = response.apiAuth.salt;
                 $cookies.staffMasqueraderId = null;
