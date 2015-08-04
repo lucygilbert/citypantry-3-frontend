@@ -3,6 +3,7 @@ describe('Admin - "view and edit" user page', function() {
     var GridObjectTest = require('../lib/gridObjectTestUtils.spec.js');
     var gridObject;
     var historyTable = require('../HistoryTable.js');
+    var notificationModal = require('../NotificationModal.js');
 
     beforeEach(function() {
         if (isFirst) {
@@ -21,6 +22,17 @@ describe('Admin - "view and edit" user page', function() {
     it('should have the the user\'s name and email in the title', function() {
         expect(element(by.css('h1')).getText())
             .toMatch(/^User \d+\: Jackie Chan, oke@bunnies\.test$/);
+    });
+
+    it('should allow the user\'s email to be edited', function() {
+        element(by.model('user.email')).clear().sendKeys('new-oke@new-email.test');
+
+        element(by.css('input[type="submit"]')).click();
+
+        notificationModal.expectIsOpen();
+        notificationModal.expectSuccessHeader();
+        notificationModal.expectMessage('The user has been edited.');
+        notificationModal.dismiss();
     });
 
     it('should load the user\'s history', function() {

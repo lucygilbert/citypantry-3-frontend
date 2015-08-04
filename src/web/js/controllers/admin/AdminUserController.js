@@ -29,5 +29,20 @@ angular.module('cp.controllers.admin').controller('AdminUserController', functio
             .error(response => NotificationService.notifyError(response.errorTranslation));
     };
 
+    $scope.save = () => {
+        LoadingService.show();
+
+        const updatedUser = {
+            name: $scope.user.name,
+            email: $scope.user.email
+        };
+        UsersFactory.updateUser($scope.user.id, updatedUser)
+            .success(response => {
+                NotificationService.notifySuccess('The user has been edited.');
+                loadUser();
+            })
+            .catch(response => NotificationService.notifyError(response.data.errorTranslation));
+    };
+
     $scope.changeUserPassword = () => $location.path(`/admin/user/${$routeParams.userId}/password`);
 });
