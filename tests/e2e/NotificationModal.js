@@ -17,8 +17,29 @@ module.exports = {
         expect(element(by.css(modalSelector + ' .modal-header')).getText()).toBe('Error');
     },
 
-    expectMessage: function(message) {
-        expect(element(by.css(modalSelector + ' .modal-body')).getText()).toBe(message);
+    /**
+     * @param {String|RegExp} expectedMessage
+     */
+    expectMessage: function(expectedMessage) {
+        var actualText = element(by.css(modalSelector + ' .modal-body')).getText();
+
+        if (expectedMessage instanceof RegExp) {
+            expect(actualText).toMatch(expectedMessage);
+        } else {
+            expect(actualText).toBe(expectedMessage);
+        }
+    },
+
+    expectIsOpenWithSuccessMessage: function(expectedMessage) {
+        this.expectIsOpen();
+        this.expectSuccessHeader();
+        this.expectMessage(expectedMessage);
+    },
+
+    expectIsOpenWithErrorMessage: function(expectedMessage) {
+        this.expectIsOpen();
+        this.expectErrorHeader();
+        this.expectMessage(expectedMessage);
     },
 
     dismiss: function() {

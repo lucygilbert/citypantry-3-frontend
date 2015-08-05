@@ -1,7 +1,7 @@
 describe('Vendor portal - create package', function() {
     var notificationModal = require('../NotificationModal.js');
-
     var isFirst = true;
+    var submitFormButton;
 
     beforeEach(function() {
         if (isFirst) {
@@ -9,6 +9,8 @@ describe('Vendor portal - create package', function() {
             browser.get('/vendor/create-package');
             isFirst = false;
         }
+
+        submitFormButton = element(by.css('main input.btn.btn-primary'));
     });
 
     it('should load the "Create package" page', function() {
@@ -118,7 +120,11 @@ describe('Vendor portal - create package', function() {
     it('should show an error if 0 delivery addresses are selected', function() {
         var secondAddressCheckbox = element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(1);
         secondAddressCheckbox.click();
-        element(by.css('main input.btn.btn-primary')).click();
+
+        submitFormButton.click();
+
+        notificationModal.expectIsOpenWithErrorMessage(/There are some fields/);
+        notificationModal.dismiss();
 
         var deliveryAddressError = element.all(by.css('legend[id="package_delivery_addresses"] > .form-element-invalid')).get(0);
         expect(deliveryAddressError.getText()).toBe('(Please specify at least one delivery address.)');
@@ -133,7 +139,11 @@ describe('Vendor portal - create package', function() {
         minPeopleOptions.get(1).click(); // 2 people.
         var maxPeopleOptions = element.all(by.css('#package_max_people > option'));
         maxPeopleOptions.get(0).click(); // 1 person.
-        element(by.css('main input.btn.btn-primary')).click();
+
+        submitFormButton.click();
+
+        notificationModal.expectIsOpenWithErrorMessage(/There are some fields/);
+        notificationModal.dismiss();
 
         var greaterThanError = element(by.css('legend[id="package_min_max_people"] > .form-element-invalid'));
         expect(greaterThanError.getText()).toBe('(Package maximum must be greater than package minimum.)');
@@ -197,13 +207,11 @@ describe('Vendor portal - create package', function() {
         element(by.model('package.canCleanUpAfterDelivery')).click();
         element(by.model('package.costToCleanUpAfterDelivery')).sendKeys('12.50');
 
-        element(by.css('main input.btn.btn-primary')).click();
+        submitFormButton.click();
     });
 
     it('should notify the user that the package has been created', function() {
-        notificationModal.expectIsOpen();
-        notificationModal.expectSuccessHeader();
-        notificationModal.expectMessage('Your package has been created.');
+        notificationModal.expectIsOpenWithSuccessMessage('Your package has been created.');
         notificationModal.dismiss();
     });
 

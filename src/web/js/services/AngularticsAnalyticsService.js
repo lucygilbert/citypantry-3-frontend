@@ -56,6 +56,13 @@ angular.module('cp.services').service('AngularticsAnalyticsService', function($a
                 type,
                 message
             });
+        },
+
+        logTechDetail(message, detail = {}) {
+            $analytics.eventTrack('logTechDetail', {
+                message,
+                detail
+            });
         }
     };
 

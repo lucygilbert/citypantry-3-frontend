@@ -10,6 +10,7 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
     var freeDeliveryThreshold;
     var packageDescription;
     var packageItems;
+    var submitFormButton;
 
     beforeEach(function() {
         if (isFirst) {
@@ -27,6 +28,7 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
         freeDeliveryThreshold = element(by.id('package_free_delivery_threshold'));
         packageDescription = element(by.id('package_description'));
         packageItems = element.all(by.css('input[name="packageItems[]"]'));
+        submitFormButton = element(by.css('main input.btn.btn-primary'));
     });
 
     it('should show the "Edit package" page', function() {
@@ -175,7 +177,10 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
         var thirdAddressCheckbox = element.all(by.css('input[name="vendorAddressIsSelected[]"]')).get(2);
         thirdAddressCheckbox.click();
 
-        element(by.css('main input.btn.btn-primary')).click();
+        submitFormButton.click();
+
+        notificationModal.expectIsOpenWithErrorMessage(/There are some fields/);
+        notificationModal.dismiss();
 
         var deliveryAddressError = element.all(by.css('legend[id="package_delivery_addresses"] > .form-element-invalid')).get(0);
         expect(deliveryAddressError.getText()).toBe('(Please specify at least one delivery address.)');
@@ -191,7 +196,11 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
         minPeopleOptions.get(1).click(); // 2 people.
         var maxPeopleOptions = element.all(by.css('#package_max_people > option'));
         maxPeopleOptions.get(0).click(); // 1 person.
-        element(by.css('main input.btn.btn-primary')).click();
+
+        submitFormButton.click();
+
+        notificationModal.expectIsOpenWithErrorMessage(/There are some fields/);
+        notificationModal.dismiss();
 
         var greaterThanError = element(by.css('legend[id="package_min_max_people"] > .form-element-invalid'));
         expect(greaterThanError.getText()).toBe('(Package maximum must be greater than package minimum.)');
@@ -222,13 +231,11 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
         deliveryCost.clear().sendKeys(10);
         freeDeliveryThreshold.clear().sendKeys(150);
 
-        element(by.css('main input.btn.btn-primary')).click();
+        submitFormButton.click();
     });
 
     it('should notify the user that the package has been updated', function() {
-        notificationModal.expectIsOpen();
-        notificationModal.expectSuccessHeader();
-        notificationModal.expectMessage('Your package has been updated.');
+        notificationModal.expectIsOpenWithSuccessMessage('Your package has been updated.');
         notificationModal.dismiss();
     });
 
@@ -265,6 +272,6 @@ describe('Vendor portal - edit a non-meal-plan package', function() {
         element(by.cssContainingText('#package_delivery_time_end > option', '18:00')).click();
         deliveryCost.clear().sendKeys(15);
         freeDeliveryThreshold.clear().sendKeys(100);
-        element(by.css('main input.btn.btn-primary')).click();
+        submitFormButton.click();
     });
 });
