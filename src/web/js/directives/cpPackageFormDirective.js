@@ -15,7 +15,8 @@ angular.module('cp').directive('cpPackageForm', function(getTemplateUrl) {
 
 angular.module('cp').controller('cpPackageFormController', function($scope, $location, $q,
         LoadingService, AddressFactory, PackagesFactory, uiGmapGoogleMapApi,
-        MAP_CENTER, NotificationService, SecurityService, ApiService, API_BASE, $upload) {
+        MAP_CENTER, NotificationService, SecurityService, ApiService, API_BASE, $upload,
+        AngularticsAnalyticsService, CP_TELEPHONE_NUMBER_UK) {
     $scope.newAddress = {countryName: 'United Kingdom'};
     $scope.allergenTypeOptions = [];
     $scope.cuisineTypeOptions = [];
@@ -31,6 +32,20 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $loc
     $scope.radiusOptions = PackagesFactory.getRadiusOptions();
     $scope.packagingTypeOptions = PackagesFactory.getPackagingTypeOptions();
     $scope.vendor = {};
+
+    const VALID_OPERATIONS = ['update', 'create'];
+
+    if (VALID_OPERATIONS.indexOf($scope.operation) === -1) {
+        // One vendor has reported the loading animation spins forever when trying to create
+        // their package. A possible cause of this is that the operation is invalid.
+        // @todo - revert this debugging code once the issue has been resolved.
+        NotificationService.notifyError('Sorry, there was a problem. Please call ' + CP_TELEPHONE_NUMBER_UK + ' and our support team can help you.');
+        AngularticsAnalyticsService.logTechDetail('cpPackageForm directive has an invalid operation', {
+            operation: $scope.operation,
+            package: $scope.package
+        });
+        return;
+    }
 
     function init() {
         const promise0 = SecurityService.getVendor()
@@ -207,16 +222,7 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $loc
         });
     };
 
-    $scope.submit = function() {
-        if (!$scope.packageForm.$valid) {
-            $scope.packageForm.$submitted = true;
-            return;
-        }
-
-        LoadingService.show();
-
-        $scope.packageFormError = undefined;
-
+    function getPackageDetailsToSubmit() {
         const deliveryRadiuses = {};
 
         $scope.vendor.addresses.forEach(function(address) {
@@ -225,19 +231,22 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $loc
             }
         });
 
-        const packageDetails = {
+        const defaultToEmptyArray = (value) => value && value.length > 0 ? value : [];
+        const defaultToZero = (value) => value ? Number(value) : 0;
+
+        return {
             cuisineType: $scope.package.cuisineType.id,
             name: $scope.package.name,
             shortDescription: $scope.package.shortDescription ? $scope.package.shortDescription : null,
             description: $scope.package.description,
             images: $scope.package.images,
-            items: ($scope.package.items.length > 0) ? $scope.package.items : [],
-            dietaryRequirements: ($scope.package.dietaryRequirements.length > 0) ? $scope.package.dietaryRequirements : [],
-            allergenTypes: ($scope.package.allergenTypes.length > 0) ? $scope.package.allergenTypes : [],
-            eventTypes: ($scope.package.eventTypes.length > 0) ? $scope.package.eventTypes : [],
+            items: defaultToEmptyArray($scope.package.items),
+            dietaryRequirements: defaultToEmptyArray($scope.package.dietaryRequirements),
+            allergenTypes: defaultToEmptyArray($scope.package.allergenTypes),
+            eventTypes: defaultToEmptyArray($scope.package.eventTypes),
             hotFood: $scope.package.hotFood,
-            costIncludingVat: $scope.package.costIncludingVat,
-            costOfVat: $scope.package.costOfVat,
+            costIncludingVat: Number($scope.package.costIncludingVat),
+            costOfVat: Number($scope.package.costOfVat),
             deliveryRadiuses: deliveryRadiuses,
             minPeople: $scope.package.minPeople,
             maxPeople: $scope.package.maxPeople,
@@ -249,19 +258,57 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $loc
             freeDeliveryThreshold: $scope.package.freeDeliveryThreshold,
             canDeliverCutleryAndServiettes: $scope.package.canDeliverCutleryAndServiettes,
             canSetUpAfterDelivery: $scope.package.canSetUpAfterDelivery,
-            costToSetUpAfterDelivery: Number($scope.package.costToSetUpAfterDelivery),
+            costToSetUpAfterDelivery: defaultToZero($scope.package.costToSetUpAfterDelivery),
             canCleanUpAfterDelivery: $scope.package.canCleanUpAfterDelivery,
-            costToCleanUpAfterDelivery: Number($scope.package.costToCleanUpAfterDelivery),
+            costToCleanUpAfterDelivery: defaultToZero($scope.package.costToCleanUpAfterDelivery),
             packagingType: $scope.package.packagingType
         };
+    }
 
-        var packageArguments = [packageDetails];
-
+    function callFactoryUpsert(packageDetails) {
         if ($scope.operation === 'update') {
-            packageArguments.unshift($scope.package.id);
+            return PackagesFactory.updatePackage($scope.package.id, packageDetails);
+        } else if ($scope.operation === 'create') {
+            return PackagesFactory.createPackage(packageDetails);
+        }
+    }
+
+    $scope.submit = function() {
+        if (!$scope.packageForm.$valid) {
+            $scope.packageForm.$submitted = true;
+            NotificationService.notifyError('There are some fields above that need completed - please re-check the fields.');
+            return;
         }
 
-        PackagesFactory[$scope.operation + 'Package'].apply(this, packageArguments)
+        LoadingService.show();
+
+        $scope.packageFormError = undefined;
+
+        let packageDetails;
+        try {
+            packageDetails = getPackageDetailsToSubmit();
+        } catch (error) {
+            // One vendor has reported the loading animation spins forever when trying to create
+            // their package. A possible cause of this is there is an error in the
+            // 'getPackageDetailsToSubmit' function.
+            // @todo - revert this debugging code once the issue has been resolved.
+            AngularticsAnalyticsService.logTechDetail('cpPackageForm directive error', {
+                operation: $scope.operation,
+                package: $scope.package,
+                // Convert the error to a string if it's not already one.
+                error: '' + error
+            });
+            NotificationService.notifyError('Sorry, there was a problem. Please call ' + CP_TELEPHONE_NUMBER_UK + ' and our support team can help you.');
+            return;
+        }
+
+        AngularticsAnalyticsService.logTechDetail('cpPackageForm directive submitted', {
+            operation: $scope.operation,
+            package: $scope.package,
+            packageDetails: packageDetails
+        });
+
+        callFactoryUpsert(packageDetails)
             .success(response => {
                 LoadingService.hide();
 
@@ -280,7 +327,7 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $loc
             })
             .catch(response => {
                 // One vendor has reported the loading animation spins forever when trying to create
-                // their page. A possible cause of this is there is an error in the 'success' block,
+                // their package. A possible cause of this is there is an error in the 'success' block,
                 // meaning 'response' is not a response object as we have been expected.
                 // @todo - revert this debugging code once the issue has been resolved.
                 if (response && response.data && response.data.errorTranslation) {
@@ -321,7 +368,7 @@ angular.module('cp').controller('cpPackageFormController', function($scope, $loc
 
                 LoadingService.hide();
             })
-            .error(response => NotificationService.notifyError(response.data.errorTranslation));
+            .error(response => NotificationService.notifyError(response.errorTranslation));
         }
     };
 });

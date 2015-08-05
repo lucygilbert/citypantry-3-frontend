@@ -19,6 +19,7 @@ describe('cpPackageForm directive controller', function() {
             });
         };
 
+        scope.operation = 'create';
         scope.package = {
             isMealPlan: true,
             images: [
