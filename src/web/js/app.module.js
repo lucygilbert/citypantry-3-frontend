@@ -114,7 +114,17 @@ angular.module('cp').config(function($locationProvider, uiGmapGoogleMapApiProvid
         LoadingService.show();
     });
 
-    $rootScope.$on('$routeChangeError', function () {
+    $rootScope.$on('$routeChangeError', function (route, error) {
+        if (error && error.type === 'loginRequired') {
+            $location.url('/login');
+            return;
+        }
+
+        if (error && error.type === 'permissionDenied') {
+            $location.url('/');
+            return;
+        }
+
         LoadingService.hide();
     });
 
