@@ -1,5 +1,5 @@
 angular.module('cp.services').service('SecurityService', function($location, $cookies, $window,
-        UsersFactory, NotificationService, LoadingService, CheckoutService) {
+        UsersFactory, NotificationService, LoadingService, CheckoutService, $rootScope) {
     return {
         getUser() {
             const userIsLoggedInAndAvailable = this.isLoggedIn() && localStorage.getItem('user');
@@ -59,7 +59,8 @@ angular.module('cp.services').service('SecurityService', function($location, $co
         requireLoggedIn() {
             if (!this.isLoggedIn()) {
                 this.urlToForwardToAfterLogin = $location.url();
-                $location.url('/login');
+
+                this.broadcastSecurityError('loginRequired');
             }
         },
 
@@ -73,7 +74,7 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             this.requireLoggedIn();
 
             if (!this.staffIsLoggedIn()) {
-                $location.path('/');
+                this.broadcastSecurityError('permissionDenied');
             }
         },
 
@@ -81,7 +82,7 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             this.requireLoggedIn();
 
             if (!this.vendorIsLoggedIn()) {
-                $location.path('/');
+                this.broadcastSecurityError('permissionDenied');
             }
         },
 
@@ -89,8 +90,23 @@ angular.module('cp.services').service('SecurityService', function($location, $co
             this.requireLoggedIn();
 
             if (!this.customerIsLoggedIn()) {
-                $location.path('/');
+                this.broadcastSecurityError('permissionDenied');
             }
+        },
+
+        broadcastSecurityError(type) {
+            if (window.isKarma === true) {
+                // Unit tests don't require authentication.
+                return;
+            }
+
+            // The `$routeChangeError` event is handled elsewhere and redirects to an
+            // appropriate page based on the security error type.
+            $rootScope.$broadcast('$routeChangeError', {type: 'loginRequired'});
+
+            // Throw an error to prevent the controller executing any further, which can create
+            // error notifications like 'You must be logged in to view orders'.
+            throw new Error('Security error: ' + type);
         },
 
         /**
