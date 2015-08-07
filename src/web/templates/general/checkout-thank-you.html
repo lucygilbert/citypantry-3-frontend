@@ -25,13 +25,13 @@
     <!-- Google AdWords orders. -->
     <div style="display:inline;">
     <img height="1" width="1" style="border-style:none;" alt=""
-        ng-src="//www.googleadservices.com/pagead/conversion/973394162/?value={{ order.object.totalAmountAfterVoucher }}&amp;currency_code=GBP&amp;label=hmQfCNaaqlwQ8qGT0AM&amp;guid=ON&amp;script=0"/>
+        ng-src="//www.googleadservices.com/pagead/conversion/973394162/?value={{ order.object.totalAmountAfterPromoCode }}&amp;currency_code=GBP&amp;label=hmQfCNaaqlwQ8qGT0AM&amp;guid=ON&amp;script=0"/>
     </div>
 
     <!-- Facebook orders. -->
-    <img height="1" width="1" alt="" style="display:none" ng-src="https://www.facebook.com/tr?ev=6029577752346&amp;cd[value]={{ order.object.totalAmountAfterVoucher }}&amp;cd[currency]=GBP&amp;noscript=1" />
+    <img height="1" width="1" alt="" style="display:none" ng-src="https://www.facebook.com/tr?ev=6029577752346&amp;cd[value]={{ order.object.totalAmountAfterPromoCode }}&amp;cd[currency]=GBP&amp;noscript=1" />
 
     <!-- Twitter orders. -->
-    <img height="1" width="1" style="display:none;" alt="" ng-src="https://analytics.twitter.com/i/adsct?txn_id=l62aa&amp;p_id=Twitter&amp;tw_sale_amount={{ order.object.totalAmountAfterVoucher }}&amp;tw_order_quantity=1" />
-    <img height="1" width="1" style="display:none;" alt="" ng-src="//t.co/i/adsct?txn_id=l62aa&amp;p_id=Twitter&amp;tw_sale_amount={{ order.object.totalAmountAfterVoucher }}&amp;tw_order_quantity=1" />
+    <img height="1" width="1" style="display:none;" alt="" ng-src="https://analytics.twitter.com/i/adsct?txn_id=l62aa&amp;p_id=Twitter&amp;tw_sale_amount={{ order.object.totalAmountAfterPromoCode }}&amp;tw_order_quantity=1" />
+    <img height="1" width="1" style="display:none;" alt="" ng-src="//t.co/i/adsct?txn_id=l62aa&amp;p_id=Twitter&amp;tw_sale_amount={{ order.object.totalAmountAfterPromoCode }}&amp;tw_order_quantity=1" />
 </div>

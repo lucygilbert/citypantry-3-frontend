@@ -84,10 +84,10 @@
 
             <div class="form-group">
                 <label for="discount_amount">Discount</label>
-                <p ng-if="order.voucherName">
-                    {{ order.voucherName }}: {{ order.voucherAmount | currency:'£' }}
+                <p ng-if="order.promoCodeCode">
+                    {{ order.promoCodeCode }}: {{ order.promoCodeAmount | currency:'£' }}
                 </p>
-                <p ng-if="!order.voucherName">
+                <p ng-if="!order.promoCodeCode">
                     None
                 </p>
             </div>
@@ -99,19 +99,19 @@
             </div>
 
             <div class="form-group">
-                <label for="total_amount_before_voucher">Grand total before voucher</label>
-                <input class="form-control input-lg" id="total_amount_before_voucher" type="text"
-                    readonly ng-model="order.totalAmountBeforeVoucher" cp-format-currency />
+                <label for="total_amount_before_promo_code">Grand total before promo code</label>
+                <input class="form-control input-lg" id="total_amount_before_promo_code" type="text"
+                    readonly ng-model="order.totalAmountBeforePromoCode" cp-format-currency />
             </div>
 
             <div class="form-group">
-                <label for="total_amount_after_voucher">Grand total after voucher</label>
-                <input class="form-control input-lg" id="total_amount_after_voucher" type="text"
-                    readonly ng-model="order.totalAmountAfterVoucher" cp-format-currency />
+                <label for="total_amount_after_promo_code">Grand total after promo code</label>
+                <input class="form-control input-lg" id="total_amount_after_promo_code" type="text"
+                    readonly ng-model="order.totalAmountAfterPromoCode" cp-format-currency />
             </div>
 
             <div class="form-group">
-                <label for="total_amount_after_voucher">Is meal plan order?</label>
+                <label>Is meal plan order?</label>
                 <p>
                     {{ order.isMealPlan ? 'Yes' : 'No' }}
                 </p>
@@ -224,7 +224,7 @@
                 </label>
                 <div class="input-group input-group-lg">
                     <div class="input-group-addon">£</div>
-                    <input class="form-control input-lg" id="refund_amount" name="refundAmount" type="number" min="0.01" max="{{ order.totalAmountAfterVoucher }}" step="0.01" required aria-required="true" ng-model="refundAmount" />
+                    <input class="form-control input-lg" id="refund_amount" name="refundAmount" type="number" min="0.01" max="{{ order.totalAmountAfterPromoCode }}" step="0.01" required aria-required="true" ng-model="refundAmount" />
                 </div>
             </div>
 

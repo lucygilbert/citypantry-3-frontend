@@ -103,7 +103,7 @@
                         <dd ng-bind-html="nextOrder.dietaryRequirements | dietaryRequirementsFormatter"></dd>
 
                         <dt class="cp-dashboard-aside-order-detail-total">Total</dt>
-                        <dd class="cp-dashboard-aside-order-detail-total">{{ nextOrder.totalAmountAfterVoucher | currency:'£' }}</dd>
+                        <dd class="cp-dashboard-aside-order-detail-total">{{ nextOrder.totalAmountAfterPromoCode | currency:'£' }}</dd>
                     </dl>
                     <a class="cp-dashboard-aside-order-edit" ng-click="isEditOrderNoticeDisplayed = true">Edit<span class="sr-only"> order</span></a>
                 </section>

@@ -223,7 +223,7 @@ angular.module('cp.controllers.general').controller('CheckoutPaymentController',
             headCount: CheckoutService.getHeadCount(),
             package: CheckoutService.getPackageId(),
             packagingTypeChoice: CheckoutService.getPackagingType(),
-            promotion: CheckoutService.getPromoCodeId(),
+            promoCode: CheckoutService.getPromoCodeId(),
             requestedDeliveryDate: CheckoutService.getDeliveryDate().toISOString(),
             // The object `dietaryRequirements` must be in a structure that the API's
             // `DietaryRequirementService::createDietaryRequirementCollectionFromArray()` expects.

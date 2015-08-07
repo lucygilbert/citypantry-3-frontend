@@ -19,7 +19,7 @@
             ng-bind-html="order.dietaryRequirements | dietaryRequirementsFormatter"></dd>
 
         <dt class="cp-order-details-total">Total</dt>
-        <dd class="cp-order-details-total">{{ order.totalAmountAfterVoucher | currency:'£' }}</dd>
+        <dd class="cp-order-details-total">{{ order.totalAmountAfterPromoCode | currency:'£' }}</dd>
     </dl>
 
     <a class="cp-order-details-edit"
