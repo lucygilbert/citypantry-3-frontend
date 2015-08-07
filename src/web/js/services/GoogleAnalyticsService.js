@@ -29,7 +29,7 @@ angular.module('cp.services').service('GoogleAnalyticsService', function(INCLUDE
             }
 
             const pkg = order.package;
-            const promoCode = order.promotion ? order.promotion.code : null;
+            const promoCode = order.promoCode ? order.promoCode.code : null;
 
             window.ga('ec:addProduct', {
                 id: pkg.id,
@@ -43,7 +43,7 @@ angular.module('cp.services').service('GoogleAnalyticsService', function(INCLUDE
 
             window.ga('ec:setAction', 'purchase', {
                 id: order.id,
-                revenue: order.totalAmountAfterVoucher,
+                revenue: order.totalAmountAfterPromoCode,
                 tax: order.totalTaxAmount,
                 shipping: order.shippingIncludingVatAmount,
                 coupon: promoCode

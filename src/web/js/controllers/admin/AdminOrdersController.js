@@ -14,7 +14,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
         {field: 'customer', label: 'Customer', isEnabled: true},
         {field: 'vendor', label: 'Vendor', isEnabled: true},
         {field: 'package', label: 'Package', isEnabled: true},
-        {field: 'totalAmountAfterVoucher', label: 'Cost (inc. VAT)', isEnabled: true},
+        {field: 'totalAmountAfterPromoCode', label: 'Cost (inc. VAT)', isEnabled: true},
         {field: 'status', label: 'Order status', isEnabled: true},
         {field: 'deliveryStatus', label: 'Delivery status', isEnabled: true},
         {field: 'customerPersona', label: 'Customer persona', isEnabled: false},
@@ -117,7 +117,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
             {
                 cellFilter: 'currency:\'£\':2',
                 displayName: 'Cost (inc. VAT)',
-                field: 'totalAmountAfterVoucher'
+                field: 'totalAmountAfterPromoCode'
             },
             {
                 displayName: 'Order Status',
@@ -151,7 +151,7 @@ angular.module('cp.controllers.admin').controller('AdminOrdersController',
     function calculateTotalOrdersCost() {
         $timeout(function() {
             $scope.ordersTotal = 0;
-            getAllFilteredRows().forEach(row => $scope.ordersTotal += row.entity.totalAmountAfterVoucher);
+            getAllFilteredRows().forEach(row => $scope.ordersTotal += row.entity.totalAmountAfterPromoCode);
         }, 0);
     }
 

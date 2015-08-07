@@ -39,7 +39,7 @@
                     <a ng-href="/package/{{ order.package.humanId }}-{{ order.package.name | slugify }}" class="package-name">{{ order.package.name }}</a>
                 </td>
                 <td ng-click="showReceipt(order)">{{ order.date | date:'d MMM yyyy' }}</td>
-                <td ng-click="showReceipt(order)">{{ order.totalAmountAfterVoucher | currency:'£' }}</td>
+                <td ng-click="showReceipt(order)">{{ order.totalAmountAfterPromoCode | currency:'£' }}</td>
                 <td>
                     <a ng-click="downloadInvoice(order)">PDF</a>
                 </td>
@@ -117,11 +117,11 @@
                             </tr>
                             <tr id="row_promo_code">
                                 <th scope="row">Promo code</th>
-                                <td class="order-details-cell" id="promo_code">{{ modalOrder.voucherAmount | currency:'£' }}</td>
+                                <td class="order-details-cell" id="promo_code">{{ modalOrder.promoCodeAmount | currency:'£' }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Total cost</th>
-                                <td class="order-details-cell" id="total_cost">{{ modalOrder.totalAmountAfterVoucher | currency:'£' }}</td>
+                                <td class="order-details-cell" id="total_cost">{{ modalOrder.totalAmountAfterPromoCode | currency:'£' }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Special delivery instructions</th>

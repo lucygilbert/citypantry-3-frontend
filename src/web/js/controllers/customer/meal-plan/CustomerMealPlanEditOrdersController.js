@@ -26,7 +26,7 @@ angular.module('cp.controllers.customer').controller('CustomerMealPlanEditOrders
 
             $scope.mealPlan = response.mealPlan;
             $scope.placedOrders = response.placedOrders;
-            angular.forEach($scope.placedOrders, order => $scope.totalCost += order.totalAmountAfterVoucher);
+            angular.forEach($scope.placedOrders, order => $scope.totalCost += order.totalAmountAfterPromoCode);
 
             LoadingService.hide();
         })

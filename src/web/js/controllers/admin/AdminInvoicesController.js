@@ -74,7 +74,7 @@ angular.module('cp.controllers.admin').controller('AdminInvoicesController',
             {
                 cellFilter: 'currency:\'£\':2',
                 displayName: 'Amount',
-                field: 'totalAmountAfterVoucher'
+                field: 'totalAmountAfterPromoCode'
             },
             {
                 displayName: 'Overdue?',
